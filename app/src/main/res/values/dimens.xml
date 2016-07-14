@@ -3,5 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="nav_drawer_width">260dp</dimen>
+    <dimen name="nav_drawer_width">320dp</dimen>
+    
+    <dimen name="drawer_padding_profile">10dp</dimen>
+
+    <dimen name="drawer_nocker_score_w">100dp</dimen>
+    <dimen name="drawer_nocker_score_h">50dp</dimen>
+
 </resources>

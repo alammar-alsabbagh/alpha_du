@@ -5,4 +5,9 @@
     android:layout_height="match_parent"
     tools:context="com.procasy.dubarah_nocker.SplashScreenActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:src="@drawable/splashscreen"
+        android:scaleType="fitXY"
+        android:layout_height="match_parent" />
 </RelativeLayout>

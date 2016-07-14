@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         setContentView(R.layout.activity_main);
 
         mtoolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(mtoolbar);
+       setSupportActionBar(mtoolbar);
 
         drawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);

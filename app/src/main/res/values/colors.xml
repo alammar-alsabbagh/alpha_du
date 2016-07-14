@@ -47,5 +47,7 @@
 
     <color name="background_gray">#ededed</color>
     <color name="tabblue">#17b7db</color>
+    
+    <color name="drawer_profile_textname">#FFFFFF</color>
 
 </resources>
