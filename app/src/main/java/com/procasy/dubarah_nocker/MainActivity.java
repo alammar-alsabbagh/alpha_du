@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawer;
 
-public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener{
+public class MainActivity extends AppCompatActivity implements FragmentDrawer.FragmentDrawerListener {
 
     private Toolbar mtoolbar;
     private FragmentDrawer drawerFragment;
@@ -18,8 +18,8 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mtoolbar = (Toolbar)findViewById(R.id.toolbar);
-       setSupportActionBar(mtoolbar);
+        mtoolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mtoolbar);
 
         drawerFragment = (FragmentDrawer)
                 getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity implements FragmentDrawer.Fr
 
     @Override
     public void onDrawerItemSelected(View view, int position) {
+
 
     }
 }
