@@ -4,11 +4,6 @@ package com.procasy.dubarah_nocker.Helper;
  * Created by DELL on 29/07/2016.
  */
 
-import java.io.ObjectOutputStream.PutField;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -20,7 +15,6 @@ public class SessionManager {
 
     // Shared Preferences
     SharedPreferences pref;
-
     Editor editor;
     Context _context;
 
@@ -29,17 +23,26 @@ public class SessionManager {
 
     // Shared preferences file name
     private static final String PREF_NAME = "Nocker";
-
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
-
     private static final String KEY_EMAIL = "email";
+    private static final String KEY_PASSWORD = "password";
+
+    private static final String KEY_FName = "firstName";
+    private static final String KEY_LName = "lastName";
+
+    private static final String KEY_PP = "profilePic";
+    private static final String KEY_AVG_CHARGE = "avg_charge";
+
+
+
+
+
 
     public SessionManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
-
     public void setLogin(boolean isLoggedIn) {
 
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
@@ -49,13 +52,9 @@ public class SessionManager {
 
         Log.d(TAG, "User login session modified!");
     }
-
-
-
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
-
 
     public void setEmail(String email) {
 
@@ -64,14 +63,80 @@ public class SessionManager {
         // commit changes
         editor.commit();
 
-        Log.d(TAG, "User login session modified!");
+        Log.d(TAG, "User email session modified!");
     }
-
-
-
     public String getEmail(){
         return pref.getString(KEY_EMAIL, "");
     }
+    public void setPassword(String password) {
+
+        editor.putString(KEY_PASSWORD, password);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "User password session modified!");
+    }
+    public String getPassword(){
+        return pref.getString(KEY_PASSWORD, "");
+    }
+
+
+
+    public void setFName(String fName) {
+
+        editor.putString(KEY_FName, fName);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "User fName session modified!");
+    }
+    public String getFName(){
+        return pref.getString(KEY_FName, "");
+    }
+
+    public void setLName(String lName) {
+
+        editor.putString(KEY_LName, lName);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "User lName session modified!");
+    }
+    public String getLName(){
+        return pref.getString(KEY_LName, "");
+    }
+
+    public void setPP(String PP) {
+
+        editor.putString(KEY_PP, PP);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "User PP session modified!");
+    }
+    public String getPP(){
+        return pref.getString(KEY_PP, "");
+    }
+
+
+    public void setAVG(int avg) {
+        editor.putInt(KEY_AVG_CHARGE, avg);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "User AVG session modified!");
+    }
+    public int getAVG(){
+        return pref.getInt(KEY_AVG_CHARGE, 0);
+    }
+
+
+
+
+
 
 
 }

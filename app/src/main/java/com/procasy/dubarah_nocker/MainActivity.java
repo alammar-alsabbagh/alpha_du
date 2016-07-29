@@ -115,18 +115,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
 
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String[] permissions, int[] grantResults) {
-        if (requestCode == 5
-                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getLocation();
         }
     }
 
     public Location getLocation() {
         try {
-            locationManager = (LocationManager) mContext
-                    .getSystemService(LOCATION_SERVICE);
+            locationManager = (LocationManager) mContext.getSystemService(LOCATION_SERVICE);
 
             // getting GPS status
             isGPSEnabled = locationManager
