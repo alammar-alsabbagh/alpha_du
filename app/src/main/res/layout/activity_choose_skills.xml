@@ -1,105 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
+
     <ImageView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:src="@drawable/background2"
         android:scaleType="matrix"
-        />
+        android:src="@drawable/background2" />
+
     <TextView
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="What things \nYou\'re Good At?"
-        android:textColor="@color/white"
-        android:textSize="25dp"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="60dp"
-        android:id="@+id/text"
-        />
-    <com.zhy.view.flowlayout.TagFlowLayout
+        android:text="What things \nYou\'re Good At?"
+        android:textColor="@color/white"
+        android:textSize="25dp" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:zhy="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/choose_skill"
+        android:layout_below="@+id/text">
+
+        <com.zhy.view.flowlayout.TagFlowLayout xmlns:zhy="http://schemas.android.com/apk/res-auto"
             android:id="@+id/chosen_skills"
-            xmlns:zhy="http://schemas.android.com/apk/res-auto"
-            zhy:max_select="-1"
-            android:layout_below="@+id/text"
             android:layout_width="fill_parent"
+
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:isScrollContainer="true"
             android:layout_centerHorizontal="true"
-            android:overScrollMode="always"
-            android:layout_marginBottom="10dp">
-        </com.zhy.view.flowlayout.TagFlowLayout>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:isScrollContainer="true"
+            android:nestedScrollingEnabled="true"
+            android:overScrollMode="ifContentScrolls"
+            zhy:max_select="-1"></com.zhy.view.flowlayout.TagFlowLayout>
+    </ScrollView>
+
     <EditText
+        android:id="@+id/search_skill_edit_text"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:layout_below="@id/scroll_view"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/search_drawable_combo"
-        android:textCursorDrawable="@drawable/red_cursor"
-        android:textColor="@color/white"
         android:gravity="center"
         android:singleLine="true"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/search_skill_edit_text"
-        android:textStyle="bold"
-        android:layout_below="@id/chosen_skills"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:textColor="@color/white"
+        android:textCursorDrawable="@drawable/red_cursor"
         android:textSize="25dp"
-        />
+        android:textStyle="bold" />
+
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/skill_list"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:id="@+id/skill_list"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_below="@id/search_skill_edit_text"
-       ></android.support.v7.widget.RecyclerView>
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"></android.support.v7.widget.RecyclerView>
+
     <LinearLayout
 
+        android:id="@+id/next_btn"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@drawable/btn_border_gray"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:weightSum="10"
-        android:orientation="horizontal"
-        android:id="@+id/next_btn"
+        android:layout_alignBottom="@+id/skill_list"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
-        android:layout_alignBottom="@+id/skill_list">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/btn_border_gray"
+        android:orientation="horizontal"
+        android:weightSum="10">
 
         <View
             android:layout_width="0dp"
             android:layout_height="18dp"
-            android:layout_marginLeft="30dp"
-            android:layout_weight="2"
             android:layout_gravity="center_vertical"
-            />
+            android:layout_marginLeft="30dp"
+            android:layout_weight="2" />
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="I\'m Done!"
-            android:textStyle="bold"
             android:layout_gravity="center"
-            android:textColor="@color/white"
-            android:gravity="right"
             android:layout_weight="6"
+            android:gravity="right"
+            android:text="I\'m Done!"
+            android:textColor="@color/white"
             android:textSize="20sp"
+            android:textStyle="bold"
 
             />
+
         <ImageView
             android:layout_width="0dp"
             android:layout_height="18dp"
-            android:src="@drawable/proceed_white_arrow"
             android:layout_gravity="center_vertical"
             android:layout_weight="2"
-            />
+            android:src="@drawable/proceed_white_arrow" />
 
     </LinearLayout>
 </RelativeLayout>
