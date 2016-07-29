@@ -43,7 +43,7 @@ public class Language {
     private myDbHelper dbHelper;
 
     // CONSTRUCTOR
-    public Language (Context _context) {
+    public Language(Context _context) {
         context = _context;
 
         dbHelper = new myDbHelper(context, DATABASE_NAME, null,
@@ -80,7 +80,6 @@ public class Language {
         return db.delete(TABLE_NAME, null
                 , null) > 0;
     }
-
 
 
     public Cursor getAllEntries() {

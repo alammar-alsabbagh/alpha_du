@@ -28,6 +28,7 @@ import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
+import com.procasy.dubarah_nocker.Services.LocationService;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -125,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getLocation();
+            startService(new Intent(this, LocationService.class));
         }
     }
 
@@ -193,6 +195,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                             Manifest.permission.ACCESS_FINE_LOCATION},
                     5);
         } else {
+
+            Log.e("Loction",getLocation().toString());
+            startService(new Intent(this , LocationService.class));
+
             //   gps functions.
         }
     }

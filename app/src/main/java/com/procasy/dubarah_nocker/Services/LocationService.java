@@ -3,6 +3,7 @@ package com.procasy.dubarah_nocker.Services;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -11,11 +12,24 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.procasy.dubarah_nocker.API.APIinterface;
+import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
+import com.procasy.dubarah_nocker.Model.Responses.LocationResponse;
+
+import cc.cloudist.acplibrary.ACProgressConstant;
+import cc.cloudist.acplibrary.ACProgressFlower;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 /**
  * Created by DELL on 29/07/2016.
  */
 public class LocationService extends Service
 {
+    SessionManager sessionManager;
     public static final String BROADCAST_ACTION = "Hello World";
     private static final int TWO_MINUTES = 1000 * 60 * 2 * 30 * 5 ;
     public LocationManager locationManager;
@@ -28,6 +42,7 @@ public class LocationService extends Service
     @Override
     public void onCreate()
     {
+
         super.onCreate();
         intent = new Intent(BROADCAST_ACTION);
     }
@@ -37,6 +52,7 @@ public class LocationService extends Service
     {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         listener = new MyLocationListener();
+        sessionManager = new SessionManager(getApplicationContext());
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 40000, 0, listener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 40000, 0, listener);
     }
@@ -133,6 +149,8 @@ public class LocationService extends Service
 
         public void onLocationChanged(final Location loc)
         {
+
+
             Log.i("**************************************", "Location changed");
             if(isBetterLocation(loc, previousBestLocation)) {
 
@@ -144,6 +162,35 @@ public class LocationService extends Service
                 sendBroadcast(intent);
 
             }
+
+            final ACProgressFlower dialog = new ACProgressFlower.Builder(getApplicationContext())
+                    .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                    .themeColor(Color.WHITE)
+                    .text("Update Location..")
+                    .fadeColor(Color.DKGRAY).build();
+            dialog.show();
+
+            APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
+            Call<LocationResponse> call = apiService.UpdateLocation(sessionManager.getEmail(), sessionManager.getPassword());
+            call.enqueue(new Callback<LocationResponse>() {
+                @Override
+                public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
+
+                    Log.e("Response ",response.body().toString());
+                    if (dialog.isShowing())
+                        dialog.dismiss();
+                }
+
+                @Override
+                public void onFailure(Call<LocationResponse> call, Throwable t) {
+                    System.out.println("here 2" + t.toString());
+                    if (dialog.isShowing())
+                        dialog.dismiss();
+                }
+
+            });
+
+
         }
 
         public void onProviderDisabled(String provider)
