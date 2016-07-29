@@ -21,13 +21,22 @@
             android:id="@+id/drawer_btn"
             android:layout_alignParentLeft="true"
             android:layout_height="@dimen/toolbar_dimen" />
+        <ImageView
+            android:layout_width="90dp"
+            android:src="@drawable/white_nocker"
+            android:layout_margin="5dp"
+            android:id="@+id/white_nocker"
+android:layout_toRightOf="@+id/drawer_btn"
+            android:layout_height="@dimen/toolbar_dimen" />
+
 
         <ImageView
             android:layout_width="@dimen/toolbar_dimen"
             android:layout_alignParentRight="true"
             android:src="@drawable/notification"
             android:id="@+id/notification"
-            android:layout_height="@dimen/toolbar_dimen" />
+            android:layout_height="@dimen/toolbar_dimen"
+            android:layout_marginRight="10dp" />
         <ImageView
             android:layout_width="@dimen/toolbar_dimen"
             android:layout_toLeftOf="@id/notification"

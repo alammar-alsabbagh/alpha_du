@@ -9,6 +9,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.transition.Fade;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +25,7 @@ import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 
 import java.util.List;
@@ -125,8 +127,38 @@ SessionManager sessionManager;
                     dialog.dismiss();
                 if(response.body().getStatus()==1) {
                     sessionManager.setLogin(true);
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    finish();
+                    final ACProgressFlower dialog = new ACProgressFlower.Builder(LoginActivity.this)
+                            .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                            .themeColor(Color.WHITE)
+                            .text("Getting Info..")
+                            .fadeColor(Color.DKGRAY).build();
+                    dialog.show();
+                    APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
+                    Call<InfoNockerResponse> call2 = apiService.GetInfoNocker(sessionManager.getEmail(), sessionManager.getPassword());
+                    call2.enqueue(new Callback<InfoNockerResponse>() {
+                        @Override
+                        public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
+                            System.out.println(response.body().getUser().toString());
+                            sessionManager.setEmail(response.body().getUser().getUser_email());
+                            sessionManager.setFName(response.body().getUser().getUser_fname());
+                            sessionManager.setLName(response.body().getUser().getUser_lname());
+                            sessionManager.setPP(response.body().getUser().getUser_img());
+                            sessionManager.setAVG(response.body().getAvg_charge());
+                            sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
+                            Log.d("nocker",response.body().getUser().is_nocker()+"");
+                            if (dialog.isShowing())
+                                dialog.dismiss();
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                            finish();
+                        }
+                        @Override
+                        public void onFailure(Call<InfoNockerResponse> call, Throwable t) {
+                            System.out.println("here 2"+t.toString());
+                            if (dialog.isShowing())
+                                dialog.dismiss();
+                        }
+                    });
+
                 }
                 else
                 {

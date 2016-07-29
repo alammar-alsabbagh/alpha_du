@@ -18,13 +18,9 @@ import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsResponse;
-import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
-import com.procasy.dubarah_nocker.Model.Responses.SkillsResponse;
 import com.procasy.dubarah_nocker.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
@@ -144,19 +140,21 @@ public class AskForHelpFragment extends Fragment {
                 Log.e("remove state ", mskills.removeAllEntry() + "");
 
                 skills.clear();
-
-                for (int i = 0; i < response.body().getAllSkills().size(); i++) {
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
-                    contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
-                    contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
-                    long state = mskills.insertEntry(contentValues);
-                    Log.e("insert state ", state + "");
-
-                    skills.add(response.body().getAllSkills().get(i).getSkill_name());
-
-
+                try {
+                    for (int i = 0; i < response.body().getAllSkills().size(); i++) {
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
+                        contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
+                        contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
+                        long state = mskills.insertEntry(contentValues);
+                        Log.e("insert state ", state + "");
+                        skills.add(response.body().getAllSkills().get(i).getSkill_name());
+                    }
+                }catch (Exception e)
+                {
+                    e.printStackTrace();
                 }
+
                 actv.setAdapter(adapter);
                 mskills.close();
 
