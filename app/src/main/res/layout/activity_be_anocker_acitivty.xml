@@ -3,94 +3,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.BeANocker.BeAnockerAcitivty"
-    android:background="@drawable/background2">
-
+    android:background="@drawable/background2"
+    tools:context=".Activity.BeANocker.BeAnockerAcitivty">
 
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/beanocker"
+        android:alpha="0.6"
+        android:gravity="center"
         android:text="Start Appreciating Your \n Experience!"
         android:textColor="@color/white"
-        android:alpha="0.6"
-        android:layout_above="@+id/beanocker"
-        android:gravity="center"
-        android:textSize="24sp"
-        />
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_centerHorizontal="true"
-      android:layout_centerVertical="true"
-      android:id="@+id/beanocker"
-      >
-      <TextView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="Be A"
-          android:textColor="@color/white"
-          android:textStyle="bold"
-          android:textSize="60sp"
-          android:id="@+id/bea"
-          android:gravity="center"
-          />
-      <ImageView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginLeft="60dp"
-          android:layout_marginRight="60dp"
-          android:src="@drawable/hourly_logo"
-          android:gravity="center"
-          android:layout_below="@+id/bea"
-          android:textStyle="bold"
-          android:scaleType="fitCenter" />
-  </RelativeLayout>
-    <TextView
+        android:textSize="24sp" />
+
+    <RelativeLayout
+        android:id="@+id/beanocker"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <TextView
+            android:id="@+id/bea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Be A"
+            android:textColor="@color/white"
+            android:textSize="60sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/bea"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:gravity="center"
+            android:scaleType="fitCenter"
+            android:src="@drawable/hourly_logo"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/link"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/beanocker"
+        android:layout_marginTop="30dp"
+        android:alpha="0.4"
+        android:gravity="center"
         android:text="@string/what_that_means"
         android:textColor="@color/white"
-        android:alpha="0.4"
-        android:layout_below="@id/beanocker"
-        android:gravity="center"
-        android:textSize="18sp"
-        android:layout_marginTop="30dp"
-        android:id="@+id/link"
-        />
+        android:textSize="18sp" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:weightSum="10"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        >
+        android:weightSum="10">
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="Later"
-            android:background="@drawable/btn_border_gray"
-            android:textColor="@color/white"
             android:alpha="0.6"
-            />
+            android:background="@drawable/btn_border_gray"
+            android:text="Later"
+            android:textColor="@color/white" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"></View>
+
         <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="Ok,Let\'s Do It \!"
-            android:textColor="@color/colorPrimary"
             android:background="@drawable/btn_yellow_border"
-            />
+            android:text="Ok,Let\'s Do It \!"
+            android:textColor="@color/colorPrimary" />
 
     </LinearLayout>
 
