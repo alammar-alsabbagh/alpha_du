@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
 
         setSupportActionBar(mtoolbar);
-        getSupportActionBar().setIcon(R.drawable.small_icon_logo);
         if(sessionManager.getKeyNocker()==1)
         {
             FragmentManager fragmentManager = getSupportFragmentManager();

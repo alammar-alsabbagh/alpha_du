@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.R;
 
 public class BeAnockerAcitivty extends AppCompatActivity {
@@ -21,6 +22,26 @@ public class BeAnockerAcitivty extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_be_anocker_acitivty);
         final TextView btnOpenPopup = (TextView) findViewById(R.id.link);
+        Button next = (Button) findViewById(R.id.next);
+        Button later = (Button) findViewById(R.id.later);
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ChooseSkillsActivity.class));
+                finish();
+            }
+        });
+
+        later.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                finish();
+            }
+        });
+
+
         btnOpenPopup.setOnClickListener(new Button.OnClickListener() {
 
             @Override
@@ -52,5 +73,8 @@ public class BeAnockerAcitivty extends AppCompatActivity {
             }
 
         });
+
+
+
     }
 }

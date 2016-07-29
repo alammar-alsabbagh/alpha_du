@@ -17,4 +17,6 @@
 
     <dimen name="toolbar_margin">15dp</dimen>
 
+    <dimen name="choose_skill">160dp</dimen>
+
 </resources>
