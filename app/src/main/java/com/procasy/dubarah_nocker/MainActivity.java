@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         drawer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
 
