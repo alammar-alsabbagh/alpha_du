@@ -1,6 +1,5 @@
 package com.procasy.dubarah_nocker.Fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -12,17 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.procasy.dubarah_nocker.API.APIinterface;
-import com.procasy.dubarah_nocker.API.ApiClass;
-import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.R;
-import com.shawnlin.preferencesmanager.PreferencesManager;
-
-import cc.cloudist.acplibrary.ACProgressConstant;
-import cc.cloudist.acplibrary.ACProgressFlower;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class MainFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match

@@ -23,9 +23,8 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
-import com.procasy.dubarah_nocker.Model.UserLoginModel;
-import com.shawnlin.preferencesmanager.PreferencesManager;
 
 import java.util.List;
 
@@ -46,7 +45,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
     @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)
     EditText Password;
-
+SessionManager sessionManager;
     Validator validator;
     APIinterface apiService;
     @Override
@@ -54,9 +53,13 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         LinkIDwithViews();
-        new PreferencesManager(this)
-                .setName("user")
-                .init();
+        sessionManager = new SessionManager(this);
+        if(sessionManager.isLoggedIn())
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
+
+
+
 
         apiService =
                 ApiClass.getClient().create(APIinterface.class);
@@ -116,18 +119,18 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 .text("Logging in ...")
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
-        PreferencesManager.putString("email", Email.getText().toString());
-        PreferencesManager.putString("password", Password.getText().toString());
-        System.out.println( Email.getText().toString()+"   "+ Password.getText().toString());
-        UserLoginModel user = new UserLoginModel( Email.getText().toString(),Password.getText().toString());
+        sessionManager.setEmail(Email.getText().toString());
+        sessionManager.setPassword(Password.getText().toString());
         Call<LoginResponse> call = apiService.Login( Email.getText().toString(),Password.getText().toString());
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (dialog.isShowing())
                     dialog.dismiss();
-                if(response.body().getStatus()==1)
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                if(response.body().getStatus()==1) {
+                    sessionManager.setLogin(true);
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
                 else
                 {
                     AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);

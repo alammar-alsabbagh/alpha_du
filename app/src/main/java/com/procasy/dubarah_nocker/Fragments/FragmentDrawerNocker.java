@@ -17,9 +17,9 @@ import android.widget.TextView;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Adapter.NavigationDrawerAdapter;
 import com.procasy.dubarah_nocker.CommuncationChannel;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.NavDrawerItem;
 import com.procasy.dubarah_nocker.R;
-import com.shawnlin.preferencesmanager.PreferencesManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -44,6 +44,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
     ImageView Messages,Notifcations;
     Button boost;
     TableRow editProfile,promotion,activateSubscription,myShop,Settings,Help;
+    SessionManager sessionManager;
 
 
     private ActionBarDrawerToggle mDrawerToggle;
@@ -128,21 +129,16 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         averageCharge = (TextView) layout.findViewById(R.id.averageCharge);
         happyCustomers = (TextView) layout.findViewById(R.id.happyCustomers);
 
-
         editProfile.setOnClickListener(this);
         promotion.setOnClickListener(this);
         myShop.setOnClickListener(this);
         Settings.setOnClickListener(this);
         Help.setOnClickListener(this);
         activateSubscription.setOnClickListener(this);
-
-        new PreferencesManager(getActivity())
-                .setName("user")
-                .init();
-
-        fullName.setText(PreferencesManager.getString("user_fname")+" "+PreferencesManager.getString("user_lname"));
-        Picasso.with(getActivity()).load(ApiClass.Pic_Base_URL+PreferencesManager.getString("user_img")).into(profileImage);
-        averageCharge.setText(PreferencesManager.getString("avg_charge"));
+        sessionManager = new SessionManager(getActivity());
+        fullName.setText(sessionManager.getFName()+" "+sessionManager.getLName());
+        Picasso.with(getActivity()).load(ApiClass.Pic_Base_URL+sessionManager.getPP()).into(profileImage);
+        averageCharge.setText(sessionManager.getAVG()+"");
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
 
 

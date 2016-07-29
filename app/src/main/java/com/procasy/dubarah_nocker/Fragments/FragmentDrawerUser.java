@@ -14,11 +14,13 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Adapter.NavigationDrawerAdapter;
 import com.procasy.dubarah_nocker.CommuncationChannel;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.NavDrawerItem;
 import com.procasy.dubarah_nocker.R;
-import com.shawnlin.preferencesmanager.PreferencesManager;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class FragmentDrawerUser extends Fragment implements View.OnClickListener
     ImageView Messages,Notifcations;
     Button boost;
     TableRow editProfile,promotion,activateSubscription,myShop,Settings,Help;
-
+SessionManager sessionManager;
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -133,12 +135,10 @@ public class FragmentDrawerUser extends Fragment implements View.OnClickListener
         Settings.setOnClickListener(this);
         Help.setOnClickListener(this);
         activateSubscription.setOnClickListener(this);
-
-        new PreferencesManager(getActivity())
-                .setName("user")
-                .init();
-
-        fullName.setText(PreferencesManager.getString("firstName")+" "+PreferencesManager.getString("lastName"));
+        sessionManager = new SessionManager(getActivity());
+        fullName.setText(sessionManager.getFName()+" "+sessionManager.getLName());
+        Picasso.with(getActivity()).load(ApiClass.Pic_Base_URL+sessionManager.getPP()).into(profileImage);
+        averageCharge.setText(sessionManager.getAVG()+"");
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
 
 

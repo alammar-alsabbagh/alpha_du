@@ -13,9 +13,9 @@ import android.view.ViewGroup;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Adapter.NearByNockersAdapter;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.R;
-import com.shawnlin.preferencesmanager.PreferencesManager;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -40,9 +40,9 @@ public class NearByNockersFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-NearByNockersAdapter adapter;
+    NearByNockersAdapter adapter;
     private OnFragmentInteractionListener mListener;
-
+SessionManager sessionManager;
     public NearByNockersFragment() {
         // Required empty public constructor
     }
@@ -79,9 +79,6 @@ NearByNockersAdapter adapter;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout =  inflater.inflate(R.layout.fragment_near_by_nockers, container, false);
-        new PreferencesManager(getActivity())
-                .setName("user")
-                .init();
         final RecyclerView recyclerView = (RecyclerView)layout.findViewById(R.id.recycler_near_by_nockers);
         final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
@@ -89,8 +86,9 @@ NearByNockersAdapter adapter;
                 .text("Getting Nockers")
                         .fadeColor(Color.DKGRAY).build();
         dialog.show();
+        sessionManager = new SessionManager(getActivity());
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<NearByNockerResponse> call = apiService.GetNearByNockers(PreferencesManager.getString("email"),PreferencesManager.getString("password"));
+        Call<NearByNockerResponse> call = apiService.GetNearByNockers(sessionManager.getEmail(),sessionManager.getPassword());
         call.enqueue(new Callback<NearByNockerResponse>() {
             @Override
             public void onResponse(Call<NearByNockerResponse> call, Response<NearByNockerResponse> response) {

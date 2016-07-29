@@ -23,7 +23,6 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.procasy.dubarah_nocker.R;
-import com.shawnlin.preferencesmanager.PreferencesManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -67,9 +66,6 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
 
         validator = new Validator(this);
         validator.setValidationListener(this);
-        new PreferencesManager(this)
-                .setName("user")
-                .init();
         birthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,16 +147,19 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
 
     @Override
     public void onValidationSucceeded() {
-        PreferencesManager.putString("firstName",FirstName.getText().toString());
-        PreferencesManager.putString("lastName",Lastname.getText().toString());
-        PreferencesManager.putString("country",Country.getText().toString());
-        PreferencesManager.putString("city",City.getText().toString());
-        PreferencesManager.putString("region",Region.getText().toString());
-        PreferencesManager.putString("birthDate",birthdate.getText().toString());
-        PreferencesManager.putString("phoneNumber",Phonenumber.getText().toString());
-        PreferencesManager.putString("email",Email.getText().toString());
-        PreferencesManager.putString("password",Password.getText().toString());
-        startActivity(new Intent(getApplicationContext(), LocationInfoSignUp.class));
+        Bundle bundle = new Bundle();
+        bundle.putString("firstName",FirstName.getText().toString());
+        bundle.putString("lastName",Lastname.getText().toString());
+        bundle.putString("country",Country.getText().toString());
+        bundle.putString("city",City.getText().toString());
+        bundle.putString("region",Region.getText().toString());
+        bundle.putString("birthDate",birthdate.getText().toString());
+        bundle.putString("phoneNumber",Phonenumber.getText().toString());
+        bundle.putString("email",Email.getText().toString());
+        bundle.putString("password",Password.getText().toString());
+        Intent intent = new Intent(getApplicationContext(), LocationInfoSignUp.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
 
     }
 

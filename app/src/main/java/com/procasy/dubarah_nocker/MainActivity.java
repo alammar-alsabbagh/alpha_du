@@ -26,7 +26,6 @@ import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
-import com.shawnlin.preferencesmanager.PreferencesManager;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -36,7 +35,6 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
 
-    private SessionManager sessionManager;
     private Toolbar mtoolbar;
     private FragmentDrawerNocker drawerFragment;
     private Context mContext;
@@ -56,15 +54,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     // Declaring a Location Manager
     protected LocationManager locationManager;
     APIinterface apiService;
-
+SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
-        new PreferencesManager(this)
-                .setName("user")
-                .init();
+
 
         sessionManager = new SessionManager(this);
 
@@ -76,17 +72,17 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<InfoNockerResponse> call = apiService.GetInfoNocker(PreferencesManager.getString("email"), PreferencesManager.getString("password"));
+        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(), sessionManager.getPassword());
         call.enqueue(new Callback<InfoNockerResponse>() {
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
-                PreferencesManager.putString("user_fname",response.body().getUser().getUser_fname());
-                PreferencesManager.putString("user_lname",response.body().getUser().getUser_lname());
-                PreferencesManager.putString("user_img",response.body().getUser().getUser_img());
-                PreferencesManager.putString("user_email",response.body().getUser().getUser_email());
-                PreferencesManager.putString("user_phone",response.body().getUser().getUser_phone());
-                PreferencesManager.putInt("avg_charge",response.body().getAvg_charge());
-                PreferencesManager.putBoolean("is_nocker",response.body().getUser().is_nocker());
+
+                sessionManager.setEmail(response.body().getUser().getUser_email());
+                sessionManager.setFName(response.body().getUser().getUser_fname());
+                sessionManager.setLName(response.body().getUser().getUser_lname());
+                sessionManager.setPP(response.body().getUser().getUser_img());
+                sessionManager.setAVG(response.body().getAvg_charge());
+                sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
                 if (dialog.isShowing())
                     dialog.dismiss();
             }

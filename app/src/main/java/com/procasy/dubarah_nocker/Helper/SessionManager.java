@@ -33,6 +33,7 @@ public class SessionManager {
     private static final String KEY_PP = "profilePic";
     private static final String KEY_AVG_CHARGE = "avg_charge";
 
+    private static final String KEY_IS_NOCKER = "is_nocker";
 
 
 
@@ -133,6 +134,16 @@ public class SessionManager {
         return pref.getInt(KEY_AVG_CHARGE, 0);
     }
 
+    public void setKeyIsNocker(boolean isNocker)
+    {
+        editor.putBoolean(KEY_IS_NOCKER, isNocker);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "User IS_Nocker session modified!");
+    }
+    public boolean getKeyNocker(){
+        return pref.getBoolean(KEY_IS_NOCKER, false);
+    }
 
 
 

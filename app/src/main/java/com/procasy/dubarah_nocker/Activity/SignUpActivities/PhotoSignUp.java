@@ -33,13 +33,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
-import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.UserRegistrationModel;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.AndroidMultiPartEntity;
-import com.shawnlin.preferencesmanager.PreferencesManager;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -71,7 +70,8 @@ public class PhotoSignUp extends AppCompatActivity {
     ImageView browse, take;
     LinearLayout btn_next;
     String FilePath = new String("");
-
+    Bundle bundle;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,11 +80,8 @@ public class PhotoSignUp extends AppCompatActivity {
         browse = (ImageView) findViewById(R.id.browse_picture);
         take = (ImageView) findViewById(R.id.take_picture);
         btn_next = (LinearLayout) findViewById(R.id.next_btn);
-        new PreferencesManager(this)
-                .setName("user")
-                .init();
-        final APIinterface apiService =
-                ApiClass.getClient().create(APIinterface.class);
+        bundle = getIntent().getExtras();
+        sessionManager = new SessionManager(this);
         btn_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,18 +226,18 @@ public class PhotoSignUp extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                String firstName=PreferencesManager.getString("firstName");
-                String lastName=PreferencesManager.getString("lastName");
-                String country=PreferencesManager.getString("country");
-                String city=PreferencesManager.getString("city");
-                String region=PreferencesManager.getString("region");
-                String birthDate=PreferencesManager.getString("birthDate");
-                String address1=PreferencesManager.getString("address1");
-                String postalCode=PreferencesManager.getString("postalCode");
-                String address2=PreferencesManager.getString("address2");
-                String email=PreferencesManager.getString("email");
-                String password=PreferencesManager.getString("password");
-                String phoneNumber=PreferencesManager.getString("phoneNumber");
+                String firstName=bundle.getString("firstName");
+                String lastName=bundle.getString("lastName");
+                String country=bundle.getString("country");
+                String city=bundle.getString("city");
+                String region=bundle.getString("region");
+                String birthDate=bundle.getString("birthDate");
+                String address1=bundle.getString("address1");
+                String postalCode=bundle.getString("postalCode");
+                String address2=bundle.getString("address2");
+                String email=bundle.getString("email");
+                String password=bundle.getString("password");
+                String phoneNumber=bundle.getString("phoneNumber");
                 UserRegistrationModel userRegistrationModel =  new UserRegistrationModel(firstName,lastName,email,phoneNumber,birthDate,password,"other");
 
                 JsonObject payerReg = new JsonObject();
@@ -345,7 +342,6 @@ public class PhotoSignUp extends AppCompatActivity {
             progressDialog = new ProgressDialog(PhotoSignUp.this);
             progressDialog.show();
             super.onPreExecute();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
 
         @Override
@@ -380,8 +376,8 @@ public class PhotoSignUp extends AppCompatActivity {
                 entity.addPart("image", new FileBody(sourceFile));
                 System.out.println(new FileBody(sourceFile).toString());
                 // Extra parameters if you want to pass to server
-                entity.addPart("user_email",new StringBody(PreferencesManager.getString("email")));
-                entity.addPart("user_password",new StringBody(PreferencesManager.getString("password")));
+                entity.addPart("user_email",new StringBody(bundle.getString("email")));
+                entity.addPart("user_password",new StringBody(bundle.getString("password")));
 
                 httppost.setEntity(entity);
 
@@ -413,6 +409,10 @@ public class PhotoSignUp extends AppCompatActivity {
             Log.e("ResponseUpload", "Response from server: " + result);
             progressDialog.dismiss();
             // showing the server response in an alert dialog
+            sessionManager.setLogin(true);
+            sessionManager.setEmail(bundle.getString("email"));
+            sessionManager.setPassword(bundle.getString("password"));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
             super.onPostExecute(result);
         }

@@ -12,7 +12,6 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.procasy.dubarah_nocker.R;
-import com.shawnlin.preferencesmanager.PreferencesManager;
 
 import java.util.List;
 
@@ -22,7 +21,8 @@ public class LocationInfoSignUp extends AppCompatActivity implements Validator.V
     @NotEmpty
     EditText address1, postalCode;
     EditText address2;
-Validator validator;
+    Validator validator;
+    String FirstName , Lastname , Country , City , Region , Phonenumber,Email,Password,BirthDate;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +34,18 @@ Validator validator;
 validator.validate();            }
         });
         linkIDwithView();
-
         validator = new Validator(this);
         validator.setValidationListener(this);
-        new PreferencesManager(this)
-                .setName("user")
-                .init();
+        FirstName = getIntent().getExtras().getString("firstName");
+        Lastname = getIntent().getExtras().getString("lastName");
+        Country = getIntent().getExtras().getString("country");
+        City = getIntent().getExtras().getString("city");
+        Region = getIntent().getExtras().getString("region");
+        Phonenumber = getIntent().getExtras().getString("phoneNumber");
+        Email = getIntent().getExtras().getString("email");
+        Password = getIntent().getExtras().getString("password");
+        BirthDate = getIntent().getExtras().getString("birthDate");
+
     }
 
     void linkIDwithView() {
@@ -50,9 +56,19 @@ validator.validate();            }
 
     @Override
     public void onValidationSucceeded() {
-        PreferencesManager.putString("address1",address1.getText().toString());
-        PreferencesManager.putString("postalCode",postalCode.getText().toString());
-        PreferencesManager.putString("address2",postalCode.getText().toString());
+        Bundle bundle = new Bundle();
+        bundle.putString("firstName",FirstName);
+        bundle.putString("lastName",Lastname);
+        bundle.putString("country",Country);
+        bundle.putString("city",City);
+        bundle.putString("region",Region);
+        bundle.putString("birthDate",BirthDate);
+        bundle.putString("phoneNumber",Phonenumber);
+        bundle.putString("email",Email);
+        bundle.putString("password",Password);
+        bundle.putString("address1",address1.getText().toString());
+        bundle.putString("postalCode",postalCode.getText().toString());
+        bundle.putString("address2",postalCode.getText().toString());
         startActivity(new Intent(getApplicationContext(), PhotoSignUp.class));
     }
 
