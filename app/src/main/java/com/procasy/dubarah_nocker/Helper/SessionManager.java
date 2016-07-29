@@ -134,15 +134,15 @@ public class SessionManager {
         return pref.getInt(KEY_AVG_CHARGE, 0);
     }
 
-    public void setKeyIsNocker(boolean isNocker)
+    public void setKeyIsNocker(int isNocker)
     {
-        editor.putBoolean(KEY_IS_NOCKER, isNocker);
+        editor.putInt(KEY_IS_NOCKER, isNocker);
         // commit changes
         editor.commit();
         Log.d(TAG, "User IS_Nocker session modified!");
     }
-    public boolean getKeyNocker(){
-        return pref.getBoolean(KEY_IS_NOCKER, false);
+    public int getKeyNocker(){
+        return pref.getInt(KEY_IS_NOCKER, 0);
     }
 
 

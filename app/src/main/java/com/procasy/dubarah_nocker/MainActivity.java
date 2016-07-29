@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import android.util.Log;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
+import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     private Toolbar mtoolbar;
     private FragmentDrawerNocker drawerFragment;
+    private FragmentDrawerUser drawerUser;
     private Context mContext;
     // flag for GPS status
     boolean isGPSEnabled = false;
@@ -76,13 +79,14 @@ SessionManager sessionManager;
         call.enqueue(new Callback<InfoNockerResponse>() {
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
-
+                System.out.println(response.body().getUser().toString());
                 sessionManager.setEmail(response.body().getUser().getUser_email());
                 sessionManager.setFName(response.body().getUser().getUser_fname());
                 sessionManager.setLName(response.body().getUser().getUser_lname());
                 sessionManager.setPP(response.body().getUser().getUser_img());
                 sessionManager.setAVG(response.body().getAvg_charge());
                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
+                Log.d("nocker",response.body().getUser().is_nocker()+"");
                 if (dialog.isShowing())
                     dialog.dismiss();
             }
@@ -100,8 +104,16 @@ SessionManager sessionManager;
 
         setSupportActionBar(mtoolbar);
         getSupportActionBar().setIcon(R.drawable.small_icon_logo);
-        drawerFragment = (FragmentDrawerNocker) getSupportFragmentManager().findFragmentById(R.id.fragment_navigation_drawer);
-        drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), mtoolbar);
+        if(sessionManager.getKeyNocker()==1)
+        {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_navigation_drawer, new FragmentDrawerNocker()).commit();
+        }
+       else
+        {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fragment_navigation_drawer, new FragmentDrawerUser()).commit();
+        }
         setTitle("");
         mContext = getApplicationContext();
         marshmallowGPSPremissionCheck();
@@ -269,25 +281,35 @@ SessionManager sessionManager;
     @Override
     public void setCommunication(String msg) {
         FragmentManager fragmentManager = getSupportFragmentManager();
+        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         switch (msg) {
             case "activateSub":
                 fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "myShop":
                 fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "promotion":
                 fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "help":
                 fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+
                 break;
             case "settings":
                 fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+
                 break;
             case "editProfile":
                 fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+
                 break;
         }
     }

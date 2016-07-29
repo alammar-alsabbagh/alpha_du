@@ -33,16 +33,18 @@ public class UserResponse {
     @SerializedName("user_gender")
     private String user_gender;
 
-    public boolean is_nocker() {
-        return is_nocker;
-    }
-
-    public void setIs_nocker(boolean is_nocker) {
-        this.is_nocker = is_nocker;
-    }
-
     @SerializedName("user_is_nocker")
-    private boolean is_nocker;
+    private int user_is_nocker;
+
+    public int is_nocker() {
+        return user_is_nocker;
+    }
+
+    public void setIs_nocker(int is_nocker) {
+        this.user_is_nocker = is_nocker;
+    }
+
+
 
     public void setUser_fname(String user_fname) {
         this.user_fname = user_fname;
@@ -129,7 +131,7 @@ public class UserResponse {
                 ", user_description='" + user_description + '\'' +
                 ", user_birthday='" + user_birthday + '\'' +
                 ", user_gender='" + user_gender + '\'' +
-                ", is_nocker=" + is_nocker +
+                ", is_nocker=" + user_is_nocker +
                 '}';
     }
 }

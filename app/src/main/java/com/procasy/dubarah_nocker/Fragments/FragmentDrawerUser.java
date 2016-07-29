@@ -2,10 +2,8 @@ package com.procasy.dubarah_nocker.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,31 +56,25 @@ SessionManager sessionManager;
         {
             case R.id.activateSubscription:
                 mCommChListner.setCommunication("activateSub");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.myShop:
                 mCommChListner.setCommunication("myShop");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
             case R.id.promotion:
                 mCommChListner.setCommunication("promotion");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
             case R.id.help:
                 mCommChListner.setCommunication("help");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
             case R.id.settings:
                 mCommChListner.setCommunication("settings");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
             case R.id.editProfile:
                 mCommChListner.setCommunication("editProfile");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
         }
@@ -115,7 +107,7 @@ SessionManager sessionManager;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View layout = inflater.inflate(R.layout.fragment_navigation_drawer_user, container, false);
         //recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
         editProfile = (TableRow)layout.findViewById(R.id.editProfile);
         promotion = (TableRow)layout.findViewById(R.id.promotion);
@@ -146,38 +138,6 @@ SessionManager sessionManager;
     }
 
 
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, final Toolbar toolbar) {
-        containerView = getActivity().findViewById(fragmentId);
-        mDrawerLayout = drawerLayout;
-        mDrawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
-            @Override
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-                getActivity().invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerClosed(View drawerView) {
-                super.onDrawerClosed(drawerView);
-                getActivity().invalidateOptionsMenu();
-            }
-
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-                super.onDrawerSlide(drawerView, slideOffset);
-                toolbar.setAlpha(1 - slideOffset / 2);
-            }
-        };
-
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                mDrawerToggle.syncState();
-            }
-        });
-
-    }
 
 
 }
