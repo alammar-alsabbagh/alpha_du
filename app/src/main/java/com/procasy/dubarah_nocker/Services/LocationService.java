@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LocationResponse;
 
@@ -52,7 +53,9 @@ public class LocationService extends Service
     {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         listener = new MyLocationListener();
-        sessionManager = new SessionManager(getApplicationContext());
+
+        sessionManager = new SessionManager(getBaseContext());
+
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 40000, 0, listener);
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 40000, 0, listener);
     }
@@ -163,29 +166,24 @@ public class LocationService extends Service
 
             }
 
-            final ACProgressFlower dialog = new ACProgressFlower.Builder(getApplicationContext())
-                    .direction(ACProgressConstant.DIRECT_CLOCKWISE)
-                    .themeColor(Color.WHITE)
-                    .text("Update Location..")
-                    .fadeColor(Color.DKGRAY).build();
-            dialog.show();
 
+            Log.e("Lat",loc.getLatitude()+"");
+            Log.e("Lon",loc.getLongitude()+"");
             APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-            Call<LocationResponse> call = apiService.UpdateLocation(sessionManager.getEmail(), sessionManager.getPassword());
+            Call<LocationResponse> call = apiService.UpdateLocation(sessionManager.getEmail(), sessionManager.getPassword(),
+                    loc.getAltitude()+"" , loc.getLongitude()+"");
             call.enqueue(new Callback<LocationResponse>() {
                 @Override
                 public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
 
                     Log.e("Response ",response.body().toString());
-                    if (dialog.isShowing())
-                        dialog.dismiss();
+
                 }
 
                 @Override
                 public void onFailure(Call<LocationResponse> call, Throwable t) {
                     System.out.println("here 2" + t.toString());
-                    if (dialog.isShowing())
-                        dialog.dismiss();
+
                 }
 
             });

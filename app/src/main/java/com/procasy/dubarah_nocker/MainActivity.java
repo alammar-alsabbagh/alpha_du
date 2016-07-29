@@ -20,6 +20,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
@@ -38,10 +40,12 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
 
+    DrawerLayout mDrawerLayout;
     private Toolbar mtoolbar;
     private FragmentDrawerNocker drawerFragment;
     private FragmentDrawerUser drawerUser;
     private Context mContext;
+    private ImageView message , drawer , notification;
     // flag for GPS status
     boolean isGPSEnabled = false;
     // flag for network status
@@ -59,12 +63,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     protected LocationManager locationManager;
     APIinterface apiService;
     SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        message = (ImageView)mtoolbar.findViewById(R.id.message);
+        notification = (ImageView)mtoolbar.findViewById(R.id.notification);
+        drawer = (ImageView)mtoolbar.findViewById(R.id.drawer_btn);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+        drawer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
 
         sessionManager = new SessionManager(this);
 
@@ -87,13 +103,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 sessionManager.setPP(response.body().getUser().getUser_img());
                 sessionManager.setAVG(response.body().getAvg_charge());
                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
-                Log.d("nocker",response.body().getUser().is_nocker()+"");
+                Log.d("nocker", response.body().getUser().is_nocker() + "");
                 if (dialog.isShowing())
                     dialog.dismiss();
             }
+
             @Override
             public void onFailure(Call<InfoNockerResponse> call, Throwable t) {
-                System.out.println("here 2"+t.toString());
+                System.out.println("here 2" + t.toString());
                 if (dialog.isShowing())
                     dialog.dismiss();
             }
@@ -101,16 +118,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         });
 
 
-
-
         setSupportActionBar(mtoolbar);
-        if(sessionManager.getKeyNocker()==1)
-        {
+        if (sessionManager.getKeyNocker() == 1) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_navigation_drawer, new FragmentDrawerNocker()).commit();
-        }
-       else
-        {
+        } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_navigation_drawer, new FragmentDrawerUser()).commit();
         }
@@ -196,8 +208,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                     5);
         } else {
 
-            Log.e("Loction",getLocation().toString());
-            startService(new Intent(this , LocationService.class));
+            Log.e("Loction", getLocation().toString());
+            startService(new Intent(this, LocationService.class));
 
             //   gps functions.
         }
@@ -308,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 sessionManager.setPassword("");
                 sessionManager.setLogin(false);
                 finish();
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 break;
             case "settings":
                 fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();

@@ -36,7 +36,11 @@ public interface APIinterface {
 
     @FormUrlEncoded
     @POST("update_user_location")
-    Call<LocationResponse> UpdateLocation(@Field("user_email") String email, @Field("user_password") String password);
+    Call<LocationResponse> UpdateLocation(@Field("user_email") String email,
+                                          @Field("user_password") String password ,
+                                          @Field("user_lat") String lat ,
+                                          @Field("user_lon") String lon
+                                          );
 
 
 
