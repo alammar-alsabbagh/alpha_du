@@ -25,7 +25,12 @@
 
         </activity>
         <activity android:name=".LoginActivity"
-            android:theme="@style/AppTheme2"></activity>
+            android:theme="@style/AppTheme2">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activity.SignUpActivities.MainInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.LocationInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.PhotoSignUp" ></activity>
@@ -36,10 +41,7 @@
             android:windowSoftInputMode="stateVisible|adjustNothing">
         </activity>
         <activity android:name=".Activity.Nocker.MyProfileActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
     </application>
 

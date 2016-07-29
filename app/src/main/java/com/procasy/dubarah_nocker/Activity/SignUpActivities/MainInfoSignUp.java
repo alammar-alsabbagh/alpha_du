@@ -38,8 +38,16 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
     LinearLayout next_btn;
     @NotEmpty
     EditText FirstName , Lastname , Country , City , Region , Phonenumber;
-Validator validator;
+    Validator validator;
     TextView birthdate;
+
+    @NotEmpty
+    @com.mobsandgeeks.saripaar.annotation.Email
+    EditText Email;
+
+    @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)
+    EditText Password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +60,10 @@ Validator validator;
         Region = (EditText) findViewById(R.id.Province);
         birthdate = (TextView)findViewById(R.id.BirthDate);
         Phonenumber = (EditText)findViewById(R.id.PhoneNumber);
+        Email = (EditText) findViewById(R.id.email);
+        Password = (EditText) findViewById(R.id.password);
+
+
 
         validator = new Validator(this);
         validator.setValidationListener(this);
@@ -146,7 +158,8 @@ Validator validator;
         PreferencesManager.putString("region",Region.getText().toString());
         PreferencesManager.putString("birthDate",birthdate.getText().toString());
         PreferencesManager.putString("phoneNumber",Phonenumber.getText().toString());
-
+        PreferencesManager.putString("email",Email.getText().toString());
+        PreferencesManager.putString("password",Password.getText().toString());
         startActivity(new Intent(getApplicationContext(), LocationInfoSignUp.class));
 
     }

@@ -61,7 +61,7 @@
     </style>
 
     <style name="loginEditTextStyle" parent="Widget.AppCompat.EditText">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/colorPrimary</item>
         <item name="android:textColorHint">@color/light_grey</item>
         <item name="android:paddingStart">5dp</item>

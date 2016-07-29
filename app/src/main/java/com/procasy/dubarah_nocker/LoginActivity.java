@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)
     EditText Password;
 
-Validator validator;
+    Validator validator;
     APIinterface apiService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +66,13 @@ Validator validator;
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferencesManager.putInt("register",0);
                 validator.validate();
             }
         });
         create_nocker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PreferencesManager.putInt("register",1);
-                validator.validate();
-
+                startActivity(new Intent(getApplicationContext(), MainInfoSignUp.class));
             }
         });
         setupWindowAnimations();
@@ -116,11 +113,9 @@ Validator validator;
         final ACProgressFlower dialog = new ACProgressFlower.Builder(LoginActivity.this)
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                 .themeColor(Color.WHITE)
-                .text("logging in ...")
+                .text("Logging in ...")
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
-    if(PreferencesManager.getInt("register") == 0) {
-        //login
         PreferencesManager.putString("email", Email.getText().toString());
         PreferencesManager.putString("password", Password.getText().toString());
         System.out.println( Email.getText().toString()+"   "+ Password.getText().toString());
@@ -152,14 +147,6 @@ Validator validator;
             }
 
         });
-    }else {
-        //register
-        PreferencesManager.putString("email",Email.getText().toString());
-        PreferencesManager.putString("password",Password.getText().toString());
-        startActivity(new Intent(getApplicationContext(), MainInfoSignUp.class));
-    }
-
-
     }
 
 
