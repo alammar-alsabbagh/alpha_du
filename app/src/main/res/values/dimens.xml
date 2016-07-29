@@ -4,10 +4,13 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="nav_drawer_width">320dp</dimen>
-    
+
     <dimen name="drawer_padding_profile">10dp</dimen>
 
     <dimen name="drawer_nocker_score_w">100dp</dimen>
     <dimen name="drawer_nocker_score_h">50dp</dimen>
+    <dimen name="detail_backdrop_height">256dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="card_margin">16dp</dimen>
 
 </resources>

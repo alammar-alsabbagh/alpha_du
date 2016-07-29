@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background2"
+        tools:context="com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="150dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="50dp"
+                    android:src="@drawable/grey_nocker"
+                    android:alpha="0.8"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location"
+                    android:gravity="center"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:textColor="#838383"
+                    android:textSize="15sp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_drawable_combo"
+                android:orientation="vertical"
+                android:alpha="0.7"
+                android:padding="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/loginEditTextStyle"
+                        android:background="@android:color/transparent"
+                        android:hint="Address Line 1"
+                        android:inputType="textPostalAddress"
+                        android:id="@+id/address1" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black_trans80"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"></View>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/loginEditTextStyle"
+                    android:background="@android:color/transparent"
+                    android:hint="Address Line 2"
+                    android:inputType="textPostalAddress"
+                    android:id="@+id/address2" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black_trans80"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"></View>
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/loginEditTextStyle"
+                        android:background="@android:color/transparent"
+                        android:hint="Postal Code"
+                        android:inputType="textPostalAddress"
+                        android:id="@+id/postalCode" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:text="*Address fields include street number/name, including apartment, suite, floor and room numbers, etc"
+                android:textColor="#838383"
+                android:layout_marginTop="10dp"
+
+                />
+
+
+
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@drawable/btn_border_gray"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:weightSum="10"
+        android:orientation="horizontal"
+        android:id="@+id/next_btn"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        >
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/middle_pager"
+            android:layout_marginLeft="30dp"
+            android:layout_weight="2"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Next!"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:gravity="right"
+            android:layout_weight="6"
+            android:textSize="20sp"
+
+            />
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="18dp"
+            android:src="@drawable/proceed_white_arrow"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="2"
+            />
+
+    </LinearLayout>
+
+    </RelativeLayout>
+

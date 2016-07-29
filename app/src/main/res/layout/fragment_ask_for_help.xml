@@ -1,0 +1,116 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.AskForHelpFragment"
+    android:background="@color/colorPrimaryDark">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:id="@+id/linearLayout"
+            android:layout_above="@+id/request">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:hint="Who do you need?"
+            android:background="@drawable/search_border_gray"
+            android:paddingLeft="30dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:textColor="#AAFFFFFF"
+            android:textColorHint="#55FFFFFF"
+            android:layout_marginTop="8dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="Where?"
+                android:background="@drawable/search_border_gray"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:textColor="#AAFFFFFF"
+
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColorHint="#55FFFFFF"
+                android:layout_marginTop="8dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:hint="Preferred Language"
+                android:background="@drawable/search_border_gray"
+                android:paddingLeft="30dp"
+                android:textColor="#AAFFFFFF"
+
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColorHint="#55FFFFFF"
+                android:layout_marginTop="8dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:singleLine="true"
+                android:hint="Short Description"
+                android:background="@drawable/search_border_gray"
+                android:paddingLeft="30dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="10dp"
+                android:textColor="#AAFFFFFF"
+
+                android:textColorHint="#55FFFFFF"
+                android:layout_marginTop="8dp"
+                android:nestedScrollingEnabled="true"
+                android:inputType="textImeMultiLine|textMultiLine"
+                android:layout_gravity="top"
+                android:gravity="top" />
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+            </android.support.v7.widget.RecyclerView>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/line_divider"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"></View>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:text="REQUEST A NOCKER!"
+            android:textColor="@color/white"
+            android:alpha="0.9"
+            android:background="@drawable/btn_border_gray"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="30dp"
+            android:id="@+id/request"
+            />
+
+    </RelativeLayout>
+
+</FrameLayout>
