@@ -7,4 +7,35 @@
     android:minHeight="?attr/actionBarSize"
     android:background="?attr/colorPrimary"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    local:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+    local:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="@dimen/toolbar_dimen"
+            android:src="@drawable/burger_icon"
+            android:layout_margin="2dp"
+            android:id="@+id/drawer_btn"
+            android:layout_alignParentLeft="true"
+            android:layout_height="@dimen/toolbar_dimen" />
+
+        <ImageView
+            android:layout_width="@dimen/toolbar_dimen"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/notification"
+            android:id="@+id/notification"
+            android:layout_height="@dimen/toolbar_dimen" />
+        <ImageView
+            android:layout_width="@dimen/toolbar_dimen"
+            android:layout_toLeftOf="@id/notification"
+            android:src="@drawable/message"
+            android:id="@+id/message"
+            android:layout_marginRight="@dimen/toolbar_margin"
+            android:layout_height="@dimen/toolbar_dimen" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.Toolbar>

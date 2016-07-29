@@ -12,6 +12,18 @@ public class SkillsResponse {
     @SerializedName("skill_name")
     private String skill_name;
 
+    @SerializedName("is_hidden")
+    private int is_hidden;
+
+    public void setIs_hidden(int is_hidden) {
+        this.is_hidden = is_hidden;
+    }
+
+    public int getIs_hidden() {
+
+        return is_hidden;
+    }
+
     public int getSkill_id() {
         return skill_id;
     }

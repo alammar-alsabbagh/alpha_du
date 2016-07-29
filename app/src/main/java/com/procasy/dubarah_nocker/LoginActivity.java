@@ -57,10 +57,6 @@ SessionManager sessionManager;
         if(sessionManager.isLoggedIn())
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
 
-
-
-
-
         apiService =
                 ApiClass.getClient().create(APIinterface.class);
 
@@ -130,6 +126,7 @@ SessionManager sessionManager;
                 if(response.body().getStatus()==1) {
                     sessionManager.setLogin(true);
                     startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    finish();
                 }
                 else
                 {

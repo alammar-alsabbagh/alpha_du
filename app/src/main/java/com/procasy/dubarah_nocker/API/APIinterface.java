@@ -1,8 +1,12 @@
 package com.procasy.dubarah_nocker.API;
 
+import com.procasy.dubarah_nocker.Model.Responses.AllSkillsResponse;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
+import com.procasy.dubarah_nocker.Model.Responses.SkillsResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -24,6 +28,11 @@ public interface APIinterface {
     @FormUrlEncoded
     @POST("get_near_by_nocker")
     Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_password") String password);
+
+    @FormUrlEncoded
+    @POST("get_skills")
+    Call<AllSkillsResponse> GetAllSkills(@Field("user_email") String email, @Field("user_password") String password);
+
 
 
 }

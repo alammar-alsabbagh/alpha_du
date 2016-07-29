@@ -39,10 +39,12 @@ public class FragmentDrawerUser extends Fragment implements View.OnClickListener
     TextView nockerScore;
     TextView averageCharge;
     TextView happyCustomers;
+    Button drawer_btn , message , notification;
+
     ImageView Messages,Notifcations;
     Button boost;
     TableRow editProfile,promotion,activateSubscription,myShop,Settings,Help;
-SessionManager sessionManager;
+    SessionManager sessionManager;
 
     private ActionBarDrawerToggle mDrawerToggle;
     private DrawerLayout mDrawerLayout;
@@ -54,6 +56,7 @@ SessionManager sessionManager;
     public void onClick(View v) {
         switch (v.getId())
         {
+
             case R.id.activateSubscription:
                 mCommChListner.setCommunication("activateSub");
                 break;

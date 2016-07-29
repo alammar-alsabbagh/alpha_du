@@ -1,6 +1,7 @@
 package com.procasy.dubarah_nocker;
 
 import android.Manifest;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -20,6 +21,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
@@ -27,7 +32,9 @@ import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.Helper.Skills;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
+import com.procasy.dubarah_nocker.Services.LocationService;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -37,6 +44,9 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
 
+    private Skills mskills;
+    private ImageView message, notification, burger_icon;
+    private DrawerLayout mDrawerLayout;
     private Toolbar mtoolbar;
     private FragmentDrawerNocker drawerFragment;
     private FragmentDrawerUser drawerUser;
@@ -57,13 +67,27 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     // Declaring a Location Manager
     protected LocationManager locationManager;
     APIinterface apiService;
-SessionManager sessionManager;
+    SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
+        message = (ImageView) mtoolbar.findViewById(R.id.message);
+        notification = (ImageView) mtoolbar.findViewById(R.id.notification);
+        burger_icon = (ImageView) mtoolbar.findViewById(R.id.drawer_btn);
+
+        burger_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                mDrawerLayout.openDrawer(Gravity.START);
+
+            }
+        });
 
         sessionManager = new SessionManager(this);
 
@@ -79,6 +103,7 @@ SessionManager sessionManager;
         call.enqueue(new Callback<InfoNockerResponse>() {
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
+
                 System.out.println(response.body().getUser().toString());
                 sessionManager.setEmail(response.body().getUser().getUser_email());
                 sessionManager.setFName(response.body().getUser().getUser_fname());
@@ -86,13 +111,14 @@ SessionManager sessionManager;
                 sessionManager.setPP(response.body().getUser().getUser_img());
                 sessionManager.setAVG(response.body().getAvg_charge());
                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
-                Log.d("nocker",response.body().getUser().is_nocker()+"");
+                Log.d("nocker", response.body().getUser().is_nocker() + "");
                 if (dialog.isShowing())
                     dialog.dismiss();
             }
+
             @Override
             public void onFailure(Call<InfoNockerResponse> call, Throwable t) {
-                System.out.println("here 2"+t.toString());
+                System.out.println("here 2" + t.toString());
                 if (dialog.isShowing())
                     dialog.dismiss();
             }
@@ -100,17 +126,12 @@ SessionManager sessionManager;
         });
 
 
-
-
         setSupportActionBar(mtoolbar);
-        getSupportActionBar().setIcon(R.drawable.small_icon_logo);
-        if(sessionManager.getKeyNocker()==1)
-        {
+        //getSupportActionBar().setIcon(R.drawable.small_icon_logo);
+        if (sessionManager.getKeyNocker() == 1) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_navigation_drawer, new FragmentDrawerNocker()).commit();
-        }
-       else
-        {
+        } else {
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.fragment_navigation_drawer, new FragmentDrawerUser()).commit();
         }
@@ -126,6 +147,7 @@ SessionManager sessionManager;
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getLocation();
+            startService(new Intent(this, LocationService.class));
         }
     }
 
@@ -194,6 +216,9 @@ SessionManager sessionManager;
                             Manifest.permission.ACCESS_FINE_LOCATION},
                     5);
         } else {
+
+            startService(new Intent(this, LocationService.class));
+            Log.e("Location : ", getLocation().toString());
             //   gps functions.
         }
     }

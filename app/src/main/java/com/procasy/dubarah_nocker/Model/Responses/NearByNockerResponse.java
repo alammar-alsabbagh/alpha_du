@@ -11,6 +11,7 @@ import java.util.List;
  * Created by Omar on 7/28/2016.
  */
 public class NearByNockerResponse {
+
     @SerializedName("status")
     private int status;
 

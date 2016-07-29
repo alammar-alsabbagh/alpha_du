@@ -19,6 +19,7 @@ android {
         applicationId "com.procasy.dubarah_nocker"
         minSdkVersion 21
         targetSdkVersion 23
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
     }
