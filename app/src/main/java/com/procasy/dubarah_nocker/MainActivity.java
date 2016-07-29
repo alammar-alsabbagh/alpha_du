@@ -24,6 +24,7 @@ import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.shawnlin.preferencesmanager.PreferencesManager;
 
@@ -35,6 +36,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
 
+    private SessionManager sessionManager;
     private Toolbar mtoolbar;
     private FragmentDrawerNocker drawerFragment;
     private Context mContext;
@@ -63,6 +65,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         new PreferencesManager(this)
                 .setName("user")
                 .init();
+
+        sessionManager = new SessionManager(this);
+
+
         final ACProgressFlower dialog = new ACProgressFlower.Builder(MainActivity.this)
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                 .themeColor(Color.WHITE)

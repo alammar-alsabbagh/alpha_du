@@ -32,6 +32,8 @@ public class SessionManager {
 
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
 
+    private static final String KEY_EMAIL = "email";
+
     public SessionManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
@@ -48,10 +50,28 @@ public class SessionManager {
         Log.d(TAG, "User login session modified!");
     }
 
+
+
     public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
 
+
+    public void setEmail(String email) {
+
+        editor.putString(KEY_EMAIL, email);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "User login session modified!");
+    }
+
+
+
+    public String getEmail(){
+        return pref.getString(KEY_EMAIL, "");
+    }
 
 
 }
