@@ -69,7 +69,10 @@ validator.validate();            }
         bundle.putString("address1",address1.getText().toString());
         bundle.putString("postalCode",postalCode.getText().toString());
         bundle.putString("address2",postalCode.getText().toString());
-        startActivity(new Intent(getApplicationContext(), PhotoSignUp.class));
+        Intent intent = new Intent(getApplicationContext(), PhotoSignUp.class);
+        intent.putExtras(bundle);
+        finish();
+        startActivity(intent);
     }
 
     @Override

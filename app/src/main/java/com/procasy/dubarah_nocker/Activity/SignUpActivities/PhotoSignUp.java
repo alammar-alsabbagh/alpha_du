@@ -34,8 +34,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Activity.BeANocker.BeAnockerAcitivty;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
-import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.UserRegistrationModel;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.AndroidMultiPartEntity;
@@ -177,10 +177,6 @@ public class PhotoSignUp extends AppCompatActivity {
             }
         });
     }
-
-
-
-
     public void SignUpRequest() {
         final ProgressDialog pDialog = new ProgressDialog(PhotoSignUp.this);
         pDialog.setMessage("Signing up ... ");
@@ -275,7 +271,6 @@ public class PhotoSignUp extends AppCompatActivity {
         queue.add(postRequest);
 
     }
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -412,7 +407,8 @@ public class PhotoSignUp extends AppCompatActivity {
             sessionManager.setLogin(true);
             sessionManager.setEmail(bundle.getString("email"));
             sessionManager.setPassword(bundle.getString("password"));
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+            startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
 
             super.onPostExecute(result);
         }

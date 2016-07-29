@@ -2,7 +2,6 @@ package com.procasy.dubarah_nocker.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
@@ -59,32 +58,21 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         {
             case R.id.activateSubscription:
                 mCommChListner.setCommunication("activateSub");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case R.id.myShop:
                 mCommChListner.setCommunication("myShop");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-
                 break;
             case R.id.promotion:
                 mCommChListner.setCommunication("promotion");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-
                 break;
             case R.id.help:
                 mCommChListner.setCommunication("help");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-
                 break;
             case R.id.settings:
                 mCommChListner.setCommunication("settings");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-
                 break;
             case R.id.editProfile:
                 mCommChListner.setCommunication("editProfile");
-                mDrawerLayout.closeDrawer(GravityCompat.START);
-
                 break;
         }
     }

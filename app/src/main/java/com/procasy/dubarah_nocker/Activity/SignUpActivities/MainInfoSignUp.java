@@ -159,6 +159,7 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         bundle.putString("password",Password.getText().toString());
         Intent intent = new Intent(getApplicationContext(), LocationInfoSignUp.class);
         intent.putExtras(bundle);
+        finish();
         startActivity(intent);
 
     }

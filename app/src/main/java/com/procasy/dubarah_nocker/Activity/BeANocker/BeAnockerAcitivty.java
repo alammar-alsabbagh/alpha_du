@@ -1,5 +1,6 @@
 package com.procasy.dubarah_nocker.Activity.BeANocker;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
@@ -36,7 +37,7 @@ public class BeAnockerAcitivty extends AppCompatActivity {
                 next.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        startActivity(new Intent(getApplicationContext(),ChooseSkillsActivity.class));
                     }
                 });
 
