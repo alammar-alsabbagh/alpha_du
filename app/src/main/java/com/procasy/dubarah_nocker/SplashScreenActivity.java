@@ -31,7 +31,6 @@ sessionManager = new SessionManager(this);
                 {
                     Intent i = new Intent(SplashScreenActivity.this, MainActivity.class);
                     startActivity(i);
-
                     // close this activity
                     finish();
                 }
@@ -39,7 +38,6 @@ sessionManager = new SessionManager(this);
                 {
                     Intent i = new Intent(SplashScreenActivity.this, LoginActivity.class);
                     startActivity(i);
-
                     // close this activity
                     finish();
                 }

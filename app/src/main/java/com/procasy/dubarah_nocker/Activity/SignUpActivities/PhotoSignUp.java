@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -60,6 +61,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import cc.cloudist.acplibrary.ACProgressConstant;
+import cc.cloudist.acplibrary.ACProgressFlower;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -178,9 +181,12 @@ public class PhotoSignUp extends AppCompatActivity {
         });
     }
     public void SignUpRequest() {
-        final ProgressDialog pDialog = new ProgressDialog(PhotoSignUp.this);
-        pDialog.setMessage("Signing up ... ");
-        pDialog.show();
+        final ACProgressFlower dialog = new ACProgressFlower.Builder(PhotoSignUp.this)
+                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                .themeColor(Color.WHITE)
+                .text("Uploading Photo ..")
+                .fadeColor(Color.DKGRAY).build();
+        dialog.show();
         RequestQueue queue = Volley.newRequestQueue(this);
         String url = "signup";
         StringRequest postRequest = new StringRequest(Request.Method.POST, ApiClass.BASE_URL + url,
@@ -206,7 +212,7 @@ public class PhotoSignUp extends AppCompatActivity {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        pDialog.hide();
+                        dialog.hide();
 
                     }
                 },
@@ -215,7 +221,7 @@ public class PhotoSignUp extends AppCompatActivity {
                     public void onErrorResponse(VolleyError error) {
                         // TODO Auto-generated method stub
                         Log.d("ERROR", "error => " + error.toString());
-                        pDialog.hide();
+                        dialog.hide();
                     }
                 }
         ) {
@@ -330,12 +336,17 @@ public class PhotoSignUp extends AppCompatActivity {
         circleImageView.setImageBitmap(thumbnail);
     }
     private class UploadFileToServer extends AsyncTask<Integer, Integer, String> {
-        ProgressDialog progressDialog;
+        ProgressDialog dialog;
         @Override
         protected void onPreExecute() {
             // setting progress bar to zero
-            progressDialog = new ProgressDialog(PhotoSignUp.this);
-            progressDialog.show();
+
+            final ACProgressFlower dialog = new ACProgressFlower.Builder(PhotoSignUp.this)
+                    .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                    .themeColor(Color.WHITE)
+                    .text("Uploading Photo ..")
+                    .fadeColor(Color.DKGRAY).build();
+            dialog.show();
             super.onPreExecute();
         }
 
@@ -402,7 +413,7 @@ public class PhotoSignUp extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Log.e("ResponseUpload", "Response from server: " + result);
-            progressDialog.dismiss();
+            dialog.dismiss();
             // showing the server response in an alert dialog
             sessionManager.setLogin(true);
             sessionManager.setEmail(bundle.getString("email"));
