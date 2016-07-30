@@ -2,6 +2,7 @@ package com.procasy.dubarah_nocker.Activity.BeANocker;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import com.procasy.dubarah_nocker.Adapter.AdapterCallback;
 import com.procasy.dubarah_nocker.Adapter.SkillsAdapter;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
+import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsResponse;
 import com.procasy.dubarah_nocker.R;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -45,6 +47,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
     ArrayList<String> chosenSkills = new ArrayList<>();
     ArrayList<String> skills = new ArrayList<>();
     private AdapterCallback mAdapterCallback;
+    LinearLayout next_btn;
 
     private List<String> GetAllSkills()
     {
@@ -59,6 +62,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
         setContentView(R.layout.activity_choose_skills);
         skill_list = (RecyclerView) findViewById(R.id.skill_list);
         chosen_skills = (TagFlowLayout) findViewById(R.id.chosen_skills);
+        next_btn = (LinearLayout) findViewById(R.id.next_btn);
         this.mAdapterCallback = ((AdapterCallback) this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -68,7 +72,13 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
         mskills = new Skills(this);
         chosenSkills.add(new String("Piano Lessons"));
         chosenSkills.add(new String("Tap Dancing"));
-
+        next_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+        });
         chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
         {
             @Override
