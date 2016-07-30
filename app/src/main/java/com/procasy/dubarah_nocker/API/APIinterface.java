@@ -18,24 +18,24 @@ import retrofit2.http.POST;
 public interface APIinterface {
     @FormUrlEncoded
     @POST("login")
-    Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password);
+    Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password,@Field("user_ud_id") String UDID);
 
     @FormUrlEncoded
     @POST("get_info_nocker")
-    Call<InfoNockerResponse> GetInfoNocker(@Field("user_email") String email, @Field("user_password") String password);
+    Call<InfoNockerResponse> GetInfoNocker(@Field("user_email") String email, @Field("user_ud_id") String UDID);
 
     @FormUrlEncoded
     @POST("get_near_by_nocker")
-    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_password") String password);
+    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_ud_id") String UDID);
 
     @FormUrlEncoded
     @POST("get_skills")
-    Call<AllSkillsResponse> GetAllSkills(@Field("user_email") String email, @Field("user_password") String password);
+    Call<AllSkillsResponse> GetAllSkills(@Field("user_email") String email, @Field("user_ud_id") String UDID);
 
     @FormUrlEncoded
     @POST("update_user_location")
     Call<LocationResponse> UpdateLocation(@Field("user_email") String email,
-                                          @Field("user_password") String password ,
+                                          @Field("user_ud_id") String UDID ,
                                           @Field("user_lat") String lat ,
                                           @Field("user_lon") String lon
                                           );

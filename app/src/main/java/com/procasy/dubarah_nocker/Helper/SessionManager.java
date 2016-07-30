@@ -26,6 +26,7 @@ public class SessionManager {
     private static final String KEY_IS_LOGGEDIN = "isLoggedIn";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_UDID = "udid";
 
     private static final String KEY_FName = "firstName";
     private static final String KEY_LName = "lastName";
@@ -122,6 +123,20 @@ public class SessionManager {
     public String getPP(){
         return pref.getString(KEY_PP, "");
     }
+
+    public void setUDID(String UDID) {
+
+        editor.putString(KEY_UDID, UDID);
+
+        // commit changes
+        editor.commit();
+
+        Log.d(TAG, "User UDID session modified!");
+    }
+    public String getUDID(){
+        return pref.getString(KEY_UDID, "");
+    }
+
 
 
     public void setAVG(int avg) {

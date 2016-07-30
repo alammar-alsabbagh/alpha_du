@@ -1,14 +1,18 @@
 package com.procasy.dubarah_nocker;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -73,8 +77,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
     ImageView linkedIn, facebook, twitter, googleplus;
 
-    boolean retval_for_login;
-
+    String UDID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +102,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MainInfoSignUp.class));
-                finish();
             }
         });
         setupWindowAnimations();
@@ -121,6 +123,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         printKeyHash(LoginActivity.this);
         create_nocker.setText(builder, TextView.BufferType.SPANNABLE);
         linkedIn.setOnClickListener(this);
+        marshmallowPhoneStatePremissionCheck();
+
     }
 
     private void setupWindowAnimations() {
@@ -149,7 +153,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         dialog.show();
         sessionManager.setEmail(Email.getText().toString());
         sessionManager.setPassword(Password.getText().toString());
-        Call<LoginResponse> call = apiService.Login(Email.getText().toString(), Password.getText().toString());
+        Call<LoginResponse> call = apiService.Login(Email.getText().toString(), Password.getText().toString(),UDID);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
@@ -157,6 +161,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                     dialog.dismiss();
                 if (response.body().getStatus() == 1) {
                     sessionManager.setLogin(true);
+                    sessionManager.setUDID(UDID);
                     final ACProgressFlower dialog = new ACProgressFlower.Builder(LoginActivity.this)
                             .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                             .themeColor(Color.WHITE)
@@ -164,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                             .fadeColor(Color.DKGRAY).build();
                     dialog.show();
                     APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-                    Call<InfoNockerResponse> call2 = apiService.GetInfoNocker(sessionManager.getEmail(), sessionManager.getPassword());
+                    Call<InfoNockerResponse> call2 = apiService.GetInfoNocker(sessionManager.getEmail(), UDID);
                     call2.enqueue(new Callback<InfoNockerResponse>() {
                         @Override
                         public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
@@ -192,7 +197,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
                 } else {
                     AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
-                    alertdialog.setMessage("Wrong Authentication!");
+                    alertdialog.setMessage(response.body().getMessage());
                     alertdialog.setTitle("Fail");
                     alertdialog.setPositiveButton("Ok", null);
                     alertdialog.show();
@@ -322,52 +327,26 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
 
 
-    public void Login(String Email,String Password) {
-        Call<LoginResponse> call = apiService.Login(Email, Password);
-        call.enqueue(new Callback<LoginResponse>() {
-            @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.body().getStatus() == 1) {
-                    sessionManager.setLogin(true);
-                    APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-                    Call<InfoNockerResponse> call2 = apiService.GetInfoNocker(sessionManager.getEmail(), sessionManager.getPassword());
-                    call2.enqueue(new Callback<InfoNockerResponse>() {
-                        @Override
-                        public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
-                            System.out.println(response.body().getUser().toString());
-                            sessionManager.setEmail(response.body().getUser().getUser_email());
-                            sessionManager.setFName(response.body().getUser().getUser_fname());
-                            sessionManager.setLName(response.body().getUser().getUser_lname());
-                            sessionManager.setPP(response.body().getUser().getUser_img());
-                            sessionManager.setAVG(response.body().getAvg_charge());
-                            sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
-                            retval_for_login = true;
-                        }
 
-                        @Override
-                        public void onFailure(Call<InfoNockerResponse> call, Throwable t) {
-                            System.out.println("here 2" + t.toString());
-                            retval_for_login = false;
-                        }
-                    });
-                }
-                else {
-                    AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
-                    alertdialog.setMessage("Wrong Authentication!");
-                    alertdialog.setTitle("Fail");
-                    alertdialog.setPositiveButton("Ok", null);
-                    alertdialog.show();
-                    retval_for_login = false;
-                }
-            }
-
-            @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                System.out.println("here 2" + t.toString());
-                retval_for_login = false;
-            }
-
-        });
+    private void marshmallowPhoneStatePremissionCheck() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getApplicationContext().checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(
+                    new String[]{Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.READ_PHONE_STATE},
+                    5);
+        } else {
+            TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            UDID = telephonyManager.getDeviceId();
+            Log.e("UDID",UDID);
+            //   gps functions.
+        }
     }
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            UDID = telephonyManager.getDeviceId();
+            Log.e("UDID Marshmelo :D ",UDID);
+        }
+    }
 }

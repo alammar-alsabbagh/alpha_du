@@ -20,6 +20,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -74,6 +75,7 @@ public class PhotoSignUp extends AppCompatActivity {
     String FilePath = new String("");
     Bundle bundle;
     SessionManager sessionManager;
+    String UDID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -178,6 +180,7 @@ public class PhotoSignUp extends AppCompatActivity {
                 }
             }
         });
+        marshmallowPhoneStatePremissionCheck();
     }
     public void SignUpRequest() {
         final ACProgressFlower dialog = new ACProgressFlower.Builder(PhotoSignUp.this)
@@ -264,6 +267,8 @@ public class PhotoSignUp extends AppCompatActivity {
                 params.put("user_birthday", birthDate);
                 params.put("user_gender", "other");
                 params.put("address1",payerReg.toString());
+                params.put("user_ud_id", UDID);
+
 
                 System.out.println(params.toString());
                 return params;
@@ -283,6 +288,11 @@ public class PhotoSignUp extends AppCompatActivity {
             cameraIntent();
         } else if (requestCode == 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             galleryIntent();
+        }
+        if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            UDID = telephonyManager.getDeviceId();
+            Log.e("UDID Marshmelo :D ",UDID);
         }
     }
 
@@ -418,8 +428,9 @@ public class PhotoSignUp extends AppCompatActivity {
             sessionManager.setLogin(true);
             sessionManager.setEmail(bundle.getString("email"));
             sessionManager.setPassword(bundle.getString("password"));
-            finish();
+            sessionManager.setUDID(UDID);
             startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
+            finish();
 
             super.onPostExecute(result);
         }
@@ -442,7 +453,6 @@ public class PhotoSignUp extends AppCompatActivity {
 
         circleImageView.setImageBitmap(bm);
     }
-
     public static String getPath(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -504,7 +514,6 @@ public class PhotoSignUp extends AppCompatActivity {
 
         return null;
     }
-
     /**
      * Get the value of the data column for this Uri. This is useful for
      * MediaStore Uris, and other file-based ContentProviders.
@@ -537,8 +546,6 @@ public class PhotoSignUp extends AppCompatActivity {
         }
         return null;
     }
-
-
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is ExternalStorageProvider.
@@ -546,7 +553,6 @@ public class PhotoSignUp extends AppCompatActivity {
     public static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
-
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
@@ -554,7 +560,6 @@ public class PhotoSignUp extends AppCompatActivity {
     public static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
-
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is MediaProvider.
@@ -562,4 +567,26 @@ public class PhotoSignUp extends AppCompatActivity {
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
+
+
+
+    private void marshmallowPhoneStatePremissionCheck() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getApplicationContext().checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(
+                    new String[]{Manifest.permission.READ_PHONE_STATE,
+                            Manifest.permission.READ_PHONE_STATE},
+                    5);
+        } else {
+            TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            UDID = telephonyManager.getDeviceId();
+            Log.e("UDID",UDID);
+            //   gps functions.
+        }
+    }
+
+
+
+
+
+
 }

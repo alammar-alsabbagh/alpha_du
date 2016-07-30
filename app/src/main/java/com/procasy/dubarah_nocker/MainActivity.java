@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(), sessionManager.getPassword());
+        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(),sessionManager.getUDID());
         call.enqueue(new Callback<InfoNockerResponse>() {
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
@@ -319,7 +319,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 sessionManager.setEmail("");
                 sessionManager.setPassword("");
                 sessionManager.setLogin(false);
-                finish();
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 break;
             case "settings":

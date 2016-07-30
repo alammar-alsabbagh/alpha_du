@@ -37,9 +37,10 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
 
     LinearLayout next_btn;
     @NotEmpty
-    EditText FirstName , Lastname , Country , City , Region , Phonenumber;
+    EditText FirstName , Lastname , Phonenumber;
     Validator validator;
     TextView birthdate;
+    TextView  Country , City , Region ;
 
     @NotEmpty
     @com.mobsandgeeks.saripaar.annotation.Email
@@ -56,9 +57,9 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
         FirstName = (EditText) findViewById(R.id.Firstname);
         Lastname = (EditText) findViewById(R.id.Lastname);
-        Country = (EditText) findViewById(R.id.Country);
-        City = (EditText) findViewById(R.id.City);
-        Region = (EditText) findViewById(R.id.Province);
+        Country = (TextView) findViewById(R.id.Country);
+        City = (TextView) findViewById(R.id.City);
+        Region = (TextView) findViewById(R.id.Province);
         birthdate = (TextView)findViewById(R.id.BirthDate);
         Phonenumber = (EditText)findViewById(R.id.PhoneNumber);
         Email = (EditText) findViewById(R.id.email);
@@ -163,7 +164,6 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         Intent intent = new Intent(getApplicationContext(), LocationInfoSignUp.class);
         intent.putExtras(bundle);
         startActivity(intent);
-
     }
 
     @Override

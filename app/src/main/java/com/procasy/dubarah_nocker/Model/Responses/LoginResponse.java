@@ -9,6 +9,10 @@ public class LoginResponse {
     @SerializedName("status")
     private int status;
 
+    @SerializedName("message")
+    private String message;
+
+
     public int getStatus() {
         return status;
     }
@@ -17,10 +21,20 @@ public class LoginResponse {
         this.status = status;
     }
 
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return "LoginResponse{" +
-                "status=" + status +
-                '}';
+                "status=" + status
+                +"message="+message+
+                "}";
     }
 }
