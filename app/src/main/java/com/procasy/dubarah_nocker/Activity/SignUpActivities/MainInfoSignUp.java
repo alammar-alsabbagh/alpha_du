@@ -49,7 +49,7 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
     @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ANY)
     EditText Password;
 
-    RelativeLayout relativeLayout;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +64,7 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         Phonenumber = (EditText)findViewById(R.id.PhoneNumber);
         Email = (EditText) findViewById(R.id.email);
         Password = (EditText) findViewById(R.id.password);
-        relativeLayout = (RelativeLayout)findViewById(R.id.relative_layout);
+        linearLayout = (LinearLayout)findViewById(R.id.linear);
 
 
 
@@ -174,7 +174,7 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
             if(Password.getText().toString().length() < 6 )
-                Snackbar.make(relativeLayout,"Your Password Is Short",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(linearLayout,"Your Password Is Short",Snackbar.LENGTH_SHORT).show();
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
             } else {
