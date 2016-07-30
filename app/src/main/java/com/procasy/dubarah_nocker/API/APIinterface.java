@@ -1,13 +1,11 @@
 package com.procasy.dubarah_nocker.API;
 
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsResponse;
+import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LocationResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
-import com.procasy.dubarah_nocker.Model.Responses.SkillsResponse;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -41,6 +39,20 @@ public interface APIinterface {
                                           @Field("user_lat") String lat ,
                                           @Field("user_lon") String lon
                                           );
+    @FormUrlEncoded
+    @POST("check_unique")
+    Call<CheckResponse> CheckUnique(   @Field("table") String table,
+                                       @Field("column") String column ,
+                                       @Field("value") String value
+    );
+
+    @FormUrlEncoded
+    @POST("check_valid")
+    Call<CheckResponse> CheckUnique(   @Field("user_email") String table,
+                                       @Field("social") String column
+    );
+
+
 
 
 

@@ -68,12 +68,6 @@ public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolde
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.skill_name.setText(mValues.get(position));
-        holder.skill_add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAdapterCallback.onMethodCallback(mValues.get(position));
-            }
-        });
         holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

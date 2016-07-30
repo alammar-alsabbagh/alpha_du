@@ -82,13 +82,39 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
         chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
         {
             @Override
-            public View getView(FlowLayout parent, int position, String s)
+            public View getView(FlowLayout parent, final int position, String s)
             {
                 LinearLayout tv = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.one_skill_item,
                         chosen_skills, false);
+
+                Log.e("POSISTION",position+"");
                 TextView textView = (TextView) tv.findViewById(R.id.skill_name);
                 textView.setText(chosenSkills.get(position));
                 return tv;
+            }
+        });
+
+        chosen_skills.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                skills.add(chosenSkills.get(position));
+                skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), skills, mAdapterCallback));
+                chosenSkills.remove(position);
+                chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
+                {
+                    @Override
+                    public View getView(FlowLayout parent, final int position, String s)
+                    {
+                        LinearLayout tv = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.one_skill_item,
+                                chosen_skills, false);
+                        Log.e("POSISTION",position+"");
+                        TextView textView = (TextView) tv.findViewById(R.id.skill_name);
+                        textView.setText(chosenSkills.get(position));
+                        return tv;
+                    }
+                });
+
+                return false;
             }
         });
 
@@ -103,7 +129,8 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<AllSkillsResponse> call = apiService.GetAllSkills(sessionManager.getEmail(), sessionManager.getPassword());
+        //// TODO: 7/30/2016  dont forget to modify session
+        Call<AllSkillsResponse> call = apiService.GetAllSkills("bilooo@hotmail.com", "User12345");
         call.enqueue(new Callback<AllSkillsResponse>() {
             @Override
             public void onResponse(Call<AllSkillsResponse> call, Response<AllSkillsResponse> response) {
@@ -127,7 +154,8 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
                 }
                 finally {
                     mskills.close();
-                    skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), GetAllSkills(), mAdapterCallback));
+                    skills = new ArrayList<String>(GetAllSkills());
+                    skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), skills, mAdapterCallback));
                 }
 
 
