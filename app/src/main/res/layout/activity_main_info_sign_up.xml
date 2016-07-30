@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background2"
-    tools:context="com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp">
+    tools:context="com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp"
+    android:id="@+id/relative_layout"
+    >
 
         <LinearLayout
             android:layout_width="match_parent"

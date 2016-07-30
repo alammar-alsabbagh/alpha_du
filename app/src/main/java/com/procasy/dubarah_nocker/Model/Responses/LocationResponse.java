@@ -35,8 +35,8 @@ public class LocationResponse {
     public String toString() {
         return "LoginResponse{" +
                 "status=" + status +
-                ", Message = " + message +
-                '}';
+                +
+                        '}';
     }
 
 }

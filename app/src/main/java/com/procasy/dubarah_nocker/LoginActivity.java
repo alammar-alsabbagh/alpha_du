@@ -3,6 +3,7 @@ package com.procasy.dubarah_nocker;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
@@ -38,18 +39,18 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements Validator.ValidationListener{
 
-    RelativeLayout relativeLayout;
     Button create_nocker,login;
 
     @NotEmpty
     @Email
     EditText Email;
 
-    @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)
+    @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ANY)
     EditText Password;
-SessionManager sessionManager;
+    SessionManager sessionManager;
     Validator validator;
     APIinterface apiService;
+    RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,6 +107,7 @@ SessionManager sessionManager;
         Password = (EditText) findViewById(R.id.password);
         create_nocker = (Button) findViewById(R.id.create_nocker);
         login = (Button) findViewById(R.id.login);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relative);
     }
 
 
@@ -187,7 +189,8 @@ SessionManager sessionManager;
         for (ValidationError error : errors) {
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
-
+            if(Password.getText().toString().length() < 6 )
+                Snackbar.make(relativeLayout,"Your Password Is Short",Snackbar.LENGTH_SHORT).show();
             // Display error messages ;)
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);

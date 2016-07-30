@@ -4,12 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,9 +46,10 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
     @com.mobsandgeeks.saripaar.annotation.Email
     EditText Email;
 
-    @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ALPHA_NUMERIC_MIXED_CASE)
+    @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ANY)
     EditText Password;
 
+    RelativeLayout relativeLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +64,7 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         Phonenumber = (EditText)findViewById(R.id.PhoneNumber);
         Email = (EditText) findViewById(R.id.email);
         Password = (EditText) findViewById(R.id.password);
+        relativeLayout = (RelativeLayout)findViewById(R.id.relative_layout);
 
 
 
@@ -169,8 +173,8 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         for (ValidationError error : errors) {
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
-
-            // Display error messages ;)
+            if(Password.getText().toString().length() < 6 )
+                Snackbar.make(relativeLayout,"Your Password Is Short",Snackbar.LENGTH_SHORT).show();
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
             } else {
