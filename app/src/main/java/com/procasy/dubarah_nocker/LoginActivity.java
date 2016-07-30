@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +51,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     SessionManager sessionManager;
     Validator validator;
     APIinterface apiService;
-    RelativeLayout relativeLayout;
+    LinearLayout linearLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,7 +108,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         Password = (EditText) findViewById(R.id.password);
         create_nocker = (Button) findViewById(R.id.create_nocker);
         login = (Button) findViewById(R.id.login);
-        relativeLayout = (RelativeLayout) findViewById(R.id.relative);
+        linearLayout = (LinearLayout) findViewById(R.id.linear);
     }
 
 
@@ -190,7 +191,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
             if(Password.getText().toString().length() < 6 )
-                Snackbar.make(relativeLayout,"Your Password Is Short",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(linearLayout,"Your Password Is Short",Snackbar.LENGTH_SHORT).show();
             // Display error messages ;)
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);

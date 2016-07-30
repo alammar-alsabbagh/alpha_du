@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     private FragmentDrawerNocker drawerFragment;
     private FragmentDrawerUser drawerUser;
     private Context mContext;
-    private ImageView message , drawer , notification;
+    private ImageView message, drawer, notification;
     // flag for GPS status
     boolean isGPSEnabled = false;
     // flag for network status
@@ -70,10 +70,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        message = (ImageView)mtoolbar.findViewById(R.id.message);
-        notification = (ImageView)mtoolbar.findViewById(R.id.notification);
-        drawer = (ImageView)mtoolbar.findViewById(R.id.drawer_btn);
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        message = (ImageView) mtoolbar.findViewById(R.id.message);
+        notification = (ImageView) mtoolbar.findViewById(R.id.notification);
+        drawer = (ImageView) mtoolbar.findViewById(R.id.drawer_btn);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         drawer.setOnClickListener(new View.OnClickListener() {
             @Override

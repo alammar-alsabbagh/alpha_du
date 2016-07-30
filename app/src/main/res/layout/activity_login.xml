@@ -1,83 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procasy.dubarah_nocker.LoginActivity"
-    android:id="@+id/relative"
+    android:layout_gravity="center"
     android:background="@drawable/background2"
-    >
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.procasy.dubarah_nocker.LoginActivity">
+
     <LinearLayout
+        android:id="@+id/everything"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="100dp"
-        android:id="@+id/everything">
+        android:orientation="vertical">
+
         <ImageView
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:src="@drawable/grey_nocker"
-            android:alpha="0.8"/>
+            android:alpha="0.8"
+            android:src="@drawable/grey_nocker" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/login_drawable_combo"
-            android:orientation="vertical"
-            android:alpha="0.7"
-            android:padding="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            >
-            <EditText
+            android:alpha="0.7"
+            android:background="@drawable/login_drawable_combo"
+            android:orientation="vertical"
+            android:padding="20dp">
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/username_text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/loginEditTextStyle"
-                android:background="@android:color/transparent"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
-                android:singleLine="true"
-                android:id="@+id/email" />
-<View
-    android:layout_width="match_parent"
-    android:layout_height="1dp"
-    android:background="@color/black_trans80"
-    android:layout_marginTop="5dp"
-    android:layout_marginBottom="5dp"></View>
-            <EditText
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
+
+
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/password_text_input_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/loginEditTextStyle"
-                android:background="@android:color/transparent"
-                android:hint="Password"
-                android:inputType="textPassword"
-                android:layout_marginTop="5dp"
-                android:singleLine="true"
-                android:id="@+id/password" />
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <Button
+            android:id="@+id/login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_border_gray"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="40dp"
+            android:background="@drawable/selector"
             android:text="Login"
-            android:textStyle="bold"
             android:textColor="@color/white"
-            android:id="@+id/login" />
+            android:textStyle="bold" />
+
         <Button
+            android:id="@+id/create_nocker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_border_gray"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="15dp"
+            android:background="@drawable/selector"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:id="@+id/create_nocker" />
+            android:textStyle="bold" />
 
 
     </LinearLayout>
@@ -85,14 +95,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
         android:layout_below="@+id/everything"
-        android:alpha="0.8"
-        android:layout_marginTop="40dp"
         android:layout_marginBottom="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:text="Welcome to Nocker App ,\n If you’re searching for a great local help in were are you based, we know just the way."
+        android:layout_marginTop="40dp"
+        android:alpha="0.8"
         android:gravity="center"
-        android:layout_alignParentBottom="true"/>
-</RelativeLayout>
+        android:text="Welcome to Nocker App ,\n If you’re searching for a great local help in were are you based, we know just the way."
+        android:textColor="@color/white" />
+</LinearLayout>
