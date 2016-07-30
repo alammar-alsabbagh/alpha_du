@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.procasy.dubarah_nocker.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,10 +27,12 @@ public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolde
 
         public final TextView skill_name;
         public final ImageView skill_add;
+        public final LinearLayout linearLayout;
         public ViewHolder(View view) {
             super(view);
             skill_name = (TextView) view.findViewById(R.id.skill_name);
             skill_add = (ImageView) view.findViewById(R.id.add_skill);
+            linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
         }
 
         @Override
@@ -46,6 +50,12 @@ public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolde
         this.context = context;
         this.mAdapterCallback = callback;
     }
+    private void updateData(List<String> newData)
+    {
+        mValues.clear();
+        mValues.addAll(newData);
+        notifyDataSetChanged();
+    }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -62,6 +72,16 @@ public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolde
             @Override
             public void onClick(View v) {
                 mAdapterCallback.onMethodCallback(mValues.get(position));
+            }
+        });
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAdapterCallback.onMethodCallback(mValues.get(position));
+                List<String> strings= new ArrayList<String>();
+                mValues.remove(position);
+                strings.addAll(mValues);
+                updateData(strings);
             }
         });
     }

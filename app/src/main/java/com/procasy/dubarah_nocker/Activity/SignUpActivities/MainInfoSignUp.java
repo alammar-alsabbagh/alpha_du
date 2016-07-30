@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -163,7 +162,6 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         bundle.putString("password",Password.getText().toString());
         Intent intent = new Intent(getApplicationContext(), LocationInfoSignUp.class);
         intent.putExtras(bundle);
-        finish();
         startActivity(intent);
 
     }

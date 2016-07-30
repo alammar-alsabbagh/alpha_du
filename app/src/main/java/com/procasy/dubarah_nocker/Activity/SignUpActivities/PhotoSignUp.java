@@ -2,7 +2,6 @@ package com.procasy.dubarah_nocker.Activity.SignUpActivities;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -336,12 +335,12 @@ public class PhotoSignUp extends AppCompatActivity {
         circleImageView.setImageBitmap(thumbnail);
     }
     private class UploadFileToServer extends AsyncTask<Integer, Integer, String> {
-        ProgressDialog dialog;
+         ACProgressFlower dialog;
         @Override
         protected void onPreExecute() {
             // setting progress bar to zero
 
-            final ACProgressFlower dialog = new ACProgressFlower.Builder(PhotoSignUp.this)
+            dialog = new ACProgressFlower.Builder(PhotoSignUp.this)
                     .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                     .themeColor(Color.WHITE)
                     .text("Uploading Photo ..")
@@ -413,7 +412,8 @@ public class PhotoSignUp extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Log.e("ResponseUpload", "Response from server: " + result);
-            dialog.dismiss();
+            if(dialog.isShowing())
+                dialog.dismiss();
             // showing the server response in an alert dialog
             sessionManager.setLogin(true);
             sessionManager.setEmail(bundle.getString("email"));

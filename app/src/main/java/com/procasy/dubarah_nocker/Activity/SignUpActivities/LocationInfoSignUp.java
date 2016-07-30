@@ -71,7 +71,6 @@ validator.validate();            }
         bundle.putString("address2",postalCode.getText().toString());
         Intent intent = new Intent(getApplicationContext(), PhotoSignUp.class);
         intent.putExtras(bundle);
-        finish();
         startActivity(intent);
     }
 

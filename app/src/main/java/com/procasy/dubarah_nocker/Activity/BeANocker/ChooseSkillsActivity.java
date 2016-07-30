@@ -64,18 +64,11 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         skill_list.setLayoutManager(linearLayoutManager);
         skill_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
-        skills.add(new String("Guitar Lessons"));
-        skills.add(new String("Gardening"));
-        skills.add(new String("Cook"));
-        skills.add(new String("Maid"));
-        skills.add(new String("Nanny"));
         sessionManager = new SessionManager(this);
         mskills = new Skills(this);
-
         chosenSkills.add(new String("Piano Lessons"));
         chosenSkills.add(new String("Tap Dancing"));
 
-        skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), skills, mAdapterCallback));
         chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
         {
             @Override
@@ -124,6 +117,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
                 }
                 finally {
                     mskills.close();
+                    skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), GetAllSkills(), mAdapterCallback));
                 }
 
 
