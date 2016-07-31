@@ -133,7 +133,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
     }
 
-
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -215,9 +214,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
-    /**
-     * Function to get latitude
-     */
     public double getLatitude() {
         if (location != null) {
             latitude = location.getLatitude();
@@ -226,9 +222,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         return latitude;
     }
 
-    /**
-     * Function to get longitude
-     */
     public double getLongitude() {
         if (location != null) {
             longitude = location.getLongitude();
@@ -237,16 +230,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         return longitude;
     }
 
-    /**
-     * Function to check GPS/wifi enabled
-     *
-     * @return boolean
-     */
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
-
-
+    
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
         // Setting Dialog Title

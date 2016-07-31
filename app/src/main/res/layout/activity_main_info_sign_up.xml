@@ -50,50 +50,76 @@
             android:padding="20dp"
             android:layout_marginBottom="10dp">
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/username_text_input_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:weightSum="10">
+                <android.support.design.widget.TextInputLayout
+                    android:id="@+id/firstname_text_input_layout"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
-                    android:inputType="textEmailAddress"
-                    android:singleLine="true"></EditText>
-
-            </android.support.design.widget.TextInputLayout>
-
-
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/password_text_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/password"
-                    android:layout_width="match_parent"
+                    android:layout_weight="6">
+                    <EditText
+                        android:id="@+id/Firstname"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:hint="First Name"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+                <RadioGroup android:id="@+id/toggleGroup"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Password"
-                    android:inputType="textPassword"
-                    android:singleLine="true"></EditText>
-            </android.support.design.widget.TextInputLayout>
+                    android:orientation="horizontal"
+                    android:layout_weight="4"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="10dp">
+                    <ToggleButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/circle_btn"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:textOn="M"
+                        android:textOff="M"
+                        android:textColor="@drawable/text_color"
+                        android:onClick="onToggle"
+                        android:checked="true"
+                        android:id="@+id/sel1"
+                        android:textSize="10sp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp" />
 
-            <android.support.design.widget.TextInputLayout
-                android:id="@+id/firstname_text_input_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                    <ToggleButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/circle_btn"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:textOn="F"
+                        android:textOff="F"
+                        android:textColor="@drawable/text_color"
+                        android:onClick="onToggle"
 
-                <EditText
-                    android:id="@+id/Firstname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="7"
-                    android:hint="First Name"
-                    android:inputType="textEmailAddress"
-                    android:singleLine="true" />
-            </android.support.design.widget.TextInputLayout>
+                        android:id="@+id/sel2"
+                        android:textSize="10sp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginBottom="5dp" />
+                    <ToggleButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:background="@drawable/circle_btn"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:textOn="X"
+                        android:textOff="X"
+                        android:textColor="@drawable/text_color"
+                        android:onClick="onToggle"
+                        android:id="@+id/sel3"
+                        android:textSize="8sp"
+                        android:layout_marginBottom="5dp" />
+                </RadioGroup>
+            </LinearLayout>
 
 
             <android.support.design.widget.TextInputLayout

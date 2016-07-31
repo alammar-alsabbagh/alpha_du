@@ -4,15 +4,16 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -23,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.R;
 
 import org.json.JSONException;
@@ -42,18 +44,14 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
     TextView birthdate;
     TextView  Country , City , Region ;
 
-    @NotEmpty
-    @com.mobsandgeeks.saripaar.annotation.Email
-    EditText Email;
-
-    @com.mobsandgeeks.saripaar.annotation.Password(min = 6,scheme = com.mobsandgeeks.saripaar.annotation.Password.Scheme.ANY)
-    EditText Password;
-
     LinearLayout linearLayout;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_info_sign_up);
+        validator = new Validator(this);
+        validator.setValidationListener(this);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
         FirstName = (EditText) findViewById(R.id.Firstname);
         Lastname = (EditText) findViewById(R.id.Lastname);
@@ -62,14 +60,27 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         Region = (TextView) findViewById(R.id.Province);
         birthdate = (TextView)findViewById(R.id.BirthDate);
         Phonenumber = (EditText)findViewById(R.id.PhoneNumber);
-        Email = (EditText) findViewById(R.id.email);
-        Password = (EditText) findViewById(R.id.password);
         linearLayout = (LinearLayout)findViewById(R.id.linear);
 
+        sessionManager = new SessionManager(this);
+
+        final RadioGroup.OnCheckedChangeListener ToggleListener = new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(final RadioGroup radioGroup, final int i) {
+                for (int j = 0; j < radioGroup.getChildCount(); j++) {
+                    final ToggleButton view = (ToggleButton) radioGroup.getChildAt(j);
+                    view.setChecked(view.getId() == i);
+                }
+            }
+        };
+
+        ((RadioGroup) findViewById(R.id.toggleGroup)).setOnCheckedChangeListener(ToggleListener);
 
 
-        validator = new Validator(this);
-        validator.setValidationListener(this);
+
+
+
+
         birthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -93,7 +104,10 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
 
     }
 
-
+    public void onToggle(View view) {
+        ((RadioGroup)view.getParent()).check(view.getId());
+        // app specific stuff ..
+    }
     public void GetInfoRequest() {
         final ProgressDialog pDialog = new ProgressDialog(MainInfoSignUp.this);
         pDialog.setMessage("Getting Location Info");
@@ -159,8 +173,8 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         bundle.putString("region",Region.getText().toString());
         bundle.putString("birthDate",birthdate.getText().toString());
         bundle.putString("phoneNumber",Phonenumber.getText().toString());
-        bundle.putString("email",Email.getText().toString());
-        bundle.putString("password",Password.getText().toString());
+        bundle.putString("email",sessionManager.getEmail());
+        bundle.putString("password",sessionManager.getPassword());
         Intent intent = new Intent(getApplicationContext(), LocationInfoSignUp.class);
         intent.putExtras(bundle);
         startActivity(intent);
@@ -171,8 +185,6 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         for (ValidationError error : errors) {
             View view = error.getView();
             String message = error.getCollatedErrorMessage(this);
-            if(Password.getText().toString().length() < 6 )
-                Snackbar.make(linearLayout,"Your Password Is Short",Snackbar.LENGTH_SHORT).show();
             if (view instanceof EditText) {
                 ((EditText) view).setError(message);
             } else {

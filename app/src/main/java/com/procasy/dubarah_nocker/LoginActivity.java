@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     ImageView linkedIn, facebook, twitter, googleplus;
 
     String UDID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -153,54 +154,62 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         dialog.show();
         sessionManager.setEmail(Email.getText().toString());
         sessionManager.setPassword(Password.getText().toString());
-        Call<LoginResponse> call = apiService.Login(Email.getText().toString(), Password.getText().toString(),UDID);
+        Call<LoginResponse> call = apiService.Login(Email.getText().toString(), Password.getText().toString(), UDID);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                 if (dialog.isShowing())
                     dialog.dismiss();
-                if (response.body().getStatus() == 1) {
-                    sessionManager.setLogin(true);
-                    sessionManager.setUDID(UDID);
-                    final ACProgressFlower dialog = new ACProgressFlower.Builder(LoginActivity.this)
-                            .direction(ACProgressConstant.DIRECT_CLOCKWISE)
-                            .themeColor(Color.WHITE)
-                            .text("Getting Info..")
-                            .fadeColor(Color.DKGRAY).build();
-                    dialog.show();
-                    APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-                    Call<InfoNockerResponse> call2 = apiService.GetInfoNocker(sessionManager.getEmail(), UDID);
-                    call2.enqueue(new Callback<InfoNockerResponse>() {
-                        @Override
-                        public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
-                            System.out.println(response.body().getUser().toString());
-                            sessionManager.setEmail(response.body().getUser().getUser_email());
-                            sessionManager.setFName(response.body().getUser().getUser_fname());
-                            sessionManager.setLName(response.body().getUser().getUser_lname());
-                            sessionManager.setPP(response.body().getUser().getUser_img());
-                            sessionManager.setAVG(response.body().getAvg_charge());
-                            sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
-                            Log.d("nocker", response.body().getUser().is_nocker() + "");
-                            if (dialog.isShowing())
-                                dialog.dismiss();
-                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                            finish();
-                        }
+                switch (response.body().getStatus()) {
+                    case 1: {
+                        sessionManager.setLogin(true);
+                        sessionManager.setUDID(UDID);
+                        final ACProgressFlower dialog = new ACProgressFlower.Builder(LoginActivity.this)
+                                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                                .themeColor(Color.WHITE)
+                                .text("Getting Info..")
+                                .fadeColor(Color.DKGRAY).build();
+                        dialog.show();
+                        APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
+                        Call<InfoNockerResponse> call2 = apiService.GetInfoNocker(sessionManager.getEmail(), UDID);
+                        call2.enqueue(new Callback<InfoNockerResponse>() {
+                            @Override
+                            public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
+                                System.out.println(response.body().getUser().toString());
+                                sessionManager.setEmail(response.body().getUser().getUser_email());
+                                sessionManager.setFName(response.body().getUser().getUser_fname());
+                                sessionManager.setLName(response.body().getUser().getUser_lname());
+                                sessionManager.setPP(response.body().getUser().getUser_img());
+                                sessionManager.setAVG(response.body().getAvg_charge());
+                                sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
+                                Log.d("nocker", response.body().getUser().is_nocker() + "");
+                                if (dialog.isShowing())
+                                    dialog.dismiss();
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
+                            }
 
-                        @Override
-                        public void onFailure(Call<InfoNockerResponse> call, Throwable t) {
-                            System.out.println("here 2" + t.toString());
-                            if (dialog.isShowing())
-                                dialog.dismiss();
-                        }
-                    });
-
-                } else {
-                    AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
-                    alertdialog.setMessage(response.body().getMessage());
-                    alertdialog.setTitle("Fail");
-                    alertdialog.setPositiveButton("Ok", null);
-                    alertdialog.show();
+                            @Override
+                            public void onFailure(Call<InfoNockerResponse> call, Throwable t) {
+                                System.out.println("here 2" + t.toString());
+                                if (dialog.isShowing())
+                                    dialog.dismiss();
+                            }
+                        });
+                        break;
+                    }
+                    case 0: {
+                        AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
+                        alertdialog.setMessage("Wrong Authentication");
+                        alertdialog.setTitle("Fail");
+                        alertdialog.setPositiveButton("Ok", null);
+                        alertdialog.show();
+                        break;
+                    }
+                    case 2: {
+                        startActivity(new Intent(getApplicationContext(),MainInfoSignUp.class));
+                        break;
+                    }
                 }
 
             }
@@ -326,8 +335,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     }
 
 
-
-
     private void marshmallowPhoneStatePremissionCheck() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getApplicationContext().checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
@@ -335,18 +342,19 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                             Manifest.permission.READ_PHONE_STATE},
                     5);
         } else {
-            TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             UDID = telephonyManager.getDeviceId();
-            Log.e("UDID",UDID);
+            Log.e("UDID", UDID);
             //   gps functions.
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             UDID = telephonyManager.getDeviceId();
-            Log.e("UDID Marshmelo :D ",UDID);
+            Log.e("UDID Marshmelo :D ", UDID);
         }
     }
 }
