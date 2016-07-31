@@ -17,6 +17,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.procasy.dubarah_nocker.Fragments.AskForHelpFragment;
+import com.procasy.dubarah_nocker.Fragments.FragmentAbout;
+import com.procasy.dubarah_nocker.Fragments.FragmentService;
+import com.procasy.dubarah_nocker.Fragments.FragmentTestimonials;
 import com.procasy.dubarah_nocker.Fragments.NearByNockersFragment;
 import com.procasy.dubarah_nocker.R;
 
@@ -62,24 +65,6 @@ public class MyProfileActivity extends AppCompatActivity {
         Testimonials.setText("Testimonials");
         tabLayout.getTabAt(2).setCustomView(Testimonials);
 
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                TextView c = (TextView)tab.getCustomView();
-                Log.e("Clicked","success");
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
     }
 
     private void loadBackdrop() {
@@ -93,9 +78,9 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new NearByNockersFragment(), "ONE");
-        adapter.addFragment(new NearByNockersFragment(), "TWO");
-        adapter.addFragment(new NearByNockersFragment(), "THREE");
+        adapter.addFragment(new FragmentAbout(), "About");
+        adapter.addFragment(new FragmentService(), "Service");
+        adapter.addFragment(new FragmentTestimonials(), "Testimonials");
         viewPager.setAdapter(adapter);
     }
 

@@ -8,7 +8,6 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.procasy.dubarah_nocker.Model.ServiceModel;
@@ -85,7 +84,7 @@ public class FragmentService extends Fragment {
 
         @Override
         public ServiceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_service_listing, null);
+            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.service_item, null);
             return new ServiceViewHolder(layoutView);
         }
 
@@ -97,9 +96,6 @@ public class FragmentService extends Fragment {
             holder.description.setText(data.Description);
 
         }
-
-        ///  inner class
-        // Put Your Layout Model Here
 
         public class ServiceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
