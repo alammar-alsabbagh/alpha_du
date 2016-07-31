@@ -2,10 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp"
-    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:layout_marginTop="5dp"
     android:weightSum="9"
     android:background="@color/colorPrimary">
 
@@ -23,17 +22,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/service_name"
                 android:textColor="@color/white"
-                android:textSize="12dp"
+                android:textSize="?android:textAppearanceMedium"
                 android:textStyle="bold"
                 android:text="Service Name"/>
         </LinearLayout>
         <TextView
             android:layout_marginTop="2dp"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
+            android:layout_height="wrap_content"
             android:textColor="@color/white"
-            android:textSize="8dp"
+            android:id="@+id/service_description"
+            android:textSize="?android:textAppearanceSmall"
             android:text="I have achieved something similar to this in a project i worked on in the past but no longer have access to the project."
             />
     </LinearLayout>
@@ -42,6 +43,7 @@
     android:layout_width="0dp"
     android:layout_height="25dp"
     android:layout_weight="2"
+    android:id="@+id/service_request"
     android:layout_marginLeft="10dp"
     android:text="Request"
     android:background="@drawable/btn_request"

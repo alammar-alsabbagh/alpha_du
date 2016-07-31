@@ -4,6 +4,10 @@
         "source": "C:\\Users\\Omar\\Desktop\\Dubarah_nocker\\linkedin-sdk\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
     },
     {
+        "merged": "D:\\Apps\\alpha_du_2\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_launcher.png",
+        "source": "D:\\Apps\\alpha_du_2\\linkedin-sdk\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\Omar\\Desktop\\Project 2\\final\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-mdpi-v4\\ic_launcher.png",
         "source": "C:\\Users\\Omar\\Desktop\\Project 2\\final\\linkedin-sdk\\src\\main\\res\\drawable-mdpi\\ic_launcher.png"
     }

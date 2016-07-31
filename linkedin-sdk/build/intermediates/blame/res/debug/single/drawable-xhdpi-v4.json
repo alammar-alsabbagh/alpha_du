@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\Apps\\alpha_du_2\\linkedin-sdk\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
+        "source": "D:\\Apps\\alpha_du_2\\linkedin-sdk\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\Omar\\Desktop\\Project 2\\final\\linkedin-sdk\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4\\ic_launcher.png",
         "source": "C:\\Users\\Omar\\Desktop\\Project 2\\final\\linkedin-sdk\\src\\main\\res\\drawable-xhdpi\\ic_launcher.png"
     },
