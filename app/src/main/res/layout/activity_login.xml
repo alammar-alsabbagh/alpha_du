@@ -74,18 +74,7 @@
             android:layout_marginRight="20dp"
             android:layout_marginTop="40dp"
             android:background="@drawable/selector"
-            android:text="Login"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
-
-        <Button
-            android:id="@+id/create_nocker"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="15dp"
-            android:background="@drawable/selector"
+            android:text="Login Or Join Nocker"
             android:textColor="@color/white"
             android:textStyle="bold" />
 

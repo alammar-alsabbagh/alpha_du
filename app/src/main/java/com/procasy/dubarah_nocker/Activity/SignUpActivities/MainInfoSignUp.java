@@ -77,10 +77,6 @@ public class MainInfoSignUp extends AppCompatActivity implements Validator.Valid
         ((RadioGroup) findViewById(R.id.toggleGroup)).setOnCheckedChangeListener(ToggleListener);
 
 
-
-
-
-
         birthdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

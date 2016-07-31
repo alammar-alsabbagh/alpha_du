@@ -13,9 +13,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
-import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
-import android.text.style.ForegroundColorSpan;
 import android.transition.Fade;
 import android.util.Base64;
 import android.util.Log;
@@ -24,7 +21,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linkedin.platform.APIHelper;
@@ -62,7 +58,7 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements Validator.ValidationListener, View.OnClickListener {
 
-    Button create_nocker, login;
+    Button  login;
 
     @NotEmpty
     @Email
@@ -99,30 +95,9 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 validator.validate();
             }
         });
-        create_nocker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainInfoSignUp.class));
-            }
-        });
+
         setupWindowAnimations();
-        SpannableStringBuilder builder = new SpannableStringBuilder();
-
-        String text = "Create New ";
-        SpannableString white = new SpannableString(text);
-        white.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.white)), 0, text.length(), 0);
-        builder.append(white);
-        String text2 = "nocker";
-        SpannableString yellow = new SpannableString(text2);
-        yellow.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 0, text2.length(), 0);
-        builder.append(yellow);
-        String text3 = " Account";
-        SpannableString white2 = new SpannableString(text3);
-        white2.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.white)), 0, text3.length(), 0);
-        builder.append(white2);
-
         printKeyHash(LoginActivity.this);
-        create_nocker.setText(builder, TextView.BufferType.SPANNABLE);
         linkedIn.setOnClickListener(this);
         marshmallowPhoneStatePremissionCheck();
 
@@ -137,7 +112,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     private void LinkIDwithViews() {
         Email = (EditText) findViewById(R.id.email);
         Password = (EditText) findViewById(R.id.password);
-        create_nocker = (Button) findViewById(R.id.create_nocker);
         login = (Button) findViewById(R.id.login);
         linearLayout = (LinearLayout) findViewById(R.id.linear);
         linkedIn = (ImageView) findViewById(R.id.linkedin);
