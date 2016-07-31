@@ -171,7 +171,9 @@ public class LocationService extends Service
             Log.e("Lon",loc.getLongitude()+"");
             APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
             Call<LocationResponse> call = apiService.UpdateLocation(sessionManager.getEmail(),sessionManager.getUDID(),
-                    loc.getAltitude()+"" , loc.getLongitude()+"");
+                    loc.getLatitude()+"" , loc.getLongitude()+"");
+            Log.d("Loc.LAT : ",loc.getLatitude()+"");
+            Log.d("Loc.LON : ",loc.getLongitude()+"");
             call.enqueue(new Callback<LocationResponse>() {
                 @Override
                 public void onResponse(Call<LocationResponse> call, Response<LocationResponse> response) {
