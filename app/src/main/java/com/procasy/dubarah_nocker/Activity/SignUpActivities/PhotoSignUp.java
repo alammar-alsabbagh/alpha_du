@@ -392,7 +392,7 @@ public class PhotoSignUp extends AppCompatActivity {
                 System.out.println(new FileBody(sourceFile).toString());
                 // Extra parameters if you want to pass to server
                 entity.addPart("user_email",new StringBody(bundle.getString("email")));
-                entity.addPart("user_password",new StringBody(bundle.getString("password")));
+                entity.addPart("user_ud_id",new StringBody(sessionManager.getUDID()));
 
                 httppost.setEntity(entity);
 
