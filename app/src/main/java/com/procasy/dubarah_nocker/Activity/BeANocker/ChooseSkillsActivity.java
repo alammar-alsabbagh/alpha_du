@@ -58,6 +58,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_skills);
         skill_list = (RecyclerView) findViewById(R.id.skill_list);
