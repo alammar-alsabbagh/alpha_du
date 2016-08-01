@@ -2,7 +2,6 @@ package com.procasy.dubarah_nocker.Activity.BeANocker;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -22,8 +21,7 @@ import com.procasy.dubarah_nocker.Adapter.AdapterCallback;
 import com.procasy.dubarah_nocker.Adapter.SkillsAdapter;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
-import com.procasy.dubarah_nocker.MainActivity;
-import com.procasy.dubarah_nocker.Model.Responses.AllSkillsResponse;
+import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.R;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -49,11 +47,20 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
     private AdapterCallback mAdapterCallback;
     LinearLayout next_btn;
 
+    private List<String> GetChoosenSkilles()
+    {
+        Log.e("chosenskilles",chosenSkills.toString());
+
+        Log.e("Email",sessionManager.getEmail());
+        Log.e("UDID",sessionManager.getUDID());
+
+
+        return chosenSkills;
+    }
+
     private List<String> GetAllSkills()
     {
-
         return skills;
-
     }
 
     @Override
@@ -76,8 +83,11 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+
+                GetChoosenSkilles();
+
+             //   startActivity(new Intent(getApplicationContext(), MainActivity.class));
+              //  finish();
             }
         });
         chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
@@ -131,10 +141,10 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
         //// TODO: 7/30/2016  dont forget to modify session
-        Call<AllSkillsResponse> call = apiService.GetAllSkills(sessionManager.getEmail(),sessionManager.getUDID());
-        call.enqueue(new Callback<AllSkillsResponse>() {
+        Call<AllSkillsAndLanguageResponse> call = apiService.GetAllSkills(sessionManager.getEmail(),sessionManager.getUDID());
+        call.enqueue(new Callback<AllSkillsAndLanguageResponse>() {
             @Override
-            public void onResponse(Call<AllSkillsResponse> call, Response<AllSkillsResponse> response) {
+            public void onResponse(Call<AllSkillsAndLanguageResponse> call, Response<AllSkillsAndLanguageResponse> response) {
 
                 mskills.open();
                 Log.e("remove state ", mskills.removeAllEntry() + "");
@@ -165,13 +175,15 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
             }
 
             @Override
-            public void onFailure(Call<AllSkillsResponse> call, Throwable t) {
+            public void onFailure(Call<AllSkillsAndLanguageResponse> call, Throwable t) {
                 System.out.println("ERROR 2" + t.toString());
                 if (dialog.isShowing())
                     dialog.dismiss();
             }
 
         });
+
+        GetChoosenSkilles();
 
     }
 

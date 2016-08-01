@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by DELL on 29/07/2016.
  */
-public class AllSkillsResponse {
+public class AllSkillsAndLanguageResponse {
 
     @SerializedName("status")
     private int status;
@@ -15,6 +15,13 @@ public class AllSkillsResponse {
     @SerializedName("skills")
     private List<SkillsResponse> mskillsResponse;
 
+    @SerializedName("languages")
+    private List<LanguageResponse> mLanguageResponse;
+
+    public List<LanguageResponse> getAllLanguage()
+    {
+        return mLanguageResponse;
+    }
     public List<SkillsResponse> getAllSkills()
     {
         return this.mskillsResponse;

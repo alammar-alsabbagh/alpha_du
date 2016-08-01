@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         call.enqueue(new Callback<InfoNockerResponse>() {
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
-                System.out.println(response.body().getUser().toString());
+           //     System.out.println(response.body().getUser().toString());
                 sessionManager.setEmail(response.body().getUser().getUser_email());
                 sessionManager.setFName(response.body().getUser().getUser_fname());
                 sessionManager.setLName(response.body().getUser().getUser_lname());

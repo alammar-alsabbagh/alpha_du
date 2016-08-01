@@ -1,6 +1,6 @@
 package com.procasy.dubarah_nocker.API;
 
-import com.procasy.dubarah_nocker.Model.Responses.AllSkillsResponse;
+import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LocationResponse;
@@ -30,7 +30,7 @@ public interface APIinterface {
 
     @FormUrlEncoded
     @POST("get_skills")
-    Call<AllSkillsResponse> GetAllSkills(@Field("user_email") String email, @Field("user_ud_id") String UDID);
+    Call<AllSkillsAndLanguageResponse> GetAllSkills(@Field("user_email") String email, @Field("user_ud_id") String UDID);
 
     @FormUrlEncoded
     @POST("update_user_location")

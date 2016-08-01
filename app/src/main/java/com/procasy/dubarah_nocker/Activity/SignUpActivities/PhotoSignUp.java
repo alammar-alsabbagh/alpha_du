@@ -2,6 +2,7 @@ package com.procasy.dubarah_nocker.Activity.SignUpActivities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -76,6 +78,7 @@ public class PhotoSignUp extends AppCompatActivity {
     Bundle bundle;
     SessionManager sessionManager;
     String UDID;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,9 +95,7 @@ public class PhotoSignUp extends AppCompatActivity {
                 if (FilePath.equals("")) {
 
 
-                }
-                else
-                {
+                } else {
                     MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
                     File file = new File(FilePath);
                     RequestBody requestBody = RequestBody.create(MEDIA_TYPE_PNG, file);
@@ -137,6 +138,7 @@ public class PhotoSignUp extends AppCompatActivity {
                                 new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
                     }
                 } else {
+
                     galleryIntent();
                 }
             }
@@ -182,6 +184,35 @@ public class PhotoSignUp extends AppCompatActivity {
         });
         marshmallowPhoneStatePremissionCheck();
     }
+
+    private void performCrop(Uri picUri) {
+        try {
+
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            // indicate image type and Uri
+            cropIntent.setDataAndType(picUri, "image/*");
+            // set crop properties
+            cropIntent.putExtra("crop", "true");
+            // indicate aspect of desired crop
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
+            // indicate output X and Y
+            cropIntent.putExtra("outputX", 128);
+            cropIntent.putExtra("outputY", 128);
+            // retrieve data on return
+            cropIntent.putExtra("return-data", true);
+            // start the activity - we handle returning in onActivityResult
+            startActivityForResult(cropIntent, 1);
+        }
+        // respond to users whose devices do not support the crop action
+        catch (ActivityNotFoundException anfe) {
+            // display an error message
+            String errorMessage = "Whoops - your device doesn't support the crop action!";
+            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+
     public void SignUpRequest() {
         final ACProgressFlower dialog = new ACProgressFlower.Builder(PhotoSignUp.this)
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
@@ -201,7 +232,7 @@ public class PhotoSignUp extends AppCompatActivity {
                             JSONObject object = new JSONObject(response);
                             int status = object.optInt("status");
                             if (status == 1) {
-                               if(!FilePath.equals(""))
+                                if (!FilePath.equals(""))
                                     new UploadFileToServer().execute();
                             } else {
                                 System.out.println(object.getJSONArray("message"));
@@ -230,33 +261,33 @@ public class PhotoSignUp extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                String firstName=bundle.getString("firstName");
-                String lastName=bundle.getString("lastName");
-                String country=bundle.getString("country");
-                String city=bundle.getString("city");
-                String region=bundle.getString("region");
-                String birthDate=bundle.getString("birthDate");
-                String address1=bundle.getString("address1");
-                String postalCode=bundle.getString("postalCode");
-                String address2=bundle.getString("address2");
-                String email=bundle.getString("email");
-                String password=bundle.getString("password");
-                String phoneNumber=bundle.getString("phoneNumber");
-                UserRegistrationModel userRegistrationModel =  new UserRegistrationModel(firstName,lastName,email,phoneNumber,birthDate,password,"other");
+                String firstName = bundle.getString("firstName");
+                String lastName = bundle.getString("lastName");
+                String country = bundle.getString("country");
+                String city = bundle.getString("city");
+                String region = bundle.getString("region");
+                String birthDate = bundle.getString("birthDate");
+                String address1 = bundle.getString("address1");
+                String postalCode = bundle.getString("postalCode");
+                String address2 = bundle.getString("address2");
+                String email = bundle.getString("email");
+                String password = bundle.getString("password");
+                String phoneNumber = bundle.getString("phoneNumber");
+                UserRegistrationModel userRegistrationModel = new UserRegistrationModel(firstName, lastName, email, phoneNumber, birthDate, password, "other");
 
                 JsonObject payerReg = new JsonObject();
-                payerReg.addProperty("ua_address_name",address1);
-                payerReg.addProperty("ua_lat","aas22");
-                payerReg.addProperty("ua_lon","aas22");
-                payerReg.addProperty("ua_country",country);
-                payerReg.addProperty("ua_state",region);
-                payerReg.addProperty("ua_city",city);
-                payerReg.addProperty("ua_region",region);
-                payerReg.addProperty("ua_zip_code",postalCode);
-                payerReg.addProperty("ua_postal_code",postalCode);
-                payerReg.addProperty("ua_street_name","aas22");
-                payerReg.addProperty("ua_street_number","");
-                payerReg.addProperty("ua_premise","");
+                payerReg.addProperty("ua_address_name", address1);
+                payerReg.addProperty("ua_lat", "aas22");
+                payerReg.addProperty("ua_lon", "aas22");
+                payerReg.addProperty("ua_country", country);
+                payerReg.addProperty("ua_state", region);
+                payerReg.addProperty("ua_city", city);
+                payerReg.addProperty("ua_region", region);
+                payerReg.addProperty("ua_zip_code", postalCode);
+                payerReg.addProperty("ua_postal_code", postalCode);
+                payerReg.addProperty("ua_street_name", "aas22");
+                payerReg.addProperty("ua_street_number", "");
+                payerReg.addProperty("ua_premise", "");
 
 
                 params.put("user_fname", firstName);
@@ -266,7 +297,7 @@ public class PhotoSignUp extends AppCompatActivity {
                 params.put("user_phone", phoneNumber);
                 params.put("user_birthday", birthDate);
                 params.put("user_gender", "other");
-                params.put("address1",payerReg.toString());
+                params.put("address1", payerReg.toString());
                 params.put("user_ud_id", UDID);
 
 
@@ -292,15 +323,44 @@ public class PhotoSignUp extends AppCompatActivity {
         if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             UDID = telephonyManager.getDeviceId();
-            Log.e("UDID Marshmelo :D ",UDID);
+            Log.e("UDID Marshmelo :D ", UDID);
         }
     }
 
     private void galleryIntent() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);//
-        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+
+
+        try {
+
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
+            // indicate image type and Uri
+            // set crop properties
+            cropIntent.putExtra("crop", "true");
+            // indicate aspect of desired crop
+            cropIntent.putExtra("aspectX", 1);
+            cropIntent.putExtra("aspectY", 1);
+            // indicate output X and Y
+            cropIntent.putExtra("outputX", 128);
+            cropIntent.putExtra("outputY", 128);
+            // retrieve data on return
+            cropIntent.putExtra("return-data", true);
+            // start the activity - we handle returning in onActivityResult
+            startActivityForResult(cropIntent,1);
+        }
+        // respond to users whose devices do not support the crop action
+        catch (ActivityNotFoundException anfe) {
+            // display an error message
+            String errorMessage = "Whoops - your device doesn't support the crop action!";
+            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);//
+//        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+//
     }
 
     private void cameraIntent() {
@@ -344,8 +404,10 @@ public class PhotoSignUp extends AppCompatActivity {
 
         circleImageView.setImageBitmap(thumbnail);
     }
+
     private class UploadFileToServer extends AsyncTask<Integer, Integer, String> {
-         ACProgressFlower dialog;
+        ACProgressFlower dialog;
+
         @Override
         protected void onPreExecute() {
             // setting progress bar to zero
@@ -375,7 +437,7 @@ public class PhotoSignUp extends AppCompatActivity {
             String responseString = null;
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost(ApiClass.BASE_URL+"update_user_img");
+            HttpPost httppost = new HttpPost(ApiClass.BASE_URL + "update_user_img");
 
             try {
                 AndroidMultiPartEntity entity = new AndroidMultiPartEntity(
@@ -391,8 +453,8 @@ public class PhotoSignUp extends AppCompatActivity {
                 entity.addPart("image", new FileBody(sourceFile));
                 System.out.println(new FileBody(sourceFile).toString());
                 // Extra parameters if you want to pass to server
-                entity.addPart("user_email",new StringBody(bundle.getString("email")));
-                entity.addPart("user_ud_id",new StringBody(sessionManager.getUDID()));
+                entity.addPart("user_email", new StringBody(bundle.getString("email")));
+                entity.addPart("user_ud_id", new StringBody(sessionManager.getUDID()));
 
                 httppost.setEntity(entity);
 
@@ -422,7 +484,7 @@ public class PhotoSignUp extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Log.e("ResponseUpload", "Response from server: " + result);
-            if(dialog.isShowing())
+            if (dialog.isShowing())
                 dialog.dismiss();
             // showing the server response in an alert dialog
             sessionManager.setLogin(true);
@@ -436,6 +498,7 @@ public class PhotoSignUp extends AppCompatActivity {
         }
 
     }
+
     @SuppressWarnings("deprecation")
     private void onSelectFromGalleryResult(Intent data) {
 
@@ -453,6 +516,7 @@ public class PhotoSignUp extends AppCompatActivity {
 
         circleImageView.setImageBitmap(bm);
     }
+
     public static String getPath(final Context context, final Uri uri) {
 
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
@@ -514,6 +578,7 @@ public class PhotoSignUp extends AppCompatActivity {
 
         return null;
     }
+
     /**
      * Get the value of the data column for this Uri. This is useful for
      * MediaStore Uris, and other file-based ContentProviders.
@@ -546,6 +611,7 @@ public class PhotoSignUp extends AppCompatActivity {
         }
         return null;
     }
+
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is ExternalStorageProvider.
@@ -553,6 +619,7 @@ public class PhotoSignUp extends AppCompatActivity {
     public static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
+
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is DownloadsProvider.
@@ -560,6 +627,7 @@ public class PhotoSignUp extends AppCompatActivity {
     public static boolean isDownloadsDocument(Uri uri) {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
+
     /**
      * @param uri The Uri to check.
      * @return Whether the Uri authority is MediaProvider.
@@ -569,7 +637,6 @@ public class PhotoSignUp extends AppCompatActivity {
     }
 
 
-
     private void marshmallowPhoneStatePremissionCheck() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && getApplicationContext().checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(
@@ -577,16 +644,12 @@ public class PhotoSignUp extends AppCompatActivity {
                             Manifest.permission.READ_PHONE_STATE},
                     5);
         } else {
-            TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+            TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             UDID = telephonyManager.getDeviceId();
-            Log.e("UDID",UDID);
+            Log.e("UDID", UDID);
             //   gps functions.
         }
     }
-
-
-
-
 
 
 }
