@@ -131,7 +131,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
         //// TODO: 7/30/2016  dont forget to modify session
-        Call<AllSkillsResponse> call = apiService.GetAllSkills("bilooo@hotmail.com", "User12345");
+        Call<AllSkillsResponse> call = apiService.GetAllSkills(sessionManager.getEmail(),sessionManager.getUDID());
         call.enqueue(new Callback<AllSkillsResponse>() {
             @Override
             public void onResponse(Call<AllSkillsResponse> call, Response<AllSkillsResponse> response) {

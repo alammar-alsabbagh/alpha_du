@@ -131,7 +131,7 @@ public class AskForHelpFragment extends Fragment {
         Log.e("AskForHelp", "Success");
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<AllSkillsResponse> call = apiService.GetAllSkills(sessionManager.getEmail(), sessionManager.getPassword());
+        Call<AllSkillsResponse> call = apiService.GetAllSkills(sessionManager.getEmail(),sessionManager.getUDID());
         call.enqueue(new Callback<AllSkillsResponse>() {
             @Override
             public void onResponse(Call<AllSkillsResponse> call, Response<AllSkillsResponse> response) {

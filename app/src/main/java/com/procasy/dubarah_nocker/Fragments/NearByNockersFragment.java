@@ -87,8 +87,9 @@ SessionManager sessionManager;
                         .fadeColor(Color.DKGRAY).build();
         dialog.show();
         sessionManager = new SessionManager(getActivity());
+        System.out.println("************************************************************************* nearbynockers");
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<NearByNockerResponse> call = apiService.GetNearByNockers(sessionManager.getEmail(),sessionManager.getPassword());
+        Call<NearByNockerResponse> call = apiService.GetNearByNockers(sessionManager.getEmail(),sessionManager.getUDID(),0);
         call.enqueue(new Callback<NearByNockerResponse>() {
             @Override
             public void onResponse(Call<NearByNockerResponse> call, Response<NearByNockerResponse> response) {

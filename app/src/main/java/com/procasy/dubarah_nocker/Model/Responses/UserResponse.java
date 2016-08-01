@@ -36,6 +36,14 @@ public class UserResponse {
     @SerializedName("user_is_nocker")
     private int user_is_nocker;
 
+    public int getUser_is_nocker() {
+        return user_is_nocker;
+    }
+
+    public void setUser_is_nocker(int user_is_nocker) {
+        this.user_is_nocker = user_is_nocker;
+    }
+
     public int is_nocker() {
         return user_is_nocker;
     }

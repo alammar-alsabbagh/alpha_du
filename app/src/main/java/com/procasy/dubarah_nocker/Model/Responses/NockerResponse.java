@@ -30,6 +30,25 @@ public class NockerResponse {
     @SerializedName("time")
     private String time;
 
+    @SerializedName("user_is_online")
+    private int user_is_online;
+
+    public String getUser_fname() {
+        return user_fname;
+    }
+
+    public void setUser_fname(String user_fname) {
+        this.user_fname = user_fname;
+    }
+
+    public int getUser_is_online() {
+        return user_is_online;
+    }
+
+    public void setUser_is_online(int user_is_online) {
+        this.user_is_online = user_is_online;
+    }
+
     @Override
     public String toString() {
         return "NockerResponse{" +

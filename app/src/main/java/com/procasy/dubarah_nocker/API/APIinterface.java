@@ -26,7 +26,7 @@ public interface APIinterface {
 
     @FormUrlEncoded
     @POST("get_near_by_nocker")
-    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_ud_id") String UDID);
+    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_ud_id") String UDID,@Field("page") int page);
 
     @FormUrlEncoded
     @POST("get_skills")

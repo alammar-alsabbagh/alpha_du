@@ -54,7 +54,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/online_circle"
-                    android:layout_gravity="center_vertical"/>
+                    android:layout_gravity="center_vertical"
+                    android:id="@+id/is_online" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,7 +64,8 @@
                     android:textSize="10dp"
                     android:alpha="0.8"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginBottom="3dp"/>
+                    android:layout_marginBottom="3dp"
+                    android:id="@+id/online_text" />
             </LinearLayout>
 
         </LinearLayout>

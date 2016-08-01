@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.procasy.dubarah_nocker.API.ApiClass;
@@ -31,12 +32,16 @@ public  class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAda
         public final TextView skill_name;
         public final TextView nocker_distance;
         public final CircleImageView circleImageView;
+        public final ImageView is_online;
+        public final TextView is_online_text;
         public ViewHolder(View view) {
             super(view);
             nocker_name = (TextView) view.findViewById(R.id.nocker_name);
             skill_name = (TextView) view.findViewById(R.id.nocker_skill);
             nocker_distance = (TextView) view.findViewById(R.id.nocker_distance);
             circleImageView = (CircleImageView) view.findViewById(R.id.profilePic);
+            is_online = (ImageView) view.findViewById(R.id.is_online);
+            is_online_text = (TextView)view.findViewById(R.id.online_text);
         }
 
         @Override
@@ -72,6 +77,15 @@ public  class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAda
                 .error(R.drawable.profile)
                 .into(holder.circleImageView);
         System.out.println(ApiClass.Pic_Base_URL+mValues.get(position).getUser_img());
+        if(mValues.get(position).getUser_is_online() == 1) {
+            holder.is_online.setImageResource(R.drawable.online_circle);
+            holder.is_online_text.setText("Online");
+        }
+        else {
+            holder.is_online.setImageResource(R.drawable.offline_circle);
+            holder.is_online_text.setText("Offline");
+        }
+
     }
 
     @Override
