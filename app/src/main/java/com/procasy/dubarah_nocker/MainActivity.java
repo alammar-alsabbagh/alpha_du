@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,6 +32,8 @@ import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Services.LocationService;
+
+import java.util.List;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -63,6 +66,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     protected LocationManager locationManager;
     APIinterface apiService;
     SessionManager sessionManager;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,6 +143,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getLocation();
             startService(new Intent(this, LocationService.class));
+        }
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
         }
     }
 
