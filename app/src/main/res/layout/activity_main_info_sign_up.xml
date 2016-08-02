@@ -85,7 +85,6 @@
                         android:textOff="M"
                         android:textColor="@drawable/text_color"
                         android:onClick="onToggle"
-                        android:checked="true"
                         android:id="@+id/sel1"
                         android:textSize="10sp"
                         android:layout_marginLeft="5dp"
@@ -116,6 +115,7 @@
                         android:textColor="@drawable/text_color"
                         android:onClick="onToggle"
                         android:id="@+id/sel3"
+                        android:checked="true"
                         android:textSize="8sp"
                         android:layout_marginBottom="5dp" />
                 </RadioGroup>

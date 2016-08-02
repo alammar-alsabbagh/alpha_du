@@ -52,7 +52,7 @@ public class Skills {
     // OPEN
     public Skills open() throws SQLException {
 
-        Log.e("ahmad", "open");
+       // Log.e("ahmad", "open");
         db = dbHelper.getWritableDatabase();
         return this;
     }
@@ -65,7 +65,7 @@ public class Skills {
     // insert
     public long insertEntry(ContentValues contentValues) {
 
-        Log.e("ahmad", "insert");
+       // Log.e("ahmad", "insert");
         return db.insert(TABLE_NAME, null, contentValues);
     }
 

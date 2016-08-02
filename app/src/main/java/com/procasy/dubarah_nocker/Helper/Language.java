@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 
 public class Language {
@@ -53,7 +52,7 @@ public class Language {
     // OPEN
     public Language open() throws SQLException {
 
-        Log.e("ahmad", "open");
+       // Log.e("ahmad", "open");
         db = dbHelper.getWritableDatabase();
         return this;
     }
@@ -66,7 +65,7 @@ public class Language {
     // insert
     public long insertEntry(ContentValues contentValues) {
 
-        Log.e("ahmad", "insert");
+      //  Log.e("ahmad", "insert");
         return db.insert(TABLE_NAME, null, contentValues);
     }
 
