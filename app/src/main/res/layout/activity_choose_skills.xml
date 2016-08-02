@@ -20,7 +20,36 @@
         android:text="What things \nYou\'re Good At?"
         android:textColor="@color/white"
         android:textSize="25dp" />
+    <EditText
+        android:id="@+id/search_skill_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@id/text"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/search_drawable_combo"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textCursorDrawable="@drawable/red_cursor"
+        android:textSize="25dp"
+        android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@id/search_skill_edit_text"
+        >
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/skill_list"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/search_skill_edit_text"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"></android.support.v7.widget.RecyclerView>
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:zhy="http://schemas.android.com/apk/res-auto"
         android:id="@+id/scroll_view"
@@ -42,36 +71,7 @@
             zhy:max_select="-1"></com.zhy.view.flowlayout.TagFlowLayout>
     </ScrollView>
 
-    <EditText
-        android:id="@+id/search_skill_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_below="@id/scroll_view"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/search_drawable_combo"
-        android:gravity="center"
-        android:singleLine="true"
-        android:textColor="@color/white"
-        android:textCursorDrawable="@drawable/red_cursor"
-        android:textSize="25dp"
-        android:textStyle="bold" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-android:layout_below="@id/search_skill_edit_text"
-        >
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/skill_list"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_below="@id/search_skill_edit_text"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"></android.support.v7.widget.RecyclerView>
 
         <LinearLayout
 

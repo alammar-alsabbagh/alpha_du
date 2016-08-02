@@ -2,6 +2,8 @@ package com.procasy.dubarah_nocker.Activity.BeANocker;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -9,9 +11,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +26,7 @@ import com.procasy.dubarah_nocker.Adapter.AdapterCallback;
 import com.procasy.dubarah_nocker.Adapter.SkillsAdapter;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
+import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.R;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -46,15 +52,12 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
     ArrayList<String> skills = new ArrayList<>();
     private AdapterCallback mAdapterCallback;
     LinearLayout next_btn;
-
+    EditText search_skill_edit_text;
     private List<String> GetChoosenSkilles()
     {
         Log.e("chosenskilles",chosenSkills.toString());
-
         Log.e("Email",sessionManager.getEmail());
         Log.e("UDID",sessionManager.getUDID());
-
-
         return chosenSkills;
     }
 
@@ -71,6 +74,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
         skill_list = (RecyclerView) findViewById(R.id.skill_list);
         chosen_skills = (TagFlowLayout) findViewById(R.id.chosen_skills);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
+        search_skill_edit_text = (EditText) findViewById(R.id.search_skill_edit_text);
         this.mAdapterCallback = ((AdapterCallback) this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -86,8 +90,8 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
                 GetChoosenSkilles();
 
-             //   startActivity(new Intent(getApplicationContext(), MainActivity.class));
-              //  finish();
+              startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
             }
         });
         chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
@@ -129,6 +133,34 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
             }
         });
 
+        search_skill_edit_text.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+                mskills.open();
+                Cursor cursor = mskills.filterSkills(s.toString());
+                cursor.moveToFirst();
+                ArrayList<String> names = new ArrayList<String>();
+                while(!cursor.isAfterLast()) {
+                    names.add(cursor.getString(cursor.getColumnIndex("skill_name")));
+                    cursor.moveToNext();
+                }
+                cursor.close();
+                mskills.close();
+                for (String aa:names
+                     ) {
+                    System.out.println("filter result : "+aa);
+                }
+                skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), names, mAdapterCallback));
+            }
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
+                System.out.println("On Change :   "+s.toString());
+
+            }
+        });
 
 
         final ACProgressFlower dialog = new ACProgressFlower.Builder(this)
@@ -182,7 +214,6 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
             }
 
         });
-
         GetChoosenSkilles();
 
     }

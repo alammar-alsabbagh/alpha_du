@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 
 public class Skills {
@@ -86,9 +85,18 @@ public class Skills {
     public Cursor getAllEntries() {
         Cursor d = db.query(TABLE_NAME, all,
                 null, null, null, null, null);
-
         return d;
     }
+
+    public Cursor filterSkills(String input) {
+        // Select All Query
+        Cursor d = db.query(true, TABLE_NAME, all , COL_skillname + " LIKE ?",
+                new String[] { input+"%" }, null, null, null,
+                null);
+        return d;
+    }
+
+
 
     public Object getEntry(long _rowIndex) {
 

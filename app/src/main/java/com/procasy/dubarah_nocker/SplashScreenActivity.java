@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 
 public class SplashScreenActivity extends Activity {
     private static int SPLASH_TIME_OUT = 3000;
@@ -13,8 +15,9 @@ public class SplashScreenActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_splash_screen);
-sessionManager = new SessionManager(this);
+        sessionManager = new SessionManager(this);
 
         new Handler().postDelayed(new Runnable() {
 

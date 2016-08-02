@@ -329,7 +329,7 @@ public class PhotoSignUp extends AppCompatActivity {
 
     private void galleryIntent() {
 
-
+/*
         try {
 
             Intent cropIntent = new Intent("com.android.camera.action.CROP");
@@ -353,14 +353,14 @@ public class PhotoSignUp extends AppCompatActivity {
             String errorMessage = "Whoops - your device doesn't support the crop action!";
             Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
             toast.show();
-        }
+        }*/
 
 
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);//
-//        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
-//
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);//
+        startActivityForResult(Intent.createChooser(intent, "Select File"), SELECT_FILE);
+
     }
 
     private void cameraIntent() {

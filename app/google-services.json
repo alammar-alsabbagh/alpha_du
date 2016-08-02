@@ -1,0 +1,51 @@
+{
+  "project_info": {
+    "project_number": "1056446251292",
+    "project_id": "alpha-nocker"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1056446251292:android:ea164726916b2f97",
+        "android_client_info": {
+          "package_name": "com.procasy.dubarah_nocker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1056446251292-iqei68jaj7sgp45v1v7ns8755regfn9v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.procasy.dubarah_nocker",
+            "certificate_hash": "6D7F2A9EC81675DB8ED07159A139CE20A5259894"
+          }
+        },
+        {
+          "client_id": "1056446251292-cvrrrj3bn961f8q6eelisk7ktms7jnmf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQAKk6Lzy3LUn2FTtcW2D07mfzYCx9re8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 2,
+          "analytics_property": {
+            "tracking_id": "UA-81723753-1"
+          }
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

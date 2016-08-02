@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,22 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.ProfileTracker;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.linkedin.platform.APIHelper;
 import com.linkedin.platform.LISessionManager;
 import com.linkedin.platform.errors.LIApiError;
@@ -42,12 +59,14 @@ import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
+import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.List;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
@@ -72,8 +91,12 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     LinearLayout linearLayout;
 
     ImageView linkedIn, facebook, twitter, googleplus;
-
+    int RC_SIGN_IN = 1;
     String UDID;
+    GoogleSignInOptions gso;
+    GoogleApiClient mGoogleApiClient;
+    private CallbackManager callbackManager;
+    private ProfileTracker profileTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +122,96 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         setupWindowAnimations();
         printKeyHash(LoginActivity.this);
         linkedIn.setOnClickListener(this);
+        googleplus.setOnClickListener(this);
+        facebook.setOnClickListener(this);
         marshmallowPhoneStatePremissionCheck();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, new GoogleApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+                    }
+                } /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        AppEventsLogger.activateApp(this);
+
+        callbackManager = CallbackManager.Factory.create();
+
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        GraphRequest request = GraphRequest.newMeRequest(
+                                loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        Log.v("LoginActivity", response.toString());
+                                        JSONObject objectFace = response.getJSONObject();
+                                        try {
+                                            String Email = objectFace.getString("email");
+                                            String first_name = objectFace.getString("first_name");
+                                            String last_name = objectFace.getString("last_name");
+                                            String gender = objectFace.getString("gender");
+                                            String birthday = objectFace.getString("birthday");
+                                            JSONObject picture = objectFace.getJSONObject("picture");
+                                            JSONObject data = picture.getJSONObject("data");
+                                            String pic_url = data.getString("url");
+                                            Call<SocialSignupResponse> call = apiService.SocialSignup(Email,first_name,last_name,UDID,"facebook",gender,pic_url,birthday);
+                                            call.enqueue(new Callback<SocialSignupResponse>() {
+                                                @Override
+                                                public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
+                                                    System.out.println(response.body().getMessage());
+                                                }
+
+                                                @Override
+                                                public void onFailure(Call<SocialSignupResponse> call, Throwable t) {
+
+                                                }
+                                            });
+
+
+
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                        // Application code
+                                        try {
+                                            String email = object.getString("email");
+                                            String birthday = object.getString("birthday");
+                                            // 01/31/1980 format
+
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+                        Bundle parameters = new Bundle();
+                        parameters.putString("fields", "id,first_name,last_name,email,gender,birthday,picture");
+                        request.setParameters(parameters);
+                        request.executeAsync();
+
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(LoginActivity.this, "Login Cancel", Toast.LENGTH_LONG).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException exception) {
+                        Toast.makeText(LoginActivity.this, exception.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
 
     }
 
@@ -115,6 +227,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         login = (Button) findViewById(R.id.login);
         linearLayout = (LinearLayout) findViewById(R.id.linear);
         linkedIn = (ImageView) findViewById(R.id.linkedin);
+        googleplus = (ImageView)findViewById(R.id.googleplus);
+        facebook = (ImageView) findViewById(R.id.facebook);
     }
 
 
@@ -305,6 +419,17 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 }, true);
                 break;
             }
+            case R.id.googleplus:
+            {
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+                break;
+            }
+            case R.id.facebook:
+            {
+                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends","email","user_birthday"));
+                break;
+            }
         }
     }
 
@@ -331,4 +456,37 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             Log.e("UDID Marshmelo :D ", UDID);
         }
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+        else
+        {
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d("Google Plus", "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            Log.e("Googel Plus Data : ",acct.getEmail()+"  "+acct.getPhotoUrl()+"   "+acct.getFamilyName()+acct.getGivenName());
+           /* updateUI(true);*/
+        } else {
+            // Signed out, show unauthenticated UI.
+/*
+            updateUI(false);
+*/
+        }
+    }
+
+
+
 }
