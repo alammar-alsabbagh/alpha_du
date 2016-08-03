@@ -15,6 +15,24 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- GCM requires a Google account. -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+
+    <!-- Keeps the processor from sleeping when a message is received. -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <permission
+        android:name="com.procasy.dubarah_nocker.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.procasy.dubarah_nocker.permission.C2D_MESSAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <!-- This app has permission to register and receive data message. -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
 
     <application
@@ -22,6 +40,7 @@
         android:icon="@drawable/icon_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:name=".app.MyApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
@@ -55,6 +74,11 @@
         <activity
             android:name=".Activity.BeANocker.ChooseSkillsActivity"
             android:windowSoftInputMode="stateVisible|adjustNothing">
+
+        </activity>
+        <activity
+            android:name=".Activity.BeANocker.ChooseLanguagesActivity"
+            android:windowSoftInputMode="stateVisible|adjustNothing">
         </activity>
         <activity android:name=".Activity.Nocker.MyProfileActivity">
 
@@ -65,6 +89,37 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name" />
         <service android:name=".Services.LocationService" />
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+
+                <category android:name="com.mxn.soul.flowingdrawer" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".gcm.MyGcmPushReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".gcm.GCMIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID" />
+            </intent-filter>
+        </service>
+        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="259a40416f4d8f3455b4a2df8d67315570e2d11d" />

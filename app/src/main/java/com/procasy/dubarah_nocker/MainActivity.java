@@ -13,7 +13,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -32,8 +31,6 @@ import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Services.LocationService;
-
-import java.util.List;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -67,7 +64,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     APIinterface apiService;
     SessionManager sessionManager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,11 +92,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(), sessionManager.getUDID());
+        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(),sessionManager.getUDID());
         call.enqueue(new Callback<InfoNockerResponse>() {
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
-                //     System.out.println(response.body().getUser().toString());
+           //     System.out.println(response.body().getUser().toString());
                 sessionManager.setEmail(response.body().getUser().getUser_email());
                 sessionManager.setFName(response.body().getUser().getUser_fname());
                 sessionManager.setLName(response.body().getUser().getUser_lname());
@@ -143,13 +139,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             getLocation();
             startService(new Intent(this, LocationService.class));
         }
-
-        List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments != null) {
-            for (Fragment fragment : fragments) {
-                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
-        }
     }
 
     public Location getLocation() {
@@ -162,7 +151,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             // getting network status
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
             } else {
@@ -219,10 +207,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                     5);
         } else {
 
-//            Log.e("Loction", getLocation().toString());
+       //     Log.e("Loction", getLocation().toString());
             startService(new Intent(this, LocationService.class));
-
-            //   gps functions.
         }
     }
 
@@ -245,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
-
+    
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
         // Setting Dialog Title

@@ -25,8 +25,9 @@ import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Adapter.AdapterCallback;
 import com.procasy.dubarah_nocker.Adapter.SkillsAdapter;
+import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
-import com.procasy.dubarah_nocker.Helper.Skills;
+import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 import com.procasy.dubarah_nocker.R;
@@ -45,82 +46,80 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCallback {
+public class ChooseLanguagesActivity extends AppCompatActivity implements AdapterCallback {
 
-    Skills mskills;
+    Language mLanguage;
     SessionManager sessionManager;
-    RecyclerView skill_list;
-    TagFlowLayout chosen_skills;
-    ArrayList<String> chosenSkills = new ArrayList<>();
-    ArrayList<String> skills = new ArrayList<>();
+    RecyclerView languages_list;
+    TagFlowLayout chosen_languages;
+    ArrayList<String> chosenLanguages = new ArrayList<>();
+    ArrayList<String> languages = new ArrayList<>();
     private AdapterCallback mAdapterCallback;
     LinearLayout next_btn;
     EditText search_skill_edit_text;
     private APIinterface apiService;
 
-    private JSONArray GetChoosenSkilles()
+    private JSONArray GetChoosenLangages()
     {
-        Log.e("chosenskilles",chosenSkills.toString());
-        Log.e("Email",sessionManager.getEmail());
-        Log.e("UDID",sessionManager.getUDID());
-        ArrayList<Integer> skills_id = new ArrayList<>();
-        for (String s:chosenSkills) {
-            mskills.open();
-            Cursor cursor = mskills.getSingleSkill(s.toString());
+        ArrayList<Integer> languages_ids = new ArrayList<>();
+        for (String s:chosenLanguages) {
+            mLanguage.open();
+            Cursor cursor = mLanguage.getSingleLanguage(s.toString());
             cursor.moveToFirst();
             while(!cursor.isAfterLast()) {
-                skills_id.add(cursor.getInt(cursor.getColumnIndex("skill_id")));
+                languages_ids.add(cursor.getInt(cursor.getColumnIndex("language_id")));
                 cursor.moveToNext();
             }
             cursor.close();
-            mskills.close();
-            }
-        Log.e("chosenskilles_ids",skills_id.toString());
-        Log.e("chosenskilles",chosenSkills.toString());
+            mLanguage.close();
+        }
+        Log.e("languages_ids",languages_ids.toString());
+        Log.e("choosenLanguages",chosenLanguages.toString());
         Log.e("Email",sessionManager.getEmail());
         Log.e("UDID",sessionManager.getUDID());
         JSONArray array = new JSONArray();
-        for (Integer skill_id:skills_id) {
-            array.put(skill_id);
+        for (Integer language_id:languages_ids) {
+            array.put(language_id);
         }
 
         return array;
     }
 
-    private List<String> GetAllSkills()
+    private List<String> GetAllLanguages()
     {
-        return skills;
+        return languages;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_choose_skills);
-        skill_list = (RecyclerView) findViewById(R.id.skill_list);
-        chosen_skills = (TagFlowLayout) findViewById(R.id.chosen_skills);
+        setContentView(R.layout.activity_choose_languages);
+        languages_list = (RecyclerView) findViewById(R.id.skill_list);
+        chosen_languages = (TagFlowLayout) findViewById(R.id.chosen_skills);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
         search_skill_edit_text = (EditText) findViewById(R.id.search_skill_edit_text);
         this.mAdapterCallback = ((AdapterCallback) this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        skill_list.setLayoutManager(linearLayoutManager);
-        skill_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
+        languages_list.setLayoutManager(linearLayoutManager);
+        languages_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
         sessionManager = new SessionManager(this);
-        mskills = new Skills(this);
+        mLanguage = new Language(this);
+        chosenLanguages.add(new String("English"));
+        chosenLanguages.add(new String("French"));
 
         apiService =
                 ApiClass.getClient().create(APIinterface.class);
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<SocialSignupResponse> call = apiService.AddUserSkill(sessionManager.getEmail(),sessionManager.getUDID(),GetChoosenSkilles());
+                Call<SocialSignupResponse> call = apiService.AddUserLanguages(sessionManager.getEmail(),sessionManager.getUDID(),GetChoosenLangages());
                 call.enqueue(new Callback<SocialSignupResponse>() {
                     @Override
                     public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
                         if (response.body().getStatus() == 1) // new user
                         {
-                            startActivity(new Intent(getApplicationContext(), ChooseLanguagesActivity.class));
+                            startActivity(new Intent(getApplicationContext(), MainActivity.class));
                             finish();
 
                         } else /// old user
@@ -137,37 +136,35 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
             }
         });
-        chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
+        chosen_languages.setAdapter(new TagAdapter<String>(chosenLanguages)
         {
             @Override
             public View getView(FlowLayout parent, final int position, String s)
             {
-                LinearLayout tv = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.one_skill_item,
-                        chosen_skills, false);
-
+                LinearLayout tv = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.one_skill_item, chosen_languages, false);
                 Log.e("POSISTION",position+"");
                 TextView textView = (TextView) tv.findViewById(R.id.skill_name);
-                textView.setText(chosenSkills.get(position));
+                textView.setText(chosenLanguages.get(position));
                 return tv;
             }
         });
 
-        chosen_skills.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+        chosen_languages.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
-                skills.add(chosenSkills.get(position));
-                skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), skills, mAdapterCallback));
-                chosenSkills.remove(position);
-                chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
+                languages.add(chosenLanguages.get(position));
+                languages_list.setAdapter(new SkillsAdapter(getApplicationContext(), languages, mAdapterCallback));
+                chosenLanguages.remove(position);
+                chosen_languages.setAdapter(new TagAdapter<String>(chosenLanguages)
                 {
                     @Override
                     public View getView(FlowLayout parent, final int position, String s)
                     {
                         LinearLayout tv = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.one_skill_item,
-                                chosen_skills, false);
+                                chosen_languages, false);
                         Log.e("POSISTION",position+"");
                         TextView textView = (TextView) tv.findViewById(R.id.skill_name);
-                        textView.setText(chosenSkills.get(position));
+                        textView.setText(chosenLanguages.get(position));
                         return tv;
                     }
                 });
@@ -179,8 +176,8 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
         search_skill_edit_text.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                mskills.open();
-                Cursor cursor = mskills.filterSkills(s.toString());
+                mLanguage.open();
+                Cursor cursor = mLanguage.filterLanguages(s.toString());
                 cursor.moveToFirst();
                 ArrayList<String> names = new ArrayList<String>();
                 while(!cursor.isAfterLast()) {
@@ -188,12 +185,12 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
                     cursor.moveToNext();
                 }
                 cursor.close();
-                mskills.close();
+                mLanguage.close();
                 for (String aa:names
                      ) {
                     System.out.println("filter result : "+aa);
                 }
-                skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), names, mAdapterCallback));
+                languages_list.setAdapter(new SkillsAdapter(getApplicationContext(), names, mAdapterCallback));
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -201,7 +198,6 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
                 System.out.println("On Change :   "+s.toString());
-
             }
         });
 
@@ -221,27 +217,26 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
             @Override
             public void onResponse(Call<AllSkillsAndLanguageResponse> call, Response<AllSkillsAndLanguageResponse> response) {
 
-                mskills.open();
-                Log.e("remove state ", mskills.removeAllEntry() + "");
+                mLanguage.open();
+                Log.e("remove state ", mLanguage.removeAllEntry() + "");
 
-                skills.clear();
+                languages.clear();
                 try {
                     for (int i = 0; i < response.body().getAllSkills().size(); i++) {
                         ContentValues contentValues = new ContentValues();
-                        contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
-                        contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
-                        contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
-                        long state = mskills.insertEntry(contentValues);
+                        contentValues.put(Language.COL_language_name, response.body().getAllLanguage().get(i).getLang_name());
+                        contentValues.put(Language.COL_language_Id, response.body().getAllLanguage().get(i).getlang_id());
+                        long state = mLanguage.insertEntry(contentValues);
                         Log.e("insert state ", state + "");
-                        skills.add(response.body().getAllSkills().get(i).getSkill_name());
+                        languages.add(response.body().getAllLanguage().get(i).getLang_name());
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 finally {
-                    mskills.close();
-                    skills = new ArrayList<String>(GetAllSkills());
-                    skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), skills, mAdapterCallback));
+                    mLanguage.close();
+                    languages = new ArrayList<String>(GetAllLanguages());
+                    languages_list.setAdapter(new SkillsAdapter(getApplicationContext(), languages, mAdapterCallback));
                 }
 
 
@@ -257,22 +252,22 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
             }
 
         });
-        GetChoosenSkilles();
+        GetChoosenLangages();
 
     }
 
     @Override
     public void onMethodCallback(String s) {
-        chosenSkills.add(new String(s));
-        chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
+        chosenLanguages.add(new String(s));
+        chosen_languages.setAdapter(new TagAdapter<String>(chosenLanguages)
         {
             @Override
             public View getView(FlowLayout parent, int position, String s)
             {
                 LinearLayout tv = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.one_skill_item,
-                        chosen_skills, false);
+                        chosen_languages, false);
                 TextView textView = (TextView) tv.findViewById(R.id.skill_name);
-                textView.setText(chosenSkills.get(position));
+                textView.setText(chosenLanguages.get(position));
                 return tv;
             }
         });

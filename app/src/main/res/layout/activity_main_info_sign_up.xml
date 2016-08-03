@@ -100,7 +100,6 @@
                         android:textOff="F"
                         android:textColor="@drawable/text_color"
                         android:onClick="onToggle"
-
                         android:id="@+id/sel2"
                         android:textSize="10sp"
                         android:layout_marginRight="5dp"
