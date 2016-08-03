@@ -38,12 +38,16 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.API.ServiceGenerator;
+import com.procasy.dubarah_nocker.API.Uploadimage;
 import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
+import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Services.LocationService;
+import com.procasy.dubarah_nocker.Utils.FileUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,10 +55,16 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,20 +82,21 @@ public class AskForHelpFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
-    ImageView img1 , img2 , img3;
+    ImageView img1, img2, img3;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     ImageView take, browse;
     ImageView reord, start, stop;
     String FilePath = new String("");
+    List<String> allimages = new ArrayList<>();
     private MediaRecorder myAudioRecorder;
     ProgressBar progressBar;
-    private String outputFile = null;
-    Button where;
+    private String outputFile = "";
+    Button where, request;
     ArrayAdapter<String> adapter;
     ArrayAdapter<String> adapter2;
     List<String> skills_list;
     List<String> language_list;
-    private int PLACE_PICKER_REQUEST = 1;
+    private int PLACE_PICKER_REQUEST = 10;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     SessionManager sessionManager;
@@ -147,7 +158,6 @@ public class AskForHelpFragment extends Fragment {
                 myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
                 myAudioRecorder.setOutputFile(outputFile);
 
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -162,7 +172,11 @@ public class AskForHelpFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_ask_for_help, container, false);
         sessionManager = new SessionManager(getActivity());
 
-        img1 = (ImageView)view.findViewById(R.id.img1);
+        img1 = (ImageView) view.findViewById(R.id.img1);
+        img2 = (ImageView) view.findViewById(R.id.img2);
+        img3 = (ImageView) view.findViewById(R.id.img3);
+
+        request = (Button) view.findViewById(R.id.request);
         take = (ImageView) view.findViewById(R.id.take_picture);
         browse = (ImageView) view.findViewById(R.id.browser_apicture);
         language = (AutoCompleteTextView) view.findViewById(R.id.language);
@@ -179,9 +193,53 @@ public class AskForHelpFragment extends Fragment {
         stop.setEnabled(false);
         start.setEnabled(false);
 
+        request.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                uploadFile(null);
+
+            }
+        });
+
         take.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (Build.VERSION.SDK_INT >= 23) {
+                    // Here, thisActivity is the current activity
+                    if (ContextCompat.checkSelfPermission(getActivity(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED) {
+
+                        // Should we show an explanation?
+                        if (shouldShowRequestPermissionRationale(
+                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+
+                            // Show an expanation to the user *asynchronously* -- don't block
+                            // this thread waiting for the user's response! After the user
+                            // sees the explanation, try again to request the permission.
+
+                        } else {
+
+                            // No explanation needed, we can request the permission.
+
+                            requestPermissions(
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    1);
+
+                            // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+                            // app-defined int constant. The callback method gets the
+                            // result of the request.
+                        }
+                    } else {
+                        requestPermissions(
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                    }
+                } else {
+                    cameraIntent();
+                }
+
 
             }
         });
@@ -266,21 +324,21 @@ public class AskForHelpFragment extends Fragment {
                 }
             }
         });
-        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + "/recording.3gp";
-
 
         reord.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 try {
 
                     try {
-
-
                         requestPermissions(
                                 new String[]{Manifest.permission.RECORD_AUDIO,
                                         Manifest.permission.WRITE_EXTERNAL_STORAGE},
                                 52);
+
+
+                        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + System.currentTimeMillis() + ".3gp";
 
                         myAudioRecorder = new MediaRecorder();
                         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -586,14 +644,183 @@ public class AskForHelpFragment extends Fragment {
             try {
                 bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
                 final Uri imageUri = data.getData();
+
+
                 FilePath = getPath(getActivity(), imageUri);
+                allimages.add(getPath(getActivity(), imageUri));
+
                 System.out.println(FilePath);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        img1.setImageBitmap(bm);
+        Log.e("AllImages", allimages.toString());
+
+
+        if (img1.getTag().equals("empty")) {
+            Log.e("Empty", "Success");
+            img1.setTag("fill");
+            img1.setImageBitmap(bm);
+            return;
+        }
+
+        if (img2.getTag().equals("empty")) {
+            img2.setTag("fill");
+            Log.e("Empty", "Success");
+            img2.setImageBitmap(bm);
+            return;
+        }
+        if (img3.getTag().equals("empty")) {
+            img3.setTag("fill");
+            Log.e("Empty", "Success");
+            img3.setImageBitmap(bm);
+            return;
+        }
+
+
+    }
+
+
+    private void uploadFile(Uri fileUri) {
+
+        // image/*
+        //text/plain
+        //multipart/form-data
+
+        File voice_file;
+
+
+        File img1_file = null, img2_file = null, img3_file = null;
+
+        RequestBody voice_request_file,
+                img1_request_file,
+                img2_request_file,
+                img3_request_file;
+
+        MultipartBody.Part body_voice, body_img1, body_img2, body_img3;
+
+        if (outputFile.equals("")) {
+            voice_file = null;
+        } else {
+            voice_file = new File(outputFile);
+        }
+
+
+        if (allimages.size() == 0) {
+
+            img1_file = null;//new File("");
+            img2_file = null;//new File("");
+            img3_file = null;//new File("");
+
+        }
+
+        if (allimages.size() == 1) {
+            img1_file = new File(allimages.get(0));
+            img2_file = null;//new File("");
+            img3_file = null;//new File("");
+        }
+
+        if (allimages.size() == 2) {
+            img1_file = new File(allimages.get(0));
+            img2_file = new File(allimages.get(1));
+            img3_file = null;//new File("");
+        }
+
+        if (allimages.size() == 3) {
+            img1_file = new File(allimages.get(0));
+            img2_file = new File(allimages.get(1));
+            img3_file = new File(allimages.get(2));
+        }
+
+
+        if (voice_file != null) {
+            voice_request_file = RequestBody.create(MediaType.parse("multipart/form-data"), voice_file);
+            body_voice =
+                    MultipartBody.Part.createFormData("hr_voice_record", voice_file.getName(), voice_request_file);
+            Log.e("Voice", "Success");
+
+        } else {
+            voice_request_file = null;
+            body_voice = null;
+            Log.e("Voice", "Faild");
+
+        }
+
+        if (img1_file != null) {
+            img1_request_file = RequestBody.create(MediaType.parse("multipart/form-data"), img1_file);
+            body_img1 =
+                    MultipartBody.Part.createFormData("img1", img1_file.getName(), img1_request_file);
+
+        } else {
+            img1_request_file = null;
+            body_img1 = null;
+        }
+        if (img2_file != null) {
+            img2_request_file = RequestBody.create(MediaType.parse("multipart/form-data"), img2_file);
+            body_img2 =
+                    MultipartBody.Part.createFormData("img2", img1_file.getName(), img2_request_file);
+        } else {
+            img2_request_file = null;
+            body_img2 = null;
+        }
+        if (img3_file != null) {
+            img3_request_file = RequestBody.create(MediaType.parse("multipart/form-data"), img3_file);
+            body_img3 =
+                    MultipartBody.Part.createFormData("img3", img3_file.getName(), img3_request_file);
+        } else {
+            img3_request_file = null;
+            body_img3 = null;
+        }
+
+        RequestBody str_email = RequestBody.create(MediaType.parse("multipart/form-data"), sessionManager.getEmail());
+
+        RequestBody str_udid = RequestBody.create(MediaType.parse("multipart/form-data"), sessionManager.getUDID());
+
+        RequestBody str_skill_id = RequestBody.create(MediaType.parse("multipart/form-data"), "5");
+
+        RequestBody str_language = RequestBody.create(MediaType.parse("multipart/form-data"), "5");
+
+        RequestBody str_descr = RequestBody.create(MediaType.parse("multipart/form-data"), "5dkjfskldfjklsd");
+
+        RequestBody str_est_date = RequestBody.create(MediaType.parse("multipart/form-data"), "2013-03-03");
+
+        RequestBody str_est_time = RequestBody.create(MediaType.parse("multipart/form-data"), "10:34:34");
+
+
+        APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
+        Call<ResponseBody> call = apiService.AskForHelp(
+                body_voice
+                , str_email,
+                str_udid,
+                str_skill_id, str_language,
+                str_descr
+                , str_est_date, str_est_time,
+                body_img1,
+                body_img2, body_img3);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+
+                    Log.e("response", "successs " + response.body().string());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("here 2" + t.toString());
+
+            }
+
+        });
+
+
     }
 
 
@@ -604,9 +831,12 @@ public class AskForHelpFragment extends Fragment {
 
         if (requestCode == PLACE_PICKER_REQUEST) {
             if (resultCode == getActivity().RESULT_OK) {
-                Place place = PlacePicker.getPlace(data, getActivity());
-                //String toastMsg = String.format("Place: %s", place.getName());
-                where.setText(place.getName());
+                if (requestCode == PLACE_PICKER_REQUEST) {
+                    Place place = PlacePicker.getPlace(data, getActivity());
+                    //String toastMsg = String.format("Place: %s", place.getName());
+                    where.setText(place.getName());
+
+                }
                 //Toast.makeText(getActivity(), toastMsg, Toast.LENGTH_LONG).show();
             }
         }
@@ -621,7 +851,6 @@ public class AskForHelpFragment extends Fragment {
     }
 
 
-
     private void onCaptureImageResult(Intent data) {
 
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
@@ -631,6 +860,7 @@ public class AskForHelpFragment extends Fragment {
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
         FilePath = destination.getAbsolutePath();
+        allimages.add(destination.getAbsolutePath());
         System.out.println(FilePath);
         FileOutputStream fo;
         try {
@@ -644,7 +874,28 @@ public class AskForHelpFragment extends Fragment {
             e.printStackTrace();
         }
 
-        img1.setImageBitmap(thumbnail);
+        Log.e("AllImages", allimages.toString());
+
+        if (img1.getTag().equals("empty")) {
+            img1.setImageBitmap(thumbnail);
+            img1.setTag("fill");
+            Log.e("Empty", "success");
+            return;
+        }
+
+        if (img2.getTag().equals("empty")) {
+            img2.setImageBitmap(thumbnail);
+            img2.setTag("fill");
+            Log.e("Empty", "success");
+            return;
+        }
+        if (img3.getTag().equals("empty")) {
+            img3.setTag("fill");
+            img3.setImageBitmap(thumbnail);
+            Log.e("Empty", "success");
+            return;
+        }
+
 
     }
 
@@ -676,7 +927,6 @@ public class AskForHelpFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
 
 
     public static String getDataColumn(Context context, Uri uri, String selection,

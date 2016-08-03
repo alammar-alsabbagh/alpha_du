@@ -8,10 +8,18 @@ import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 
 /**
  * Created by Omar on 6/21/2016.
@@ -19,7 +27,7 @@ import retrofit2.http.POST;
 public interface APIinterface {
     @FormUrlEncoded
     @POST("login")
-    Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password,@Field("user_ud_id") String UDID);
+    Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password, @Field("user_ud_id") String UDID);
 
     @FormUrlEncoded
     @POST("get_info_nocker")
@@ -27,7 +35,7 @@ public interface APIinterface {
 
     @FormUrlEncoded
     @POST("get_near_by_nocker")
-    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_ud_id") String UDID,@Field("page") int page);
+    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_ud_id") String UDID, @Field("page") int page);
 
     @FormUrlEncoded
     @POST("get_skills")
@@ -36,21 +44,22 @@ public interface APIinterface {
     @FormUrlEncoded
     @POST("update_user_location")
     Call<LocationResponse> UpdateLocation(@Field("user_email") String email,
-                                          @Field("user_ud_id") String UDID ,
-                                          @Field("user_lat") String lat ,
+                                          @Field("user_ud_id") String UDID,
+                                          @Field("user_lat") String lat,
                                           @Field("user_lon") String lon
-                                          );
+    );
+
     @FormUrlEncoded
     @POST("check_unique")
-    Call<CheckResponse> CheckUnique(   @Field("table") String table,
-                                       @Field("column") String column ,
-                                       @Field("value") String value
+    Call<CheckResponse> CheckUnique(@Field("table") String table,
+                                    @Field("column") String column,
+                                    @Field("value") String value
     );
 
     @FormUrlEncoded
     @POST("check_valid")
-    Call<CheckResponse> CheckUnique(   @Field("user_email") String table,
-                                       @Field("social") String column
+    Call<CheckResponse> CheckUnique(@Field("user_email") String table,
+                                    @Field("social") String column
     );
 
     @FormUrlEncoded
@@ -64,6 +73,23 @@ public interface APIinterface {
                                             @Field("user_img") String user_img,
                                             @Field("user_birthday") String user_birthday
     );
+
+
+    @Multipart
+    @POST("ask_for_help")
+    Call<ResponseBody> AskForHelp
+            (@Part MultipartBody.Part hr_voice_record,
+             @Part("user_email") RequestBody user_email,
+             @Part("user_ud_id") RequestBody user_ud_id,
+             @Part("hr_skill_id") RequestBody hr_skill_id,
+             @Part("hr_language") RequestBody hr_language,
+             @Part("hr_description") RequestBody hr_description,
+             @Part("hr_est_date") RequestBody hr_est_date,
+             @Part("hr_est_time") RequestBody hr_est_time,
+             @Part MultipartBody.Part img1,
+             @Part MultipartBody.Part img2,
+             @Part MultipartBody.Part img3
+            );
 
 
 }

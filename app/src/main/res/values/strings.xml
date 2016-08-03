@@ -17,6 +17,8 @@
         <item>@string/nav_item_notifications</item>
     </string-array>
 
+    <string name="internal_storage">Internal storage</string>
+
     <string name="title_messages">Messages</string>
     <string name="title_friends">Friends</string>
 

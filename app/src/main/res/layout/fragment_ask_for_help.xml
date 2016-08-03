@@ -105,6 +105,7 @@
 
                     <ImageView
                         android:id="@+id/img1"
+                        android:tag="empty"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_margin="5dp"
@@ -112,12 +113,14 @@
 
                     <ImageView
                         android:id="@+id/img2"
+                        android:tag="empty"
                         android:layout_width="80dp"
                         android:layout_height="80dp"
                         android:layout_margin="5dp"
                         android:src="@drawable/gallery_place_holder" />
 
                     <ImageView
+                        android:tag="empty"
                         android:id="@+id/img3"
                         android:layout_width="80dp"
                         android:layout_height="80dp"

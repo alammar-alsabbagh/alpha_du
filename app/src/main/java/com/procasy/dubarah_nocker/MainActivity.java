@@ -68,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     SessionManager sessionManager;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,11 +96,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(),sessionManager.getUDID());
+        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(), sessionManager.getUDID());
         call.enqueue(new Callback<InfoNockerResponse>() {
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
-           //     System.out.println(response.body().getUser().toString());
+                //     System.out.println(response.body().getUser().toString());
                 sessionManager.setEmail(response.body().getUser().getUser_email());
                 sessionManager.setFName(response.body().getUser().getUser_fname());
                 sessionManager.setLName(response.body().getUser().getUser_lname());
@@ -163,6 +162,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             // getting network status
             isNetworkEnabled = locationManager
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // no network provider is enabled
             } else {
@@ -219,7 +219,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                     5);
         } else {
 
-            Log.e("Loction", getLocation().toString());
+//            Log.e("Loction", getLocation().toString());
             startService(new Intent(this, LocationService.class));
 
             //   gps functions.
@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
-    
+
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
         // Setting Dialog Title
