@@ -10,10 +10,15 @@ import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 
 import org.json.JSONArray;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 
 /**
  * Created by Omar on 6/21/2016.
@@ -81,5 +86,23 @@ public interface APIinterface {
                                                 @Field("user_ud_id") String user_ud_id,
                                                 @Field("langs")JSONArray skills
     );
+
+
+
+    @Multipart
+    @POST("ask_for_help")
+    Call<ResponseBody> AskForHelp
+            (@Part MultipartBody.Part hr_voice_record,
+             @Part("user_email") RequestBody user_email,
+             @Part("user_ud_id") RequestBody user_ud_id,
+             @Part("hr_skill_id") RequestBody hr_skill_id,
+             @Part("hr_language") RequestBody hr_language,
+             @Part("hr_description") RequestBody hr_description,
+             @Part("hr_est_date") RequestBody hr_est_date,
+             @Part("hr_est_time") RequestBody hr_est_time,
+             @Part MultipartBody.Part img1,
+             @Part MultipartBody.Part img2,
+             @Part MultipartBody.Part img3
+            );
 
 }
