@@ -96,6 +96,13 @@ public class Skills {
         return d;
     }
 
+    public Cursor getSingleSkill(String input)
+    {
+        Cursor c = db.rawQuery("SELECT skill_id from skills " +
+                "where skill_name = '"+input+"'", null);
+        return c;
+    }
+
 
 
     public Object getEntry(long _rowIndex) {

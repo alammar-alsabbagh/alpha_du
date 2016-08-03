@@ -207,10 +207,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                     5);
         } else {
 
-            Log.e("Loction", getLocation().toString());
+       //     Log.e("Loction", getLocation().toString());
             startService(new Intent(this, LocationService.class));
-
-            //   gps functions.
         }
     }
 

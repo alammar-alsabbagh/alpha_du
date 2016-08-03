@@ -101,7 +101,19 @@ public class Language {
         // TODO fill in the ContentValue based on the new object
         return db.update(TABLE_NAME, contentValues, where, null);
     }
-
+    public Cursor getSingleLanguage(String input)
+    {
+        Cursor c = db.rawQuery("SELECT language_id from language " +
+                "where language_name = '"+input+"'", null);
+        return c;
+    }
+    public Cursor filterLanguages(String input) {
+        // Select All Query
+        Cursor d = db.query(true, TABLE_NAME, all , COL_language_name + " LIKE ?",
+                new String[] { input+"%" }, null, null, null,
+                null);
+        return d;
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
     private static class myDbHelper extends SQLiteOpenHelper {

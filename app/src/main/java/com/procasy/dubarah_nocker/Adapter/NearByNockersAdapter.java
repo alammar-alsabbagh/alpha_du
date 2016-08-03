@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Model.Responses.NockerResponse;
@@ -34,7 +35,7 @@ public  class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAda
         public final CircleImageView circleImageView;
         public final ImageView is_online;
         public final TextView is_online_text;
-        public ViewHolder(View view) {
+        public ViewHolder(View view, final Context context) {
             super(view);
             nocker_name = (TextView) view.findViewById(R.id.nocker_name);
             skill_name = (TextView) view.findViewById(R.id.nocker_skill);
@@ -42,6 +43,12 @@ public  class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAda
             circleImageView = (CircleImageView) view.findViewById(R.id.profilePic);
             is_online = (ImageView) view.findViewById(R.id.is_online);
             is_online_text = (TextView)view.findViewById(R.id.online_text);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(context,"Still Under Develpoment!!",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
@@ -62,7 +69,7 @@ public  class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAda
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.near_by_nocker_listing, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,context);
     }
 
 

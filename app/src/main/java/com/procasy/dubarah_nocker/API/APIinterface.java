@@ -8,6 +8,8 @@ import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 
+import org.json.JSONArray;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -65,5 +67,19 @@ public interface APIinterface {
                                             @Field("user_birthday") String user_birthday
     );
 
+    @FormUrlEncoded
+    @POST("add_user_skill")
+    Call<SocialSignupResponse> AddUserSkill(@Field("user_email") String user_email,
+                                            @Field("user_ud_id") String user_ud_id,
+                                            @Field("skills")JSONArray skills
+                                            );
+
+
+    @FormUrlEncoded
+    @POST("add_user_language")
+    Call<SocialSignupResponse> AddUserLanguages(@Field("user_email") String user_email,
+                                                @Field("user_ud_id") String user_ud_id,
+                                                @Field("langs")JSONArray skills
+    );
 
 }
