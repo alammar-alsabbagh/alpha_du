@@ -1,342 +1,418 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:background="@color/colorPrimary"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:orientation="vertical"
-    android:layout_marginBottom="30dp">
+    android:background="@color/colorPrimary">
 
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="@dimen/drawer_padding_profile"
-        android:layout_marginLeft="20dp"
-        android:layout_marginBottom="15dp">
-
+        android:layout_height="match_parent"
+        android:layout_marginBottom="30dp"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical"
+            android:padding="@dimen/drawer_padding_profile">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_image"
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:src="@drawable/profile" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Matthew Andrew"
-                    android:textAppearance="?android:textAppearanceMedium"
-                    android:textColor="@color/drawer_profile_textname"
-                    android:id="@+id/fullName" />
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:src="@drawable/profile" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="@dimen/drawer_nocker_score_w"
-                        android:layout_height="@dimen/drawer_nocker_score_h"
-                        android:src="@drawable/nocker_score" />
+                    android:layout_margin="5dp"
+                    android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/fullName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="90%"
-                        android:textAppearance="?android:textAppearanceLarge"
-                        android:textColor="@color/app_yellow"
-                        android:id="@+id/nockerScore" />
-                </LinearLayout>
+                        android:text="Matthew Andrew"
+                        android:textAppearance="?android:textAppearanceMedium"
+                        android:textColor="@color/drawer_profile_textname" />
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <RelativeLayout
+                            android:layout_width="120dp"
+                            android:layout_height="50dp"
+                            android:background="@drawable/nocker_score">
+
+                            <TextView
+                                android:id="@+id/nockerScore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginTop="10dp"
+                                android:text="90%"
+                                android:textAppearance="?android:textAppearanceLarge"
+                                android:textColor="@color/app_yellow"
+                                android:textStyle="bold" />
+
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        >
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:alpha="0.6"
-        ></View>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10"
-            android:padding="10dp"
-            >
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Average Charge"
-                    android:textColor="@color/white"                    android:layout_gravity="center"
-                    android:textSize="8sp"
+            android:orientation="vertical">
 
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$45"
-                    android:textSize="24sp"
-                    android:textColor="@color/white"                    android:layout_gravity="center"
-
-                    android:id="@+id/averageCharge" />
-            </LinearLayout>
             <View
-                android:layout_width="1dp"
-                android:layout_height="match_parent"
-                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:alpha="0.6"
-                ></View>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Happy Customers"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:textSize="8sp"
+                android:background="@color/white"></View>
 
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:weightSum="10">
+
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="85%"
-                    android:textSize="24sp"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
-                    android:id="@+id/happyCustomers" />
+                    android:layout_weight="3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_avarge_charge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Average Charge"
+                        android:textColor="@color/white"
+                        android:textSize="8sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/averageCharge"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="$45"
+                        android:textColor="@color/white"
+
+                        android:textSize="24sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="match_parent"
+                    android:alpha="0.6"
+                    android:background="@color/white"></View>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="3"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/title_happy_customers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Happy Customers"
+                        android:textColor="@color/white"
+                        android:textSize="8sp"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/happyCustomers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="85%"
+                        android:textColor="@color/white"
+                        android:textSize="24sp" />
+                </LinearLayout>
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:alpha="0.6"
+                android:background="@color/white"></View>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <ImageView
+                android:id="@+id/messagesButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="20dp"
+                android:src="@drawable/message" />
+
+            <ImageView
+                android:id="@+id/notificationsButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="40dp"
+                android:src="@drawable/notification" />
+        </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:alpha="0.6"
-            ></View>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp">
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/message"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/messagesButton" />
-        <ImageView
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:src="@drawable/notification"
-            android:layout_marginLeft="40dp"
-            android:id="@+id/notificationsButton" />
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:alpha="0.6"
-        ></View>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/btn_boost"
-        android:text="Boost Your Account"
-        android:textColor="@color/white"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="10dp"
-        android:id="@+id/boostButton" />
-    <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        >
-        <TableRow android:id="@+id/editProfile">
-        <ImageView android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@drawable/edit_profile"
-            android:layout_gravity="center"/>
-        <TextView android:text="Edit Profile"
-            android:textColor="@color/white"
-            android:layout_marginLeft="20dp"
-            android:textSize="15sp"
-            android:padding="10dp"
-            android:alpha="0.6"/>
-    </TableRow>
-        <View android:layout_height="1dp"
+            android:background="@color/white"></View>
+
+        <Button
+            android:id="@+id/boostButton"
             android:layout_width="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/white"
-            android:alpha="0.6"></View>
-        <TableRow android:id="@+id/promotion">
-            <ImageView android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/promotion"
-                android:layout_gravity="center"/>
-            <TextView android:text="Promotion"
-                android:textColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:textSize="15sp"
-                android:padding="10dp"
-                android:alpha="0.6"/>
-        </TableRow>
-        <View android:layout_height="1dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/btn_boost"
+            android:text="Boost Your Account"
+            android:textColor="@color/white" />
+
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/white"
-            android:alpha="0.6"></View>
-        <TableRow android:id="@+id/activateSubscription">
-            <ImageView android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/activate_subscription"
-                android:layout_gravity="center"/>
-            <TextView android:text="Activate Subscription"
-                android:textColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:textSize="15sp"
-                android:padding="10dp"
-                android:alpha="0.6"/>
-        </TableRow>
-        <View android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/white"
-            android:alpha="0.6"></View>
-        <TableRow android:id="@+id/myShop">
-            <ImageView android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/my_shop"
-                android:layout_gravity="center"/>
-            <TextView android:text="My Shop"
-                android:textColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:textSize="15sp"
-                android:padding="10dp"
-                android:alpha="0.6"/>
-        </TableRow>
-        <View android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/white"
-            android:alpha="0.6"></View>
-        <TableRow android:id="@+id/settings">
-            <ImageView android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/settings"
-                android:layout_gravity="center"/>
-            <TextView android:text="Settings"
-                android:textColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:textSize="15sp"
-                android:padding="10dp"
-                android:alpha="0.6"/>
-        </TableRow>
-        <View android:layout_height="1dp"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/white"
-            android:alpha="0.6"></View>
-        <TableRow android:id="@+id/help">
-            <ImageView android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@drawable/help"
-                android:layout_gravity="center"/>
-            <TextView android:text="Help?"
-                android:textColor="@color/white"
-                android:layout_marginLeft="20dp"
-                android:textSize="15sp"
-                android:padding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TableRow android:id="@+id/editProfile">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/edit_profile" />
+
+                <TextView
+                    android:id="@+id/edit_profile_txt"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0.6"
+                    android:padding="10dp"
+                    android:text="Edit Profile"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
                 android:alpha="0.6"
-                />
-        </TableRow>
-        <View android:layout_height="1dp"
+                android:background="@color/white"></View>
+
+            <TableRow android:id="@+id/promotion">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/promotion" />
+
+                <TextView
+                    android:id="@+id/promotion_txt"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0.6"
+                    android:padding="10dp"
+                    android:text="Promotion"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:alpha="0.6"
+                android:background="@color/white"></View>
+
+            <TableRow android:id="@+id/activateSubscription">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/activate_subscription" />
+
+                <TextView
+                    android:id="@+id/activateSubscription_txt"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0.6"
+                    android:padding="10dp"
+                    android:text="Activate Subscription"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:alpha="0.6"
+                android:background="@color/white"></View>
+
+            <TableRow android:id="@+id/myShop">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/my_shop" />
+
+                <TextView
+                    android:id="@+id/myShop_txt"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0.6"
+                    android:padding="10dp"
+                    android:text="My Shop"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:alpha="0.6"
+                android:background="@color/white"></View>
+
+            <TableRow android:id="@+id/settings">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/settings" />
+
+                <TextView
+                    android:id="@+id/settings_txt"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0.6"
+                    android:padding="10dp"
+                    android:text="Settings"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:alpha="0.6"
+                android:background="@color/white"></View>
+
+            <TableRow android:id="@+id/help">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/help" />
+
+                <TextView
+                    android:id="@+id/help_txt"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0.6"
+                    android:padding="10dp"
+                    android:text="Help?"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+            </TableRow>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:alpha="0.6"
+                android:background="@color/white"></View>
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/nocker_url"
             android:layout_width="match_parent"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="20dp"
-            android:background="@color/white"
-            android:alpha="0.6"></View>
-    </TableLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="nocker.com/Mathew.Andrew"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:alpha="0.8"
-        android:layout_gravity="center_horizontal"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="25dp"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp"
-        >
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            style="@style/navigationDrawerButtons"
-            android:text="Copy Link"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-        />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="20dp"
-            style="@style/navigationDrawerButtons"
-            android:text="Send To A Friend"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:layout_marginLeft="20dp"
-            />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:alpha="0.8"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="nocker.com/Mathew.Andrew"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+
+            <Button
+                style="@style/navigationDrawerButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:paddingLeft="10dp"
+                android:textSize="8sp"
+                android:paddingRight="10dp"
+                android:text="Copy Link" />
+
+            <Button
+                style="@style/navigationDrawerButtons"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:textSize="8sp"
+                android:paddingRight="10dp"
+                android:text="Send To A Friend" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
 </ScrollView>

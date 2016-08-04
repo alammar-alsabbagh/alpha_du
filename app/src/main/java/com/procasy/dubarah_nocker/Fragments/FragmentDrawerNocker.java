@@ -1,5 +1,6 @@
 package com.procasy.dubarah_nocker.Fragments;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
@@ -35,14 +36,17 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
     private static String TAG = FragmentDrawerNocker.class.getSimpleName();
     com.procasy.dubarah_nocker.CommuncationChannel mCommChListner = null;
 
-    public TextView fullName;
+    public TextView fullName, avg_txt_title, title_happy_customers_title,
+            edit_profile, promotion_txt, activate_sub, myshop,
+            setting, help;
+
     public CircleImageView profileImage;
     TextView nockerScore;
     TextView averageCharge;
     TextView happyCustomers;
-    ImageView Messages,Notifcations;
+    ImageView Messages, Notifcations;
     Button boost;
-    TableRow editProfile,promotion,activateSubscription,myShop,Settings,Help;
+    TableRow editProfile, promotion, activateSubscription, myShop, Settings, Help;
     SessionManager sessionManager;
 
 
@@ -54,8 +58,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId())
-        {
+        switch (v.getId()) {
             case R.id.activateSubscription:
                 mCommChListner.setCommunication("activateSub");
                 break;
@@ -106,16 +109,40 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         // Inflating view layout
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
         //recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
-        editProfile = (TableRow)layout.findViewById(R.id.editProfile);
-        promotion = (TableRow)layout.findViewById(R.id.promotion);
-        myShop = (TableRow)layout.findViewById(R.id.myShop);
-        Settings = (TableRow)layout.findViewById(R.id.settings);
-        Help = (TableRow)layout.findViewById(R.id.help);
-        activateSubscription = (TableRow)layout.findViewById(R.id.activateSubscription);
+        editProfile = (TableRow) layout.findViewById(R.id.editProfile);
+        promotion = (TableRow) layout.findViewById(R.id.promotion);
+        myShop = (TableRow) layout.findViewById(R.id.myShop);
+        Settings = (TableRow) layout.findViewById(R.id.settings);
+        Help = (TableRow) layout.findViewById(R.id.help);
+        activateSubscription = (TableRow) layout.findViewById(R.id.activateSubscription);
+
         fullName = (TextView) layout.findViewById(R.id.fullName);
         profileImage = (CircleImageView) layout.findViewById(R.id.profile_image);
         averageCharge = (TextView) layout.findViewById(R.id.averageCharge);
         happyCustomers = (TextView) layout.findViewById(R.id.happyCustomers);
+        avg_txt_title = (TextView) layout.findViewById(R.id.title_avarge_charge);
+        title_happy_customers_title = (TextView) layout.findViewById(R.id.title_happy_customers);
+        edit_profile = (TextView) layout.findViewById(R.id.edit_profile_txt);
+        promotion_txt = (TextView) layout.findViewById(R.id.promotion_txt);
+        activate_sub = (TextView) layout.findViewById(R.id.activateSubscription_txt);
+        myshop = (TextView) layout.findViewById(R.id.myShop_txt);
+        setting = (TextView) layout.findViewById(R.id.settings_txt);
+        help = (TextView) layout.findViewById(R.id.help_txt);
+
+        Typeface typface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font1.ttf");
+        fullName.setTypeface(typface);
+        averageCharge.setTypeface(typface);
+        avg_txt_title.setTypeface(typface);
+        happyCustomers.setTypeface(typface);
+        title_happy_customers_title.setTypeface(typface);
+        edit_profile.setTypeface(typface);
+        promotion_txt.setTypeface(typface);
+        activate_sub.setTypeface(typface);
+        myshop.setTypeface(typface);
+        setting.setTypeface(typface);
+        help.setTypeface(typface);
+        nockerScore.setTypeface(typface);
+
 
         editProfile.setOnClickListener(this);
         promotion.setOnClickListener(this);
@@ -124,9 +151,9 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         Help.setOnClickListener(this);
         activateSubscription.setOnClickListener(this);
         sessionManager = new SessionManager(getActivity());
-        fullName.setText(sessionManager.getFName()+" "+sessionManager.getLName());
-        Picasso.with(getActivity()).load(ApiClass.Pic_Base_URL+sessionManager.getPP()).into(profileImage);
-        averageCharge.setText(sessionManager.getAVG()+"");
+        fullName.setText(sessionManager.getFName() + " " + sessionManager.getLName());
+        Picasso.with(getActivity()).load(ApiClass.Pic_Base_URL + sessionManager.getPP()).into(profileImage);
+        averageCharge.setText(sessionManager.getAVG() + "");
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
 
 

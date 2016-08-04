@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
@@ -77,7 +79,8 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity implements Validator.ValidationListener, View.OnClickListener {
 
-    Button  login;
+    Button login;
+    TextView description;
 
     @NotEmpty
     @Email
@@ -103,6 +106,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         LinkIDwithViews();
+
         sessionManager = new SessionManager(this);
         if (sessionManager.isLoggedIn())
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -119,6 +123,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             }
         });
 
+
         setupWindowAnimations();
         printKeyHash(LoginActivity.this);
         linkedIn.setOnClickListener(this);
@@ -129,12 +134,13 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 .requestEmail()
                 .build();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, new GoogleApiClient.OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+                .enableAutoManage(this /* FragmentActivity */,
+                        new GoogleApiClient.OnConnectionFailedListener() {
+                            @Override
+                            public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-                    }
-                } /* OnConnectionFailedListener */)
+                            }
+                        } /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
@@ -163,7 +169,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                                             JSONObject picture = objectFace.getJSONObject("picture");
                                             JSONObject data = picture.getJSONObject("data");
                                             String pic_url = data.getString("url");
-                                            Call<SocialSignupResponse> call = apiService.SocialSignup(Email,first_name,last_name,UDID,"facebook",gender,pic_url,birthday);
+                                            Call<SocialSignupResponse> call = apiService.SocialSignup(Email, first_name, last_name, UDID, "facebook", gender, pic_url, birthday);
                                             call.enqueue(new Callback<SocialSignupResponse>() {
                                                 @Override
                                                 public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
@@ -175,8 +181,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
                                                 }
                                             });
-
-
 
 
                                         } catch (JSONException e) {
@@ -227,8 +231,15 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         login = (Button) findViewById(R.id.login);
         linearLayout = (LinearLayout) findViewById(R.id.linear);
         linkedIn = (ImageView) findViewById(R.id.linkedin);
-        googleplus = (ImageView)findViewById(R.id.googleplus);
+        googleplus = (ImageView) findViewById(R.id.googleplus);
+        description = (TextView) findViewById(R.id.description);
         facebook = (ImageView) findViewById(R.id.facebook);
+
+        Typeface typface = Typeface.createFromAsset(getAssets(), "fonts/font1.ttf");
+
+        login.setTypeface(typface);
+        description.setTypeface(typface);
+
     }
 
 
@@ -295,7 +306,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         break;
                     }
                     case 2: {
-                        startActivity(new Intent(getApplicationContext(),MainInfoSignUp.class));
+                        startActivity(new Intent(getApplicationContext(), MainInfoSignUp.class));
                         break;
                     }
                 }
@@ -419,15 +430,13 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 }, true);
                 break;
             }
-            case R.id.googleplus:
-            {
+            case R.id.googleplus: {
                 Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
                 startActivityForResult(signInIntent, RC_SIGN_IN);
                 break;
             }
-            case R.id.facebook:
-            {
-                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends","email","user_birthday"));
+            case R.id.facebook: {
+                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email", "user_birthday"));
                 break;
             }
         }
@@ -465,9 +474,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
-        }
-        else
-        {
+        } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -477,7 +484,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
-            Log.e("Googel Plus Data : ",acct.getEmail()+"  "+acct.getPhotoUrl()+"   "+acct.getFamilyName()+acct.getGivenName());
+            Log.e("Googel Plus Data : ", acct.getEmail() + "  " + acct.getPhotoUrl() + "   " + acct.getFamilyName() + acct.getGivenName());
            /* updateUI(true);*/
         } else {
             // Signed out, show unauthenticated UI.
@@ -486,7 +493,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 */
         }
     }
-
 
 
 }

@@ -405,6 +405,7 @@ public class AskForHelpFragment extends Fragment {
             public void onClick(View v) {
 
                 try {
+
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
                     startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
@@ -426,13 +427,14 @@ public class AskForHelpFragment extends Fragment {
         mskills.open();
         Cursor cursor = mskills.getAllEntries();
         cursor.moveToFirst();
+
         try {
-
-
             skills_list.add(cursor.getString(1));
+
             while (cursor.moveToNext()) {
                 skills_list.add(cursor.getString(1));
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -443,13 +445,14 @@ public class AskForHelpFragment extends Fragment {
         mlanguage.open();
         Cursor cursor_language = mlanguage.getAllEntries();
         cursor_language.moveToFirst();
-        try {
 
+        try {
 
             language_list.add(cursor_language.getString(1));
             while (cursor_language.moveToNext()) {
                 language_list.add(cursor_language.getString(1));
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -457,7 +460,7 @@ public class AskForHelpFragment extends Fragment {
         }
 
 
-        Log.e("list_size ", skills_list.size() + "");
+        Log.e(" list size ", skills_list.size() + "");
 
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, skills_list);
         adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, language_list);
@@ -475,58 +478,67 @@ public class AskForHelpFragment extends Fragment {
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
         Call<AllSkillsAndLanguageResponse> call = apiService.GetAllSkills(sessionManager.getEmail(), sessionManager.getUDID());
         call.enqueue(new Callback<AllSkillsAndLanguageResponse>() {
-            @Override
-            public void onResponse(Call<AllSkillsAndLanguageResponse> call, Response<AllSkillsAndLanguageResponse> response) {
+                         @Override
+                         public void onResponse(Call<AllSkillsAndLanguageResponse> call, Response<AllSkillsAndLanguageResponse> response) {
 
-                mskills.open();
-                Log.e("remove state ", mskills.removeAllEntry() + "");
-                mlanguage.open();
-                mlanguage.removeAllEntry();
-                skills_list.clear();
-                language_list.clear();
-                try {
-                    for (int i = 0; i < response.body().getAllSkills().size(); i++) {
-                        ContentValues contentValues = new ContentValues();
-                        contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
-                        contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
-                        contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
-                        long state = mskills.insertEntry(contentValues);
-                        Log.e("insert state ", state + "");
-                        skills_list.add(response.body().getAllSkills().get(i).getSkill_name());
-                    }
+                             mskills.open();
+                             mlanguage.open();
 
-                    for (int i = 0; i < response.body().getAllLanguage().size(); i++) {
-                        ContentValues contentValues = new ContentValues();
-                        contentValues.put(Language.COL_language_code, response.body().getAllLanguage().get(i).getLang_code());
-                        contentValues.put(Language.COL_language_name, response.body().getAllLanguage().get(i).getLang_name());
-                        contentValues.put(Language.COL_language_Id, response.body().getAllLanguage().get(i).getlang_id());
+                             if (mskills.getAllEntries().getCount() != response.body().getAllSkills().size()) {
+                                 Log.e("remove state ", mskills.removeAllEntry() + "");
+                                 skills_list.clear();
 
-                        long state = mlanguage.insertEntry(contentValues);
-                        Log.e("insert state language ", state + "");
-                        language_list.add(response.body().getAllLanguage().get(i).getLang_name());
-                    }
+                                 try {
 
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                                     for (int i = 0; i < response.body().getAllSkills().size(); i++) {
+                                         ContentValues contentValues = new ContentValues();
+                                         contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
+                                         contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
+                                         contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
+                                         long state = mskills.insertEntry(contentValues);
+                                         Log.e("insert state ", state + "");
+                                         skills_list.add(response.body().getAllSkills().get(i).getSkill_name());
+                                     }
+                                 } catch (Exception e) {
+                                     e.printStackTrace();
+                                 }
+                             }
 
-                actv.setAdapter(adapter);
-                language.setAdapter(adapter2);
-                mskills.close();
-                mlanguage.close();
+                             if (mlanguage.getAllEntries().getCount() != response.body().getAllLanguage().size()) {
+                                 mlanguage.removeAllEntry();
+                                 language_list.clear();
+                                 for (int i = 0; i < response.body().getAllLanguage().size(); i++) {
+                                     ContentValues contentValues = new ContentValues();
+                                     contentValues.put(Language.COL_language_code, response.body().getAllLanguage().get(i).getLang_code());
+                                     contentValues.put(Language.COL_language_name, response.body().getAllLanguage().get(i).getLang_name());
+                                     contentValues.put(Language.COL_language_Id, response.body().getAllLanguage().get(i).getlang_id());
 
-                if (dialog.isShowing())
-                    dialog.dismiss();
-            }
+                                     long state = mlanguage.insertEntry(contentValues);
+                                     Log.e("insert state language ", state + "");
+                                     language_list.add(response.body().getAllLanguage().get(i).getLang_name());
+                                 }
 
-            @Override
-            public void onFailure(Call<AllSkillsAndLanguageResponse> call, Throwable t) {
-                System.out.println("ERROR 2" + t.toString());
-                if (dialog.isShowing())
-                    dialog.dismiss();
-            }
+                             }
 
-        });
+                             actv.setAdapter(adapter);
+                             language.setAdapter(adapter2);
+                             mskills.close();
+                             mlanguage.close();
+
+                             if (dialog.isShowing())
+                                 dialog.dismiss();
+                         }
+
+                         @Override
+                         public void onFailure(Call<AllSkillsAndLanguageResponse> call, Throwable t) {
+                             System.out.println("ERROR 2" + t.toString());
+                             if (dialog.isShowing())
+                                 dialog.dismiss();
+                         }
+
+                     }
+
+        );
 
         return view;
     }
@@ -926,6 +938,7 @@ public class AskForHelpFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+
     }
 
 
