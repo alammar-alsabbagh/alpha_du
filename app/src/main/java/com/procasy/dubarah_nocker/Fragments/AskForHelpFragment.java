@@ -2,7 +2,6 @@ package com.procasy.dubarah_nocker.Fragments;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,10 +18,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,16 +35,11 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlacePicker;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
-import com.procasy.dubarah_nocker.API.ServiceGenerator;
-import com.procasy.dubarah_nocker.API.Uploadimage;
 import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
-import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.R;
-import com.procasy.dubarah_nocker.Services.LocationService;
-import com.procasy.dubarah_nocker.Utils.FileUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -55,9 +47,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -483,41 +473,49 @@ public class AskForHelpFragment extends Fragment {
 
                              mskills.open();
                              mlanguage.open();
+try {
+    if (mskills.getAllEntries().getCount() != response.body().getAllSkills().size()) {
+        Log.e("remove state ", mskills.removeAllEntry() + "");
+        skills_list.clear();
 
-                             if (mskills.getAllEntries().getCount() != response.body().getAllSkills().size()) {
-                                 Log.e("remove state ", mskills.removeAllEntry() + "");
-                                 skills_list.clear();
+        try {
 
-                                 try {
-
-                                     for (int i = 0; i < response.body().getAllSkills().size(); i++) {
+            for (int i = 0; i < response.body().getAllSkills().size(); i++) {
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
+                contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
+                contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
+                long state = mskills.insertEntry(contentValues);
+                Log.e("insert state ", state + "");
+                skills_list.add(response.body().getAllSkills().get(i).getSkill_name());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}catch (NullPointerException ex)
+{
+    ex.printStackTrace();
+}
+                             try {
+                                 if (mlanguage.getAllEntries().getCount() != response.body().getAllLanguage().size()) {
+                                     mlanguage.removeAllEntry();
+                                     language_list.clear();
+                                     for (int i = 0; i < response.body().getAllLanguage().size(); i++) {
                                          ContentValues contentValues = new ContentValues();
-                                         contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
-                                         contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
-                                         contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
-                                         long state = mskills.insertEntry(contentValues);
-                                         Log.e("insert state ", state + "");
-                                         skills_list.add(response.body().getAllSkills().get(i).getSkill_name());
+                                         contentValues.put(Language.COL_language_code, response.body().getAllLanguage().get(i).getLang_code());
+                                         contentValues.put(Language.COL_language_name, response.body().getAllLanguage().get(i).getLang_name());
+                                         contentValues.put(Language.COL_language_Id, response.body().getAllLanguage().get(i).getlang_id());
+
+                                         long state = mlanguage.insertEntry(contentValues);
+                                         Log.e("insert state language ", state + "");
+                                         language_list.add(response.body().getAllLanguage().get(i).getLang_name());
                                      }
-                                 } catch (Exception e) {
-                                     e.printStackTrace();
+
                                  }
-                             }
-
-                             if (mlanguage.getAllEntries().getCount() != response.body().getAllLanguage().size()) {
-                                 mlanguage.removeAllEntry();
-                                 language_list.clear();
-                                 for (int i = 0; i < response.body().getAllLanguage().size(); i++) {
-                                     ContentValues contentValues = new ContentValues();
-                                     contentValues.put(Language.COL_language_code, response.body().getAllLanguage().get(i).getLang_code());
-                                     contentValues.put(Language.COL_language_name, response.body().getAllLanguage().get(i).getLang_name());
-                                     contentValues.put(Language.COL_language_Id, response.body().getAllLanguage().get(i).getlang_id());
-
-                                     long state = mlanguage.insertEntry(contentValues);
-                                     Log.e("insert state language ", state + "");
-                                     language_list.add(response.body().getAllLanguage().get(i).getLang_name());
-                                 }
-
+                             }catch (NullPointerException ex)
+                             {
+                                 ex.printStackTrace();
                              }
 
                              actv.setAdapter(adapter);

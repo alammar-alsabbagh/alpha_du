@@ -120,6 +120,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
                     public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
                         if (response.body().getStatus() == 1) // new user
                         {
+                            sessionManager.setKeyIsNocker(1);
                             startActivity(new Intent(getApplicationContext(), ChooseLanguagesActivity.class));
                             finish();
 

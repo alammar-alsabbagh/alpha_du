@@ -141,7 +141,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         myshop.setTypeface(typface);
         setting.setTypeface(typface);
         help.setTypeface(typface);
-        nockerScore.setTypeface(typface);
+      //  nockerScore.setTypeface(typface);
 
 
         editProfile.setOnClickListener(this);

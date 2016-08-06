@@ -17,11 +17,10 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="100dp"
+            android:layout_width="175dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
-            android:alpha="0.8"
-            android:src="@drawable/grey_nocker" />
+            android:src="@drawable/white_nocker" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -65,56 +64,67 @@
 
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="27dp"
+    android:layout_marginRight="27dp"
+    android:layout_marginTop="40dp"
+    >
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
-        <Button
-            android:id="@+id/login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="40dp"
-            android:background="@drawable/selector"
-            android:text="Login Or Join Nocker"
-            android:textColor="@color/white"
-            android:textStyle="bold" />
+        android:background="@drawable/selector"
+        android:text="Login Or Signup"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            >
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:src="@drawable/facebook"
-                android:id="@+id/facebook"/>
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/twitter"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:id="@+id/twitter"/>
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/linkedin"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:id="@+id/linkedin"/>
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/google_plus"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:id="@+id/googleplus"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        >
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/facebook"
+            android:id="@+id/facebook"
+            android:background="@drawable/selector"/>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/twitter"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/twitter"
+            android:background="@drawable/selector"/>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/linkedin"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/linkedin"
+            android:background="@drawable/selector"/>
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/gplus"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/googleplus"
+            android:background="@drawable/selector" />
 
-        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
 
 
     </LinearLayout>

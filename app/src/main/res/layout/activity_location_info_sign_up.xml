@@ -18,14 +18,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <ImageView
-                android:layout_width="100dp"
+                android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="50dp"
-                android:alpha="0.8"
-                android:src="@drawable/grey_nocker" />
-
+                android:src="@drawable/white_nocker" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,7 +50,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <AutoCompleteTextView
                     android:id="@+id/address1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
