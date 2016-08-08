@@ -25,6 +25,7 @@ import android.widget.ImageView;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Activity.Nocker.MyProfileActivity;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 sessionManager.setPP(response.body().getUser().getUser_img());
                 sessionManager.setAVG(response.body().getAvg_charge());
                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
-                Log.d("nocker", response.body().getUser().is_nocker() + "");
+                Log.d("nocker", response.body().toString() + "");
                 if (dialog.isShowing())
                     dialog.dismiss();
             }
@@ -291,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "myShop":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "promotion":

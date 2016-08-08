@@ -8,9 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.procasy.dubarah_nocker.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,6 +20,7 @@ public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolde
 
 
     private List<String> mValues;
+    private List<String> Choosen;
     Context context;
     private AdapterCallback mAdapterCallback;
 
@@ -28,27 +29,31 @@ public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolde
         public final TextView skill_name;
         public final ImageView skill_add;
         public final LinearLayout linearLayout;
+        public boolean clicked = false;
         public ViewHolder(View view) {
             super(view);
             skill_name = (TextView) view.findViewById(R.id.skill_name);
             skill_add = (ImageView) view.findViewById(R.id.add_skill);
             linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+
         }
 
         @Override
         public String toString() {
             return super.toString() + " '" + skill_name.getText();
         }
+
+
     }
 
     public String getValueAt(int position) {
         return mValues.get(position);
     }
 
-    public SkillsAdapter(Context context, List<String> items, AdapterCallback callback) {
+    public SkillsAdapter(Context context, List<String> items,List<String>choosen) {
         mValues = items;
         this.context = context;
-        this.mAdapterCallback = callback;
+        this.Choosen = choosen;
     }
     private void updateData(List<String> newData)
     {
@@ -68,16 +73,30 @@ public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolde
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.skill_name.setText(mValues.get(position));
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+        if(Choosen.contains(holder.skill_name.getText().toString()))
+            holder.skill_add.setImageResource(R.drawable.one_skill_delete);
+        else
+            holder.skill_add.setImageResource(R.drawable.add);
+       /* holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mAdapterCallback.onMethodCallback(mValues.get(position));
-                List<String> strings= new ArrayList<String>();
+                if(holder.clicked)
+                {
+                    holder.clicked = false;
+                    holder.skill_add.setImageResource(R.drawable.add);
+                }
+                else
+                {
+                    holder.clicked = true;
+                    holder.skill_add.setImageResource(R.drawable.one_skill_delete);
+                }
+              *//*  List<String> strings= new ArrayList<String>();
                 mValues.remove(position);
                 strings.addAll(mValues);
-                updateData(strings);
+                updateData(strings);*//*
             }
-        });
+        });*/
     }
 
     @Override

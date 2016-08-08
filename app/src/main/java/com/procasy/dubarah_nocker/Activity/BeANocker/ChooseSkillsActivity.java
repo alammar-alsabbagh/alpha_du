@@ -11,14 +11,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
@@ -30,8 +25,7 @@ import com.procasy.dubarah_nocker.Helper.Skills;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 import com.procasy.dubarah_nocker.R;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
+import com.procasy.dubarah_nocker.Utils.RecyclerItemClickListener;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import org.json.JSONArray;
@@ -53,11 +47,9 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
     TagFlowLayout chosen_skills;
     ArrayList<String> chosenSkills = new ArrayList<>();
     ArrayList<String> skills = new ArrayList<>();
-    private AdapterCallback mAdapterCallback;
     LinearLayout next_btn;
-    EditText search_skill_edit_text;
     private APIinterface apiService;
-
+SkillsAdapter skillsAdapter;
     private JSONArray GetChoosenSkilles()
     {
         Log.e("chosenskilles",chosenSkills.toString());
@@ -98,10 +90,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_skills);
         skill_list = (RecyclerView) findViewById(R.id.skill_list);
-        chosen_skills = (TagFlowLayout) findViewById(R.id.chosen_skills);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
-        search_skill_edit_text = (EditText) findViewById(R.id.search_skill_edit_text);
-        this.mAdapterCallback = ((AdapterCallback) this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         skill_list.setLayoutManager(linearLayoutManager);
@@ -138,7 +127,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
             }
         });
-        chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
+/*        chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
         {
             @Override
             public View getView(FlowLayout parent, final int position, String s)
@@ -151,9 +140,9 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
                 textView.setText(chosenSkills.get(position));
                 return tv;
             }
-        });
+        });*/
 
-        chosen_skills.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+/*        chosen_skills.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 skills.add(chosenSkills.get(position));
@@ -175,9 +164,9 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
                 return false;
             }
-        });
+        });*/
 
-        search_skill_edit_text.addTextChangedListener(new TextWatcher() {
+    /*    search_skill_edit_text.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
                 mskills.open();
@@ -204,7 +193,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
                 System.out.println("On Change :   "+s.toString());
 
             }
-        });
+        });*/
 
 
         final ACProgressFlower dialog = new ACProgressFlower.Builder(this)
@@ -242,7 +231,8 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
                 finally {
                     mskills.close();
                     skills = new ArrayList<String>(GetAllSkills());
-                    skill_list.setAdapter(new SkillsAdapter(getApplicationContext(), skills, mAdapterCallback));
+                    skillsAdapter = new SkillsAdapter(getApplicationContext(), skills,chosenSkills);
+                    skill_list.setAdapter(skillsAdapter);
                 }
 
 
@@ -259,13 +249,32 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
 
         });
         GetChoosenSkilles();
+        skill_list.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), new   RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        // TODO Handle item click
+                        if(chosenSkills.contains(skills.get(position))) {
+                            chosenSkills.remove(chosenSkills.indexOf(skills.get(position)));
+                            Log.d("Removed : ",skills.get(position));
+                            skillsAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            chosenSkills.add(skills.get(position));
+                            Log.d("added : ",skills.get(position));
+                            skillsAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                })
+        );
 
     }
 
     @Override
     public void onMethodCallback(String s) {
-        chosenSkills.add(new String(s));
-        chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
+     /*   chosenSkills.add(new String(s));*/
+    /*    chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
         {
             @Override
             public View getView(FlowLayout parent, int position, String s)
@@ -276,7 +285,7 @@ public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCa
                 textView.setText(chosenSkills.get(position));
                 return tv;
             }
-        });
+        });*/
     }
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable mDivider;

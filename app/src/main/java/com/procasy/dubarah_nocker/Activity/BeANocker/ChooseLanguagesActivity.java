@@ -11,14 +11,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
@@ -31,9 +26,7 @@ import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 import com.procasy.dubarah_nocker.R;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
+import com.procasy.dubarah_nocker.Utils.RecyclerItemClickListener;
 
 import org.json.JSONArray;
 
@@ -51,13 +44,11 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
     Language mLanguage;
     SessionManager sessionManager;
     RecyclerView languages_list;
-    TagFlowLayout chosen_languages;
     ArrayList<String> chosenLanguages = new ArrayList<>();
     ArrayList<String> languages = new ArrayList<>();
-    private AdapterCallback mAdapterCallback;
     LinearLayout next_btn;
-    EditText search_skill_edit_text;
     private APIinterface apiService;
+    SkillsAdapter LanguagesAdapter;
 
     private JSONArray GetChoosenLangages()
     {
@@ -95,10 +86,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_languages);
         languages_list = (RecyclerView) findViewById(R.id.skill_list);
-        chosen_languages = (TagFlowLayout) findViewById(R.id.chosen_skills);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
-        search_skill_edit_text = (EditText) findViewById(R.id.search_skill_edit_text);
-        this.mAdapterCallback = ((AdapterCallback) this);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         languages_list.setLayoutManager(linearLayoutManager);
@@ -136,7 +124,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
 
             }
         });
-        chosen_languages.setAdapter(new TagAdapter<String>(chosenLanguages)
+      /*  chosen_languages.setAdapter(new TagAdapter<String>(chosenLanguages)
         {
             @Override
             public View getView(FlowLayout parent, final int position, String s)
@@ -153,7 +141,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
             @Override
             public boolean onTagClick(View view, int position, FlowLayout parent) {
                 languages.add(chosenLanguages.get(position));
-                languages_list.setAdapter(new SkillsAdapter(getApplicationContext(), languages, mAdapterCallback));
+                languages_list.setAdapter(new SkillsAdapter(getApplicationContext(), languages, mAdapterCallback,chosenLanguages));
                 chosenLanguages.remove(position);
                 chosen_languages.setAdapter(new TagAdapter<String>(chosenLanguages)
                 {
@@ -190,7 +178,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
                      ) {
                     System.out.println("filter result : "+aa);
                 }
-                languages_list.setAdapter(new SkillsAdapter(getApplicationContext(), names, mAdapterCallback));
+                languages_list.setAdapter(new SkillsAdapter(getApplicationContext(), names, mAdapterCallback,chosenLanguages));
             }
 
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -199,7 +187,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
             {
                 System.out.println("On Change :   "+s.toString());
             }
-        });
+        });*/
 
 
         final ACProgressFlower dialog = new ACProgressFlower.Builder(this)
@@ -236,7 +224,8 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
                 finally {
                     mLanguage.close();
                     languages = new ArrayList<String>(GetAllLanguages());
-                    languages_list.setAdapter(new SkillsAdapter(getApplicationContext(), languages, mAdapterCallback));
+                    LanguagesAdapter = new SkillsAdapter(getApplicationContext(), languages,chosenLanguages);
+                    languages_list.setAdapter(LanguagesAdapter);
                 }
 
 
@@ -254,11 +243,31 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
         });
         GetChoosenLangages();
 
+        languages_list.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), new   RecyclerItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        // TODO Handle item click
+                        if(chosenLanguages.contains(languages.get(position))) {
+                            chosenLanguages.remove(chosenLanguages.indexOf(languages.get(position)));
+                            Log.d("Removed : ",languages.get(position));
+                            LanguagesAdapter.notifyDataSetChanged();
+                        }
+                        else {
+                            chosenLanguages.add(languages.get(position));
+                            Log.d("added : ",languages.get(position));
+                            LanguagesAdapter.notifyDataSetChanged();
+
+                        }
+                    }
+                })
+        );
+
     }
 
     @Override
     public void onMethodCallback(String s) {
-        chosenLanguages.add(new String(s));
+       /* chosenLanguages.add(new String(s));
         chosen_languages.setAdapter(new TagAdapter<String>(chosenLanguages)
         {
             @Override
@@ -270,7 +279,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
                 textView.setText(chosenLanguages.get(position));
                 return tv;
             }
-        });
+        });*/
     }
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable mDivider;

@@ -61,7 +61,6 @@ public class SessionManager {
     public void setEmail(String email) {
 
         editor.putString(KEY_EMAIL, email);
-
         // commit changes
         editor.commit();
 

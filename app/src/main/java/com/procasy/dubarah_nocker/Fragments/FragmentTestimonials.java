@@ -8,10 +8,8 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.procasy.dubarah_nocker.Model.ServiceModel;
 import com.procasy.dubarah_nocker.Model.TestimonialsModel;
 import com.procasy.dubarah_nocker.R;
 
@@ -31,10 +29,10 @@ public class FragmentTestimonials extends Fragment {
 
 
     private void demodata() {
-        data.add(new TestimonialsModel("1","username","description","date","3",""));
-        data.add(new TestimonialsModel("1","username","description","date","3",""));
-        data.add(new TestimonialsModel("1","username","description","date","3",""));
-        data.add(new TestimonialsModel("1","username","description","date","3",""));
+        data.add(new TestimonialsModel("1","Mathew Andrew","I have achieved something similar to this in a project i worked on in the past but no longer have access to the project.","date","3",""));
+        data.add(new TestimonialsModel("1","username","I have achieved something similar to this in a project i worked on in the past but no longer have access to the project.","date","3",""));
+        data.add(new TestimonialsModel("1","username","I have achieved something similar to this in a project i worked on in the past but no longer have access to the project.","date","3",""));
+        data.add(new TestimonialsModel("1","username","I have achieved something similar to this in a project i worked on in the past but no longer have access to the project.","date","3",""));
 
     }
 
@@ -87,7 +85,7 @@ public class FragmentTestimonials extends Fragment {
 
         @Override
         public TaistViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.testimonials, null);
+            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_review_listing, null);
             return new TaistViewHolder(layoutView);
         }
 

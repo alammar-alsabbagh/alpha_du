@@ -34,61 +34,55 @@
     <!-- This app has permission to register and receive data message. -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-
     <application
+        android:name=".app.MyApplication"
         android:allowBackup="true"
         android:icon="@drawable/icon_logo"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:name=".app.MyApplication"
         android:supportsRtl="true"
         android:theme="@style/AppTheme2">
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateVisible|adjustNothing">
+            android:windowSoftInputMode="stateHidden|adjustNothing">
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter></activity>
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme2">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppTheme2">
-
-        </activity>
+            android:theme="@style/AppTheme2"></activity>
         <activity android:name=".Activity.SignUpActivities.MainInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.LocationInfoSignUp" />
-        <activity android:name=".Activity.SignUpActivities.PhotoSignUp"></activity>
+        <activity android:name=".Activity.SignUpActivities.PhotoSignUp" />
         <activity android:name=".Activity.BeANocker.BeAnockerAcitivty" />
         <activity android:name=".Activity.BeANocker.DisclaimerActivity" />
-        <activity
-            android:name=".Activity.BeANocker.ChooseSkillsActivity"
-            android:windowSoftInputMode="stateVisible|adjustNothing">
-
-        </activity>
+        <activity android:name=".Activity.BeANocker.ChooseSkillsActivity"></activity>
         <activity
             android:name=".Activity.BeANocker.ChooseLanguagesActivity"
-            android:windowSoftInputMode="stateVisible|adjustNothing">
-        </activity>
-        <activity android:name=".Activity.Nocker.MyProfileActivity">
+            android:windowSoftInputMode="stateVisible|adjustNothing"></activity>
+        <activity android:name=".Activity.Nocker.MyProfileActivity"></activity>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-        </activity>
-        <activity android:name="com.facebook.FacebookActivity"
-            android:configChanges=
-                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:label="@string/app_name" />
         <service android:name=".Services.LocationService" />
+
         <receiver
             android:name="com.google.android.gms.gcm.GcmReceiver"
             android:exported="true"
@@ -107,7 +101,6 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-
         <service
             android:name=".gcm.GCMIntentService"
             android:exported="false">
@@ -115,14 +108,20 @@
                 <action android:name="com.google.android.gms.iid.InstanceID" />
             </intent-filter>
         </service>
-        <!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--
+     ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="259a40416f4d8f3455b4a2df8d67315570e2d11d" />
+
+        <activity android:name=".Activity.Nocker.EditProfileActivtiy">
+
+        </activity>
     </application>
 
 </manifest>

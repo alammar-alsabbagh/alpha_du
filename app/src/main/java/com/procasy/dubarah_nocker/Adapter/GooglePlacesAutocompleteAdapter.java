@@ -44,7 +44,7 @@ public class GooglePlacesAutocompleteAdapter extends ArrayAdapter implements Fil
     }
 
     @Override
-    public String getItem(int index) {
+    public String getItem(int index) throws IndexOutOfBoundsException {
         return resultList.get(index);
     }
 
