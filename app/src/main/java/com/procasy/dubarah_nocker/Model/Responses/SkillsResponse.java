@@ -19,6 +19,12 @@ public class SkillsResponse {
         this.is_hidden = is_hidden;
     }
 
+    public SkillsResponse(int id , String name , int is_hidden)
+    {
+        this.skill_id = id;
+        this.skill_name = name;
+        this.is_hidden = is_hidden;
+    }
     public int getIs_hidden() {
 
         return is_hidden;

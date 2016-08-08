@@ -7,6 +7,7 @@ import com.procasy.dubarah_nocker.Model.Responses.LocationResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
+import com.procasy.dubarah_nocker.Model.Responses.UserInfoResponse;
 
 import org.json.JSONArray;
 
@@ -26,7 +27,7 @@ import retrofit2.http.Part;
 public interface APIinterface {
     @FormUrlEncoded
     @POST("login")
-    Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password,@Field("user_ud_id") String UDID);
+    Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password, @Field("user_ud_id") String UDID);
 
     @FormUrlEncoded
     @POST("get_info_nocker")
@@ -34,7 +35,7 @@ public interface APIinterface {
 
     @FormUrlEncoded
     @POST("get_near_by_nocker")
-    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_ud_id") String UDID,@Field("page") int page);
+    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_ud_id") String UDID, @Field("page") int page);
 
     @FormUrlEncoded
     @POST("get_skills")
@@ -43,21 +44,22 @@ public interface APIinterface {
     @FormUrlEncoded
     @POST("update_user_location")
     Call<LocationResponse> UpdateLocation(@Field("user_email") String email,
-                                          @Field("user_ud_id") String UDID ,
-                                          @Field("user_lat") String lat ,
+                                          @Field("user_ud_id") String UDID,
+                                          @Field("user_lat") String lat,
                                           @Field("user_lon") String lon
-                                          );
+    );
+
     @FormUrlEncoded
     @POST("check_unique")
-    Call<CheckResponse> CheckUnique(   @Field("table") String table,
-                                       @Field("column") String column ,
-                                       @Field("value") String value
+    Call<CheckResponse> CheckUnique(@Field("table") String table,
+                                    @Field("column") String column,
+                                    @Field("value") String value
     );
 
     @FormUrlEncoded
     @POST("check_valid")
-    Call<CheckResponse> CheckUnique(   @Field("user_email") String table,
-                                       @Field("social") String column
+    Call<CheckResponse> CheckUnique(@Field("user_email") String table,
+                                    @Field("social") String column
     );
 
     @FormUrlEncoded
@@ -76,17 +78,16 @@ public interface APIinterface {
     @POST("add_user_skill")
     Call<SocialSignupResponse> AddUserSkill(@Field("user_email") String user_email,
                                             @Field("user_ud_id") String user_ud_id,
-                                            @Field("skills")JSONArray skills
-                                            );
+                                            @Field("skills") JSONArray skills
+    );
 
 
     @FormUrlEncoded
     @POST("add_user_language")
     Call<SocialSignupResponse> AddUserLanguages(@Field("user_email") String user_email,
                                                 @Field("user_ud_id") String user_ud_id,
-                                                @Field("langs")JSONArray skills
+                                                @Field("langs") JSONArray skills
     );
-
 
 
     @Multipart
@@ -104,5 +105,12 @@ public interface APIinterface {
              @Part MultipartBody.Part img2,
              @Part MultipartBody.Part img3
             );
+
+
+    @FormUrlEncoded
+    @POST("get_other_info_nocker")
+    Call<UserInfoResponse> GetUserInfo(@Field("user_email") String user_email
+    );
+
 
 }

@@ -1,5 +1,9 @@
 [
     {
+        "merged": "D:\\Apps\\alpha_du_5\\linkedin-sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
+        "source": "D:\\Apps\\alpha_du_5\\linkedin-sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\Omar\\Desktop\\nocker_official\\alpha_du\\linkedin-sdk\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable-xxhdpi-v4\\ic_launcher.png",
         "source": "C:\\Users\\Omar\\Desktop\\nocker_official\\alpha_du\\linkedin-sdk\\build\\intermediates\\bundles\\debug\\res\\drawable-xxhdpi-v4\\ic_launcher.png"
     }

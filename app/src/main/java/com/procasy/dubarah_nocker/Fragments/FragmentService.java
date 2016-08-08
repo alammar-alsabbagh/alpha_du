@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.procasy.dubarah_nocker.Model.Responses.SkillsResponse;
 import com.procasy.dubarah_nocker.Model.ServiceModel;
 import com.procasy.dubarah_nocker.R;
+import com.procasy.dubarah_nocker.SkillsController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,21 +21,13 @@ import java.util.List;
 /**
  * Created by DELL on 31/07/2016.
  */
-public class FragmentService extends Fragment {
+public class FragmentService extends Fragment implements SkillsController {
 
     ServiceAdapter adapter;
-    List<ServiceModel> data;
+    List<SkillsResponse> data;
     RecyclerView recyclerView;
     StaggeredGridLayoutManager gaggeredGridLayoutManager;
 
-    private void demodata()
-    {
-        data.add(new ServiceModel("1","servicename","description"));
-        data.add(new ServiceModel("1","servicename","description"));
-        data.add(new ServiceModel("1","servicename","description"));
-        data.add(new ServiceModel("1","servicename","description"));
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -41,26 +35,30 @@ public class FragmentService extends Fragment {
         // Inflating view layout
         View layout = inflater.inflate(R.layout.fragment_service, container, false);
 
-        recyclerView = (RecyclerView)layout.findViewById(R.id.services_list);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.services_list);
         data = new ArrayList<>();
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
-        demodata();
-        adapter = new ServiceAdapter(getActivity() ,data);
+
+        adapter = new ServiceAdapter(getActivity(), data);
 
         recyclerView.setAdapter(adapter);
 
         return layout;
     }
 
+    @Override
+    public void onAdapterUpdated(List<SkillsResponse> newdata) {
+        adapter.setData(newdata);
+    }
 
 
     private class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceViewHolder> {
 
-        List<ServiceModel> mdata;
+        List<SkillsResponse> mdata;
         Context mContext;
 
-        public ServiceAdapter(Context context , List<ServiceModel> newdata) {
+        public ServiceAdapter(Context context, List<SkillsResponse> newdata) {
             mContext = context;
             mdata = newdata;
         }
@@ -68,7 +66,7 @@ public class FragmentService extends Fragment {
 
         // Notify Data Changed
 
-        public void setData(List<ServiceModel> newdata) {
+        public void setData(List<SkillsResponse> newdata) {
 
             mdata.clear();
             mdata.addAll(newdata);
@@ -90,10 +88,9 @@ public class FragmentService extends Fragment {
 
         @Override
         public void onBindViewHolder(ServiceAdapter.ServiceViewHolder holder, int position) {
-            ServiceModel data = mdata.get(position);
+            SkillsResponse data = mdata.get(position);
 
-            holder.name.setText(data.servicename);
-            holder.description.setText(data.Description);
+            holder.name.setText(data.getSkill_name());
 
         }
 
@@ -106,7 +103,7 @@ public class FragmentService extends Fragment {
                 super(itemView);
                 itemView.setOnClickListener(this);
 
-                name  = ((TextView) itemView.findViewById(R.id.service_name));
+                name = ((TextView) itemView.findViewById(R.id.service_name));
                 description = ((TextView) itemView.findViewById(R.id.service_description));
             }
 

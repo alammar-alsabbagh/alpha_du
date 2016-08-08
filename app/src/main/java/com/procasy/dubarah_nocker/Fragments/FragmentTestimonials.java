@@ -1,17 +1,21 @@
 package com.procasy.dubarah_nocker.Fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.procasy.dubarah_nocker.Model.Responses.SkillsResponse;
 import com.procasy.dubarah_nocker.Model.TestimonialsModel;
 import com.procasy.dubarah_nocker.R;
+import com.procasy.dubarah_nocker.TestimonialsController;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,35 +23,30 @@ import java.util.List;
 /**
  * Created by DELL on 31/07/2016.
  */
-public class FragmentTestimonials extends Fragment {
+public class FragmentTestimonials extends Fragment implements TestimonialsController {
 
 
-    TestimonialsAdapter adapter;
+    static TestimonialsAdapter adapter;
     List<TestimonialsModel> data;
     RecyclerView recyclerView;
     StaggeredGridLayoutManager gaggeredGridLayoutManager;
 
+    View layout;
 
-    private void demodata() {
-        data.add(new TestimonialsModel("1","Mathew Andrew","I have achieved something similar to this in a project i worked on in the past but no longer have access to the project.","date","3",""));
-        data.add(new TestimonialsModel("1","username","I have achieved something similar to this in a project i worked on in the past but no longer have access to the project.","date","3",""));
-        data.add(new TestimonialsModel("1","username","I have achieved something similar to this in a project i worked on in the past but no longer have access to the project.","date","3",""));
-        data.add(new TestimonialsModel("1","username","I have achieved something similar to this in a project i worked on in the past but no longer have access to the project.","date","3",""));
 
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflating view layout
-        View layout = inflater.inflate(R.layout.fragment_testimonials, container, false);
+        layout = inflater.inflate(R.layout.fragment_testimonials, container, false);
 
 
         recyclerView = (RecyclerView) layout.findViewById(R.id.testimonials);
         data = new ArrayList<>();
         gaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);
-        demodata();
+
         adapter = new TestimonialsAdapter(getActivity(), data);
 
         recyclerView.setAdapter(adapter);
@@ -55,8 +54,20 @@ public class FragmentTestimonials extends Fragment {
         return layout;
     }
 
+    @Override
+    public void UpdateAdapter(List<TestimonialsModel> newmodel) {
+        Log.e("UpdateAdapter", "success");
+        adapter.setData(newmodel);
+    }
 
-    private class TestimonialsAdapter extends RecyclerView.Adapter<TestimonialsAdapter.TaistViewHolder> {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+
+
+    public class TestimonialsAdapter extends RecyclerView.Adapter<TestimonialsAdapter.TaistViewHolder> {
 
         List<TestimonialsModel> mdata;
         Context mContext;
@@ -93,7 +104,7 @@ public class FragmentTestimonials extends Fragment {
         public void onBindViewHolder(TestimonialsAdapter.TaistViewHolder holder, int position) {
             TestimonialsModel data = mdata.get(position);
 
-            holder.name.setText(data.username);
+            holder.name.setText(data.getUsername());
             holder.description.setText(data.descr);
 
         }
@@ -114,7 +125,7 @@ public class FragmentTestimonials extends Fragment {
                 name = ((TextView) itemView.findViewById(R.id.username));
                 description = ((TextView) itemView.findViewById(R.id.description));
                 date = (TextView) itemView.findViewById(R.id.date);
-               // img = (ImageView) itemView.findViewById(R.id.user_img);
+                // img = (ImageView) itemView.findViewById(R.id.user_img);
 
 
             }

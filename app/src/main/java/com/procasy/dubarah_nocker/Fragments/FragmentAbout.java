@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.procasy.dubarah_nocker.AboutController;
 import com.procasy.dubarah_nocker.Model.AboutModel;
 import com.procasy.dubarah_nocker.Model.ServiceModel;
 import com.procasy.dubarah_nocker.R;
@@ -23,7 +24,7 @@ import java.util.List;
  * Created by DELL on 31/07/2016.
  */
 
-public class FragmentAbout extends Fragment {
+public class FragmentAbout extends Fragment implements AboutController {
 
     AboutAdapter adapter;
     List<AboutModel> data;
@@ -59,6 +60,12 @@ public class FragmentAbout extends Fragment {
 
 
         return layout;
+    }
+
+    @Override
+    public void updateAdapter(List<String> newdata) {
+
+        //adapter.setData(newdata);
     }
 
 

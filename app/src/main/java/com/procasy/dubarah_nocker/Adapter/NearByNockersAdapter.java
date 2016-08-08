@@ -1,6 +1,7 @@
 package com.procasy.dubarah_nocker.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Activity.Nocker.MyProfileActivity;
 import com.procasy.dubarah_nocker.Model.Responses.NockerResponse;
 import com.procasy.dubarah_nocker.R;
 import com.squareup.picasso.Picasso;
@@ -28,7 +30,7 @@ public class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAdap
     private List<NockerResponse> mValues;
     Context context;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         public final TextView nocker_name;
         public final TextView skill_name;
@@ -56,7 +58,13 @@ public class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAdap
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(context, "Still Under Develpoment!!", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(context, MyProfileActivity.class);
+                    i.putExtra(MyProfileActivity.NOCKER_EMAIL, mValues.get(getPosition()).getUser_email());
+                    i.putExtra(MyProfileActivity.NOCKER_NAME, mValues.get(getPosition()).getuser_fname()
+                            + mValues.get(getPosition()).getUser_lname());
+
+                    context.startActivity(i);
+
                 }
             });
         }

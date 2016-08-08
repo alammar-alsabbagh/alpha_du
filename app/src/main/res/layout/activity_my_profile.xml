@@ -35,6 +35,7 @@
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
+                    android:id="@+id/user_img"
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/help" />
 
