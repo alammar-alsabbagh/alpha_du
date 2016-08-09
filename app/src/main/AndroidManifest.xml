@@ -73,7 +73,7 @@
         <activity android:name=".Activity.BeANocker.ChooseSkillsActivity" />
         <activity
             android:name=".Activity.BeANocker.ChooseLanguagesActivity"
-            android:windowSoftInputMode="stateVisible|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity android:name=".Activity.Nocker.MyProfileActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"

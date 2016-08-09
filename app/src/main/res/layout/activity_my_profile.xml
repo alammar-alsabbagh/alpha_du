@@ -37,7 +37,7 @@
                     android:layout_height="100dp"
                     android:id="@+id/user_img"
                     android:layout_gravity="center_horizontal"
-                    android:src="@drawable/help" />
+                    android:src="@drawable/drawable_photo" />
 
                 <TextView
                     android:id="@+id/skillsman_promo"

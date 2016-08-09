@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 sessionManager.setAVG(response.body().getAvg_charge());
                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
                 Log.d("nocker_data", response.body().toString() + "");
-                sessionManager.setSocialType(response.body().getUser().getUser_social_type());
+
 
                 Log.e("user_img",sessionManager.getPP()+" ff");
 

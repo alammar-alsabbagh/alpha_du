@@ -118,8 +118,8 @@ public class OtherProfileActivity extends AppCompatActivity {
                 Log.e("response", "success " + response.body().getUser().getUser_img());
                 Picasso.with(getApplicationContext())
                         .load(ApiClass.Pic_Base_URL + response.body().getUser().getUser_img())
-                        .placeholder(R.drawable.profile)
-                        .error(R.drawable.profile)
+                        .placeholder(R.drawable.drawable_photo)
+                        .error(R.drawable.drawable_photo)
                         .into(imguser);
 
                 Log.e("tab1", tab1.isVisible() + "");
