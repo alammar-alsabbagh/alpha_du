@@ -17,7 +17,9 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
-            android:padding="@dimen/drawer_padding_profile">
+            android:paddingTop="10dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp">
 
 
             <LinearLayout
@@ -34,7 +36,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp"
+                    android:layout_margin="10dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -42,35 +44,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Matthew Andrew"
-                        android:textAppearance="?android:textAppearanceMedium"
-                        android:textColor="@color/drawer_profile_textname" />
+                        android:textSize="14dp"
+                        android:textColor="@color/drawer_profile_textname"
+                        android:singleLine="true"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <RelativeLayout
-                            android:layout_width="120dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/nocker_score">
-
-                            <TextView
-                                android:id="@+id/nockerScore"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:layout_alignParentRight="true"
-                                android:layout_marginTop="10dp"
-                                android:text="90%"
-                                android:textAppearance="?android:textAppearanceLarge"
-                                android:textColor="@color/app_yellow"
-                                android:textStyle="bold" />
-
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
+                    <ImageView
+                        android:layout_marginTop="5dp"
+                        android:layout_width="125dp"
+                        android:layout_height="60dp"
+                        android:id="@+id/imageView"
+                        android:src="@drawable/nocker_score" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -100,7 +83,7 @@
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:orientation="vertical">
 
                     <TextView
@@ -135,7 +118,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_weight="3"
+                    android:layout_weight="4"
                     android:orientation="vertical">
 
                     <TextView
@@ -172,7 +155,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp">
 

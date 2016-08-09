@@ -15,6 +15,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
+import android.text.Html;
 import android.transition.Fade;
 import android.util.Base64;
 import android.util.Log;
@@ -56,6 +57,7 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Activity.JobRequestActivity;
 import com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
@@ -101,6 +103,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     private CallbackManager callbackManager;
     private ProfileTracker profileTracker;
 
+    TextView fpassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -126,9 +129,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         setupWindowAnimations();
         printKeyHash(LoginActivity.this);
-        linkedIn.setOnClickListener(this);
-        googleplus.setOnClickListener(this);
-        facebook.setOnClickListener(this);
+
         marshmallowPhoneStatePremissionCheck();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -234,12 +235,21 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         googleplus = (ImageView) findViewById(R.id.googleplus);
         description = (TextView) findViewById(R.id.description);
         facebook = (ImageView) findViewById(R.id.facebook);
+        twitter = (ImageView) findViewById(R.id.twitter);
+        fpassword = (TextView)findViewById(R.id.fpassword);
 
+        linkedIn.setOnClickListener(this);
+        googleplus.setOnClickListener(this);
+        facebook.setOnClickListener(this);
+        twitter.setOnClickListener(this);
+        fpassword.setOnClickListener(this);
         Typeface typface = Typeface.createFromAsset(getAssets(), "fonts/font1.ttf");
 
         login.setTypeface(typface);
         description.setTypeface(typface);
-
+        fpassword.setTypeface(typface);
+        String htmlString="<u>Forgot Your Password ?</u>";
+        fpassword.setText(Html.fromHtml(htmlString));
     }
 
 
@@ -438,6 +448,16 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
             case R.id.facebook: {
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email", "user_birthday"));
                 break;
+            }
+            case R.id.twitter:{
+                Intent i = new Intent(getApplicationContext(), JobRequestActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(i);
+            }
+            case R.id.fpassword:{
+                Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getApplicationContext().startActivity(i);
             }
         }
     }

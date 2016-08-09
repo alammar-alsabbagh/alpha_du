@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
-import com.procasy.dubarah_nocker.Adapter.AdapterCallback;
 import com.procasy.dubarah_nocker.Adapter.SkillsAdapter;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
@@ -39,7 +38,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ChooseSkillsActivity extends AppCompatActivity implements AdapterCallback {
+public class ChooseSkillsActivity extends AppCompatActivity {
 
     Skills mskills;
     SessionManager sessionManager;
@@ -271,22 +270,7 @@ SkillsAdapter skillsAdapter;
 
     }
 
-    @Override
-    public void onMethodCallback(String s) {
-     /*   chosenSkills.add(new String(s));*/
-    /*    chosen_skills.setAdapter(new TagAdapter<String>(chosenSkills)
-        {
-            @Override
-            public View getView(FlowLayout parent, int position, String s)
-            {
-                LinearLayout tv = (LinearLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.one_skill_item,
-                        chosen_skills, false);
-                TextView textView = (TextView) tv.findViewById(R.id.skill_name);
-                textView.setText(chosenSkills.get(position));
-                return tv;
-            }
-        });*/
-    }
+
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable mDivider;
 

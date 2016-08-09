@@ -13,9 +13,9 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="android:windowNoTitle">true</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/colorPrimary</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
-        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="colorControlActivated">@color/black_overlay</item>
+        <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
     <style name="AppTheme2" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -24,9 +24,9 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlNormal">@color/colorPrimary</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
-        <item name="colorControlHighlight">@color/colorPrimary</item>
+        <item name="colorControlNormal">@android:color/transparent</item>
+        <item name="colorControlActivated">@color/black_overlay</item>
+        <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
     <style name="FullscreenTheme" parent="AppTheme">
         <item name="windowNoTitle">true</item>
@@ -99,4 +99,12 @@
         <item name="android:paddingBottom">6dp</item>
     </style>
 
+        <style name="Theme.Transparent" parent="AppTheme2">
+            <item name="android:windowIsTranslucent">true</item>
+            <item name="android:windowBackground">@android:color/transparent</item>
+            <item name="android:windowContentOverlay">@null</item>
+            <item name="android:windowNoTitle">true</item>
+            <item name="android:windowIsFloating">false</item>
+            <item name="android:backgroundDimEnabled">false</item>
+        </style>
 </resources>

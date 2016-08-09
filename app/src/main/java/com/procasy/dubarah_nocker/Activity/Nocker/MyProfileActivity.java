@@ -23,13 +23,10 @@ import android.widget.Toast;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.AboutController;
-import com.procasy.dubarah_nocker.Fragments.AskForHelpFragment;
 import com.procasy.dubarah_nocker.Fragments.FragmentAbout;
 import com.procasy.dubarah_nocker.Fragments.FragmentService;
 import com.procasy.dubarah_nocker.Fragments.FragmentTestimonials;
-import com.procasy.dubarah_nocker.Fragments.NearByNockersFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
-import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.UserInfoResponse;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.SkillsController;
@@ -64,7 +61,7 @@ public class MyProfileActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar mtoolbar;
-
+SessionManager sessionManager;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -83,13 +80,13 @@ public class MyProfileActivity extends AppCompatActivity {
         imguser = (CircleImageView) findViewById(R.id.user_img);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        sessionManager = new SessionManager(this);
         setupViewPager(viewPager);
         setSupportActionBar(mtoolbar);
 
-        Log.e("Nocke_Email", getIntent().getExtras().getString(NOCKER_EMAIL));
+       // Log.e("Nocke_Email", getIntent().getExtras().getString(NOCKER_EMAIL));
 
-        getSupportActionBar().setTitle(getIntent().getExtras().getString(NOCKER_NAME));
+        getSupportActionBar().setTitle(sessionManager.getFName() + sessionManager.getLName());
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -105,7 +102,7 @@ public class MyProfileActivity extends AppCompatActivity {
         mContext = this;
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<UserInfoResponse> call = apiService.GetUserInfo(getIntent().getExtras().getString(NOCKER_EMAIL));
+        Call<UserInfoResponse> call = apiService.GetUserInfo(sessionManager.getEmail());
         call.enqueue(new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
