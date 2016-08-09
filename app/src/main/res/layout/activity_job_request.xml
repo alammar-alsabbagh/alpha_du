@@ -5,7 +5,8 @@
     android:background="#EF1F2C34">
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:id="@+id/scroll">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -194,7 +195,7 @@
                     android:background="@drawable/btn_yellow_border"
                     android:layout_marginRight="10dp"
                     android:textStyle="bold"
-
+android:id="@+id/accept"
                     />
                 <Button
                     android:layout_width="0dp"
@@ -206,17 +207,18 @@
                     android:background="@drawable/btn_pass_gray"
                     android:layout_marginLeft="10dp"
                     android:textStyle="bold"
+                    android:id="@+id/pass"
 
                     />
 
 
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:id="@+id/quota">
+                android:id="@+id/quota"
+                android:layout_marginBottom="40dp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -248,10 +250,59 @@
                         android:textColor="@color/white"
                         android:textSize="18dp" />
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="10dp"
+                    >
+                        <EditText
+                            android:id="@+id/money"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:hint="How much are you charging him ?"
 
-
-
-
+                            android:alpha="0.8"
+                            android:textSize="18dp"
+                            android:inputType="numberDecimal"
+                            android:nestedScrollingEnabled="true"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="30dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="#AAFFFFFF"
+                            android:background="@drawable/birthdate_border"
+                            android:textColorHint="#55FFFFFF"/>
+                        <EditText
+                            android:id="@+id/desc"
+                            android:layout_marginTop="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:hint="Could you write a short description of what you can do"
+                            android:alpha="0.8"
+                            android:textSize="15dp"
+                            android:background="@drawable/birthdate_border"
+                            android:inputType="textImeMultiLine|textMultiLine"
+                            android:nestedScrollingEnabled="true"
+                            android:paddingBottom="10dp"
+                            android:paddingLeft="30dp"
+                            android:paddingRight="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="#AAFFFFFF"
+                            android:textColorHint="#55FFFFFF"
+                            />
+                </LinearLayout>
+                <Button
+                    android:layout_marginTop="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="Send Quota"
+                    android:gravity="center"
+                    android:textSize="20dp"
+                    android:background="@drawable/btn_yellow_border"
+                    android:textStyle="bold"
+                    android:id="@+id/send"
+                    />
             </LinearLayout>
 
         </LinearLayout>

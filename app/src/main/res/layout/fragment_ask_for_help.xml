@@ -83,7 +83,6 @@
                     android:paddingLeft="30dp"
                     android:paddingRight="10dp"
                     android:paddingTop="10dp"
-                    android:singleLine="true"
                     android:textColor="#AAFFFFFF"
                     android:textColorHint="#55FFFFFF" />
 
