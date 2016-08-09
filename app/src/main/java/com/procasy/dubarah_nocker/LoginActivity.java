@@ -321,7 +321,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                                 sessionManager.setEmail(response.body().getUser().getUser_email());
                                 sessionManager.setFName(response.body().getUser().getUser_fname());
                                 sessionManager.setLName(response.body().getUser().getUser_lname());
-                                sessionManager.setPP(response.body().getUser().getUser_img());
+                                sessionManager.setPP(ApiClass.Pic_Base_URL+response.body().getUser().getUser_img());
                                 sessionManager.setAVG(response.body().getAvg_charge());
                                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
                                 sessionManager.setKeyIsSocial(0);

@@ -13,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Adapter.NavigationDrawerAdapter;
 import com.procasy.dubarah_nocker.CommuncationChannel;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
@@ -163,7 +162,7 @@ public class FragmentDrawerUser extends Fragment implements View.OnClickListener
         activateSubscription.setOnClickListener(this);
         sessionManager = new SessionManager(getActivity());
         fullName.setText(sessionManager.getFName() + " " + sessionManager.getLName());
-        Picasso.with(getActivity()).load(ApiClass.Pic_Base_URL + sessionManager.getPP()).into(profileImage);
+        Picasso.with(getActivity()).load(sessionManager.getPP()).placeholder(R.drawable.drawable_photo).into(profileImage);
         averageCharge.setText(sessionManager.getAVG() + "");
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
 

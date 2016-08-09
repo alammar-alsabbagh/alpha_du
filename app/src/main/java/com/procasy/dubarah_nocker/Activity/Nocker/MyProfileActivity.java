@@ -26,7 +26,6 @@ import com.procasy.dubarah_nocker.AboutController;
 import com.procasy.dubarah_nocker.Fragments.FavFragment;
 import com.procasy.dubarah_nocker.Fragments.FragmentAbout;
 import com.procasy.dubarah_nocker.Fragments.FragmentService;
-import com.procasy.dubarah_nocker.Fragments.FragmentTestimonials;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.UserInfoResponse;
 import com.procasy.dubarah_nocker.R;
@@ -108,8 +107,8 @@ public class MyProfileActivity extends AppCompatActivity {
 
                 Log.e("response", "success " + response.body().getUser().getUser_img());
                 Picasso.with(getApplicationContext())
-                        .load(ApiClass.Pic_Base_URL + response.body().getUser().getUser_img())
-                        .placeholder(R.drawable.profile)
+                        .load(sessionManager.getPP())
+                        .placeholder(R.drawable.drawable_photo)
                         .error(R.drawable.profile)
                         .into(imguser);
 

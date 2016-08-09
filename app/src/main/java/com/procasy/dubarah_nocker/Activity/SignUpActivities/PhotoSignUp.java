@@ -484,6 +484,13 @@ public class PhotoSignUp extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             Log.e("ResponseUpload", "Response from server: " + result);
+            try {
+                JSONObject object = new JSONObject(result);
+                sessionManager.setPP(ApiClass.Pic_Base_URL+object.optString("path"));
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             if (dialog.isShowing())
                 dialog.dismiss();
             // showing the server response in an alert dialog

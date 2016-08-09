@@ -9,10 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.procasy.dubarah_nocker.API.ApiClass;
-import com.procasy.dubarah_nocker.Activity.Nocker.MyProfileActivity;
 import com.procasy.dubarah_nocker.Activity.Nocker.OtherProfileActivity;
 import com.procasy.dubarah_nocker.Model.Responses.NockerResponse;
 import com.procasy.dubarah_nocker.R;
@@ -100,8 +98,8 @@ public class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAdap
         holder.nocker_distance.setText(mValues.get(position).getDist_text());
         Picasso.with(context)
                 .load(ApiClass.Pic_Base_URL + mValues.get(position).getUser_img())
-                .placeholder(R.drawable.profile)
-                .error(R.drawable.profile)
+                .placeholder(R.drawable.drawable_photo)
+                .error(R.drawable.drawable_photo)
                 .into(holder.circleImageView);
         System.out.println(ApiClass.Pic_Base_URL + mValues.get(position).getUser_img());
         if (mValues.get(position).getUser_is_online() == 1) {
