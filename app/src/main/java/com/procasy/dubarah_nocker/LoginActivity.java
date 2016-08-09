@@ -163,19 +163,51 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                                         Log.v("LoginActivity", response.toString());
                                         JSONObject objectFace = response.getJSONObject();
                                         try {
-                                            String Email = objectFace.getString("email");
-                                            String first_name = objectFace.getString("first_name");
-                                            String last_name = objectFace.getString("last_name");
+                                            final String Email = objectFace.getString("email");
+                                            final String first_name = objectFace.getString("first_name");
+                                            final String last_name = objectFace.getString("last_name");
                                             String gender = objectFace.getString("gender");
                                             String birthday = objectFace.getString("birthday");
                                             JSONObject picture = objectFace.getJSONObject("picture");
                                             JSONObject data = picture.getJSONObject("data");
-                                            String pic_url = data.getString("url");
-                                            Call<SocialSignupResponse> call = apiService.SocialSignup(Email, first_name, last_name, UDID, "facebook", gender, pic_url, birthday);
+                                            final String pic_url = data.getString("url");
+                                            Call<SocialSignupResponse> call = apiService.SocialSignup(Email,first_name,last_name,UDID,"facebook",gender,pic_url,birthday);
                                             call.enqueue(new Callback<SocialSignupResponse>() {
                                                 @Override
                                                 public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
-                                                    System.out.println(response.body().getMessage());
+
+
+                                                    Log.d("response :",response.body().getStatus()+"");
+                                                    if(response.body().getStatus() == 1) {
+                                                        sessionManager.setEmail(Email);
+                                                        sessionManager.setFName(first_name);
+                                                        sessionManager.setLName(last_name);
+                                                        sessionManager.setLogin(true);
+                                                        sessionManager.setPassword(null);
+                                                        sessionManager.setPP(pic_url);
+                                                        sessionManager.setUDID(UDID);
+                                                        sessionManager.setKeyIsSocial(1);
+                                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    }else if(response.body().getStatus() == 2)
+                                                    {
+                                                        sessionManager.setEmail(Email);
+                                                        sessionManager.setFName(first_name);
+                                                        sessionManager.setLName(last_name);
+                                                        sessionManager.setLogin(true);
+                                                        sessionManager.setPassword(null);
+                                                        sessionManager.setPP(pic_url);
+                                                        sessionManager.setUDID(UDID);
+                                                        sessionManager.setKeyIsSocial(1);
+                                                        startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
+                                                    }
+                                                    else
+                                                    {
+                                                        AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
+                                                        alertdialog.setMessage("Wrong Authentication");
+                                                        alertdialog.setTitle("Fail");
+                                                        alertdialog.setPositiveButton("Ok", null);
+                                                        alertdialog.show();
+                                                    }
                                                 }
 
                                                 @Override
@@ -292,6 +324,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                                 sessionManager.setPP(response.body().getUser().getUser_img());
                                 sessionManager.setAVG(response.body().getAvg_charge());
                                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
+                                sessionManager.setKeyIsSocial(0);
                                 Log.d("nocker", response.body().getUser().is_nocker() + "");
                                 if (dialog.isShowing())
                                     dialog.dismiss();
@@ -525,7 +558,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         sessionManager.setPassword(null);
                         sessionManager.setPP(acct.getPhotoUrl().toString());
                         sessionManager.setUDID(UDID);
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                       sessionManager.setKeyIsSocial(1);
+                       startActivity(new Intent(getApplicationContext(), MainActivity.class));
                     }else if(response.body().getStatus() == 2)
                     {
                         sessionManager.setEmail(acct.getEmail());
@@ -535,6 +569,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         sessionManager.setPassword(null);
                         sessionManager.setPP(acct.getPhotoUrl().toString());
                         sessionManager.setUDID(UDID);
+                        sessionManager.setKeyIsSocial(1);
                         startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
                     }
                     else
@@ -552,12 +587,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
                 }
             });
-           /* updateUI(true);*/
         } else {
-            // Signed out, show unauthenticated UI.
-/*
-            updateUI(false);
-*/
+
         }
     }
 

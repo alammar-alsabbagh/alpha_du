@@ -491,6 +491,8 @@ public class PhotoSignUp extends AppCompatActivity {
             sessionManager.setEmail(bundle.getString("email"));
             sessionManager.setPassword(bundle.getString("password"));
             sessionManager.setUDID(UDID);
+            sessionManager.setKeyIsSocial(0);
+
             startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
             finish();
 

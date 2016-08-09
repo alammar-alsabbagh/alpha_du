@@ -35,7 +35,7 @@ public class SessionManager {
     private static final String KEY_AVG_CHARGE = "avg_charge";
 
     private static final String KEY_IS_NOCKER = "is_nocker";
-
+    private static final String KEY_IS_SOCIAL = "is_social";
 
 
 
@@ -160,6 +160,16 @@ public class SessionManager {
     }
 
 
+    public void setKeyIsSocial(int isNocker)
+    {
+        editor.putInt(KEY_IS_SOCIAL, isNocker);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "User IS_Social session modified!");
+    }
+    public int getKeyIsSocial(){
+        return pref.getInt(KEY_IS_SOCIAL, 0);
+    }
 
 
 
