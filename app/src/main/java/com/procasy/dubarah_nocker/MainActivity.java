@@ -104,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 sessionManager.setPP(response.body().getUser().getUser_img());
                 sessionManager.setAVG(response.body().getAvg_charge());
                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
+
                 Log.d("nocker", response.body().toString() + "");
                 if (dialog.isShowing())
                     dialog.dismiss();

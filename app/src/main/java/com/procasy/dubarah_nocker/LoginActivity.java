@@ -57,6 +57,7 @@ import com.mobsandgeeks.saripaar.annotation.Email;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Activity.BeANocker.BeAnockerAcitivty;
 import com.procasy.dubarah_nocker.Activity.JobRequestActivity;
 import com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
@@ -495,6 +496,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            int statusCode = result.getStatus().getStatusCode();
+            Log.e("Google Plus : ",statusCode+"");
             handleSignInResult(result);
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -505,8 +508,50 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         Log.d("Google Plus", "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            GoogleSignInAccount acct = result.getSignInAccount();
-            Log.e("Googel Plus Data : ", acct.getEmail() + "  " + acct.getPhotoUrl() + "   " + acct.getFamilyName() + acct.getGivenName());
+            final GoogleSignInAccount acct = result.getSignInAccount();
+            Log.e("Googel Plus Data : ", acct.getEmail() + "  " + acct.getPhotoUrl() + "   " + acct.getFamilyName() +" "+ acct.getGivenName());
+            Call<SocialSignupResponse> call = apiService.SocialSignup(acct.getEmail(),acct.getGivenName(),acct.getFamilyName(),UDID,"googleplus","other",acct.getPhotoUrl().toString(),"");
+            call.enqueue(new Callback<SocialSignupResponse>() {
+                @Override
+                public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
+
+
+                    Log.d("response :",response.body().getStatus()+"");
+                   if(response.body().getStatus() == 1) {
+                        sessionManager.setEmail(acct.getEmail());
+                        sessionManager.setFName(acct.getGivenName());
+                        sessionManager.setLName(acct.getFamilyName());
+                        sessionManager.setLogin(true);
+                        sessionManager.setPassword(null);
+                        sessionManager.setPP(acct.getPhotoUrl().toString());
+                        sessionManager.setUDID(UDID);
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }else if(response.body().getStatus() == 2)
+                    {
+                        sessionManager.setEmail(acct.getEmail());
+                        sessionManager.setFName(acct.getGivenName());
+                        sessionManager.setLName(acct.getFamilyName());
+                        sessionManager.setLogin(true);
+                        sessionManager.setPassword(null);
+                        sessionManager.setPP(acct.getPhotoUrl().toString());
+                        sessionManager.setUDID(UDID);
+                        startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
+                    }
+                    else
+                    {
+                       AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
+                       alertdialog.setMessage("Wrong Authentication");
+                       alertdialog.setTitle("Fail");
+                       alertdialog.setPositiveButton("Ok", null);
+                       alertdialog.show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<SocialSignupResponse> call, Throwable t) {
+
+                }
+            });
            /* updateUI(true);*/
         } else {
             // Signed out, show unauthenticated UI.

@@ -27,4 +27,12 @@ public class SocialSignupResponse {
     public void setMessage(String message) {
         Message = message;
     }
+
+    @Override
+    public String toString() {
+        return "SocialSignupResponse{" +
+                "status=" + status +
+                ", Message='" + Message + '\'' +
+                '}';
+    }
 }
