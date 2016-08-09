@@ -44,7 +44,7 @@ public class JobRequestActivity extends AppCompatActivity {
                         scrollView.smoothScrollTo(0, scrollView.getMaxScrollAmount ());
 
                     }
-                }, 1000);
+                }, 500);
             }
         });
 

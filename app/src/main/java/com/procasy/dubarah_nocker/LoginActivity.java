@@ -453,11 +453,13 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 Intent i = new Intent(getApplicationContext(), JobRequestActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(i);
+                break;
             }
             case R.id.fpassword:{
                 Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(i);
+                break;
             }
         }
     }
