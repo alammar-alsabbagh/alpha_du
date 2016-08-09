@@ -64,6 +64,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.Nocker.OtherProfileActivity"/>
         <activity android:name=".Activity.SignUpActivities.MainInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.LocationInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.PhotoSignUp" />

@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.AboutController;
+import com.procasy.dubarah_nocker.Fragments.FavFragment;
 import com.procasy.dubarah_nocker.Fragments.FragmentAbout;
 import com.procasy.dubarah_nocker.Fragments.FragmentService;
 import com.procasy.dubarah_nocker.Fragments.FragmentTestimonials;
@@ -56,12 +57,12 @@ public class MyProfileActivity extends AppCompatActivity {
     TextView avg_charge;
     Context mContext;
     FragmentAbout tab1 = new FragmentAbout();
-    FragmentTestimonials tab3 = new FragmentTestimonials();
+    FavFragment tab3 = new FavFragment();
     FragmentService tab2 = new FragmentService();
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private Toolbar mtoolbar;
-SessionManager sessionManager;
+    SessionManager sessionManager;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -83,8 +84,6 @@ SessionManager sessionManager;
         sessionManager = new SessionManager(this);
         setupViewPager(viewPager);
         setSupportActionBar(mtoolbar);
-
-       // Log.e("Nocke_Email", getIntent().getExtras().getString(NOCKER_EMAIL));
 
         getSupportActionBar().setTitle(sessionManager.getFName() + sessionManager.getLName());
         tabLayout = (TabLayout) findViewById(R.id.tabs);
@@ -121,7 +120,7 @@ SessionManager sessionManager;
 
                 avg_charge.setText(response.body().getAvg_charge() + "");
                 skillsController.onAdapterUpdated(response.body().getSkills());
-                testimonialsController.UpdateAdapter(response.body().getTestimonials());
+//                testimonialsController.UpdateAdapter(response.body().getTestimonials());
                 Log.e("fname", response.body().getUser().getUser_fname());
 
                 if (dialog.isShowing())
@@ -153,11 +152,11 @@ SessionManager sessionManager;
         tabLayout.getTabAt(0).setCustomView(About);
 
         TextView Services = (TextView) LayoutInflater.from(this).inflate(R.layout.tablayout_item, null);
-        Services.setText("Services");
+        Services.setText("Assigments");
         tabLayout.getTabAt(1).setCustomView(Services);
 
         TextView Testimonials = (TextView) LayoutInflater.from(this).inflate(R.layout.tablayout_item, null);
-        Testimonials.setText("Testimonials");
+        Testimonials.setText("Fav List");
         tabLayout.getTabAt(2).setCustomView(Testimonials);
 
     }
@@ -182,7 +181,7 @@ SessionManager sessionManager;
         adapter.addFragment(tab2, "Service");
 
 
-        testimonialsController = tab3;
+        //testimonialsController = tab3;
         adapter.addFragment(tab3, "Testimonials");
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);

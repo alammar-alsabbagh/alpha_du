@@ -71,7 +71,7 @@ public class MainFragment extends Fragment {
                 tabLayout.setupWithViewPager(viewPager);
                 tabLayout.getTabAt(0).setText("Nearby nockers");
                 tabLayout.getTabAt(1).setText("Ask for Help!");
-                tabLayout.getTabAt(2).setText("Appointments");
+                tabLayout.getTabAt(2).setText("Jobs");
             }
         });
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -118,8 +118,8 @@ public class MainFragment extends Fragment {
                     AskForHelpFragment askTab = new AskForHelpFragment();
                     return askTab;
                 case 2:
-                    AppointementsFragment appointementsTab = new AppointementsFragment();
-                    return appointementsTab;
+                    JobFragment jobFragment = new JobFragment();
+                    return jobFragment;
                 default:
                     return null;
             }

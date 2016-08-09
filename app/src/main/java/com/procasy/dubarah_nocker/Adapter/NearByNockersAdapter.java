@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Activity.Nocker.MyProfileActivity;
+import com.procasy.dubarah_nocker.Activity.Nocker.OtherProfileActivity;
 import com.procasy.dubarah_nocker.Model.Responses.NockerResponse;
 import com.procasy.dubarah_nocker.R;
 import com.squareup.picasso.Picasso;
@@ -24,6 +25,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * Created by Omar on 5/24/2016.
  */
+
 public class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAdapter.ViewHolder> {
 
 
@@ -58,10 +60,10 @@ public class NearByNockersAdapter extends RecyclerView.Adapter<NearByNockersAdap
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(context, MyProfileActivity.class);
-                    i.putExtra(MyProfileActivity.NOCKER_EMAIL, mValues.get(getPosition()).getUser_email());
-                    i.putExtra(MyProfileActivity.NOCKER_NAME, mValues.get(getPosition()).getuser_fname()
-                            + mValues.get(getPosition()).getUser_lname());
+                    Intent i = new Intent(context, OtherProfileActivity.class);
+                    i.putExtra(OtherProfileActivity.NOCKER_EMAIL, mValues.get(getPosition()).getUser_email());
+                    i.putExtra(OtherProfileActivity.NOCKER_NAME, mValues.get(getPosition()).getuser_fname()
+                            +" "+ mValues.get(getPosition()).getUser_lname());
 
                     context.startActivity(i);
 

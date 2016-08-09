@@ -17,6 +17,7 @@ import java.util.List;
 /**
  * Created by Omar on 5/24/2016.
  */
+
 public  class LanguagesAdapter extends RecyclerView.Adapter<LanguagesAdapter.ViewHolder> {
 
 

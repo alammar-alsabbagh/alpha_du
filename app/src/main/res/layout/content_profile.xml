@@ -39,6 +39,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:orientation="horizontal"
                     android:padding="10dp"
                     android:weightSum="15">
@@ -116,11 +117,24 @@
                         android:layout_weight="7"
                         android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="@dimen/drawer_nocker_score_w"
-                            android:layout_height="@dimen/drawer_nocker_score_h"
-                            android:src="@drawable/nocker_score"
-                            android:layout_marginLeft="10dp" />
+                        <com.whinc.widget.ratingbar.RatingBar
+                            android:id="@+id/ratingBar"
+                            android:layout_width="100dp"
+                            android:layout_height="20dp"
+                            app:rb_click_rating="true"
+                            app:rb_count="3"
+                            app:rb_empty="@drawable/empty"
+                            app:rb_fill="@drawable/fill"
+                            app:rb_max_count="5"
+                            app:rb_space="10dp"
+                            app:rb_touch_rating="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="4.5"
+                            android:textColor="@color/white" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -141,7 +155,6 @@
                     android:layout_marginRight="10dp"
                     app:tabGravity="fill"
                     app:tabMode="fixed" />
-
 
             </LinearLayout>
 

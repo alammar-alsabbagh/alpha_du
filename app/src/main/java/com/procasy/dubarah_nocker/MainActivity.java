@@ -98,14 +98,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
            //     System.out.println(response.body().getUser().toString());
+
                 sessionManager.setEmail(response.body().getUser().getUser_email());
                 sessionManager.setFName(response.body().getUser().getUser_fname());
                 sessionManager.setLName(response.body().getUser().getUser_lname());
                 sessionManager.setPP(response.body().getUser().getUser_img());
                 sessionManager.setAVG(response.body().getAvg_charge());
                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
+                Log.d("nocker_data", response.body().toString() + "");
+                sessionManager.setSocialType(response.body().getUser().getUser_social_type());
 
-                Log.d("nocker", response.body().toString() + "");
+                Log.e("user_img",sessionManager.getPP()+" ff");
+
                 if (dialog.isShowing())
                     dialog.dismiss();
             }

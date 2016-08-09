@@ -48,38 +48,37 @@ public class ChooseSkillsActivity extends AppCompatActivity {
     ArrayList<String> skills = new ArrayList<>();
     LinearLayout next_btn;
     private APIinterface apiService;
-SkillsAdapter skillsAdapter;
-    private JSONArray GetChoosenSkilles()
-    {
-        Log.e("chosenskilles",chosenSkills.toString());
-        Log.e("Email",sessionManager.getEmail());
-        Log.e("UDID",sessionManager.getUDID());
+    SkillsAdapter skillsAdapter;
+
+    private JSONArray GetChoosenSkilles() {
+        Log.e("chosenskilles", chosenSkills.toString());
+        Log.e("Email", sessionManager.getEmail());
+        Log.e("UDID", sessionManager.getUDID());
         ArrayList<Integer> skills_id = new ArrayList<>();
-        for (String s:chosenSkills) {
+        for (String s : chosenSkills) {
             mskills.open();
             Cursor cursor = mskills.getSingleSkill(s.toString());
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
+            while (!cursor.isAfterLast()) {
                 skills_id.add(cursor.getInt(cursor.getColumnIndex("skill_id")));
                 cursor.moveToNext();
             }
             cursor.close();
             mskills.close();
-            }
-        Log.e("chosenskilles_ids",skills_id.toString());
-        Log.e("chosenskilles",chosenSkills.toString());
-        Log.e("Email",sessionManager.getEmail());
-        Log.e("UDID",sessionManager.getUDID());
+        }
+        Log.e("chosenskilles_ids", skills_id.toString());
+        Log.e("chosenskilles", chosenSkills.toString());
+        Log.e("Email", sessionManager.getEmail());
+        Log.e("UDID", sessionManager.getUDID());
         JSONArray array = new JSONArray();
-        for (Integer skill_id:skills_id) {
+        for (Integer skill_id : skills_id) {
             array.put(skill_id);
         }
 
         return array;
     }
 
-    private List<String> GetAllSkills()
-    {
+    private List<String> GetAllSkills() {
         return skills;
     }
 
@@ -102,7 +101,7 @@ SkillsAdapter skillsAdapter;
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<SocialSignupResponse> call = apiService.AddUserSkill(sessionManager.getEmail(),sessionManager.getUDID(),GetChoosenSkilles());
+                Call<SocialSignupResponse> call = apiService.AddUserSkill(sessionManager.getEmail(), sessionManager.getUDID(), GetChoosenSkilles());
                 call.enqueue(new Callback<SocialSignupResponse>() {
                     @Override
                     public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
@@ -114,7 +113,7 @@ SkillsAdapter skillsAdapter;
 
                         } else /// old user
                         {
-                            Toast.makeText(getApplicationContext(),"There Has Been An Error !! ",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "There Has Been An Error !! ", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -205,7 +204,7 @@ SkillsAdapter skillsAdapter;
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
         //// TODO: 7/30/2016  dont forget to modify session
-        Call<AllSkillsAndLanguageResponse> call = apiService.GetAllSkills(sessionManager.getEmail(),sessionManager.getUDID());
+        Call<AllSkillsAndLanguageResponse> call = apiService.GetAllSkills(sessionManager.getEmail(), sessionManager.getUDID());
         call.enqueue(new Callback<AllSkillsAndLanguageResponse>() {
             @Override
             public void onResponse(Call<AllSkillsAndLanguageResponse> call, Response<AllSkillsAndLanguageResponse> response) {
@@ -226,11 +225,10 @@ SkillsAdapter skillsAdapter;
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
-                finally {
+                } finally {
                     mskills.close();
                     skills = new ArrayList<String>(GetAllSkills());
-                    skillsAdapter = new SkillsAdapter(getApplicationContext(), skills,chosenSkills);
+                    skillsAdapter = new SkillsAdapter(getApplicationContext(), skills, chosenSkills);
                     skill_list.setAdapter(skillsAdapter);
                 }
 
@@ -249,18 +247,17 @@ SkillsAdapter skillsAdapter;
         });
         GetChoosenSkilles();
         skill_list.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), new   RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         // TODO Handle item click
-                        if(chosenSkills.contains(skills.get(position))) {
+                        if (chosenSkills.contains(skills.get(position))) {
                             chosenSkills.remove(chosenSkills.indexOf(skills.get(position)));
-                            Log.d("Removed : ",skills.get(position));
+                            Log.d("Removed : ", skills.get(position));
                             skillsAdapter.notifyDataSetChanged();
-                        }
-                        else {
+                        } else {
                             chosenSkills.add(skills.get(position));
-                            Log.d("added : ",skills.get(position));
+                            Log.d("added : ", skills.get(position));
                             skillsAdapter.notifyDataSetChanged();
 
                         }
