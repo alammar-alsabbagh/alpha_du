@@ -1,9 +1,11 @@
 package com.procasy.dubarah_nocker.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -13,11 +15,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.procasy.dubarah_nocker.API.APIinterface;
+import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Adapter.NearByNockersAdapter;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.JobModel;
+import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
+import com.procasy.dubarah_nocker.Model.Responses.ResponseJob;
 import com.procasy.dubarah_nocker.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cc.cloudist.acplibrary.ACProgressConstant;
+import cc.cloudist.acplibrary.ACProgressFlower;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class JobFragment extends Fragment {
 
@@ -27,6 +41,7 @@ public class JobFragment extends Fragment {
     RecyclerView recyclerView;
     StaggeredGridLayoutManager gaggeredGridLayoutManager;
     List<JobModel> mdata;
+    SessionManager sessionManager;
 
     public JobFragment() {
         // Required empty public constructor
@@ -39,6 +54,7 @@ public class JobFragment extends Fragment {
     }
 
     void DemoData() {
+
         mdata.add(new JobModel("title", "", "", ""));
         mdata.add(new JobModel("title", "", "", ""));
         mdata.add(new JobModel("title", "", "", ""));
@@ -53,13 +69,37 @@ public class JobFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_job, container, false);
 
+        sessionManager = new SessionManager(getActivity());
+
         recyclerView = (RecyclerView) view.findViewById(R.id.alljobs);
-        gaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(gaggeredGridLayoutManager);
-        mdata = new ArrayList<>();
-        DemoData();
-        adapter = new JobAdapter(getActivity(), mdata);
-        recyclerView.setAdapter(adapter);
+
+        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
+                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                .themeColor(Color.WHITE)
+                .text("Getting Jobs")
+                .fadeColor(Color.DKGRAY).build();
+
+        dialog.show();
+
+        APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
+        Call<ResponseJob> call = apiService.GetJobs(sessionManager.getEmail(), sessionManager.getUDID(), 0);
+        call.enqueue(new Callback<ResponseJob>() {
+            @Override
+            public void onResponse(Call<ResponseJob> call, Response<ResponseJob> response) {
+                System.out.println(response.body().toString());
+                adapter = new JobAdapter(getActivity(), response.body().getJobs());
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setAdapter(adapter);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseJob> call, Throwable t) {
+                dialog.dismiss();
+            }
+        });
 
         return view;
     }
@@ -105,21 +145,18 @@ public class JobFragment extends Fragment {
 
         public class ViewHolder extends RecyclerView.ViewHolder {
 
-            public final TextView skill_name;
-            public final ImageView skill_add;
-            public final LinearLayout linearLayout;
+            public TextView job_name, job_descr, job_distance, job_address;
 
             public ViewHolder(View view) {
                 super(view);
-                skill_name = (TextView) view.findViewById(R.id.skill_name);
-                skill_add = (ImageView) view.findViewById(R.id.add_skill);
-                linearLayout = (LinearLayout) view.findViewById(R.id.linearLayout);
+
+                job_name = (TextView) view.findViewById(R.id.job_title);
+                job_descr = (TextView) view.findViewById(R.id.job_description);
+                job_distance = (TextView) view.findViewById(R.id.job_distance);
+                job_address = (TextView) view.findViewById(R.id.job_country);
+
             }
 
-            @Override
-            public String toString() {
-                return super.toString() + " '" + skill_name.getText();
-            }
         }
 
 
@@ -146,7 +183,12 @@ public class JobFragment extends Fragment {
         @Override
         public void onBindViewHolder(final ViewHolder holder, final int position) {
 
+            JobModel data = mValues.get(position);
 
+            holder.job_name.setText(data.job_title);
+            holder.job_descr.setText(data.job_descr);
+            holder.job_distance.setText(data.job_distance);
+            holder.job_address.setText(data.job_country);
         }
 
         @Override

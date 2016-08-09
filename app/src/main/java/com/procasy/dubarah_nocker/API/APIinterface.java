@@ -1,11 +1,13 @@
 package com.procasy.dubarah_nocker.API;
 
+import com.procasy.dubarah_nocker.Model.JobModel;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LocationResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
+import com.procasy.dubarah_nocker.Model.Responses.ResponseJob;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 import com.procasy.dubarah_nocker.Model.Responses.UserInfoResponse;
 
@@ -27,15 +29,23 @@ import retrofit2.http.Part;
 public interface APIinterface {
     @FormUrlEncoded
     @POST("login")
-    Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password, @Field("user_ud_id") String UDID);
+    Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password,
+                              @Field("user_ud_id") String UDID);
 
     @FormUrlEncoded
     @POST("get_info_nocker")
     Call<InfoNockerResponse> GetInfoNocker(@Field("user_email") String email, @Field("user_ud_id") String UDID);
 
+
+    @FormUrlEncoded
+    @POST("near_jobs")
+    Call<ResponseJob> GetJobs(@Field("user_email") String email,
+                              @Field("user_ud_id") String UDID, @Field("page") int page);
+
     @FormUrlEncoded
     @POST("get_near_by_nocker")
-    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email, @Field("user_ud_id") String UDID, @Field("page") int page);
+    Call<NearByNockerResponse> GetNearByNockers(@Field("user_email") String email,
+                                                @Field("user_ud_id") String UDID, @Field("page") int page);
 
     @FormUrlEncoded
     @POST("get_skills")
