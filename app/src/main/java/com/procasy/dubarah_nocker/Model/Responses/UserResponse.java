@@ -36,6 +36,9 @@ public class UserResponse {
     @SerializedName("user_is_nocker")
     private int user_is_nocker;
 
+    @SerializedName("user_social_type")
+    private String user_social_type;
+
     public int getUser_is_nocker() {
         return user_is_nocker;
     }
@@ -139,7 +142,17 @@ public class UserResponse {
                 ", user_description='" + user_description + '\'' +
                 ", user_birthday='" + user_birthday + '\'' +
                 ", user_gender='" + user_gender + '\'' +
-                ", is_nocker=" + user_is_nocker +
+                ", user_is_nocker=" + user_is_nocker +
+                ", user_social_type='" + user_social_type + '\'' +
                 '}';
     }
+
+    public String getUser_social_type() {
+        return user_social_type;
+    }
+
+    public void setUser_social_type(String user_social_type) {
+        this.user_social_type = user_social_type;
+    }
+
 }
