@@ -105,7 +105,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     private ProfileTracker profileTracker;
 
     TextView fpassword;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -164,19 +163,51 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                                         Log.v("LoginActivity", response.toString());
                                         JSONObject objectFace = response.getJSONObject();
                                         try {
-                                            String Email = objectFace.getString("email");
-                                            String first_name = objectFace.getString("first_name");
-                                            String last_name = objectFace.getString("last_name");
+                                            final String Email = objectFace.getString("email");
+                                            final String first_name = objectFace.getString("first_name");
+                                            final String last_name = objectFace.getString("last_name");
                                             String gender = objectFace.getString("gender");
                                             String birthday = objectFace.getString("birthday");
                                             JSONObject picture = objectFace.getJSONObject("picture");
                                             JSONObject data = picture.getJSONObject("data");
-                                            String pic_url = data.getString("url");
-                                            Call<SocialSignupResponse> call = apiService.SocialSignup(Email, first_name, last_name, UDID, "facebook", gender, pic_url, birthday);
+                                            final String pic_url = data.getString("url");
+                                            Call<SocialSignupResponse> call = apiService.SocialSignup(Email,first_name,last_name,UDID,"facebook",gender,pic_url,birthday);
                                             call.enqueue(new Callback<SocialSignupResponse>() {
                                                 @Override
                                                 public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
-                                                    System.out.println(response.body().getMessage());
+
+
+                                                    Log.d("response :",response.body().getStatus()+"");
+                                                    if(response.body().getStatus() == 1) {
+                                                        sessionManager.setEmail(Email);
+                                                        sessionManager.setFName(first_name);
+                                                        sessionManager.setLName(last_name);
+                                                        sessionManager.setLogin(true);
+                                                        sessionManager.setPassword(null);
+                                                        sessionManager.setPP(pic_url);
+                                                        sessionManager.setUDID(UDID);
+                                                        sessionManager.setKeyIsSocial(1);
+                                                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                    }else if(response.body().getStatus() == 2)
+                                                    {
+                                                        sessionManager.setEmail(Email);
+                                                        sessionManager.setFName(first_name);
+                                                        sessionManager.setLName(last_name);
+                                                        sessionManager.setLogin(true);
+                                                        sessionManager.setPassword(null);
+                                                        sessionManager.setPP(pic_url);
+                                                        sessionManager.setUDID(UDID);
+                                                        sessionManager.setKeyIsSocial(1);
+                                                        startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
+                                                    }
+                                                    else
+                                                    {
+                                                        AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
+                                                        alertdialog.setMessage("Wrong Authentication");
+                                                        alertdialog.setTitle("Fail");
+                                                        alertdialog.setPositiveButton("Ok", null);
+                                                        alertdialog.show();
+                                                    }
                                                 }
 
                                                 @Override
@@ -238,7 +269,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         description = (TextView) findViewById(R.id.description);
         facebook = (ImageView) findViewById(R.id.facebook);
         twitter = (ImageView) findViewById(R.id.twitter);
-        fpassword = (TextView) findViewById(R.id.fpassword);
+        fpassword = (TextView)findViewById(R.id.fpassword);
 
         linkedIn.setOnClickListener(this);
         googleplus.setOnClickListener(this);
@@ -250,7 +281,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         login.setTypeface(typface);
         description.setTypeface(typface);
         fpassword.setTypeface(typface);
-        String htmlString = "<u>Forgot Your Password ?</u>";
+        String htmlString="<u>Forgot Your Password ?</u>";
         fpassword.setText(Html.fromHtml(htmlString));
     }
 
@@ -293,11 +324,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                                 sessionManager.setPP(response.body().getUser().getUser_img());
                                 sessionManager.setAVG(response.body().getAvg_charge());
                                 sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
-                                Log.d("nocker_data", response.body().getUser().toString() + "");
-                                Log.e("user_img", response.body().getUser().getUser_img() + " ff");
-                                sessionManager.setSocialType(response.body().getUser().getUser_social_type());
-                                Log.e("user_img", sessionManager.getPP() + " ff");
-
+                                sessionManager.setKeyIsSocial(0);
+                                Log.d("nocker", response.body().getUser().is_nocker() + "");
                                 if (dialog.isShowing())
                                     dialog.dismiss();
                                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -455,13 +483,13 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                 LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends", "email", "user_birthday"));
                 break;
             }
-            case R.id.twitter: {
+            case R.id.twitter:{
                 Intent i = new Intent(getApplicationContext(), JobRequestActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(i);
                 break;
             }
-            case R.id.fpassword: {
+            case R.id.fpassword:{
                 Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(i);
@@ -502,7 +530,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             int statusCode = result.getStatus().getStatusCode();
-            Log.e("Google Plus : ", statusCode + "");
+            Log.e("Google Plus : ",statusCode+"");
             handleSignInResult(result);
         } else {
             callbackManager.onActivityResult(requestCode, resultCode, data);
@@ -514,15 +542,15 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             final GoogleSignInAccount acct = result.getSignInAccount();
-            Log.e("Googel Plus Data : ", acct.getEmail() + "  " + acct.getPhotoUrl() + "   " + acct.getFamilyName() + " " + acct.getGivenName());
-            Call<SocialSignupResponse> call = apiService.SocialSignup(acct.getEmail(), acct.getGivenName(), acct.getFamilyName(), UDID, "googleplus", "other", acct.getPhotoUrl().toString(), "");
+            Log.e("Googel Plus Data : ", acct.getEmail() + "  " + acct.getPhotoUrl() + "   " + acct.getFamilyName() +" "+ acct.getGivenName());
+            Call<SocialSignupResponse> call = apiService.SocialSignup(acct.getEmail(),acct.getGivenName(),acct.getFamilyName(),UDID,"googleplus","other",acct.getPhotoUrl().toString(),"");
             call.enqueue(new Callback<SocialSignupResponse>() {
-
                 @Override
                 public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
 
-                    Log.d("response :", response.body().getStatus() + "");
-                    if (response.body().getStatus() == 1) {
+
+                    Log.d("response :",response.body().getStatus()+"");
+                   if(response.body().getStatus() == 1) {
                         sessionManager.setEmail(acct.getEmail());
                         sessionManager.setFName(acct.getGivenName());
                         sessionManager.setLName(acct.getFamilyName());
@@ -530,8 +558,10 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         sessionManager.setPassword(null);
                         sessionManager.setPP(acct.getPhotoUrl().toString());
                         sessionManager.setUDID(UDID);
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                    } else if (response.body().getStatus() == 2) {
+                       sessionManager.setKeyIsSocial(1);
+                       startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                    }else if(response.body().getStatus() == 2)
+                    {
                         sessionManager.setEmail(acct.getEmail());
                         sessionManager.setFName(acct.getGivenName());
                         sessionManager.setLName(acct.getFamilyName());
@@ -539,13 +569,16 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         sessionManager.setPassword(null);
                         sessionManager.setPP(acct.getPhotoUrl().toString());
                         sessionManager.setUDID(UDID);
+                        sessionManager.setKeyIsSocial(1);
                         startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
-                    } else {
-                        AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
-                        alertdialog.setMessage("Wrong Authentication");
-                        alertdialog.setTitle("Fail");
-                        alertdialog.setPositiveButton("Ok", null);
-                        alertdialog.show();
+                    }
+                    else
+                    {
+                       AlertDialog.Builder alertdialog = new AlertDialog.Builder(LoginActivity.this);
+                       alertdialog.setMessage("Wrong Authentication");
+                       alertdialog.setTitle("Fail");
+                       alertdialog.setPositiveButton("Ok", null);
+                       alertdialog.show();
                     }
                 }
 
@@ -554,12 +587,8 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
                 }
             });
-           /* updateUI(true);*/
         } else {
-            // Signed out, show unauthenticated UI.
-/*
-            updateUI(false);
-*/
+
         }
     }
 

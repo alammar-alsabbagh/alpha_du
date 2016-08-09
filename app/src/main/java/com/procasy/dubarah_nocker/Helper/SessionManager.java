@@ -27,8 +27,7 @@ public class SessionManager {
     private static final String KEY_EMAIL = "email";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_UDID = "udid";
-    private static final String SOCIAL_TYPE = "social_type";
-    private static final String IMG_URL = "img_url";
+
     private static final String KEY_FName = "firstName";
     private static final String KEY_LName = "lastName";
 
@@ -36,6 +35,9 @@ public class SessionManager {
     private static final String KEY_AVG_CHARGE = "avg_charge";
 
     private static final String KEY_IS_NOCKER = "is_nocker";
+    private static final String KEY_IS_SOCIAL = "is_social";
+
+
 
 
     public SessionManager(Context context) {
@@ -43,7 +45,6 @@ public class SessionManager {
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);
         editor = pref.edit();
     }
-
     public void setLogin(boolean isLoggedIn) {
 
         editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
@@ -53,8 +54,7 @@ public class SessionManager {
 
         Log.d(TAG, "User login session modified!");
     }
-
-    public boolean isLoggedIn() {
+    public boolean isLoggedIn(){
         return pref.getBoolean(KEY_IS_LOGGEDIN, false);
     }
 
@@ -66,11 +66,9 @@ public class SessionManager {
 
         Log.d(TAG, "User email session modified!");
     }
-
-    public String getEmail() {
+    public String getEmail(){
         return pref.getString(KEY_EMAIL, "");
     }
-
     public void setPassword(String password) {
 
         editor.putString(KEY_PASSWORD, password);
@@ -80,24 +78,10 @@ public class SessionManager {
 
         Log.d(TAG, "User password session modified!");
     }
-
-    public String getPassword() {
+    public String getPassword(){
         return pref.getString(KEY_PASSWORD, "");
     }
 
-    public void setImgUrl(String imgUrl) {
-
-        editor.putString(IMG_URL, imgUrl);
-
-        // commit changes
-        editor.commit();
-
-        Log.d(TAG, "User password session modified!");
-    }
-
-    public String getImgUrl() {
-        return pref.getString(IMG_URL, "");
-    }
 
 
     public void setFName(String fName) {
@@ -109,8 +93,7 @@ public class SessionManager {
 
         Log.d(TAG, "User fName session modified!");
     }
-
-    public String getFName() {
+    public String getFName(){
         return pref.getString(KEY_FName, "");
     }
 
@@ -123,8 +106,7 @@ public class SessionManager {
 
         Log.d(TAG, "User lName session modified!");
     }
-
-    public String getLName() {
+    public String getLName(){
         return pref.getString(KEY_LName, "");
     }
 
@@ -135,10 +117,9 @@ public class SessionManager {
         // commit changes
         editor.commit();
 
-        Log.d(TAG, "User PP session modified! "+PP);
+        Log.d(TAG, "User PP session modified!");
     }
-
-    public String getPP() {
+    public String getPP(){
         return pref.getString(KEY_PP, "");
     }
 
@@ -151,25 +132,10 @@ public class SessionManager {
 
         Log.d(TAG, "User UDID session modified!");
     }
-
-    public String getUDID() {
+    public String getUDID(){
         return pref.getString(KEY_UDID, "");
     }
 
-
-    public void setSocialType(String socialType) {
-
-        editor.putString(SOCIAL_TYPE, socialType);
-
-        // commit changes
-        editor.commit();
-
-        Log.d(TAG, "User Social Type session modified!");
-    }
-
-    public String getSocialType() {
-        return pref.getString(SOCIAL_TYPE, "");
-    }
 
 
     public void setAVG(int avg) {
@@ -178,21 +144,34 @@ public class SessionManager {
         editor.commit();
         Log.d(TAG, "User AVG session modified!");
     }
-
-    public int getAVG() {
+    public int getAVG(){
         return pref.getInt(KEY_AVG_CHARGE, 0);
     }
 
-    public void setKeyIsNocker(int isNocker) {
+    public void setKeyIsNocker(int isNocker)
+    {
         editor.putInt(KEY_IS_NOCKER, isNocker);
         // commit changes
         editor.commit();
         Log.d(TAG, "User IS_Nocker session modified!");
     }
-
-    public int getKeyNocker() {
+    public int getKeyNocker(){
         return pref.getInt(KEY_IS_NOCKER, 0);
     }
+
+
+    public void setKeyIsSocial(int isNocker)
+    {
+        editor.putInt(KEY_IS_SOCIAL, isNocker);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "User IS_Social session modified!");
+    }
+    public int getKeyIsSocial(){
+        return pref.getInt(KEY_IS_SOCIAL, 0);
+    }
+
+
 
 
 }
