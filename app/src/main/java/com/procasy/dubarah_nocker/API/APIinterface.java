@@ -10,6 +10,7 @@ import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.ResponseJob;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 import com.procasy.dubarah_nocker.Model.Responses.UserInfoResponse;
+import com.procasy.dubarah_nocker.Model.UploadModel;
 
 import org.json.JSONArray;
 
@@ -115,6 +116,14 @@ public interface APIinterface {
              @Part MultipartBody.Part img2,
              @Part MultipartBody.Part img3
             );
+
+
+    @Multipart
+    @POST("update_user_img")
+    Call<UploadModel> UpdatePicture
+            (@Part MultipartBody.Part img
+                    , @Part("user_email") RequestBody user_email,
+             @Part("user_ud_id") RequestBody user_ud_id);
 
 
     @FormUrlEncoded

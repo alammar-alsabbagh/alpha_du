@@ -54,19 +54,21 @@
             android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name=".SplashScreenActivity"
-            android:theme="@style/AppTheme2" >
+            android:theme="@style/AppTheme2">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme2">
 
         </activity>
-        <activity android:name=".Activity.Nocker.OtherProfileActivity"/>
+        <activity android:name=".Activity.Nocker.OtherProfileActivity" />
         <activity android:name=".Activity.SignUpActivities.MainInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.LocationInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.PhotoSignUp" />
@@ -124,9 +126,12 @@
         <activity android:name=".Activity.Nocker.EditProfileActivtiy" />
         <activity
             android:name=".Activity.JobRequestActivity"
-            android:theme="@style/Theme.Transparent" />
+            android:theme="@style/Theme.Transparent">
+
+        </activity>
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".Activity.BeANocker.WhyWorkingActivty">
+
 
         </activity>
     </application>
