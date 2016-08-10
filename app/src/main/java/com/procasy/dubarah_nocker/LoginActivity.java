@@ -61,7 +61,6 @@ import com.procasy.dubarah_nocker.Activity.BeANocker.BeAnockerAcitivty;
 import com.procasy.dubarah_nocker.Activity.JobRequestActivity;
 import com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
-import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
@@ -417,59 +416,40 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     }
 
     private static Scope buildScope() {
-        return Scope.build(Scope.R_BASICPROFILE, Scope.R_EMAILADDRESS);
+        return Scope.build(Scope.R_BASICPROFILE);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.linkedin: {
+                System.out.println("ajajajaaj");
                 LISessionManager.getInstance(getApplicationContext()).init(LoginActivity.this, buildScope(), new AuthListener() {
                     @Override
                     public void onAuthSuccess() {
                         String url = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,email-address,picture-url)?format=json";
+                        System.out.println("here");
                         APIHelper apiHelper = APIHelper.getInstance(getApplicationContext());
                         apiHelper.getRequest(getApplicationContext(), url, new ApiListener() {
                             @Override
                             public void onApiSuccess(ApiResponse apiResponse) {
-                                final JSONObject object = apiResponse.getResponseDataAsJson();
-                                try {
-                                    final String EmailAddress = object.getString("emailAddress");
-                                    Call<CheckResponse> call = apiService.CheckUnique("user", "user_email", object.getString("emailAddress"));
-                                    call.enqueue(new Callback<CheckResponse>() {
-                                        @Override
-                                        public void onResponse(Call<CheckResponse> call, Response<CheckResponse> response) {
-                                            if (response.body().getStatus()) // new user
-                                            {
-
-                                            } else /// old user
-                                            {
-
-                                            }
-                                        }
-
-                                        @Override
-                                        public void onFailure(Call<CheckResponse> call, Throwable t) {
-
-                                        }
-                                    });
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
+                                // Success!
+                                System.out.println("sucess");
                             }
 
                             @Override
                             public void onApiError(LIApiError liApiError) {
                                 // Error making GET request!
+                                System.out.println("error");
+
                             }
                         });
                     }
-
                     @Override
                     public void onAuthError(LIAuthError error) {
                         // Handle authentication errors
                         System.out.println(error.toString());
-
+                        System.out.println("here 2");
                     }
                 }, true);
                 break;

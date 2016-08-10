@@ -41,7 +41,7 @@ public class JobRequestActivity extends AppCompatActivity {
                     public void run() {
                         // This method will be executed once the timer is over
                         // Start your app main activity
-                        scrollView.smoothScrollTo(0, scrollView.getMaxScrollAmount ());
+                        scrollView.smoothScrollTo(0,scrollView.getMaxScrollAmount()+send.getHeight());
 
                     }
                 }, 500);

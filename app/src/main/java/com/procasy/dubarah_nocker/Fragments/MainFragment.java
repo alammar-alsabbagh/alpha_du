@@ -71,7 +71,7 @@ public class MainFragment extends Fragment {
                 tabLayout.setupWithViewPager(viewPager);
                 tabLayout.getTabAt(0).setText("Nearby nockers");
                 tabLayout.getTabAt(1).setText("Ask for Help!");
-                tabLayout.getTabAt(2).setText("Jobs");
+                tabLayout.getTabAt(2).setText("Nearby Jobs");
             }
         });
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {

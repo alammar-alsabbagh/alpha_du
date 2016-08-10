@@ -106,11 +106,16 @@ public class MyProfileActivity extends AppCompatActivity {
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {
 
                 Log.e("response", "success " + response.body().getUser().getUser_img());
-                Picasso.with(getApplicationContext())
-                        .load(sessionManager.getPP())
-                        .placeholder(R.drawable.drawable_photo)
-                        .error(R.drawable.profile)
-                        .into(imguser);
+
+                Log.e("ppp","ff " +sessionManager.getPP());
+
+                if (!sessionManager.getPP().isEmpty())
+                    Picasso.with(getApplicationContext())
+                            .load(sessionManager.getPP())
+                            .placeholder(R.drawable.drawable_photo)
+                            .error(R.drawable.drawable_photo)
+                            .into(imguser);
+
 
                 Log.e("tab1", tab1.isVisible() + "");
                 Log.e("tab2", tab2.isVisible() + "");

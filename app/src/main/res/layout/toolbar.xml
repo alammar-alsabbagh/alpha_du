@@ -53,7 +53,7 @@
             android:layout_height="@dimen/toolbar_dimen"
             android:layout_marginRight="@dimen/toolbar_margin"
             android:layout_toLeftOf="@id/message"
-            android:src="@drawable/message" />
+            android:src="@drawable/appointement" />
 
     </RelativeLayout>
 

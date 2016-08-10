@@ -93,8 +93,7 @@ public class PhotoSignUp extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (FilePath.equals("")) {
-
-
+                    SignUpRequest();
                 } else {
                     MediaType MEDIA_TYPE_PNG = MediaType.parse("image/png");
                     File file = new File(FilePath);
@@ -234,6 +233,16 @@ public class PhotoSignUp extends AppCompatActivity {
                             if (status == 1) {
                                 if (!FilePath.equals(""))
                                     new UploadFileToServer().execute();
+                                else
+                                {
+                                    sessionManager.setLogin(true);
+                                    sessionManager.setEmail(bundle.getString("email"));
+                                    sessionManager.setPassword(bundle.getString("password"));
+                                    sessionManager.setUDID(UDID);
+                                    sessionManager.setKeyIsSocial(0);
+
+                                    startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
+                                }
                             } else {
                                 System.out.println(object.getJSONArray("message"));
                                 AlertDialog.Builder alertdialog = new AlertDialog.Builder(PhotoSignUp.this);
