@@ -56,11 +56,6 @@
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme2">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
         </activity>
         <activity
@@ -74,10 +69,26 @@
         <activity android:name=".Activity.SignUpActivities.PhotoSignUp" />
         <activity android:name=".Activity.BeANocker.BeAnockerAcitivty" />
         <activity android:name=".Activity.BeANocker.DisclaimerActivity" />
-        <activity android:name=".Activity.BeANocker.ChooseSkillsActivity" />
+        <activity android:name=".Activity.BeANocker.ChooseSkillsActivity">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+
+        </activity>
+
         <activity
             android:name=".Activity.BeANocker.ChooseLanguagesActivity"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustNothing">
+
+
+        </activity>
+
+
         <activity android:name=".Activity.Nocker.MyProfileActivity" />
         <activity
             android:name="com.facebook.FacebookActivity"

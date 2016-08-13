@@ -50,6 +50,9 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     @Override
     public void onMessageReceived(String from, Bundle bundle) {
+
+
+
         String title = bundle.getString("title");
         Boolean isBackground = Boolean.valueOf(bundle.getString("is_background"));
         String flag = bundle.getString("flag");
@@ -76,6 +79,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 processNotificationMessage(title, isBackground, data);
                 break;
         }
+
     }
 
     /**

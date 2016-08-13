@@ -52,7 +52,7 @@ public class Language {
     // OPEN
     public Language open() throws SQLException {
 
-       // Log.e("ahmad", "open");
+        // Log.e("ahmad", "open");
         db = dbHelper.getWritableDatabase();
         return this;
     }
@@ -65,7 +65,7 @@ public class Language {
     // insert
     public long insertEntry(ContentValues contentValues) {
 
-      //  Log.e("ahmad", "insert");
+        //  Log.e("ahmad", "insert");
         return db.insert(TABLE_NAME, null, contentValues);
     }
 
@@ -101,16 +101,24 @@ public class Language {
         // TODO fill in the ContentValue based on the new object
         return db.update(TABLE_NAME, contentValues, where, null);
     }
-    public Cursor getSingleLanguage(String input)
-    {
+
+    public Cursor getSingleLanguage(String input) {
         Cursor c = db.rawQuery("SELECT language_id from language " +
-                "where language_name = '"+input+"'", null);
+                "where language_name = '" + input + "'", null);
         return c;
     }
+
+    public Cursor getListLanguage(String search_query) {
+        Cursor c = db.rawQuery("SELECT * from language " +
+                "where language_name Like '" + search_query + "%'", null);
+        return c;
+    }
+
+
     public Cursor filterLanguages(String input) {
         // Select All Query
-        Cursor d = db.query(true, TABLE_NAME, all , COL_language_name + " LIKE ?",
-                new String[] { input+"%" }, null, null, null,
+        Cursor d = db.query(true, TABLE_NAME, all, COL_language_name + " LIKE ?",
+                new String[]{input + "%"}, null, null, null,
                 null);
         return d;
     }

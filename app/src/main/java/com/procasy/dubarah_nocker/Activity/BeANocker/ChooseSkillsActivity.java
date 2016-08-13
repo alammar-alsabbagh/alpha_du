@@ -11,8 +11,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -49,6 +52,7 @@ public class ChooseSkillsActivity extends AppCompatActivity {
     LinearLayout next_btn;
     private APIinterface apiService;
     SkillsAdapter skillsAdapter;
+    EditText search_query;
 
     private JSONArray GetChoosenSkilles() {
         Log.e("chosenskilles", chosenSkills.toString());
@@ -78,6 +82,30 @@ public class ChooseSkillsActivity extends AppCompatActivity {
         return array;
     }
 
+
+    private List<String> GetSkills(String search_query) {
+        try {
+            List<String> newdata = new ArrayList<>();
+            mskills.open();
+            Cursor cr = mskills.getListSkill(search_query);
+            cr.moveToFirst();
+            newdata.add(cr.getString(1));
+            while (cr.moveToNext()) {
+                newdata.add(cr.getString(1));
+
+            }
+            skills = new ArrayList<>();
+            skills.addAll(newdata);
+            return skills;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            mskills.close();
+        }
+    }
+
     private List<String> GetAllSkills() {
         return skills;
     }
@@ -88,6 +116,7 @@ public class ChooseSkillsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_skills);
         skill_list = (RecyclerView) findViewById(R.id.skill_list);
+        search_query = (EditText) findViewById(R.id.search_skill);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -95,6 +124,35 @@ public class ChooseSkillsActivity extends AppCompatActivity {
         skill_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
         sessionManager = new SessionManager(this);
         mskills = new Skills(this);
+
+        search_query.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Log.e("search_query = ", s + "");
+                try {
+
+                    //Log.e("search_query_av=", GetSkills(s + "").toString());
+
+                    skillsAdapter = new SkillsAdapter(getApplicationContext(), GetSkills(s + ""), chosenSkills);
+                    skill_list.setAdapter(skillsAdapter);
+
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         apiService =
                 ApiClass.getClient().create(APIinterface.class);
