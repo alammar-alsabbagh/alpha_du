@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.gcm.GcmListenerService;
 import com.procasy.dubarah_nocker.Activity.ChatRoomActivity;
+import com.procasy.dubarah_nocker.Activity.JobRequestActivity;
 import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Message;
 import com.procasy.dubarah_nocker.Model.User;
@@ -38,7 +39,10 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     private static final String TAG = MyGcmPushReceiver.class.getSimpleName();
 
+
     private NotificationUtils notificationUtils;
+
+    private static final String GCM_TAG = "gcm_tag";
 
     /**
      * Called when message is received.
@@ -50,38 +54,30 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     @Override
     public void onMessageReceived(String from, Bundle bundle) {
-        String title = bundle.getString("title");
-        Boolean isBackground = Boolean.valueOf(bundle.getString("is_background"));
-        String flag = bundle.getString("flag");
-        String data = bundle.getString("data");
-        Log.d(TAG, "From: " + from);
-        Log.d(TAG, "title: " + title);
-        Log.d(TAG, "isBackground: " + isBackground);
-        Log.d(TAG, "flag: " + flag);
-        Log.d(TAG, "data: " + data);
-        Log.d(TAG,bundle.toString());
 
+        try {
 
-
-        switch (Integer.parseInt(flag)) {
-            case GCMConfig.PUSH_TYPE_CHATROOM:
-                // push notification belongs to a chat room
-                processChatRoomPush(title, isBackground, data);
-                break;
-            case GCMConfig.PUSH_TYPE_USER:
-                // push notification is specific to user
-                processUserMessage(title, isBackground, data);
-                break;
-            case GCMConfig.Notification:
-                processNotificationMessage(title, isBackground, data);
-                break;
+            Log.e("notify_gcm", "success , type = " + bundle.getString(GCM_TAG));
+            switch (bundle.getString(GCM_TAG))
+            {
+                case "job_request":
+                {
+                    Intent intent = (new Intent(getApplicationContext(),JobRequestActivity.class));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getApplicationContext().startActivity(intent);
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
     /**
      * Processing chat room push message
      * this message will be broadcasts to all the activities registered
-     * */
+     */
     private void processChatRoomPush(String title, boolean isBackground, String data) {
         if (!isBackground) {
 
@@ -101,7 +97,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 // skip the message if the message belongs to same user as
                 // the user would be having the same message when he was sending
                 // but it might differs in your scenario
-                
+
                 /// TODO: 8/2/2016 remove to process chat
          /*       if (uObj.getString("user_id").equals(MyApplication.getInstance().getPrefManager().getUser().getId())) {
                     Log.e(TAG, "Skipping the push message as it belongs to same user");
@@ -149,7 +145,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
     /**
      * Processing user specific push message
      * It will be displayed with / without image in push notification tray
-     * */
+     */
     private void processUserMessage(String title, boolean isBackground, String data) {
         if (!isBackground) {
 
@@ -176,7 +172,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                     Intent pushNotification = new Intent(GCMConfig.PUSH_NOTIFICATION);
                     pushNotification.putExtra("type", GCMConfig.PUSH_TYPE_USER);
                     pushNotification.putExtra("message", message);
-                    pushNotification.putExtra("chat_room_id",chatRoomId);
+                    pushNotification.putExtra("chat_room_id", chatRoomId);
                     LocalBroadcastManager.getInstance(this).sendBroadcast(pushNotification);
 
                     // play notification sound
@@ -185,7 +181,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
                 } else {
                     Intent resultIntent = new Intent(getApplicationContext(), ChatRoomActivity.class);
                     resultIntent.putExtra("chat_room_id", chatRoomId);
-                    showNotificationMessage(getApplicationContext(), title,  message.getMessage(), message.getCreatedAt(), resultIntent);
+                    showNotificationMessage(getApplicationContext(), title, message.getMessage(), message.getCreatedAt(), resultIntent);
 
                 }
             } catch (JSONException e) {
@@ -198,16 +194,17 @@ public class MyGcmPushReceiver extends GcmListenerService {
             // like inserting it in to SQLite
         }
     }
+
     private void processNotificationMessage(String title, boolean isBackground, String data) {
         if (!isBackground) {
 
-                if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
-                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    showNotificationMessage(getApplicationContext(), title,  data, "", resultIntent);
-                } else {
-                    Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
-                    showNotificationMessage(getApplicationContext(), title,  data, "", resultIntent);
-                }
+            if (!NotificationUtils.isAppIsInBackground(getApplicationContext())) {
+                Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+                showNotificationMessage(getApplicationContext(), title, data, "", resultIntent);
+            } else {
+                Intent resultIntent = new Intent(getApplicationContext(), MainActivity.class);
+                showNotificationMessage(getApplicationContext(), title, data, "", resultIntent);
+            }
 
         } else {
             // the push notification is silent, may be other operations needed
@@ -217,7 +214,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     /**
      * Showing notification with text only
-     * */
+     */
     private void showNotificationMessage(Context context, String title, String message, String timeStamp, Intent intent) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -226,7 +223,7 @@ public class MyGcmPushReceiver extends GcmListenerService {
 
     /**
      * Showing notification with text and image
-     * */
+     */
     private void showNotificationMessageWithBigImage(Context context, String title, String message, String timeStamp, Intent intent, String imageUrl) {
         notificationUtils = new NotificationUtils(context);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

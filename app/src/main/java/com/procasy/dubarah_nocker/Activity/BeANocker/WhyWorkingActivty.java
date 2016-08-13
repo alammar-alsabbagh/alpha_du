@@ -2,6 +2,7 @@ package com.procasy.dubarah_nocker.Activity.BeANocker;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.Model.WhyModel;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.RecyclerItemClickListener;
 
@@ -28,8 +30,7 @@ public class WhyWorkingActivty extends AppCompatActivity {
 
     SessionManager sessionManager;
     RecyclerView causes_list;
-    ArrayList<String> chosenCause = new ArrayList<>();
-    ArrayList<String> Causes = new ArrayList<>();
+    ArrayList<WhyModel> Causes = new ArrayList<>();
     LinearLayout next_btn;
     private APIinterface apiService;
     CausesAdapter causesAdapter;
@@ -46,18 +47,19 @@ public class WhyWorkingActivty extends AppCompatActivity {
         causes_list.setLayoutManager(linearLayoutManager);
         causes_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
         sessionManager = new SessionManager(this);
-        Causes.add("Reasons nocker is looking to work: Pay the bills");
-        Causes.add("Get my business off the ground");
-        Causes.add("Fund my tuition");
-        Causes.add("Fund my child's or spouse's tuition");
-        Causes.add("Fund my child's extra-curricular activities");
-        Causes.add("Fund my vacation");
-        Causes.add("Fund my renovation");
-        Causes.add("Fund my retirement");
-        Causes.add("Settle in a new country");
-        Causes.add("Save to buy a home");
-        Causes.add("Fund my next project");
-        causesAdapter = new CausesAdapter(getApplicationContext(),Causes,chosenCause);
+
+        Causes.add(new WhyModel("Reasons nocker is looking to work: Pay the bills", false));
+        Causes.add(new WhyModel("Get my business off the ground", false));
+        Causes.add(new WhyModel("Fund my tuition", false));
+        Causes.add(new WhyModel("Fund my child's or spouse's tuition", false));
+        Causes.add(new WhyModel("Fund my child's extra-curricular activities", false));
+        Causes.add(new WhyModel("Fund my vacation", false));
+        Causes.add(new WhyModel("Settle in a new country", false));
+        Causes.add(new WhyModel("Fund my next project", false));
+        Causes.add(new WhyModel("Settle in a new country", false));
+
+        causesAdapter = new CausesAdapter(getApplicationContext(), Causes);
+
         causes_list.setAdapter(causesAdapter);
         apiService = ApiClass.getClient().create(APIinterface.class);
         next_btn.setOnClickListener(new View.OnClickListener() {
@@ -88,28 +90,6 @@ public class WhyWorkingActivty extends AppCompatActivity {
             }
         });
 
-
-
-        causes_list.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), new   RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        // TODO Handle item click
-                        if(chosenCause.size() > 0) {
-                            Log.d("Cleared : ",Causes.get(position));
-                            chosenCause.clear();
-                            chosenCause.add(Causes.get(position));
-                            Log.d("Added : ",Causes.get(position));
-                            causesAdapter.notifyDataSetChanged();
-                        }
-                        else {
-                            chosenCause.add(Causes.get(position));
-                            Log.d("added : ",Causes.get(position));
-                            causesAdapter.notifyDataSetChanged();
-                        }
-                    }
-                })
-        );
 
     }
 
@@ -143,18 +123,22 @@ public class WhyWorkingActivty extends AppCompatActivity {
 
     public class CausesAdapter extends RecyclerView.Adapter<CausesAdapter.CauseViewHolder> {
 
-        List<String> mdata,choosen;
+        List<WhyModel> mdata;
         Context mContext;
 
-        public CausesAdapter(Context context, List<String> newdata,List<String>choosen) {
+        public CausesAdapter(Context context, List<WhyModel> newdata) {
             mContext = context;
             mdata = newdata;
-            this.choosen = choosen;
         }
 
 
         // Notify Data Changed
+        void update(List<WhyModel> newdata) {
+            mdata.clear();
+            mdata.addAll(newdata);
+            notifyDataSetChanged();
 
+        }
 
         @Override
         public int getItemCount() {
@@ -170,28 +154,42 @@ public class WhyWorkingActivty extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(CausesAdapter.CauseViewHolder holder, int position) {
-            String data = mdata.get(position);
-            holder.name.setText(data);
-          /*  try{
-                if(holder.name.equals(choosen.get(0)))
-                    holder.wholething.setBackgroundResource(R.drawable.selector1);
-            }catch(IndexOutOfBoundsException ex)
-            {
-                ex.printStackTrace();
+            WhyModel data = mdata.get(position);
+            holder.name.setText(data.question);
+            if (data.ischecked) {
+                holder.name.setBackgroundColor(getResources().getColor(R.color.blue_grey));
+                holder.alliteam.setBackgroundColor(getResources().getColor(R.color.blue_grey));
+            }else{
+                holder.name.setBackgroundColor(Color.TRANSPARENT);
+                holder.alliteam.setBackgroundColor(Color.TRANSPARENT);
             }
-*/
-
         }
 
-        public class CauseViewHolder extends RecyclerView.ViewHolder {
+        public class CauseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             public TextView name;
-            public LinearLayout wholething;
+            private LinearLayout alliteam;
+
             public CauseViewHolder(View itemView) {
                 super(itemView);
-                wholething = (LinearLayout) itemView.findViewById(R.id.linearLayout);
+                alliteam = (LinearLayout) itemView.findViewById(R.id.allitem);
                 name = ((TextView) itemView.findViewById(R.id.skill_name));
+                //itemView.setOnClickListener(this);
+                alliteam.setOnClickListener(this);
+            }
 
+            @Override
+            public void onClick(View v) {
+
+                List<WhyModel> newdata = new ArrayList<>();
+                for (int i = 0; i < mdata.size(); i++) {
+                    Log.e("state",mdata.get(i).ischecked+"");
+                    newdata.add(new WhyModel(mdata.get(i).question, false));
+                }
+
+                newdata.get(getPosition()).ischecked = true;
+
+                update(newdata);
             }
         }
     }

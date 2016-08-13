@@ -21,11 +21,19 @@
         android:textColor="@color/white"
         android:textSize="25dp" />
 
+    <EditText
+        android:layout_width="match_parent"
+        android:id="@+id/search_skill"
+        android:layout_below="@id/text"
+        android:padding="10dp"
+        android:hint="Search"
+        android:layout_height="wrap_content" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_below="@id/text">
+        android:layout_below="@id/search_skill">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/skill_list"
             android:layout_width="match_parent"

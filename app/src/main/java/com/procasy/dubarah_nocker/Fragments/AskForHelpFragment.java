@@ -473,30 +473,29 @@ public class AskForHelpFragment extends Fragment {
 
                              mskills.open();
                              mlanguage.open();
-try {
-    if (mskills.getAllEntries().getCount() != response.body().getAllSkills().size()) {
-        Log.e("remove state ", mskills.removeAllEntry() + "");
-        skills_list.clear();
+                             try {
+                                 if (mskills.getAllEntries().getCount() != response.body().getAllSkills().size()) {
+                                     Log.e("remove state ", mskills.removeAllEntry() + "");
+                                     skills_list.clear();
 
-        try {
+                                     try {
 
-            for (int i = 0; i < response.body().getAllSkills().size(); i++) {
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
-                contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
-                contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
-                long state = mskills.insertEntry(contentValues);
-                Log.e("insert state ", state + "");
-                skills_list.add(response.body().getAllSkills().get(i).getSkill_name());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-}catch (NullPointerException ex)
-{
-    ex.printStackTrace();
-}
+                                         for (int i = 0; i < response.body().getAllSkills().size(); i++) {
+                                             ContentValues contentValues = new ContentValues();
+                                             contentValues.put(Skills.COL_skillname, response.body().getAllSkills().get(i).getSkill_name());
+                                             contentValues.put(Skills.COL_is_hidden, response.body().getAllSkills().get(i).getIs_hidden());
+                                             contentValues.put(Skills.COL_SKILL_ID, response.body().getAllSkills().get(i).getSkill_id());
+                                             long state = mskills.insertEntry(contentValues);
+                                             Log.e("insert state ", state + "");
+                                             skills_list.add(response.body().getAllSkills().get(i).getSkill_name());
+                                         }
+                                     } catch (Exception e) {
+                                         e.printStackTrace();
+                                     }
+                                 }
+                             } catch (NullPointerException ex) {
+                                 ex.printStackTrace();
+                             }
                              try {
                                  if (mlanguage.getAllEntries().getCount() != response.body().getAllLanguage().size()) {
                                      mlanguage.removeAllEntry();
@@ -513,8 +512,7 @@ try {
                                      }
 
                                  }
-                             }catch (NullPointerException ex)
-                             {
+                             } catch (NullPointerException ex) {
                                  ex.printStackTrace();
                              }
 
@@ -694,9 +692,6 @@ try {
 
     private void uploadFile(Uri fileUri) {
 
-        // image/*
-        //text/plain
-        //multipart/form-data
 
         File voice_file;
 

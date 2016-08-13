@@ -82,6 +82,14 @@ public class Skills {
 
 
 
+    public Cursor getListSkill(String search_query) {
+        Cursor c = db.rawQuery("SELECT * from skills " +
+                "where skill_name Like '" + search_query + "%'", null);
+        return c;
+    }
+
+
+
     public Cursor getAllEntries() {
         Cursor d = db.query(TABLE_NAME, all,
                 null, null, null, null, null);

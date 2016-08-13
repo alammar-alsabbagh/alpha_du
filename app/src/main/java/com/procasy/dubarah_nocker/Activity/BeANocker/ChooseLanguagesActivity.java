@@ -11,8 +11,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -41,6 +44,7 @@ import retrofit2.Response;
 
 public class ChooseLanguagesActivity extends AppCompatActivity implements AdapterCallback {
 
+    EditText search_lang;
     Language mLanguage;
     SessionManager sessionManager;
     RecyclerView languages_list;
@@ -50,35 +54,56 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
     private APIinterface apiService;
     SkillsAdapter LanguagesAdapter;
 
-    private JSONArray GetChoosenLangages()
-    {
+    private JSONArray GetChoosenLangages() {
         ArrayList<Integer> languages_ids = new ArrayList<>();
-        for (String s:chosenLanguages) {
+        for (String s : chosenLanguages) {
             mLanguage.open();
             Cursor cursor = mLanguage.getSingleLanguage(s.toString());
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()) {
+            while (!cursor.isAfterLast()) {
                 languages_ids.add(cursor.getInt(cursor.getColumnIndex("language_id")));
                 cursor.moveToNext();
             }
             cursor.close();
             mLanguage.close();
         }
-        Log.e("languages_ids",languages_ids.toString());
-        Log.e("choosenLanguages",chosenLanguages.toString());
-        Log.e("Email",sessionManager.getEmail());
-        Log.e("UDID",sessionManager.getUDID());
+        Log.e("languages_ids", languages_ids.toString());
+        Log.e("choosenLanguages", chosenLanguages.toString());
+        Log.e("Email", sessionManager.getEmail());
+        Log.e("UDID", sessionManager.getUDID());
         JSONArray array = new JSONArray();
-        for (Integer language_id:languages_ids) {
+        for (Integer language_id : languages_ids) {
             array.put(language_id);
         }
 
         return array;
     }
 
-    private List<String> GetAllLanguages()
-    {
+    private List<String> GetAllLanguages() {
         return languages;
+    }
+
+    private List<String> GetLang(String search_query) {
+        try {
+            List<String> newdata = new ArrayList<>();
+            mLanguage.open();
+            Cursor cr = mLanguage.getListLanguage(search_query);
+            cr.moveToFirst();
+            newdata.add(cr.getString(1));
+            while (cr.moveToNext()) {
+                newdata.add(cr.getString(1));
+
+            }
+            languages= new ArrayList<>();
+            languages.addAll(newdata);
+            return languages;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            mLanguage.close();
+        }
     }
 
     @Override
@@ -87,6 +112,38 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
         setContentView(R.layout.activity_choose_languages);
         languages_list = (RecyclerView) findViewById(R.id.skill_list);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
+        search_lang = (EditText) findViewById(R.id.search_lang);
+
+        search_lang.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                Log.e("search_query = ", s + "");
+                try {
+
+                    Log.e("search_query_av=", GetLang(s + "").toString());
+
+                    LanguagesAdapter = new SkillsAdapter(getApplicationContext(), GetLang(s + ""), chosenLanguages);
+                    languages_list.setAdapter(LanguagesAdapter);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         languages_list.setLayoutManager(linearLayoutManager);
@@ -101,7 +158,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
         next_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<SocialSignupResponse> call = apiService.AddUserLanguages(sessionManager.getEmail(),sessionManager.getUDID(),GetChoosenLangages());
+                Call<SocialSignupResponse> call = apiService.AddUserLanguages(sessionManager.getEmail(), sessionManager.getUDID(), GetChoosenLangages());
                 call.enqueue(new Callback<SocialSignupResponse>() {
                     @Override
                     public void onResponse(Call<SocialSignupResponse> call, Response<SocialSignupResponse> response) {
@@ -112,7 +169,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
 
                         } else /// old user
                         {
-                            Toast.makeText(getApplicationContext(),"There Has Been An Error !! ",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "There Has Been An Error !! ", Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -200,10 +257,13 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
         //// TODO: 7/30/2016  dont forget to modify session
-        Call<AllSkillsAndLanguageResponse> call = apiService.GetAllSkills(sessionManager.getEmail(),sessionManager.getUDID());
+        Call<AllSkillsAndLanguageResponse> call = apiService.GetAllSkills(sessionManager.getEmail(), sessionManager.getUDID());
         call.enqueue(new Callback<AllSkillsAndLanguageResponse>() {
+
             @Override
             public void onResponse(Call<AllSkillsAndLanguageResponse> call, Response<AllSkillsAndLanguageResponse> response) {
+
+                Log.e("all_data_1", response.body().getAllLanguage().get(0).getLang_name());
 
                 mLanguage.open();
                 Log.e("remove state ", mLanguage.removeAllEntry() + "");
@@ -220,12 +280,14 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }
-                finally {
+                } finally {
+
                     mLanguage.close();
                     languages = new ArrayList<String>(GetAllLanguages());
-                    LanguagesAdapter = new SkillsAdapter(getApplicationContext(), languages,chosenLanguages);
+                    LanguagesAdapter = new SkillsAdapter(getApplicationContext(), languages, chosenLanguages);
                     languages_list.setAdapter(LanguagesAdapter);
+
+
                 }
 
 
@@ -244,18 +306,17 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
         GetChoosenLangages();
 
         languages_list.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), new   RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
                         // TODO Handle item click
-                        if(chosenLanguages.contains(languages.get(position))) {
+                        if (chosenLanguages.contains(languages.get(position))) {
                             chosenLanguages.remove(chosenLanguages.indexOf(languages.get(position)));
-                            Log.d("Removed : ",languages.get(position));
+                            Log.d("Removed : ", languages.get(position));
                             LanguagesAdapter.notifyDataSetChanged();
-                        }
-                        else {
+                        } else {
                             chosenLanguages.add(languages.get(position));
-                            Log.d("added : ",languages.get(position));
+                            Log.d("added : ", languages.get(position));
                             LanguagesAdapter.notifyDataSetChanged();
 
                         }
@@ -281,6 +342,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
             }
         });*/
     }
+
     public class SimpleDividerItemDecoration extends RecyclerView.ItemDecoration {
         private Drawable mDivider;
 

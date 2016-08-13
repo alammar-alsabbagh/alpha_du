@@ -95,58 +95,6 @@ public class GCMIntentService extends IntentService {
     private void sendRegistrationToServer(final String token) {
         System.out.println("i am here bitch ");
         // checking for valid login session
-
-        //// TODO: 8/2/2016  update gcm function replace id with user id
-        String endPoint = EndPoints.USER.replace("_ID_", ""+"");
-
-        Log.e(TAG, "endpoint: " + endPoint);
-
-        StringRequest strReq = new StringRequest(Request.Method.PUT,
-                endPoint, new Response.Listener<String>() {
-
-            @Override
-            public void onResponse(String response) {
-                Log.e(TAG, "response: " + response);
-
-                try {
-                    JSONObject obj = new JSONObject(response);
-
-                    // check for error
-                    if (obj.getBoolean("error") == false) {
-                        // broadcasting token sent to server
-                        Intent registrationComplete = new Intent(GCMConfig.SENT_TOKEN_TO_SERVER);
-                        LocalBroadcastManager.getInstance(getApplicationContext()).sendBroadcast(registrationComplete);
-                    } else {
-                        Toast.makeText(getApplicationContext(), "Unable to send gcm registration id to our sever. " + obj.getJSONObject("error").getString("message"), Toast.LENGTH_LONG).show();
-                    }
-
-                } catch (JSONException e) {
-                    Log.e(TAG, "json parsing error: " + e.getMessage());
-                 //   Toast.makeText(getApplicationContext(), "Json parse error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
-                Log.e(TAG, "Volley error: " + error.getMessage() + ", code: " + networkResponse);
-                Toast.makeText(getApplicationContext(), "Volley error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("gcm_id", token);
-
-                Log.e(TAG, "params: " + params.toString());
-                return params;
-            }
-        };
-
-        //Adding request to request queue
-        MyApplication.getInstance().addToRequestQueue(strReq);
     }
 
     /**
@@ -167,7 +115,7 @@ public class GCMIntentService extends IntentService {
             }
         } catch (IOException e) {
             Log.e(TAG, "Topic subscribe error. Topic: " + topic + ", error: " + e.getMessage());
-         //   Toast.makeText(MyApplication.getInstance().getApplicationContext(), "Topic subscribe error. Topic: " + topic + ", error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            //   Toast.makeText(MyApplication.getInstance().getApplicationContext(), "Topic subscribe error. Topic: " + topic + ", error: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 

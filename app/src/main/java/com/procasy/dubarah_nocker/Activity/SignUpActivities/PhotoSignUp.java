@@ -36,9 +36,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.JsonObject;
+import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.API.Uploadimage;
 import com.procasy.dubarah_nocker.Activity.BeANocker.BeAnockerAcitivty;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.Model.UploadModel;
 import com.procasy.dubarah_nocker.Model.UserRegistrationModel;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.AndroidMultiPartEntity;
@@ -67,9 +70,15 @@ import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class PhotoSignUp extends AppCompatActivity {
+
+    private String img_url;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     CircleImageView circleImageView;
     ImageView browse, take;
@@ -231,16 +240,15 @@ public class PhotoSignUp extends AppCompatActivity {
                             JSONObject object = new JSONObject(response);
                             int status = object.optInt("status");
                             if (status == 1) {
-                                if (!FilePath.equals(""))
-                                    new UploadFileToServer().execute();
-                                else
-                                {
+                                if (!FilePath.equals("")) {
+                                    //new UploadFileToServer().execute();
+                                    UpLoadImg();
+                                } else {
                                     sessionManager.setLogin(true);
                                     sessionManager.setEmail(bundle.getString("email"));
                                     sessionManager.setPassword(bundle.getString("password"));
                                     sessionManager.setUDID(UDID);
                                     sessionManager.setKeyIsSocial(0);
-
                                     startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
                                 }
                             } else {
@@ -389,11 +397,78 @@ public class PhotoSignUp extends AppCompatActivity {
         }
     }
 
+    void UpLoadImg() {
+
+        File file = null;
+        RequestBody img_request_file;
+        MultipartBody.Part img;
+
+        file = new File(FilePath);
+        img_request_file = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        img = MultipartBody.Part.createFormData("image", file.getName(), img_request_file);
+
+        RequestBody user_email = RequestBody.create(MediaType.parse("multipart/form-data"), bundle.getString("email"));
+
+        RequestBody user_ud_id = RequestBody.create(MediaType.parse("multipart/form-data"), UDID);
+
+        Log.e("email1", bundle.getString("email"));
+        Log.e("udid1", UDID);
+        APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
+
+        final ACProgressFlower dialog = new ACProgressFlower.Builder(PhotoSignUp.this)
+                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                .themeColor(Color.WHITE)
+                .text("Uploading Photo ..")
+                .fadeColor(Color.DKGRAY).build();
+        dialog.show();
+
+        Call<UploadModel> call = apiService.UpdatePicture(
+                img, user_email, user_ud_id);
+        call.enqueue(new Callback<UploadModel>() {
+            @Override
+            public void onResponse(Call<UploadModel> call, retrofit2.Response<UploadModel> response) {
+                try {
+
+                    Log.e("response", "successs " + response.body().toString());
+
+                    if (dialog.isShowing())
+                        dialog.dismiss();
+                    // showing the server response in an alert dialog
+
+
+                    sessionManager.setLogin(true);
+                    sessionManager.setEmail(bundle.getString("email"));
+                    sessionManager.setPassword(bundle.getString("password"));
+                    sessionManager.setUDID(UDID);
+                    sessionManager.setKeyIsSocial(0);
+                    sessionManager.setPP(ApiClass.Pic_Base_URL + response.body().path);
+                    startActivity(new Intent(getApplicationContext(), BeAnockerAcitivty.class));
+                    finish();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<UploadModel> call, Throwable t) {
+
+                System.out.println("here 2" + t.toString());
+
+            }
+
+        });
+
+
+    }
+
     private void onCaptureImageResult(Intent data) {
 
         Bitmap thumbnail = (Bitmap) data.getExtras().get("data");
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+        //thumbnail.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
 
         File destination = new File(Environment.getExternalStorageDirectory(),
                 System.currentTimeMillis() + ".jpg");
@@ -414,6 +489,7 @@ public class PhotoSignUp extends AppCompatActivity {
         circleImageView.setImageBitmap(thumbnail);
     }
 
+    @Deprecated
     private class UploadFileToServer extends AsyncTask<Integer, Integer, String> {
         ACProgressFlower dialog;
 
@@ -492,10 +568,11 @@ public class PhotoSignUp extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
+
             Log.e("ResponseUpload", "Response from server: " + result);
             try {
                 JSONObject object = new JSONObject(result);
-                sessionManager.setPP(ApiClass.Pic_Base_URL+object.optString("path"));
+                sessionManager.setPP(ApiClass.Pic_Base_URL + object.optString("path"));
 
             } catch (JSONException e) {
                 e.printStackTrace();

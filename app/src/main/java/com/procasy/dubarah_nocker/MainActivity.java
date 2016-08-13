@@ -1,6 +1,7 @@
 package com.procasy.dubarah_nocker;
 
 import android.Manifest;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +23,10 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Activity.Nocker.MyProfileActivity;
@@ -30,8 +34,10 @@ import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.Model.Message;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Services.LocationService;
+import com.procasy.dubarah_nocker.gcm.GCMIntentService;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -64,6 +70,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     protected LocationManager locationManager;
     APIinterface apiService;
     SessionManager sessionManager;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+
+    private BroadcastReceiver mRegistrationBroadcastReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +95,15 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         sessionManager = new SessionManager(this);
 
 
+        //
+
+        if (checkPlayServices()) {
+            registerGCM();
+        }
+
+
+        //
+
         final ACProgressFlower dialog = new ACProgressFlower.Builder(MainActivity.this)
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                 .themeColor(Color.WHITE)
@@ -93,11 +111,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(),sessionManager.getUDID());
+        Call<InfoNockerResponse> call = apiService.GetInfoNocker(sessionManager.getEmail(), sessionManager.getUDID());
         call.enqueue(new Callback<InfoNockerResponse>() {
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
-           //     System.out.println(response.body().getUser().toString());
+                //     System.out.println(response.body().getUser().toString());
 
                 sessionManager.setEmail(response.body().getUser().getUser_email());
                 sessionManager.setFName(response.body().getUser().getUser_fname());
@@ -108,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 Log.d("nocker_data", response.body().toString() + "");
 
 
-                Log.e("user_img",sessionManager.getPP()+" ff");
+                Log.e("user_img", sessionManager.getPP() + " ff");
 
                 if (dialog.isShowing())
                     dialog.dismiss();
@@ -122,6 +140,36 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             }
 
         });
+
+
+
+        mRegistrationBroadcastReceiver = new BroadcastReceiver() {
+
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                Log.e("onrec","success");
+
+//
+//                // checking for type intent filter
+//                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
+//                    // gcm successfully registered
+//                    // now subscribe to `global` topic to receive app wide notifications
+//                    subscribeToGlobalTopic();
+//
+//                } else if (intent.getAction().equals(Config.SENT_TOKEN_TO_SERVER)) {
+//                    // gcm registration id is stored in our server's MySQL
+//                    Log.e(TAG, "GCM registration id is sent to our server");
+//
+//                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
+//                    // new push notification is received
+//                    handlePushNotification(intent);
+//
+//                }
+//
+
+            }
+
+        };
 
 
         setSupportActionBar(mtoolbar);
@@ -138,6 +186,65 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
     }
+
+
+    private void handlePushNotification(Intent intent) {
+        int type = intent.getIntExtra("type", -1);
+
+//        // if the push is of chat room message
+//        // simply update the UI unread messages count
+//        if (type == Config.PUSH_TYPE_CHATROOM) {
+//            Message message = (Message) intent.getSerializableExtra("message");
+//            String chatRoomId = intent.getStringExtra("chat_room_id");
+//
+//            if (message != null && chatRoomId != null) {
+//            }
+//        } else if (type == Config.PUSH_TYPE_USER) {
+//            // push belongs to user alone
+//            // just showing the message in a toast
+//            Message message = (Message) intent.getSerializableExtra("message");
+//            Toast.makeText(getApplicationContext(), "New push: " + message.getMessage(), Toast.LENGTH_LONG).show();
+//        }
+//
+
+
+    }
+
+
+
+    private void subscribeToGlobalTopic() {
+        Intent intent = new Intent(this, GCMIntentService.class);
+        intent.putExtra(GCMIntentService.KEY, GCMIntentService.SUBSCRIBE);
+        //intent.putExtra(GCMIntentService.TOPIC, Config.TOPIC_GLOBAL);
+        startService(intent);
+    }
+
+
+    private boolean checkPlayServices() {
+        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = apiAvailability.isGooglePlayServicesAvailable(this);
+        if (resultCode != ConnectionResult.SUCCESS) {
+            if (apiAvailability.isUserResolvableError(resultCode)) {
+                apiAvailability.getErrorDialog(this, resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+                        .show();
+            } else {
+                Log.i("GCM", "This device is not supported. Google Play Services not installed!");
+                Toast.makeText(getApplicationContext(), "This device is not supported. Google Play Services not installed!", Toast.LENGTH_LONG).show();
+                finish();
+            }
+            return false;
+        }
+        return true;
+    }
+
+
+    // starting the service to register with GCM
+    private void registerGCM() {
+        Intent intent = new Intent(this, GCMIntentService.class);
+        intent.putExtra("key", "register");
+        startService(intent);
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -213,7 +320,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                     5);
         } else {
 
-       //     Log.e("Loction", getLocation().toString());
+            //     Log.e("Loction", getLocation().toString());
             startService(new Intent(this, LocationService.class));
         }
     }
@@ -237,7 +344,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     public boolean canGetLocation() {
         return this.canGetLocation;
     }
-    
+
     public void showSettingsAlert() {
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
         // Setting Dialog Title

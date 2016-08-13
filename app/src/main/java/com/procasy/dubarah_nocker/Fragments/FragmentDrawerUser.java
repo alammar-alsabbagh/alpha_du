@@ -162,7 +162,8 @@ public class FragmentDrawerUser extends Fragment implements View.OnClickListener
         activateSubscription.setOnClickListener(this);
         sessionManager = new SessionManager(getActivity());
         fullName.setText(sessionManager.getFName() + " " + sessionManager.getLName());
-        Picasso.with(getActivity()).load(sessionManager.getPP()).placeholder(R.drawable.drawable_photo).into(profileImage);
+        if (!sessionManager.getPP().equals(""))
+            Picasso.with(getActivity()).load(sessionManager.getPP()).placeholder(R.drawable.drawable_photo).into(profileImage);
         averageCharge.setText(sessionManager.getAVG() + "");
         adapter = new NavigationDrawerAdapter(getActivity(), getData());
 
