@@ -35,7 +35,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:background="@color/colorPrimaryDark"
-                android:layout_margin="20dp">.
+                android:layout_margin="20dp"
+                android:id="@+id/card">.
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -119,7 +120,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="10"
-                        android:layout_margin="20dp">
+                        android:padding="20dp"
+                        android:id="@+id/addressedit">
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
@@ -158,7 +160,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="10"
-                        android:layout_margin="20dp">
+                        android:padding="20dp"
+                        android:id="@+id/phonenumberedit">
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
@@ -197,7 +200,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="10"
-                        android:layout_margin="20dp">
+                        android:padding="20dp"
+                        android:id="@+id/personalmessageedit">
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
@@ -236,7 +240,8 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:weightSum="10"
-                        android:layout_margin="20dp">
+                        android:padding="20dp"
+                        android:id="@+id/mycauseedit">
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
