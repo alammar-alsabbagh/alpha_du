@@ -11,7 +11,7 @@ public final class CommonGCMUtilities {
     // give your server registration url here
     public static final String SERVER_URL = "";
     // Google project id
-    public static final String SENDER_ID = "893066657373";
+    public static final String SENDER_ID = "1056446251292";
 
     /**
      * Tag used on log messages.

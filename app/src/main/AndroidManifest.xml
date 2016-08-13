@@ -51,7 +51,17 @@
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustNothing" />
+            android:windowSoftInputMode="stateHidden|adjustNothing">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme2">
@@ -63,6 +73,7 @@
             android:theme="@style/AppTheme2">
 
         </activity>
+
         <activity android:name=".Activity.Nocker.OtherProfileActivity" />
         <activity android:name=".Activity.SignUpActivities.MainInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.LocationInfoSignUp" />
@@ -70,13 +81,6 @@
         <activity android:name=".Activity.BeANocker.BeAnockerAcitivty" />
         <activity android:name=".Activity.BeANocker.DisclaimerActivity" />
         <activity android:name=".Activity.BeANocker.ChooseSkillsActivity">
-
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
         </activity>
