@@ -73,6 +73,7 @@ dependencies {
     compile 'com.google.android.gms:play-services:9.2.1'
     compile 'com.google.android.gms:play-services-ads:9.2.1'
     compile 'com.google.android.gms:play-services-auth:8.4.0'
+    compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.1'
     compile 'com.google.android.gms:play-services-gcm:8.4.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.whinc:ratingbar:1.1.1'

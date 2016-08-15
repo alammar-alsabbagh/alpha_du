@@ -14,8 +14,10 @@ import com.procasy.dubarah_nocker.R;
 import java.util.List;
 
 /**
+ *
  * Created by Omar on 5/24/2016.
  */
+
 public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolder> {
 
 
