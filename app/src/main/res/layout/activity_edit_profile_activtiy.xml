@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:fitsSystemWindows="true"
-    android:orientation="vertical"
-    android:background="@color/colorPrimary">
+    android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -23,8 +23,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,9 +33,8 @@
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:background="@color/colorPrimaryDark"
                 android:layout_margin="20dp"
-                android:id="@+id/card">.
+                android:background="@color/colorPrimaryDark">.
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -60,8 +58,8 @@
                         android:padding="5dp"
                         android:text="Ahmad Edilbi"
                         android:textColor="@color/app_yellow"
-                        android:textStyle="bold"
-                        android:textSize="20dp" />
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/skill_displayed"
@@ -83,261 +81,386 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@color/colorPrimaryDark">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/colorPrimaryDark">
+                    android:background="@color/colorPrimaryDark"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10"
+                        android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp">
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
+
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="8"
-                            android:text="User Info"
                             android:paddingLeft="10dp"
-                            android:textSize="16dp"
-                            android:textColor="@color/app_yellow" />
+                            android:text="User Info"
+                            android:textColor="@color/app_yellow"
+                            android:textSize="16dp" />
+
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="16dp"
                             android:layout_weight="2"
                             android:src="@drawable/message" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/line_divider"
                         android:alpha="0.4"
-                        ></View>
+                        android:background="@drawable/line_divider"></View>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
                         android:orientation="horizontal"
-                        android:weightSum="10"
-                        android:padding="20dp"
-                        android:id="@+id/addressedit">
+                        android:weightSum="10">
+
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/message"
-                            android:layout_gravity="left" />
+                            android:layout_gravity="left"
+                            android:src="@drawable/message" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_marginLeft="20dp"
                             android:layout_weight="9"
-                            android:layout_marginLeft="20dp">
+                            android:orientation="vertical">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Address"
                                 android:textColor="@color/app_yellow" />
-                            <TextView
+
+                            <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Not Answered"
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
+                                android:text="Not Answered"
                                 android:textColor="@color/app_yellow" />
                         </LinearLayout>
 
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="20dp"
-                        android:background="@drawable/line_divider"
                         android:alpha="0.4"
-                        ></View>
+                        android:background="@drawable/line_divider"></View>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
                         android:orientation="horizontal"
-                        android:weightSum="10"
-                        android:padding="20dp"
-                        android:id="@+id/phonenumberedit">
+                        android:weightSum="10">
+
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/message"
-                            android:layout_gravity="left" />
+                            android:layout_gravity="left"
+                            android:src="@drawable/message" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_marginLeft="20dp"
                             android:layout_weight="9"
-                            android:layout_marginLeft="20dp">
+                            android:orientation="vertical">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Phone Number"
                                 android:textColor="@color/app_yellow" />
-                            <TextView
+
+                            <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Not Answered"
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
+                                android:text="Not Answered"
                                 android:textColor="@color/app_yellow" />
                         </LinearLayout>
 
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="20dp"
-                        android:background="@drawable/line_divider"
                         android:alpha="0.4"
-                        ></View>
+                        android:background="@drawable/line_divider"></View>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
                         android:orientation="horizontal"
-                        android:weightSum="10"
-                        android:padding="20dp"
-                        android:id="@+id/personalmessageedit">
+                        android:weightSum="10">
+
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/message"
-                            android:layout_gravity="left" />
+                            android:layout_gravity="left"
+                            android:src="@drawable/message" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_marginLeft="20dp"
                             android:layout_weight="9"
-                            android:layout_marginLeft="20dp">
+                            android:orientation="vertical">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Personal Message"
                                 android:textColor="@color/app_yellow" />
-                            <TextView
+
+                            <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Not Answered"
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
+                                android:text="Not Answered"
                                 android:textColor="@color/app_yellow" />
                         </LinearLayout>
 
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginLeft="20dp"
-                        android:background="@drawable/line_divider"
                         android:alpha="0.4"
-                        ></View>
+                        android:background="@drawable/line_divider"></View>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
                         android:orientation="horizontal"
-                        android:weightSum="10"
-                        android:padding="20dp"
-                        android:id="@+id/mycauseedit">
+                        android:weightSum="10">
+
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/message"
-                            android:layout_gravity="left" />
+                            android:layout_gravity="left"
+                            android:src="@drawable/message" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
+                            android:layout_marginLeft="20dp"
                             android:layout_weight="9"
-                            android:layout_marginLeft="20dp">
+                            android:orientation="vertical">
+
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="My cause"
                                 android:textColor="@color/app_yellow" />
-                            <TextView
+
+                            <EditText
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Not Answered"
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
+                                android:text="Not Answered"
                                 android:textColor="@color/app_yellow" />
                         </LinearLayout>
 
                     </LinearLayout>
+
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:alpha="0.4"
+                        android:background="@drawable/line_divider"></View>
+
+                    <LinearLayout xmlns:aigestudio="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="5dp">
+
+                        <com.aigestudio.wheelpicker.WheelPicker
+                            android:id="@+id/days"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="200dp"
+                            android:background="@color/colorPrimaryDark"
+                            aigestudio:wheel_atmospheric="true"
+                            aigestudio:wheel_curved="true"
+                            aigestudio:wheel_cyclic="true"
+                            aigestudio:wheel_item_align="right"
+                            aigestudio:wheel_item_text_color="#A7A7DB"
+                            aigestudio:wheel_item_text_size="20sp"
+                            aigestudio:wheel_selected_item_text_color="#536D8A" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Available Time :"
+                            android:layout_margin="7dp"
+                            android:textColor="#FFFFFF" />
+
+                        <com.aigestudio.wheelpicker.WheelPicker
+                            android:id="@+id/time_1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="200dp"
+                            android:background="@color/colorPrimaryDark"
+                            android:layout_weight="1"
+                            aigestudio:wheel_atmospheric="true"
+                            aigestudio:wheel_curved="true"
+                            aigestudio:wheel_cyclic="true"
+                            aigestudio:wheel_item_align="right"
+                            aigestudio:wheel_item_text_color="#A7A7DB"
+                            aigestudio:wheel_item_text_size="20sp"
+                            aigestudio:wheel_selected_item_text_color="#536D8A" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" - "
+                            android:layout_margin="7dp"
+                            android:textColor="#FFFFFF" />
+
+                        <com.aigestudio.wheelpicker.WheelPicker
+                            android:id="@+id/time_2"
+                            android:layout_weight="1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="200dp"
+                            android:background="@color/colorPrimaryDark"
+                            aigestudio:wheel_atmospheric="true"
+                            aigestudio:wheel_curved="true"
+                            aigestudio:wheel_cyclic="true"
+                            aigestudio:wheel_item_align="right"
+                            aigestudio:wheel_item_text_color="#A7A7DB"
+                            aigestudio:wheel_item_text_size="20sp"
+                            aigestudio:wheel_selected_item_text_color="#536D8A" />
+
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/selector"
+                        android:text="Add"
+                        android:id="@+id/add_new_available_date"
+                        android:textColor="@color/app_yellow" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:id="@+id/available_date"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:layout_height="300dp">
+
+                    </android.support.v7.widget.RecyclerView>
+
                 </LinearLayout>
+
+
             </android.support.v7.widget.CardView>
 
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginBottom="20dp"
                 android:background="@color/colorPrimaryDark">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:background="@color/colorPrimaryDark">
+                    android:background="@color/colorPrimaryDark"
+                    android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:weightSum="10"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:background="@color/colorPrimaryDark">
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorPrimaryDark"
+                        android:orientation="horizontal"
+                        android:weightSum="10">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="8"
-                            android:text="Gallery"
                             android:paddingLeft="10dp"
-                            android:textSize="16dp"
+                            android:text="Gallery"
                             android:textColor="@color/app_yellow"
-                            />
+                            android:textSize="16dp" />
+
                         <ImageView
                             android:layout_width="0dp"
                             android:layout_height="16dp"
                             android:layout_weight="2"
                             android:src="@drawable/message" />
                     </LinearLayout>
+
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
-                        android:background="@drawable/line_divider"
                         android:alpha="0.4"
-                        ></View>
+                        android:background="@drawable/line_divider"></View>
+
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
                         android:orientation="horizontal"
-                        android:weightSum="10"
-                        android:layout_margin="20dp">
+                        android:weightSum="10">
+
                         <TextView
                             android:id="@+id/text11"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="You haven\'t added any media yet. \n Improve your chances of getting hired by adding some photos."
-                            android:gravity="center"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/app_yellow"
-                            android:alpha="0.6"/>
+                            android:alpha="0.6"
+                            android:gravity="center"
+                            android:text="You haven\'t added any media yet. \n Improve your chances of getting hired by adding some photos."
+                            android:textColor="@color/app_yellow" />
+
                         <Button
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/text11"
-                            android:text="Add Photos"
                             android:layout_marginTop="20dp"
                             android:background="@drawable/selector"
-                            android:textColor="@color/app_yellow"
-                            />
+                            android:text="Add Photos"
+                            android:textColor="@color/app_yellow" />
 
                     </RelativeLayout>
                 </LinearLayout>
