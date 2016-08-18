@@ -34,7 +34,6 @@ import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
-import com.procasy.dubarah_nocker.Model.Message;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Services.LocationService;
 import com.procasy.dubarah_nocker.gcm.GCMIntentService;
@@ -47,6 +46,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
 
+    TooltipWindow tipWindow;
     DrawerLayout mDrawerLayout;
     private Toolbar mtoolbar;
     private FragmentDrawerNocker drawerFragment;
@@ -89,6 +89,21 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             @Override
             public void onClick(View v) {
                 mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        tipWindow = new TooltipWindow(MainActivity.this);
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("message_state", "success");
+
+                if (!tipWindow.isTooltipShown()) {
+
+                    tipWindow.showToolTip(v);
+                } else {
+                    tipWindow.dismissTooltip();
+                }
             }
         });
 
@@ -142,12 +157,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         });
 
 
-
         mRegistrationBroadcastReceiver = new BroadcastReceiver() {
 
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.e("onrec","success");
+                Log.e("onrec", "success");
 
 //
 //                // checking for type intent filter
@@ -209,7 +223,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
 
     }
-
 
 
     private void subscribeToGlobalTopic() {

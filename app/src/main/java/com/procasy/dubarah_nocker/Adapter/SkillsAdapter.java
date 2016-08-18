@@ -79,6 +79,7 @@ public  class SkillsAdapter extends RecyclerView.Adapter<SkillsAdapter.ViewHolde
             holder.skill_add.setImageResource(R.drawable.one_skill_delete);
         else
             holder.skill_add.setImageResource(R.drawable.add);
+
        /* holder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
