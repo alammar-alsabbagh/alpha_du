@@ -151,6 +151,7 @@ public class EditProfileActivtiy extends AppCompatActivity {
         SpannableStringBuilder SS = new SpannableStringBuilder("Edit Profile");
         SS.setSpan(new CustomTypefaceSpan("", typface), 0, SS.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         setTitle(SS);
+
     }
 
     /////////////////////////////////////////////////////////
