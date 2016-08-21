@@ -52,17 +52,19 @@ public class MainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view =  inflater.inflate(R.layout.fragment_main, container, false);
+        View view = inflater.inflate(R.layout.fragment_main, container, false);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager);
-        tabLayout = (TabLayout)view.findViewById(R.id.tabs);
+        tabLayout = (TabLayout) view.findViewById(R.id.tabs);
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.addTab(tabLayout.newTab());
         tabLayout.addTab(tabLayout.newTab());
+        tabLayout.addTab(tabLayout.newTab());
+
 
 
         tabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
         tabLayout.setTabTextColors(getResources().getColorStateList(R.color.colorAccent));
-        final PagerAdapter adapter = new PageAdapter(getActivity().getSupportFragmentManager(),tabLayout.getTabCount());
+        final PagerAdapter adapter = new PageAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.post(new Runnable() {
@@ -70,8 +72,11 @@ public class MainFragment extends Fragment {
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
                 tabLayout.getTabAt(0).setText("Nearby nockers");
-                tabLayout.getTabAt(1).setText("Ask for Help!");
-                tabLayout.getTabAt(2).setText("Nearby Jobs");
+                tabLayout.getTabAt(1).setText("Request");
+                tabLayout.getTabAt(2).setText("Jobs");
+                tabLayout.getTabAt(3).setText("Top");
+
+
             }
         });
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -90,10 +95,6 @@ public class MainFragment extends Fragment {
 
             }
         });
-
-
-
-
 
 
         return view;
@@ -120,6 +121,9 @@ public class MainFragment extends Fragment {
                 case 2:
                     JobFragment jobFragment = new JobFragment();
                     return jobFragment;
+                case 3:
+                    Top top = new Top();
+                    return top;
                 default:
                     return null;
             }
