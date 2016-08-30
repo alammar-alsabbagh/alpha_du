@@ -71,10 +71,10 @@ public class MainFragment extends Fragment {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
-                tabLayout.getTabAt(0).setText("Nearby nockers");
-                tabLayout.getTabAt(1).setText("Request");
-                tabLayout.getTabAt(2).setText("Jobs");
-                tabLayout.getTabAt(3).setText("Top");
+                tabLayout.getTabAt(0).setText(getString(R.string.str116));
+                tabLayout.getTabAt(1).setText(getString(R.string.str117));
+                tabLayout.getTabAt(2).setText(getString(R.string.str118));
+                tabLayout.getTabAt(3).setText(getString(R.string.str119));
 
 
             }

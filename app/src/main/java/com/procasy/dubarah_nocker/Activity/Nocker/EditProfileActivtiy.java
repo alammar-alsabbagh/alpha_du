@@ -50,13 +50,13 @@ public class EditProfileActivtiy extends AppCompatActivity {
         mdata = new ArrayList<>();
 
         List<String> week_days = new ArrayList<>();
-        week_days.add("Saturday");
-        week_days.add("Sunday");
-        week_days.add("Monday");
-        week_days.add("Tuesday");
-        week_days.add("Wednesday");
-        week_days.add("Thursday");
-        week_days.add("Thursday");
+        week_days.add(getString(R.string.str95));
+        week_days.add(getString(R.string.str96));
+        week_days.add(getString(R.string.str97));
+        week_days.add(getString(R.string.str98));
+        week_days.add(getString(R.string.str99));
+        week_days.add(getString(R.string.str100));
+        week_days.add(getString(R.string.str101));
 
         days.setData(week_days);
 

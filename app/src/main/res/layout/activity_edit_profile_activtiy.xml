@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/full_name"
                         android:gravity="center"
-                        android:text="Branding"
+                        android:text="@string/str11"
                         android:textColor="@color/app_yellow"
                         android:textSize="16dp" />
                 </RelativeLayout>
@@ -103,7 +103,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="8"
                             android:paddingLeft="10dp"
-                            android:text="User Info"
+                            android:text="@string/str12"
                             android:textColor="@color/app_yellow"
                             android:textSize="16dp" />
 
@@ -143,7 +143,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Address"
+                                android:text="@string/str13"
                                 android:textColor="@color/app_yellow" />
 
                             <EditText
@@ -187,7 +187,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Phone Number"
+                                android:text="@string/str14"
                                 android:textColor="@color/app_yellow" />
 
                             <EditText
@@ -231,7 +231,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Personal Message"
+                                android:text="@string/str15"
                                 android:textColor="@color/app_yellow" />
 
                             <EditText
@@ -275,7 +275,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="My cause"
+                                android:text="@string/str16"
                                 android:textColor="@color/app_yellow" />
 
                             <EditText
@@ -321,7 +321,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Available Time :"
+                            android:text="@string/str17"
                             android:layout_margin="7dp"
                             android:textColor="#FFFFFF" />
 
@@ -371,7 +371,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:background="@drawable/selector"
-                        android:text="Add"
+                        android:text="@string/str18"
                         android:id="@+id/add_new_available_date"
                         android:textColor="@color/app_yellow" />
 
@@ -418,7 +418,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="8"
                             android:paddingLeft="10dp"
-                            android:text="Gallery"
+                            android:text="@string/str19"
                             android:textColor="@color/app_yellow"
                             android:textSize="16dp" />
 
@@ -450,7 +450,7 @@
                             android:layout_marginTop="10dp"
                             android:alpha="0.6"
                             android:gravity="center"
-                            android:text="You haven\'t added any media yet. \n Improve your chances of getting hired by adding some photos."
+                            android:text="@string/str20"
                             android:textColor="@color/app_yellow" />
 
                         <Button
@@ -459,7 +459,7 @@
                             android:layout_below="@id/text11"
                             android:layout_marginTop="20dp"
                             android:background="@drawable/selector"
-                            android:text="Add Photos"
+                            android:text="@string/str21"
                             android:textColor="@color/app_yellow" />
 
                     </RelativeLayout>

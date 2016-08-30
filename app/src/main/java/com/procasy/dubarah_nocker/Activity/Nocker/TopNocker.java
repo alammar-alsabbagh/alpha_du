@@ -59,8 +59,8 @@ public class TopNocker extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new FragmentService(), "Service");
-        adapter.addFragment(new FragmentTestimonials(), "Testimonials");
+        adapter.addFragment(new FragmentService(), getString(R.string.str103));
+        adapter.addFragment(new FragmentTestimonials(), getString(R.string.str104));
         viewPager.setAdapter(adapter);
     }
 

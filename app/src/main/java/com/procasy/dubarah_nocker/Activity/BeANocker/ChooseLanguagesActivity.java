@@ -169,7 +169,7 @@ public class ChooseLanguagesActivity extends AppCompatActivity implements Adapte
 
                         } else /// old user
                         {
-                            Toast.makeText(getApplicationContext(), "There Has Been An Error !! ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.str85), Toast.LENGTH_SHORT).show();
                         }
                     }
 

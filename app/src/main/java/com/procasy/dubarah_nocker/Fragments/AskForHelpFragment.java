@@ -363,7 +363,7 @@ public class AskForHelpFragment extends Fragment {
                 stop.setEnabled(false);
                 start.setEnabled(true);
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getActivity(), "Audio recorded successfully", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -386,7 +386,7 @@ public class AskForHelpFragment extends Fragment {
 
                 m.start();
                 progressBar.setVisibility(View.VISIBLE);
-                Toast.makeText(getActivity(), "Playing audio", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -459,7 +459,7 @@ public class AskForHelpFragment extends Fragment {
         final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                 .themeColor(Color.WHITE)
-                .text("Getting Info..")
+                .text(getString(R.string.str105))
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
 

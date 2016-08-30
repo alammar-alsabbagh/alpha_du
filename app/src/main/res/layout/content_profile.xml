@@ -54,7 +54,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Average Charge"
+                            android:text="@string/str65"
                             android:textColor="@color/white"
                             android:textSize="8sp"
 
@@ -89,7 +89,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:text="Happy Customers"
+                            android:text="@string/str58"
                             android:textColor="@color/white"
                             android:textSize="8sp"
 

@@ -28,7 +28,7 @@
                 android:layout_marginTop="40dp"
                 android:alpha="0.8"
                 android:textStyle="bold"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at tortor orci. Quisque vel metus orci. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras accumsan neque at tincidunt interdum. Cras lobortis, metus aliquam lobortis sodales, ex lorem pretium nisi, nec varius erat odio eget leo. Nullam non nisl at lacus lobortis euismod nec eu diam. Sed accumsan quis odio ut placerat." />
+                android:text="@string/str10" />
         </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,7 +44,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:text="Later"
+            android:text="@string/str4"
             android:background="@drawable/btn_border_gray"
             android:textColor="@color/white"
             android:alpha="0.6"
@@ -58,7 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="6"
-            android:text="Ok,Let\'s Do It \!"
+            android:text="@string/str5"
             android:textColor="@color/colorPrimary"
             android:background="@drawable/btn_yellow_border"
             android:id="@+id/next"

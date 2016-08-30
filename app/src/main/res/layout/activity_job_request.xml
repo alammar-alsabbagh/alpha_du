@@ -40,7 +40,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="JOB REQUEST"
+                        android:text="@string/str25"
                         android:textColor="@color/white"
                         android:textSize="24dp" />
 
@@ -72,7 +72,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
-                    android:text="Preferred Language : "
+                    android:text="@string/str26"
                     android:textColor="@color/white"
                     android:textSize="18dp" />
 
@@ -181,7 +181,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
                     android:layout_marginTop="10dp"
-                    android:text="Customer Score"
+                    android:text="@string/str27"
                     android:textColor="@color/white"
                     android:textSize="13dp" />
 
@@ -214,7 +214,7 @@
                     android:layout_weight="5"
                     android:background="@drawable/btn_yellow_border"
                     android:gravity="center"
-                    android:text="ACCEPT"
+                    android:text="@string/str28"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -226,7 +226,7 @@
                     android:layout_weight="5"
                     android:background="@drawable/btn_pass_gray"
                     android:gravity="center"
-                    android:text="PASS"
+                    android:text="@string/str30"
                     android:textSize="20dp"
                     android:textStyle="bold"
 
@@ -257,7 +257,7 @@
                         android:layout_weight="4"
                         android:background="@drawable/birthdate_border"
                         android:gravity="center"
-                        android:text="Preferred Date"
+                        android:text="@string/str31"
                         android:textColor="@color/white"
                         android:textSize="18dp" />
 
@@ -271,7 +271,7 @@
                         android:layout_weight="4"
                         android:background="@drawable/birthdate_border"
                         android:gravity="center"
-                        android:text="Appropriate Time"
+                        android:text="@string/str32"
                         android:textColor="@color/white"
                         android:textSize="18dp" />
                 </LinearLayout>
@@ -288,7 +288,7 @@
                         android:layout_height="40dp"
                         android:alpha="0.8"
                         android:background="@drawable/birthdate_border"
-                        android:hint="How much are you charging him ?"
+                        android:hint="@string/str33"
                         android:inputType="numberDecimal"
                         android:nestedScrollingEnabled="true"
                         android:paddingBottom="10dp"
@@ -306,7 +306,7 @@
                         android:layout_marginTop="10dp"
                         android:alpha="0.8"
                         android:background="@drawable/birthdate_border"
-                        android:hint="Could you write a short description of what you can do"
+                        android:hint="@string/str34"
                         android:inputType="textImeMultiLine|textMultiLine"
                         android:nestedScrollingEnabled="true"
                         android:paddingBottom="10dp"
@@ -325,7 +325,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/btn_yellow_border"
                     android:gravity="center"
-                    android:text="Send Quota"
+                    android:text="@string/str35"
                     android:textSize="20dp"
                     android:textStyle="bold" />
             </LinearLayout>

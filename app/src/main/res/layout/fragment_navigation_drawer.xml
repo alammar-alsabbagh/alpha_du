@@ -17,9 +17,9 @@
             android:layout_marginBottom="10dp"
             android:layout_marginLeft="10dp"
             android:orientation="vertical"
-            android:paddingTop="10dp"
             android:paddingLeft="5dp"
-            android:paddingRight="5dp">
+            android:paddingRight="5dp"
+            android:paddingTop="10dp">
 
 
             <LinearLayout
@@ -43,16 +43,16 @@
                         android:id="@+id/fullName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:singleLine="true"
                         android:text="Matthew Andrew"
-                        android:textSize="14dp"
                         android:textColor="@color/drawer_profile_textname"
-                        android:singleLine="true"/>
+                        android:textSize="14dp" />
 
                     <ImageView
-                        android:layout_marginTop="5dp"
+                        android:id="@+id/imageView"
                         android:layout_width="125dp"
                         android:layout_height="60dp"
-                        android:id="@+id/imageView"
+                        android:layout_marginTop="5dp"
                         android:src="@drawable/nocker_score" />
 
                 </LinearLayout>
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Average Charge"
+                        android:text="@string/str65"
                         android:textColor="@color/white"
                         android:textSize="8sp"
 
@@ -126,7 +126,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="Happy Customers"
+                        android:text="@string/str58"
                         android:textColor="@color/white"
                         android:textSize="8sp"
 
@@ -190,7 +190,7 @@
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/btn_boost"
-            android:text="Boost Your Account"
+            android:text="@string/str71"
             android:textColor="@color/white" />
 
         <TableLayout
@@ -212,7 +212,7 @@
                     android:layout_marginLeft="20dp"
                     android:alpha="0.6"
                     android:padding="10dp"
-                    android:text="Edit Profile"
+                    android:text="@string/str72"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -238,7 +238,7 @@
                     android:layout_marginLeft="20dp"
                     android:alpha="0.6"
                     android:padding="10dp"
-                    android:text="Promotion"
+                    android:text="@string/str37"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -264,7 +264,7 @@
                     android:layout_marginLeft="20dp"
                     android:alpha="0.6"
                     android:padding="10dp"
-                    android:text="Activate Subscription"
+                    android:text="@string/str74"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -290,7 +290,7 @@
                     android:layout_marginLeft="20dp"
                     android:alpha="0.6"
                     android:padding="10dp"
-                    android:text="My Shop"
+                    android:text="@string/str75"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -316,7 +316,7 @@
                     android:layout_marginLeft="20dp"
                     android:alpha="0.6"
                     android:padding="10dp"
-                    android:text="Settings"
+                    android:text="@string/str76"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -342,7 +342,7 @@
                     android:layout_marginLeft="20dp"
                     android:alpha="0.6"
                     android:padding="10dp"
-                    android:text="Help?"
+                    android:text="@string/str77"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -382,9 +382,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:paddingLeft="10dp"
-                android:textSize="8sp"
                 android:paddingRight="10dp"
-                android:text="Copy Link" />
+                android:text="@string/str78"
+                android:textSize="8sp" />
 
             <Button
                 style="@style/navigationDrawerButtons"
@@ -392,9 +392,9 @@
                 android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
                 android:paddingLeft="10dp"
-                android:textSize="8sp"
                 android:paddingRight="10dp"
-                android:text="Send To A Friend" />
+                android:text="@string/str79"
+                android:textSize="8sp" />
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
