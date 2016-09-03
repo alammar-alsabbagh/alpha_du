@@ -59,22 +59,22 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.activateSubscription:
-                mCommChListner.setCommunication("activateSub");
+                mCommChListner.setCommunication(getString(R.string.str109));
                 break;
             case R.id.myShop:
-                mCommChListner.setCommunication("myShop");
+                mCommChListner.setCommunication(getString(R.string.str110));
                 break;
             case R.id.promotion:
-                mCommChListner.setCommunication("promotion");
+                mCommChListner.setCommunication(getString(R.string.str111));
                 break;
             case R.id.help:
-                mCommChListner.setCommunication("help");
+                mCommChListner.setCommunication(getString(R.string.str112));
                 break;
             case R.id.settings:
-                mCommChListner.setCommunication("settings");
+                mCommChListner.setCommunication(getString(R.string.str113));
                 break;
             case R.id.editProfile:
-                mCommChListner.setCommunication("editProfile");
+                mCommChListner.setCommunication(getString(R.string.str114));
                 break;
         }
     }

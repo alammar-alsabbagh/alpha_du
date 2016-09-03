@@ -20,7 +20,7 @@
         android:background="@color/amber"
         android:gravity="center"
         android:padding="10dp"
-        android:text="MESSAGES"
+        android:text="@string/str84"
         android:textColor="@android:color/white"
         android:textSize="20dp"
         android:textStyle="bold" />

@@ -76,7 +76,7 @@ public class JobFragment extends Fragment {
         final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                 .themeColor(Color.WHITE)
-                .text("Getting Jobs")
+                .text(getString(R.string.str115))
                 .fadeColor(Color.DKGRAY).build();
 
         dialog.show();

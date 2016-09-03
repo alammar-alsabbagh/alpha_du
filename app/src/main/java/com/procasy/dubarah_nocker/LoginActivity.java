@@ -308,7 +308,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         final ACProgressFlower dialog = new ACProgressFlower.Builder(LoginActivity.this)
                                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                                 .themeColor(Color.WHITE)
-                                .text("Getting Info..")
+                                .text(getString(R.string.str105))
                                 .fadeColor(Color.DKGRAY).build();
                         dialog.show();
                         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);

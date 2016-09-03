@@ -74,7 +74,7 @@ public class ChatRoomActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         if (chatRoomId == null) {
-            Toast.makeText(getApplicationContext(), "Chat room not found!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getString(R.string.str106), Toast.LENGTH_SHORT).show();
             finish();
         }
 

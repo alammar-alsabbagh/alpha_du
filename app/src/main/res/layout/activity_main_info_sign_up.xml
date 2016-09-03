@@ -33,7 +33,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:gravity="center"
-                android:text="Main Info"
+                android:text="@string/str47"
                 android:textColor="#838383"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -41,81 +41,87 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:alpha="0.7"
             android:background="@drawable/login_drawable_combo"
             android:orientation="vertical"
-            android:padding="20dp"
-            android:layout_marginBottom="10dp">
+            android:padding="20dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
                 android:weightSum="10">
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/firstname_text_input_layout"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="6">
+
                     <EditText
                         android:id="@+id/Firstname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="6"
-                        android:hint="First Name"
+                        android:hint="@string/str48"
                         android:inputType="textEmailAddress"
                         android:singleLine="true" />
                 </android.support.design.widget.TextInputLayout>
-                <RadioGroup android:id="@+id/toggleGroup"
+
+                <RadioGroup
+                    android:id="@+id/toggleGroup"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="4"
                     android:layout_gravity="bottom"
-                    android:layout_marginBottom="10dp">
-                    <ToggleButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:background="@drawable/circle_btn"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:textOn="M"
-                        android:textOff="M"
-                        android:textColor="@drawable/text_color"
-                        android:onClick="onToggle"
-                        android:id="@+id/sel1"
-                        android:textSize="10sp"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp" />
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="4"
+                    android:orientation="horizontal">
 
                     <ToggleButton
+                        android:id="@+id/sel1"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:background="@drawable/circle_btn"
-                        android:gravity="center_vertical|center_horizontal"
-                        android:textOn="F"
-                        android:textOff="F"
-                        android:textColor="@drawable/text_color"
-                        android:onClick="onToggle"
-                        android:id="@+id/sel2"
-                        android:textSize="10sp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp" />
-                    <ToggleButton
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
                         android:background="@drawable/circle_btn"
                         android:gravity="center_vertical|center_horizontal"
-                        android:textOn="X"
-                        android:textOff="X"
-                        android:textColor="@drawable/text_color"
                         android:onClick="onToggle"
+                        android:textColor="@drawable/text_color"
+                        android:textOff="M"
+                        android:textOn="M"
+                        android:textSize="10sp" />
+
+                    <ToggleButton
+                        android:id="@+id/sel2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/circle_btn"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:onClick="onToggle"
+                        android:textColor="@drawable/text_color"
+                        android:textOff="F"
+                        android:textOn="F"
+                        android:textSize="10sp" />
+
+                    <ToggleButton
                         android:id="@+id/sel3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@drawable/circle_btn"
                         android:checked="true"
-                        android:textSize="8sp"
-                        android:layout_marginBottom="5dp" />
+                        android:gravity="center_vertical|center_horizontal"
+                        android:onClick="onToggle"
+                        android:textColor="@drawable/text_color"
+                        android:textOff="X"
+                        android:textOn="X"
+                        android:textSize="8sp" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -129,7 +135,7 @@
                     android:id="@+id/Lastname"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Last Name"
+                    android:hint="@string/str49"
                     android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
@@ -137,6 +143,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/phonenumber_text_input_layout"
                     android:layout_width="match_parent"
@@ -147,25 +154,26 @@
                         android:id="@+id/PhoneNumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Phone Number"
+                        android:hint="@string/str50"
                         android:inputType="phone" />
 
                 </android.support.design.widget.TextInputLayout>
+
                 <TextView
                     android:id="@+id/BirthDate"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="8"
                     android:layout_gravity="bottom"
-                    android:gravity="center"
+                    android:layout_marginBottom="7dp"
+                    android:layout_weight="8"
+                    android:background="@drawable/birthdate_border"
                     android:clickable="false"
                     android:cursorVisible="false"
                     android:focusable="false"
                     android:focusableInTouchMode="false"
+                    android:gravity="center"
                     android:hint="Birth date"
-                    android:inputType="textEmailAddress"
-                    android:background="@drawable/birthdate_border"
-                    android:layout_marginBottom="7dp" />
+                    android:inputType="textEmailAddress" />
 
             </LinearLayout>
 
@@ -183,22 +191,20 @@
                     android:layout_weight="2"
                     android:clickable="false"
                     android:focusable="false"
-                    android:hint="City"
+                    android:hint="@string/str52"
                     android:inputType="textEmailAddress"
                     android:singleLine="true" />
 
 
-
-
-                    <TextView
-                        android:id="@+id/Province"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:hint="Province"
-                        android:inputType="textEmailAddress"></TextView>
+                <TextView
+                    android:id="@+id/Province"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:clickable="false"
+                    android:focusable="false"
+                    android:hint="@string/str51"
+                    android:inputType="textEmailAddress"></TextView>
 
             </LinearLayout>
 
@@ -214,59 +220,59 @@
                     android:id="@+id/Country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Country"
+                    android:layout_weight="2"
                     android:clickable="false"
                     android:focusable="false"
+                    android:hint="@string/str53"
                     android:inputType="textEmailAddress"
-                    android:singleLine="true"
-                    android:layout_weight="2"/>
+                    android:singleLine="true" />
 
             </LinearLayout>
 
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/next_btn"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/selector"
+            android:orientation="horizontal"
+            android:weightSum="10">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_weight="2"
+                android:src="@drawable/first_pager" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="6"
+                android:gravity="right"
+                android:text="@string/str41"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+
+                />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="2"
+                android:src="@drawable/proceed_white_arrow" />
+
+        </LinearLayout>
+
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/next_btn"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@drawable/selector"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_weight="2"
-            android:src="@drawable/first_pager" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="6"
-            android:gravity="right"
-            android:text="Next!"
-            android:textColor="@color/white"
-            android:textSize="20sp"
-            android:textStyle="bold"
-
-            />
-
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="18dp"
-            android:layout_gravity="center_vertical"
-            android:layout_weight="2"
-            android:src="@drawable/proceed_white_arrow" />
-
-    </LinearLayout>
-
-</LinearLayout>
 </LinearLayout>

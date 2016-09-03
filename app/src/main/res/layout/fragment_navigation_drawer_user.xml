@@ -188,7 +188,7 @@
                     android:layout_marginLeft="10dp"
                     android:alpha="0.6"
                     android:padding="5dp"
-                    android:text="Edit Profile"
+                    android:text="@string/str72"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -214,7 +214,7 @@
                     android:layout_marginLeft="10dp"
                     android:alpha="0.6"
                     android:padding="5dp"
-                    android:text="Promotion"
+                    android:text="@string/str73"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -240,7 +240,7 @@
                     android:layout_marginLeft="10dp"
                     android:alpha="0.6"
                     android:padding="5dp"
-                    android:text="Be a nocker"
+                    android:text="@string/str80"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -266,7 +266,7 @@
                     android:layout_marginLeft="10dp"
                     android:alpha="0.6"
                     android:padding="5dp"
-                    android:text="My Shop"
+                    android:text="@string/str75"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -292,7 +292,7 @@
                     android:layout_marginLeft="10dp"
                     android:alpha="0.6"
                     android:padding="5dp"
-                    android:text="Settings"
+                    android:text="@string/str76"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -317,7 +317,7 @@
                     android:id="@+id/help_txt"
                     android:alpha="0.6"
                     android:padding="5dp"
-                    android:text="Help?"
+                    android:text="@string/str77"
                     android:textColor="@color/white"
                     android:textSize="15sp"
                     android:layout_marginLeft="10dp" />
@@ -360,7 +360,7 @@
                 android:layout_gravity="center"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Copy Link"
+                android:text="@string/str78"
                 android:textSize="8sp" />
 
             <Button
@@ -371,7 +371,7 @@
                 android:layout_marginLeft="10dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:text="Send To A Friend"
+                android:text="@string/str79"
                 android:textSize="8sp" />
         </LinearLayout>
     </LinearLayout>

@@ -30,11 +30,139 @@
     ]]>
     </string>
 
-    <string name="what_that_means"><u>What that\'s mean?</u></string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="server_client_id">1056446251292-cvrrrj3bn961f8q6eelisk7ktms7jnmf.apps.googleusercontent.com</string>
     <string name="facebook_app_id">1072394276177073</string>
+
+    <!-- Strings Variable -->
+
+    <string name="str1">Start Appreciating Your \n Experience!</string>
+    <string name="str2"> Be A </string>
+    <string name="str3"><u>What that\'s mean?</u></string>
+    <string name="str4">Later</string>
+    <string name="str5"> Ok,Let\'s Do It \!</string>
+    <string name="str6">What Languages \nYou\'re Good At?</string>
+    <string name="str7">Search</string>
+    <string name="str8">I\'m Done!</string>
+    <string name="str9">What things \nYou\'re Good At?</string>
+    <string name="str10">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi at tortor orci. Quisque vel metus orci. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras accumsan neque at tincidunt interdum. Cras lobortis, metus aliquam lobortis sodales, ex lorem pretium nisi, nec varius erat odio eget leo. Nullam non nisl at lacus lobortis euismod nec eu diam. Sed accumsan quis odio ut placerat.
+    </string>
+    <string name="str11">Branding</string>
+    <string name="str12">User Info</string>
+    <string name="str13">Address</string>
+    <string name="str14">Phone Number</string>
+    <string name="str15">Personal Message</string>
+    <string name="str16">My cause</string>
+    <string name="str17">Available Time :</string>
+    <string name="str18">Add</string>
+    <string name="str19">Gallery</string>
+    <string name="str20">You haven\'t added any media yet. \n Improve your chances of getting hired by adding some photos.</string>
+    <string name="str21">Add Photos</string>
+    <string name="str22">Email</string>
+    <string name="str23">Send Me My Password</string>
+    <string name="str24">Your password mail may take up to 10 minutes .</string>
+    <string name="str25">JOB REQUEST</string>
+    <string name="str26">Preferred Language : </string>
+    <string name="str27">Customer Score</string>
+    <string name="str28">ACCEPT</string>
+    <string name="str30">PASS</string>
+    <string name="str31">Preferred Date</string>
+    <string name="str32">Appropriate Time</string>
+    <string name="str33">How much are you charging him ?</string>
+    <string name="str34">Could you write a short description of what you can do</string>
+    <string name="str35">Send Quota</string>
+    <string name="str36">Location</string>
+    <string name="str37">Address Line 1</string>
+    <string name="str38">Address Line 2</string>
+    <string name="str39">Postal Code</string>
+    <string name="str40">*Address fields include street number/name, including apartment, suite, floor and room numbers, etc</string>
+    <string name="str41">Next !</string>
+    <string name="str42">Email</string>
+    <string name="str43">Password</string>
+    <string name="str44">Login Or Signup</string>
+    <string name="str45">Welcome to Nocker App ,\n If you’re searching for a great local help in were are you based, we know just the way.</string>
+    <string name="str46">Forgot Your Password ?</string>
+    <string name="str47">Main Info</string>
+    <string name="str48">First Name</string>
+    <string name="str49">Last Name</string>
+    <string name="str50">Phone Number</string>
+    <string name="str51">Province</string>
+    <string name="str52">City</string>
+    <string name="str53">Country</string>
+    <string name="str54">Take Photo</string>
+    <string name="str55">Browse Photo</string>
+    <string name="str56">Finish!</string>
+    <string name="str57">Recommended By</string>
+    <string name="str58">Happy Customers</string>
+    <string name="str59">Whats your cause ?</string>
+    <string name="str60">I\'m Done!</string>
+    <string name="str61">Why You join Nocker</string>
+    <string name="str62">Seems gcm will take some time</string>
+    <string name="str63">Enter message</string>
+    <string name="str64">SEND</string>
+    <string name="str65">Average Charge</string>
+    <string name="str66">Who do you need?</string>
+    <string name="str67">Where?</string>
+    <string name="str68">Preferred Language</string>
+    <string name="str69">Short Description</string>
+    <string name="str70">REQUEST A NOCKER!</string>
+    <string name="str71">Boost Your Account</string>
+    <string name="str72">Edit Profile</string>
+    <string name="str73">Promotion</string>
+    <string name="str74">Activate Subscription</string>
+    <string name="str75">My Shop</string>
+    <string name="str76">Settings</string>
+    <string name="str77">Help?</string>
+    <string name="str78">Copy Link</string>
+    <string name="str79">Send To A Friend</string>
+    <string name="str80">Be a nocker</string>
+    <string name="str81">Report</string>
+    <string name="str82">Send To Friend</string>
+    <string name="str83">REQUEST</string>
+    <string name="str84">MESSAGES</string>
+    <string name="str85">There Has Been An Error !! </string>
+    <string name="str86">Reasons nocker is looking to work: Pay the bills</string>
+    <string name="str87">Get my business off the ground</string>
+    <string name="str88">Fund my tuition</string>
+    <string name="str89">Fund my child's or spouse's tuition</string>
+    <string name="str90">Fund my child's extra-curricular activities</string>
+    <string name="str91">Fund my vacation</string>
+    <string name="str92">Settle in a new country</string>
+    <string name="str93">Fund my next project</string>
+    <string name="str94">Settle in a new country</string>
+    <string name="str95">Saturday</string>
+    <string name="str96">Sunday</string>
+    <string name="str97">Monday</string>
+    <string name="str98">Tuesday</string>
+    <string name="str99">Wednesday</string>
+    <string name="str100">Thursday</string>
+    <string name="str101">Thursday</string>
+    <string name="str102">About</string>
+    <string name="str103">Service</string>
+    <string name="str104">Testimonials</string>
+    <string name="str105">Getting Info..</string>
+    <string name="str106">Chat room not found!</string>
+    <string name="str107">Audio recorded successfully</string>
+    <string name="str108">Playing audio</string>
+
+    <string name="str109">activateSub</string>
+    <string name="str110">myShop</string>
+    <string name="str111">promotion</string>
+    <string name="str112">help</string>
+    <string name="str113">settings</string>
+    <string name="str114">editProfile</string>
+    <string name="str115">Getting Jobs</string>
+
+    <string name="str116">Nearby nockers</string>
+    <string name="str117">Request</string>
+    <string name="str118">Jobs</string>
+    <string name="str119">Top</string>
+
+    <string name="str120">help</string>
+
+
 
 </resources>

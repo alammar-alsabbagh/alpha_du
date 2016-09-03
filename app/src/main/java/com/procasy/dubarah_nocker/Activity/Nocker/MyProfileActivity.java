@@ -134,7 +134,7 @@ public class MyProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<UserInfoResponse> call, Throwable t) {
                 System.out.println("here 2" + t.toString());
-                Toast.makeText(getApplicationContext(), "Request Time Out , please try again.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.str85), Toast.LENGTH_LONG).show();
 
                 if (dialog.isShowing())
                     dialog.dismiss();
@@ -178,15 +178,15 @@ public class MyProfileActivity extends AppCompatActivity {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
         aboutController = tab1;
-        adapter.addFragment(tab1, "About");
+        adapter.addFragment(tab1, getString(R.string.str102));
 
 
         skillsController = tab2;
-        adapter.addFragment(tab2, "Service");
+        adapter.addFragment(tab2, getString(R.string.str103));
 
 
         //testimonialsController = tab3;
-        adapter.addFragment(tab3, "Testimonials");
+        adapter.addFragment(tab3, getString(R.string.str104));
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(1);
 

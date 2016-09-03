@@ -48,15 +48,15 @@ public class WhyWorkingActivty extends AppCompatActivity {
         causes_list.addItemDecoration(new SimpleDividerItemDecoration(getApplicationContext()));
         sessionManager = new SessionManager(this);
 
-        Causes.add(new WhyModel("Reasons nocker is looking to work: Pay the bills", false));
-        Causes.add(new WhyModel("Get my business off the ground", false));
-        Causes.add(new WhyModel("Fund my tuition", false));
-        Causes.add(new WhyModel("Fund my child's or spouse's tuition", false));
-        Causes.add(new WhyModel("Fund my child's extra-curricular activities", false));
-        Causes.add(new WhyModel("Fund my vacation", false));
-        Causes.add(new WhyModel("Settle in a new country", false));
-        Causes.add(new WhyModel("Fund my next project", false));
-        Causes.add(new WhyModel("Settle in a new country", false));
+        Causes.add(new WhyModel(getString(R.string.str86), false));
+        Causes.add(new WhyModel(getString(R.string.str87), false));
+        Causes.add(new WhyModel(getString(R.string.str88), false));
+        Causes.add(new WhyModel(getString(R.string.str89), false));
+        Causes.add(new WhyModel(getString(R.string.str90), false));
+        Causes.add(new WhyModel(getString(R.string.str91), false));
+        Causes.add(new WhyModel(getString(R.string.str92), false));
+        Causes.add(new WhyModel(getString(R.string.str93), false));
+        Causes.add(new WhyModel(getString(R.string.str94), false));
 
         causesAdapter = new CausesAdapter(getApplicationContext(), Causes);
 

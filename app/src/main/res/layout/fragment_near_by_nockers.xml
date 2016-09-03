@@ -24,7 +24,7 @@
                 android:textColor="#AAFFFFFF"
                 android:paddingLeft="20dp"
                 android:textColorHint="#AAFFFFFF"
-                android:hint="Search"
+                android:hint="@string/str7"
                 android:textSize="13dp"
                 android:singleLine="true">
             </EditText>
