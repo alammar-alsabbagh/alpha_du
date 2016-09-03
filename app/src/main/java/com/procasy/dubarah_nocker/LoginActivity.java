@@ -129,7 +129,6 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         setupWindowAnimations();
         printKeyHash(LoginActivity.this);
-
         marshmallowPhoneStatePremissionCheck();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()

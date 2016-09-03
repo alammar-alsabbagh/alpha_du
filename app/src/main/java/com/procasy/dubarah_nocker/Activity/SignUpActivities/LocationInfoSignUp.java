@@ -53,7 +53,7 @@ validator.validate();            }
         Email = getIntent().getExtras().getString("email");
         Password = getIntent().getExtras().getString("password");
         BirthDate = getIntent().getExtras().getString("birthDate");
-sessionManager = new SessionManager(this);
+        sessionManager = new SessionManager(this);
         dataAdapter = new   GooglePlacesAutocompleteAdapter(LocationInfoSignUp.this, android.R.layout.simple_list_item_1);
 
 
