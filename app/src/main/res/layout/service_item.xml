@@ -55,6 +55,7 @@
                 android:background="@drawable/btn_request"
                 android:text="@string/str83"
                 android:textStyle="bold"
+                android:id="@+id/request_nocker"
                 android:textColor="@color/white"
                 android:layout_height="30dp" />
 

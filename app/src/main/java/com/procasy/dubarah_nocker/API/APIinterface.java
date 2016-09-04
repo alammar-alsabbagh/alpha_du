@@ -131,5 +131,9 @@ public interface APIinterface {
     Call<UserInfoResponse> GetUserInfo(@Field("user_email") String user_email
     );
 
+    @FormUrlEncoded
+    @POST("get_appointments")
+    Call<String> Get_user_appoitement(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id
+    );
 
 }

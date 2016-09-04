@@ -127,8 +127,8 @@
     <string name="str86">Reasons nocker is looking to work: Pay the bills</string>
     <string name="str87">Get my business off the ground</string>
     <string name="str88">Fund my tuition</string>
-    <string name="str89">Fund my child's or spouse's tuition</string>
-    <string name="str90">Fund my child's extra-curricular activities</string>
+    <string name="str89">Fund my childs or spouses tuition</string>
+    <string name="str90">Fund my childs extra-curricular activities</string>
     <string name="str91">Fund my vacation</string>
     <string name="str92">Settle in a new country</string>
     <string name="str93">Fund my next project</string>
@@ -162,7 +162,11 @@
     <string name="str119">Top</string>
 
     <string name="str120">help</string>
-
+    <string name="str121">Appointement</string>
+    <string name="str122">Create a new Service</string>
+    <string name="str123">Service Name</string>
+    <string name="str124">Choose Photo</string>
+    <string name="str125">Create Service</string>
 
 
 </resources>

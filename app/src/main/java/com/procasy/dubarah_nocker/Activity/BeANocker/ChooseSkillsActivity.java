@@ -303,6 +303,7 @@ public class ChooseSkillsActivity extends AppCompatActivity {
             }
 
         });
+
         GetChoosenSkilles();
         skill_list.addOnItemTouchListener(
                 new RecyclerItemClickListener(getApplicationContext(), new RecyclerItemClickListener.OnItemClickListener() {

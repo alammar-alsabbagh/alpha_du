@@ -1,6 +1,7 @@
 package com.procasy.dubarah_nocker.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +9,10 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.procasy.dubarah_nocker.Activity.AskForHelpActivity;
 import com.procasy.dubarah_nocker.Model.Responses.SkillsResponse;
 import com.procasy.dubarah_nocker.Model.ServiceModel;
 import com.procasy.dubarah_nocker.R;
@@ -98,18 +101,25 @@ public class FragmentService extends Fragment implements SkillsController {
 
             public TextView description;
             public TextView name;
+            public Button request_nocker;
 
             public ServiceViewHolder(View itemView) {
                 super(itemView);
                 itemView.setOnClickListener(this);
 
+                request_nocker = (Button)itemView.findViewById(R.id.request_nocker);
                 name = ((TextView) itemView.findViewById(R.id.service_name));
                 description = ((TextView) itemView.findViewById(R.id.service_description));
+                request_nocker.setOnClickListener(this);
             }
 
             @Override
             public void onClick(View v) {
                 System.out.println(" Clicked ");
+                Intent i = new Intent(getActivity() , AskForHelpActivity.class);
+                i.putExtra(AskForHelpActivity.SKILL_NAME , mdata.get(getPosition()).getSkill_name());
+                startActivity(i);
+
             }
         }
     }
