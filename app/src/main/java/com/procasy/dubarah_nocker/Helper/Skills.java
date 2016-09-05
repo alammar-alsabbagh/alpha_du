@@ -52,7 +52,7 @@ public class Skills {
     // OPEN
     public Skills open() throws SQLException {
 
-       // Log.e("ahmad", "open");
+        // Log.e("ahmad", "open");
         db = dbHelper.getWritableDatabase();
         return this;
     }
@@ -65,7 +65,7 @@ public class Skills {
     // insert
     public long insertEntry(ContentValues contentValues) {
 
-       // Log.e("ahmad", "insert");
+        // Log.e("ahmad", "insert");
         return db.insert(TABLE_NAME, null, contentValues);
     }
 
@@ -81,13 +81,23 @@ public class Skills {
     }
 
 
-
     public Cursor getListSkill(String search_query) {
         Cursor c = db.rawQuery("SELECT * from skills " +
                 "where skill_name Like '" + search_query + "%'", null);
         return c;
     }
 
+
+    public Cursor getSkillIdByName(String skill_name) {
+        Cursor c = db.rawQuery("SELECT skill_id from skills " +
+                "where skill_name = '" + skill_name + "'", null);
+        c.moveToFirst();
+        if (c.getCount()==0)
+            return null;
+        else
+            return c;
+
+    }
 
 
     public Cursor getAllEntries() {
@@ -98,19 +108,17 @@ public class Skills {
 
     public Cursor filterSkills(String input) {
         // Select All Query
-        Cursor d = db.query(true, TABLE_NAME, all , COL_skillname + " LIKE ?",
-                new String[] { input+"%" }, null, null, null,
+        Cursor d = db.query(true, TABLE_NAME, all, COL_skillname + " LIKE ?",
+                new String[]{input + "%"}, null, null, null,
                 null);
         return d;
     }
 
-    public Cursor getSingleSkill(String input)
-    {
+    public Cursor getSingleSkill(String input) {
         Cursor c = db.rawQuery("SELECT skill_id from skills " +
-                "where skill_name = '"+input+"'", null);
+                "where skill_name = '" + input + "'", null);
         return c;
     }
-
 
 
     public Object getEntry(long _rowIndex) {

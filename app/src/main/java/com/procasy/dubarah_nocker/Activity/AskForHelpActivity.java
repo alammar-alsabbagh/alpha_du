@@ -1,4 +1,4 @@
-package com.procasy.dubarah_nocker.Fragments;
+package com.procasy.dubarah_nocker.Activity;
 
 import android.Manifest;
 import android.app.Activity;
@@ -14,12 +14,13 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
+import android.os.PersistableBundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,17 +60,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AskForHelpFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AskForHelpFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class AskForHelpFragment extends Fragment {
+public class AskForHelpActivity extends AppCompatActivity {
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    public static final String SKILL_NAME = "skill_name";
 
 
     ImageView img1, img2, img3;
@@ -99,38 +95,10 @@ public class AskForHelpFragment extends Fragment {
     private AutoCompleteTextView actv, language;
     private OnFragmentInteractionListener mListener;
 
-    public AskForHelpFragment() {
+    public AskForHelpActivity() {
         // Required empty public constructor
     }
 
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AskForHelpFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AskForHelpFragment newInstance(String param1, String param2) {
-        AskForHelpFragment fragment = new AskForHelpFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -138,7 +106,7 @@ public class AskForHelpFragment extends Fragment {
         Log.e("PermissionsResult", "success " + requestCode);
 
         if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            Toast.makeText(getActivity(), "Success", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Success", Toast.LENGTH_LONG).show();
 
             try {
 
@@ -155,30 +123,36 @@ public class AskForHelpFragment extends Fragment {
         }
     }
 
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_ask_for_help, container, false);
-        sessionManager = new SessionManager(getActivity());
 
-        img1 = (ImageView) view.findViewById(R.id.img1);
-        img2 = (ImageView) view.findViewById(R.id.img2);
-        img3 = (ImageView) view.findViewById(R.id.img3);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.fragment_ask_for_help);
+        sessionManager = new SessionManager(this);
 
-        request = (Button) view.findViewById(R.id.request);
-        take = (ImageView) view.findViewById(R.id.take_picture);
-        browse = (ImageView) view.findViewById(R.id.browser_apicture);
-        language = (AutoCompleteTextView) view.findViewById(R.id.language);
-        actv = (AutoCompleteTextView) view.findViewById(R.id.skills_auto_complete);
-        mlanguage = new Language(getActivity());
-        where = (Button) view.findViewById(R.id.where);
-        progressBar = (ProgressBar) view.findViewById(R.id.progress);
+        img1 = (ImageView) findViewById(R.id.img1);
+        img2 = (ImageView) findViewById(R.id.img2);
+        img3 = (ImageView) findViewById(R.id.img3);
+
+        request = (Button) findViewById(R.id.request);
+        take = (ImageView) findViewById(R.id.take_picture);
+        browse = (ImageView)findViewById(R.id.browser_apicture);
+        language = (AutoCompleteTextView)findViewById(R.id.language);
+        actv = (AutoCompleteTextView) findViewById(R.id.skills_auto_complete);
+
+        actv.setText(getIntent().getStringExtra(SKILL_NAME));
+
+        mlanguage = new Language(this);
+        where = (Button)findViewById(R.id.where);
+        progressBar = (ProgressBar) findViewById(R.id.progress);
         progressBar.setVisibility(View.INVISIBLE);
 
-        reord = (ImageView) view.findViewById(R.id.record_sound);
-        start = (ImageView) view.findViewById(R.id.start_record);
-        stop = (ImageView) view.findViewById(R.id.stop_record);
+        reord = (ImageView) findViewById(R.id.record_sound);
+        start = (ImageView) findViewById(R.id.start_record);
+        stop = (ImageView) findViewById(R.id.stop_record);
 
         stop.setEnabled(false);
         start.setEnabled(false);
@@ -198,7 +172,7 @@ public class AskForHelpFragment extends Fragment {
 
                 if (Build.VERSION.SDK_INT >= 23) {
                     // Here, thisActivity is the current activity
-                    if (ContextCompat.checkSelfPermission(getActivity(),
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(),
                             Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
 
@@ -239,7 +213,7 @@ public class AskForHelpFragment extends Fragment {
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= 23) {
                     // Here, thisActivity is the current activity
-                    if (ContextCompat.checkSelfPermission(getActivity(),
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(),
                             Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
 
@@ -282,7 +256,7 @@ public class AskForHelpFragment extends Fragment {
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= 23) {
                     // Here, thisActivity is the current activity
-                    if (ContextCompat.checkSelfPermission(getActivity(),
+                    if (ContextCompat.checkSelfPermission(getApplicationContext(),
                             Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
 
@@ -363,7 +337,7 @@ public class AskForHelpFragment extends Fragment {
                 stop.setEnabled(false);
                 start.setEnabled(true);
                 progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.str107), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -386,7 +360,7 @@ public class AskForHelpFragment extends Fragment {
 
                 m.start();
                 progressBar.setVisibility(View.VISIBLE);
-                Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getString(R.string.str107), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -398,7 +372,7 @@ public class AskForHelpFragment extends Fragment {
 
                     PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
 
-                    startActivityForResult(builder.build(getActivity()), PLACE_PICKER_REQUEST);
+                    startActivityForResult(builder.build(AskForHelpActivity.this), PLACE_PICKER_REQUEST);
 
 
                 } catch (Exception e) {
@@ -409,7 +383,13 @@ public class AskForHelpFragment extends Fragment {
 
             }
         });
-        mskills = new Skills(getActivity());
+        mskills = new Skills(this);
+
+        mskills.open();
+        Log.e("loool ", mskills.getSkillIdByName(getIntent().getStringExtra(SKILL_NAME)).moveToFirst() + "");
+        Log.e("loool ",mskills.getSkillIdByName(getIntent().getStringExtra(SKILL_NAME)).getString(0)+"");
+
+        mskills.close();
 
         skills_list = new ArrayList<>();
         language_list = new ArrayList<>();
@@ -452,11 +432,11 @@ public class AskForHelpFragment extends Fragment {
 
         Log.e(" list size ", skills_list.size() + "");
 
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, skills_list);
-        adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, language_list);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, skills_list);
+        adapter2 = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, language_list);
         language.setAdapter(adapter2);
 
-        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
+        final ACProgressFlower dialog = new ACProgressFlower.Builder(this)
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                 .themeColor(Color.WHITE)
                 .text(getString(R.string.str105))
@@ -536,7 +516,6 @@ public class AskForHelpFragment extends Fragment {
 
         );
 
-        return view;
     }
 
 
@@ -650,12 +629,12 @@ public class AskForHelpFragment extends Fragment {
         Bitmap bm = null;
         if (data != null) {
             try {
-                bm = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), data.getData());
+                bm = MediaStore.Images.Media.getBitmap(getContentResolver(), data.getData());
                 final Uri imageUri = data.getData();
 
 
-                FilePath = getPath(getActivity(), imageUri);
-                allimages.add(getPath(getActivity(), imageUri));
+                FilePath = getPath(this, imageUri);
+                allimages.add(getPath(this, imageUri));
 
                 System.out.println(FilePath);
             } catch (IOException e) {
@@ -688,8 +667,6 @@ public class AskForHelpFragment extends Fragment {
 
 
     }
-
-
 
 
     public static String getPath(final Context context, final Uri uri) {
@@ -900,9 +877,9 @@ public class AskForHelpFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == PLACE_PICKER_REQUEST) {
-            if (resultCode == getActivity().RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 if (requestCode == PLACE_PICKER_REQUEST) {
-                    Place place = PlacePicker.getPlace(data, getActivity());
+                    Place place = PlacePicker.getPlace(data, this);
                     //String toastMsg = String.format("Place: %s", place.getName());
                     where.setText(place.getName());
 
@@ -976,12 +953,6 @@ public class AskForHelpFragment extends Fragment {
         }
     }
 
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
 
     /**
      * This interface must be implemented by activities that contain this

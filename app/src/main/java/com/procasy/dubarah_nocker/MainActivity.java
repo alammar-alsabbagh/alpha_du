@@ -47,12 +47,14 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
 
     TooltipWindow tipWindow;
+    TooltipWindow_apptmnts tip_apts;
+
     DrawerLayout mDrawerLayout;
     private Toolbar mtoolbar;
     private FragmentDrawerNocker drawerFragment;
     private FragmentDrawerUser drawerUser;
     private Context mContext;
-    private ImageView message, drawer, notification;
+    private ImageView message, drawer, notification , appoitements;
     // flag for GPS status
     boolean isGPSEnabled = false;
     // flag for network status
@@ -82,6 +84,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
         message = (ImageView) mtoolbar.findViewById(R.id.message);
         notification = (ImageView) mtoolbar.findViewById(R.id.notification);
+        appoitements =  (ImageView)mtoolbar.findViewById(R.id.aptmnts);
+
+
         drawer = (ImageView) mtoolbar.findViewById(R.id.drawer_btn);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
@@ -93,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         });
 
         tipWindow = new TooltipWindow(MainActivity.this);
+        tip_apts = new TooltipWindow_apptmnts(MainActivity.this);
+
         message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +110,20 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                     tipWindow.showToolTip(v);
                 } else {
                     tipWindow.dismissTooltip();
+                }
+            }
+        });
+
+        appoitements.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("message_state", "success");
+
+                if (!tip_apts.isTooltipShown()) {
+
+                    tip_apts.showToolTip(v);
+                } else {
+                    tip_apts.dismissTooltip();
                 }
             }
         });
@@ -282,6 +303,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             } else {
                 this.canGetLocation = true;
                 if (isNetworkEnabled) {
+
                     if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                         locationManager.requestLocationUpdates(
                                 LocationManager.NETWORK_PROVIDER,

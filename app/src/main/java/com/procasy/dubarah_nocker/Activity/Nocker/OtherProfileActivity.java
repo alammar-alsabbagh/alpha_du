@@ -90,9 +90,9 @@ public class OtherProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Log.e("Nocke_Email", getIntent().getExtras().getString(NOCKER_EMAIL));
+       // Log.e("Nocke_Email", getIntent().getExtras().getString(NOCKER_EMAIL));
 
-        getSupportActionBar().setTitle(getIntent().getExtras().getString(NOCKER_NAME));
+        getSupportActionBar().setTitle("ahmad"); //getIntent().getExtras().getString(NOCKER_NAME)
 
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -110,7 +110,7 @@ public class OtherProfileActivity extends AppCompatActivity {
         mContext = this;
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<UserInfoResponse> call = apiService.GetUserInfo(getIntent().getExtras().getString(NOCKER_EMAIL));
+        Call<UserInfoResponse> call = apiService.GetUserInfo("ahmad1costi@gmail.com"); //getIntent().getExtras().getString(NOCKER_EMAIL)
         call.enqueue(new Callback<UserInfoResponse>() {
             @Override
             public void onResponse(Call<UserInfoResponse> call, Response<UserInfoResponse> response) {

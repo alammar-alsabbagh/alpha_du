@@ -50,24 +50,20 @@
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustNothing">
-
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-
-        </activity>
+            android:windowSoftInputMode="stateHidden|adjustNothing"></activity>
         <activity
             android:name=".SplashScreenActivity"
             android:theme="@style/AppTheme2" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppTheme2" />
-        <activity android:name=".Activity.Nocker.OtherProfileActivity" />
+            android:theme="@style/AppTheme2"></activity>
+        <activity android:name=".Activity.Nocker.OtherProfileActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".Activity.SignUpActivities.MainInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.LocationInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.PhotoSignUp" />
@@ -128,10 +124,10 @@
             android:theme="@style/Theme.Transparent" />
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".Activity.BeANocker.WhyWorkingActivty" />
-        <activity android:name=".Activity.SignUpActivities.WhyYouJoinNocker"></activity>
-        <activity android:name=".Activity.Nocker.TopNocker">
-
-        </activity>
+        <activity android:name=".Activity.SignUpActivities.WhyYouJoinNocker" />
+        <activity android:name=".Activity.Nocker.TopNocker" />
+        <activity android:name=".Activity.CreateService"></activity>
+        <activity android:name=".Activity.AskForHelpActivity"></activity>
     </application>
 
 </manifest>
