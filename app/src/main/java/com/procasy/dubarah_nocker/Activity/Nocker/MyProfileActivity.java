@@ -107,7 +107,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
                 Log.e("response", "success " + response.body().getUser().getUser_img());
 
-                Log.e("ppp","ff " +sessionManager.getPP());
+                Log.e("ppp", "ff " + sessionManager.getPP());
 
                 if (!sessionManager.getPP().isEmpty())
                     Picasso.with(getApplicationContext())
