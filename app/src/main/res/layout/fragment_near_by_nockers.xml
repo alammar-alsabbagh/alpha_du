@@ -2,48 +2,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.NearByNockersFragment"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/colorPrimaryDark"
+    tools:context=".Fragments.NearByNockersFragment">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
+        android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="10"
+            android:layout_marginLeft="5dp"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp">
+            android:orientation="horizontal"
+            android:weightSum="10">
+
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="7"
                 android:background="@drawable/search_border_gray"
-                android:textColor="#AAFFFFFF"
-                android:paddingLeft="20dp"
-                android:textColorHint="#AAFFFFFF"
                 android:hint="@string/str7"
-                android:textSize="13dp"
-                android:singleLine="true">
-            </EditText>
+                android:paddingLeft="20dp"
+                android:singleLine="true"
+                android:textColor="#AAFFFFFF"
+                android:textColorHint="#AAFFFFFF"
+                android:textSize="13dp"></EditText>
+
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="SORT BY"
-                android:textColor="@color/white"
-                android:alpha="0.6"
                 android:layout_marginLeft="10dp"
-                />
+                android:layout_weight="2"
+                android:alpha="0.6"
+                android:text="SORT BY"
+                android:textColor="@color/white" />
         </LinearLayout>
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/recycler_near_by_nockers">
 
-        </android.support.v7.widget.RecyclerView>
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:id="@+id/refresh_nockers"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_near_by_nockers"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
 
     </LinearLayout>
 </FrameLayout>

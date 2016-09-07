@@ -179,7 +179,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
         aboutController = tab1;
         adapter.addFragment(tab1, getString(R.string.str102));
-
+        //https://www.youtube.com/watch?v=QewgwK6TQhQ
 
         skillsController = tab2;
         adapter.addFragment(tab2, getString(R.string.str103));
@@ -219,6 +219,7 @@ public class MyProfileActivity extends AppCompatActivity {
         public CharSequence getPageTitle(int position) {
             return mFragmentTitleList.get(position);
         }
+
     }
 }
 

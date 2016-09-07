@@ -4,11 +4,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
@@ -16,6 +18,7 @@ import com.procasy.dubarah_nocker.Adapter.NearByNockersAdapter;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.R;
+import com.procasy.dubarah_nocker.Utils.ConnectionsConstants;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -40,9 +43,12 @@ public class NearByNockersFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    RecyclerView recyclerView;
+    SwipeRefreshLayout refreshLayout;
     NearByNockersAdapter adapter;
     private OnFragmentInteractionListener mListener;
-SessionManager sessionManager;
+    SessionManager sessionManager;
+
     public NearByNockersFragment() {
         // Required empty public constructor
     }
@@ -74,40 +80,62 @@ SessionManager sessionManager;
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View layout =  inflater.inflate(R.layout.fragment_near_by_nockers, container, false);
-        final RecyclerView recyclerView = (RecyclerView)layout.findViewById(R.id.recycler_near_by_nockers);
-        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
-                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
-                .themeColor(Color.WHITE)
-                .text("Getting Nockers")
-                        .fadeColor(Color.DKGRAY).build();
-        dialog.show();
-        sessionManager = new SessionManager(getActivity());
-        System.out.println("************************************************************************* nearbynockers");
+    private void GetNockers() {
+
+        refreshLayout.setRefreshing(true);
+
+//        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
+//                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+//                .themeColor(Color.WHITE)
+//                .text("Getting Nockers")
+//                .fadeColor(Color.DKGRAY).build();
+//        dialog.show();
+//
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<NearByNockerResponse> call = apiService.GetNearByNockers(sessionManager.getEmail(),sessionManager.getUDID(),0);
+        Call<NearByNockerResponse> call = apiService.GetNearByNockers(sessionManager.getEmail(), sessionManager.getUDID(), 0);
         call.enqueue(new Callback<NearByNockerResponse>() {
             @Override
             public void onResponse(Call<NearByNockerResponse> call, Response<NearByNockerResponse> response) {
                 System.out.println(response.body().toString());
-                adapter = new NearByNockersAdapter(getActivity(),response.body().getUsers());
+                adapter = new NearByNockersAdapter(getActivity(), response.body().getUsers());
+                refreshLayout.setRefreshing(false);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
-                dialog.dismiss();
+                // dialog.dismiss();
+
+                ConnectionsConstants.NockerDataIsLoaded = true;
             }
 
             @Override
             public void onFailure(Call<NearByNockerResponse> call, Throwable t) {
-                dialog.dismiss();
+
+                refreshLayout.setRefreshing(false);
+                //dialog.dismiss();
             }
         });
 
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View layout = inflater.inflate(R.layout.fragment_near_by_nockers, container, false);
+        recyclerView = (RecyclerView) layout.findViewById(R.id.recycler_near_by_nockers);
+        refreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_nockers);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                GetNockers();
+            }
+        });
+        sessionManager = new SessionManager(getActivity());
+
+        if (!ConnectionsConstants.NockerDataIsLoaded)
+            GetNockers();
+        System.out.println("************************************************************************* nearbynockers");
 
         return layout;
     }
@@ -118,7 +146,6 @@ SessionManager sessionManager;
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
 
     @Override

@@ -456,12 +456,12 @@ public class AskForHelpFragment extends Fragment {
         adapter2 = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, language_list);
         language.setAdapter(adapter2);
 
-        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
-                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
-                .themeColor(Color.WHITE)
-                .text(getString(R.string.str105))
-                .fadeColor(Color.DKGRAY).build();
-        dialog.show();
+//        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
+//                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+//                .themeColor(Color.WHITE)
+//                .text(getString(R.string.str105))
+//                .fadeColor(Color.DKGRAY).build();
+//        dialog.show();
 
         Log.e("AskForHelp", "Success");
 
@@ -520,16 +520,16 @@ public class AskForHelpFragment extends Fragment {
                              language.setAdapter(adapter2);
                              mskills.close();
                              mlanguage.close();
-
-                             if (dialog.isShowing())
-                                 dialog.dismiss();
+//
+//                             if (dialog.isShowing())
+//                                 dialog.dismiss();
                          }
 
                          @Override
                          public void onFailure(Call<AllSkillsAndLanguageResponse> call, Throwable t) {
                              System.out.println("ERROR 2" + t.toString());
-                             if (dialog.isShowing())
-                                 dialog.dismiss();
+//                             if (dialog.isShowing())
+//                                 dialog.dismiss();
                          }
 
                      }
@@ -688,8 +688,6 @@ public class AskForHelpFragment extends Fragment {
 
 
     }
-
-
 
 
     public static String getPath(final Context context, final Uri uri) {
