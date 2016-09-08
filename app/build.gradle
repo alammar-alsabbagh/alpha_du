@@ -80,7 +80,12 @@ dependencies {
     compile 'com.github.whinc:ratingbar:1.1.1'
     compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
     compile 'cc.cloudist.acplibrary:library:1.2.1'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+
     compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile('com.twitter.sdk.android:twitter-core:2.0.0@aar') {
+        transitive = true;
+    }
     compile('com.crashlytics.sdk.android:crashlytics:2.6.1@aar') {
         transitive = true;
     }

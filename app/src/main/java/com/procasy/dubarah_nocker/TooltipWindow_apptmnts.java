@@ -19,13 +19,10 @@ import android.widget.PopupWindow;
 import com.bignerdranch.expandablerecyclerview.Model.ParentObject;
 import com.procasy.dubarah_nocker.Adapter.Crime;
 import com.procasy.dubarah_nocker.Adapter.CrimeExpandableAdapter;
-import com.procasy.dubarah_nocker.Adapter.CrimeExpandableAdapter_aaptms;
 import com.procasy.dubarah_nocker.Model.CrimeChild;
-import com.procasy.dubarah_nocker.R;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 
 public class TooltipWindow_apptmnts {
@@ -75,11 +72,12 @@ public class TooltipWindow_apptmnts {
         //
 
         recyclerView = (RecyclerView)contentView.findViewById(R.id.all_appts);
-        CrimeExpandableAdapter_aaptms mCrimeExpandableAdapter = new CrimeExpandableAdapter_aaptms(ctx, generateCrimes());
+        CrimeExpandableAdapter mCrimeExpandableAdapter = new CrimeExpandableAdapter(ctx, generateCrimes());
         //mCrimeExpandableAdapter.setCustomParentAnimationViewId(R.id.msg_parent);
         mCrimeExpandableAdapter.setParentClickableViewAnimationDefaultDuration();
         mCrimeExpandableAdapter.setParentAndIconExpandOnClick(true);
         recyclerView.setAdapter(mCrimeExpandableAdapter);
+
 
         StaggeredGridLayoutManager gaggeredGridLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gaggeredGridLayoutManager);

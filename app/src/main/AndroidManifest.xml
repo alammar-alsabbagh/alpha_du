@@ -23,6 +23,10 @@
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <permission
         android:name="com.procasy.dubarah_nocker.permission.C2D_MESSAGE"
@@ -51,6 +55,11 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="stateHidden|adjustNothing">
+
+        </activity>
+        <activity
+            android:name=".SplashScreenActivity"
+            android:theme="@style/AppTheme2" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,14 +67,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SplashScreenActivity"
-            android:theme="@style/AppTheme2" />
-        <activity
             android:name=".LoginActivity"
-            android:theme="@style/AppTheme2"></activity>
-        <activity android:name=".Activity.Nocker.OtherProfileActivity">
-
-        </activity>
+            android:theme="@style/AppTheme2" />
+        <activity android:name=".Activity.Nocker.OtherProfileActivity"></activity>
         <activity android:name=".Activity.SignUpActivities.MainInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.LocationInfoSignUp" />
         <activity android:name=".Activity.SignUpActivities.PhotoSignUp" />
@@ -128,8 +132,57 @@
         <activity android:name=".Activity.BeANocker.WhyWorkingActivty" />
         <activity android:name=".Activity.SignUpActivities.WhyYouJoinNocker" />
         <activity android:name=".Activity.Nocker.TopNocker" />
-        <activity android:name=".Activity.CreateService"></activity>
-        <activity android:name=".Activity.AskForHelpActivity"></activity>
+        <activity android:name=".Activity.AskForHelpActivity" />
+        <activity android:name=".Activity.Teaser.WhatIsNockerAbout"></activity>
+        <activity
+            android:name=".Activity.Teaser.MainInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.SecondScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.ThirdScreenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.RateSkillActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.BroadCastActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.JoinOrRecommend"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.SignInUP"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.Join.SignInUPJoin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.FourthScreenActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustNothing" />
+        <activity
+            android:name=".Activity.Teaser.Join.FourthScreenJoinActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustNothing">
+
+        </activity>
+        <activity
+            android:name=".Activity.Teaser.Join.ThirdScreenJoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.Join.MainInfoJoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.Join.BroadCastJoinActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.Join.FinishJoin"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.Teaser.Finish"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.procasy.nocekr_plan.Activity.ThirdScreenActivity"
+    android:background="@color/colorPrimaryDark">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="44dp"
+        android:id="@+id/top"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Usually skilled people like "
+                android:textColor="@color/white"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:id="@+id/t1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="You"
+                android:textColor="@color/app_yellow"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:id="@+id/t2"
+                android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" are"
+                android:textColor="@color/white"
+                android:textAppearance="@android:style/TextAppearance.Medium"
+                android:id="@+id/t3" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="experts or passionate hobbyists."
+            android:textColor="@color/white"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:gravity="center"
+            android:id="@+id/t4" />
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Add Your top skill"
+            android:textColorHint="#838383"
+            android:textAppearance="@android:style/TextAppearance.Large"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="#00000000"
+            android:layout_marginTop="30dp"
+            android:textColor="#ffffff"
+            android:singleLine="true"
+            android:id="@+id/skill"
+            android:textCursorDrawable="@drawable/red_cursor"
+            android:paddingBottom="5dp"
+            android:completionThreshold="1"
+            android:imeOptions="actionDone"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@drawable/line_divider"
+        android:layout_below="@+id/top"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        ></View>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/wholething"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/mobile">
+        <ImageView
+            android:layout_width="@dimen/photo_width"
+            android:layout_height="@dimen/photo_height"
+            android:src="@drawable/drawable_photo"
+            android:layout_marginTop="@dimen/photo_margin_top"
+            android:translationZ="1dp"
+            android:layout_marginLeft="@dimen/photo_margin_left"
+            android:id="@+id/person_photo" />
+        <ImageView
+            android:layout_width="@dimen/mobile_phone_width"
+            android:layout_height="@dimen/mobile_phone_height"
+            android:src="@drawable/mobile"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Person Name"
+            android:layout_marginTop="@dimen/name_margin_top"
+            android:textSize="@dimen/name_text_size"
+            android:layout_marginLeft="@dimen/name_margin_left"
+            android:id="@+id/person_name" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="Skill"
+            android:layout_marginTop="@dimen/skill_margin_top"
+            android:textSize="@dimen/skill_text_size"
+            android:layout_marginLeft="@dimen/skill_margin_left"
+            android:id="@+id/person_skill" />
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/wholething"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/selector"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@drawable/proceed_white_arrow_inverse" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left"
+                android:layout_weight="4"
+                android:gravity="left"
+                android:text="Back"
+                android:textColor="@color/white"
+                android:textSize="@dimen/forty_eight"
+
+                android:textStyle="bold"
+                android:id="@+id/t5" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_weight="4"
+                android:gravity="right"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="@dimen/forty_eight"
+
+                android:textStyle="bold"
+                android:id="@+id/t6" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@drawable/proceed_white_arrow" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

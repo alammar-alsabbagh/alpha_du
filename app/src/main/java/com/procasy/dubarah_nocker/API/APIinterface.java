@@ -1,6 +1,5 @@
 package com.procasy.dubarah_nocker.API;
 
-import com.procasy.dubarah_nocker.Model.JobModel;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
@@ -136,4 +135,28 @@ public interface APIinterface {
     Call<String> Get_user_appoitement(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id
     );
 
+
+    @FormUrlEncoded
+    @POST("speedy_sign")
+    Call<CheckResponse> speedy_sign(@Field("his_name") String his_name,
+                                    @Field("his_skill") String his_skill,
+                                    @Field("his_phone") String his_phone,
+                                    @Field("his_email") String his_email,
+                                    @Field("his_lang") String his_lang,
+                                    @Field("his_rating") String his_rating,
+                                    @Field("his_rating_text") String his_rating_text,
+                                    @Field("his_subscribtion") String his_subscribtion,
+                                    @Field("fname") String fname,
+                                    @Field("lname") String lname,
+                                    @Field("country") String country,
+                                    @Field("city") String city,
+                                    @Field("province") String province,
+                                    @Field("birth") String birth,
+                                    @Field("email") String email,
+                                    @Field("phone") String phone,
+                                    @Field("skill") String skill,
+                                    @Field("subscribtion") String subscribtion,
+                                    @Field("language") String langauge,
+                                    @Field("gender") String gender
+    );
 }

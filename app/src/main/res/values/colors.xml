@@ -47,7 +47,10 @@
 
     <color name="background_gray">#ededed</color>
     <color name="tabblue">#17b7db</color>
-    
+
     <color name="drawer_profile_textname">#FFFFFF</color>
     <color name="bg_bubble_self">#E1E1E1</color>
+    
+    
+    <color name="very_primary_dark">#000D16</color>
 </resources>

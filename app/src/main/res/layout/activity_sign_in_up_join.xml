@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    tools:context="com.procasy.nocekr_plan.Activity.SignInUP">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="70dp"
+        android:id="@+id/top"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        >
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:id="@+id/imageView2"
+            android:src="@drawable/hourly_logo"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="works better with social media"
+            android:textColor="@color/white"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:textSize="@dimen/seventy"
+            android:id="@+id/t1"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top"
+        android:orientation="vertical"
+        android:layout_marginTop="100dp">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:background="@drawable/selector"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/signupFb">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="2"
+                android:src="@drawable/facebook"
+                android:layout_gravity="center_vertical|right"
+                android:id="@+id/imageView" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:textColor="@color/white"
+                android:id="@+id/t6"
+                android:textSize="@dimen/forty_eight"
+                android:text="Connect with facebook"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:background="@drawable/selector"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/signupLinkedin">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="2"
+                android:src="@drawable/linkedin"
+                android:layout_gravity="center_vertical|right"
+                android:id="@+id/imageView3" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:textColor="@color/white"
+                android:id="@+id/t7"
+                android:textSize="@dimen/forty_eight"
+                android:text="Connect with Linkedin"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:background="@drawable/selector"
+            android:paddingTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingBottom="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/signupG">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="36dp"
+                android:layout_weight="2"
+                android:src="@drawable/gplus"
+                android:layout_gravity="center_vertical|right"
+                android:id="@+id/imageView4" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:textColor="@color/white"
+                android:id="@+id/t8"
+                android:textSize="@dimen/forty_eight"
+                android:text="Connect with Google+"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:background="@drawable/selector"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="20dp"
+        android:id="@+id/signup" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:textColor="@color/white"
+            android:id="@+id/textView"
+            android:textSize="@dimen/forty_eight"
+            android:text="Skip for now"
+            android:layout_gravity="center"
+            android:gravity="right" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            android:layout_weight="2"
+            android:src="@drawable/proceed_white_arrow"
+            android:layout_gravity="center_vertical|right" />
+    </LinearLayout>
+
+
+</RelativeLayout>

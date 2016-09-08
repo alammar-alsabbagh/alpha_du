@@ -3,12 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.procasy.dubarah_nocker.SplashScreenActivity"
     >
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:layout_width="match_parent"
-        android:src="@drawable/splashscreen2"
+        android:layout_height="match_parent"
+        android:src="@drawable/nocker_splash"
+        android:id="@+id/loading"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:scaleType="fitXY"
-        android:layout_height="match_parent" />
+        />
 </RelativeLayout>

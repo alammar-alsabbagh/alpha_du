@@ -1,11 +1,6 @@
 <resources>
 
-    <!-- Base application theme. -->
 
-
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/splashbackgroundrawable</item>
-    </style>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -99,12 +94,12 @@
         <item name="android:paddingBottom">6dp</item>
     </style>
 
-        <style name="Theme.Transparent" parent="AppTheme2">
-            <item name="android:windowIsTranslucent">true</item>
-            <item name="android:windowBackground">@android:color/transparent</item>
-            <item name="android:windowContentOverlay">@null</item>
-            <item name="android:windowNoTitle">true</item>
-            <item name="android:windowIsFloating">false</item>
-            <item name="android:backgroundDimEnabled">false</item>
-        </style>
+    <style name="Theme.Transparent" parent="AppTheme2">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:backgroundDimEnabled">false</item>
+    </style>
 </resources>

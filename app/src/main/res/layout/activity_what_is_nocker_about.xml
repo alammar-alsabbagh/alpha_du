@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="110dp"
+        android:id="@+id/top"
+        android:layout_centerHorizontal="true"
+        android:gravity="left"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        >
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:src="@drawable/hourly_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/logo"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="There are talented people around you"
+                android:textColor="@color/white"
+                android:gravity="left"
+                android:textSize="@dimen/forty_eight"
+                android:id="@+id/t1" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="you call them friends and family."
+                    android:textColor="@color/white"
+                    android:gravity="left"
+                    android:textSize="@dimen/forty_eight"
+                    android:id="@+id/t2" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" We call"
+                    android:textColor="@color/white"
+                    android:gravity="left"
+                    android:textSize="@dimen/forty_eight"
+                    android:singleLine="true"
+                    android:id="@+id/t3"
+                    android:textStyle="bold" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="them "
+                    android:textColor="@color/white"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/forty_eight"
+                    android:id="@+id/t4"></TextView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nockers"
+                    android:textColor="@color/app_yellow"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"
+                    android:textSize="@dimen/forty_eight"
+                    android:id="@+id/t5" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/join_recommend_margin_top">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:background="@drawable/selector"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/teaser">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textColor="@color/white"
+                android:id="@+id/t7"
+                android:textSize="@dimen/sixty_four"
+                android:text="Get to know"
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:layout_marginRight="3dp"
+                android:textStyle="bold" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:layout_weight="3"
+                android:src="@drawable/white_nocker"
+                android:paddingTop="5dp" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_weight="2"
+                android:src="@drawable/proceed_white_arrow"
+                android:layout_gravity="center_vertical|right" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="10"
+            android:background="@drawable/selector"
+            android:paddingTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/main">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="5"
+                android:textColor="@color/white"
+                android:id="@+id/t8"
+                android:textSize="@dimen/fifty_smth"
+                android:text="Already "
+                android:layout_gravity="center"
+                android:gravity="right"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:textColor="@color/white"
+                android:id="@+id/t9"
+                android:textSize="@dimen/fifty_smth"
+                android:text="Registered"
+                android:layout_gravity="center"
+                android:gravity="left"
+                android:textStyle="bold"
+                />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="16dp"
+                android:layout_weight="2"
+                android:src="@drawable/proceed_white_arrow"
+                android:layout_gravity="center_vertical|right" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="©PROCASY INC."
+        android:textColor="#838383"
+        android:textSize="@dimen/thirty_seven"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        />
+
+
+</RelativeLayout>

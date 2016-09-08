@@ -39,6 +39,28 @@ public class SessionManager {
 
 
 
+    private static final String Key_his_name = "his_name";
+    private static final String Key_his_skill = "his_skill";
+    private static final String Key_his_language = "his_language";
+    private static final String Key_his_phonenumber = "his_phonenumber";
+    private static final String Key_his_email = "his_email";
+    private static final String Key_his_rating = "his_rating";
+    private static final String Key_his_rating_text = "his_rating_text";
+    private static final String Key_his_subscription = "his_subscription";
+
+
+
+
+    private static final String Key_Join_Recommend = "join_recommend";
+    private static final String Key_ur_skill = "ur_skill";
+    private static final String Key_ur_language = "ur_language";
+    private static final String Key_ur_gender = "ur_gender";
+    private static final String KEY_City = "City";
+    private static final String KEY_Country = "Country";
+    private static final String KEY_Province = "Province";
+    private static final String KEY_Birthyear = "Birthyear";
+    private static final String KEY_Phonenumber = "Phonenumber";
+    private static final String Key_my_subscription = "my_subscription";
 
     public SessionManager(Context context) {
         this._context = context;
@@ -169,6 +191,220 @@ public class SessionManager {
     }
     public int getKeyIsSocial(){
         return pref.getInt(KEY_IS_SOCIAL, 0);
+    }
+
+
+    public void setKeyHisName(String hisName)
+    {
+        editor.putString(Key_his_name, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "His name session modified!");
+    }
+    public String getKey_his_name(){
+        return pref.getString(Key_his_name, "");
+    }
+
+    public void setKeyHisRating(String hisName)
+    {
+        editor.putString(Key_his_rating, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "His rating session modified!");
+    }
+    public String getKey_his_rating(){
+        return pref.getString(Key_his_rating, "");
+    }
+
+    public void setKeyHisRatingText(String hisName)
+    {
+        editor.putString(Key_his_rating_text, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "His rating text session modified!");
+    }
+    public String getKey_his_rating_text(){
+        return pref.getString(Key_his_rating_text, "");
+    }
+
+
+    public void setKeyHisSkill(String hisName)
+    {
+        editor.putString(Key_his_skill, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "His skills session modified!");
+    }
+    public String getKey_his_skill(){
+        return pref.getString(Key_his_skill, "");
+    }
+
+
+    public void setKeyHisEmail(String hisName)
+    {
+        editor.putString(Key_his_email, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "His email session modified!");
+    }
+    public String getKey_his_email(){
+        return pref.getString(Key_his_email, "");
+    }
+
+    public void setKeyHisLanguage(String hisLanguage)
+    {
+        editor.putString(Key_his_language, hisLanguage);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "His language session modified!");
+    }
+    public String getKey_his_language(){
+        return pref.getString(Key_his_language, "");
+    }
+    public void setKeyHisPhone(String hisLanguage)
+    {
+        editor.putString(Key_his_phonenumber, hisLanguage);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "His phonenumber session modified!");
+    }
+    public String getKey_his_phone(){
+        return pref.getString(Key_his_phonenumber, "");
+    }
+
+
+
+    public void setJoinRecommend(int hisName)
+    {
+        editor.putInt(Key_Join_Recommend, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "His Join Recommend session modified!");
+    }
+    public int getJoinRecommend(){
+        return pref.getInt(Key_Join_Recommend, 0);
+    }
+
+
+
+    public void setKeyUrSkill(String hisName)
+    {
+        editor.putString(Key_ur_skill, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur skills session modified!");
+    }
+    public String getKey_ur_skill(){
+        return pref.getString(Key_ur_skill, "");
+    }
+
+
+    public void setCity(String hisName)
+    {
+        editor.putString(KEY_City, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur city session modified!");
+    }
+    public String getKey_City(){
+        return pref.getString(KEY_City, "");
+    }
+
+    public void setCountry(String hisName)
+    {
+        editor.putString(KEY_Country, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur country session modified!");
+    }
+    public String getKey_Country(){
+        return pref.getString(KEY_Country, "");
+    }
+
+    public void setKEY_Province(String hisName)
+    {
+        editor.putString(KEY_Province, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur province session modified!");
+    }
+    public String getKEY_Province(){
+        return pref.getString(KEY_Province, "");
+    }
+
+    public void setKEY_Birthyear(String hisName)
+    {
+        editor.putString(KEY_Birthyear, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur birthyear session modified!");
+    }
+    public String getKEY_Birthyear(){
+        return pref.getString(KEY_Birthyear, "");
+    }
+
+    public void setKEY_Phonenumber(String hisName)
+    {
+        editor.putString(KEY_Phonenumber, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur phonenumber session modified!");
+    }
+    public String getKEY_Phonenumber(){
+        return pref.getString(KEY_Phonenumber, "");
+    }
+
+
+
+
+    public void setKEY_language(String hisName)
+    {
+        editor.putString(Key_ur_language, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur language session modified!");
+    }
+    public String getKEY_language(){
+        return pref.getString(Key_ur_language, "");
+    }
+
+
+
+    public void setKEY_gender(String hisName)
+    {
+        editor.putString(Key_ur_gender, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur gender session modified!");
+    }
+    public String getKEY_gender(){
+        return pref.getString(Key_ur_gender, "");
+    }
+
+
+
+    public void setKEY_my_subscription(String hisName)
+    {
+        editor.putString(Key_my_subscription, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "my subscription session modified!");
+    }
+    public String getKEY_my_subscription(){
+        return pref.getString(Key_my_subscription, "");
+    }
+
+
+
+    public void setKEY_his_subscription(String hisName)
+    {
+        editor.putString(Key_his_subscription, hisName);
+        // commit changes
+        editor.commit();
+        Log.d(TAG, "ur gender session modified!");
+    }
+    public String getKEY_his_subscription(){
+        return pref.getString(Key_his_subscription, "");
     }
 
 

@@ -14,17 +14,14 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
-import android.os.PersistableBundle;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -296,10 +293,12 @@ public class AskForHelpActivity extends AppCompatActivity {
                 try {
 
                     try {
-                        requestPermissions(
-                                new String[]{Manifest.permission.RECORD_AUDIO,
-                                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                52);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                            requestPermissions(
+                                    new String[]{Manifest.permission.RECORD_AUDIO,
+                                            Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                    52);
+                        }
 
 
                         outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + System.currentTimeMillis() + ".3gp";

@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+  >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:layout_below="@+id/thing"
+        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/wholething">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gift extra months"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/large_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="One-time payment no automatic renewal"
+            android:textStyle="bold"
+            android:textColor="#838383"
+            android:textSize="@dimen/forty" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:src="@drawable/sixmonths"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:id="@+id/six" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="104dp"
+                android:src="@drawable/threemonths"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:id="@+id/three" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="104dp"
+                android:src="@drawable/onemonth"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:id="@+id/one" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="We will broadcast "
+                android:textColor="@color/white"
+                android:textSize="@dimen/large_text"
+                android:id="@+id/t1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Amanda\'s"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="@dimen/large_text"
+                android:id="@+id/t2" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" profile"
+                android:textColor="@color/white"
+                android:textSize="@dimen/large_text"
+                android:id="@+id/t3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="to all potential clients in "
+                android:textColor="@color/white"
+                android:textSize="@dimen/large_text"
+                android:id="@+id/t4" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TORONTO"
+                android:textColor="@color/white"
+                android:textSize="@dimen/large_text"
+                android:id="@+id/t5"
+                android:textAllCaps="true"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text"
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="25dp"
+                    android:layout_alignParentStart="true"
+                    android:id="@+id/nocker_layout">
+
+                    <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/nocker">
+
+                        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:weightSum="10"
+                            android:background="@color/colorPrimary">
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:layout_width="60dp"
+                                android:layout_height="75dp"
+                                android:src="@drawable/profile"
+                                android:layout_weight="1"
+                                android:id="@+id/profilePic"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginBottom="10dp" />
+                            <LinearLayout
+                                android:layout_gravity="center_vertical"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_weight="6"
+                                android:layout_marginLeft="10dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                >
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:text="Claudia De Simone"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/forty_eight"
+                                    android:id="@+id/t7"
+                                    android:singleLine="true" />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:text="Data Recovery Service"
+                                    android:textSize="@dimen/thirty_seven"
+                                    android:alpha="0.8"
+                                    android:id="@+id/t8" />
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:layout_marginTop="5dp">
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/online_circle"
+                                        android:layout_gravity="center_vertical"
+                                        android:id="@+id/is_online" />
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/white"
+                                        android:text="Online"
+                                        android:textSize="10dp"
+                                        android:alpha="0.8"
+                                        android:layout_marginLeft="10dp"
+                                        android:layout_marginBottom="3dp"
+                                        android:id="@+id/online_text" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            <LinearLayout
+                                android:layout_gravity="center_vertical|right"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_weight="3"
+                                android:gravity="center"
+                                android:background="#53AE32"
+                                >
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="31 Days"
+                                    android:textColor="@color/white"
+                                    android:textAppearance="@android:style/TextAppearance.Medium"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="FREE"
+                                    android:textStyle="bold"
+                                    android:textColor="@color/white"
+                                    android:textAppearance="@android:style/TextAppearance.Medium"
+                                    android:gravity="left"/>
+                            </LinearLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:background="@color/colorPrimary"
+            android:padding="10dp"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:textColor="#AAFFFFFF"
+            android:textColorHint="#55FFFFFF"
+            android:id="@+id/email"
+            android:layout_gravity="center"
+            android:gravity="center_vertical|center_horizontal"
+            android:singleLine="true"
+            android:textCursorDrawable="@drawable/red_cursor"
+            />
+
+        <RelativeLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal"
+            android:id="@+id/email_spinner_layout">
+
+            <Spinner
+                android:id="@+id/spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:spinnerMode="dropdown" />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/spinner_dropdown"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/wholething"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/selector"
+        android:orientation="horizontal"
+        android:weightSum="10">
+
+        <LinearLayout
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:weightSum="5">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@drawable/proceed_primary_arrow_inverse" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|left"
+                android:layout_weight="4"
+                android:gravity="left"
+                android:text="Back"
+                android:textColor="@color/white"
+                android:textSize="@dimen/forty_eight"
+
+                android:textStyle="bold"
+                android:id="@+id/t10" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="5"
+            android:weightSum="5">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|right"
+                android:layout_weight="4"
+                android:gravity="right"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="@dimen/forty_eight"
+
+                android:textStyle="bold"
+                android:id="@+id/t11" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@drawable/proceed_white_arrow" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
