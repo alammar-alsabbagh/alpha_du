@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -23,6 +24,7 @@ import com.procasy.dubarah_nocker.Model.JobModel;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.ResponseJob;
 import com.procasy.dubarah_nocker.R;
+import com.procasy.dubarah_nocker.Utils.ConnectionsConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,7 @@ public class JobFragment extends Fragment {
     RecyclerView recyclerView;
     StaggeredGridLayoutManager gaggeredGridLayoutManager;
     List<JobModel> mdata;
+    SwipeRefreshLayout refreshLayout;
     SessionManager sessionManager;
 
     public JobFragment() {
@@ -63,23 +66,17 @@ public class JobFragment extends Fragment {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_job, container, false);
+    private void GetJobs() {
 
-        sessionManager = new SessionManager(getActivity());
+        refreshLayout.setRefreshing(true);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.alljobs);
-
-        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
-                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
-                .themeColor(Color.WHITE)
-                .text(getString(R.string.str115))
-                .fadeColor(Color.DKGRAY).build();
-
-        dialog.show();
+//        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
+//                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+//                .themeColor(Color.WHITE)
+//                .text(getString(R.string.str115))
+//                .fadeColor(Color.DKGRAY).build();
+//
+//        dialog.show();
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
         Call<ResponseJob> call = apiService.GetJobs(sessionManager.getEmail(), sessionManager.getUDID(), 0);
@@ -92,14 +89,41 @@ public class JobFragment extends Fragment {
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
-                dialog.dismiss();
+                refreshLayout.setRefreshing(false);
+
+                ConnectionsConstants.JobsDataIsLoaded = true;
+//                dialog.dismiss();
             }
 
             @Override
             public void onFailure(Call<ResponseJob> call, Throwable t) {
-                dialog.dismiss();
+                refreshLayout.setRefreshing(false);
+
+                // dialog.dismiss();
             }
         });
+
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_job, container, false);
+        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_jobs);
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                GetJobs();
+            }
+        });
+        sessionManager = new SessionManager(getActivity());
+
+        if (!ConnectionsConstants.JobsDataIsLoaded)
+            GetJobs();
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.alljobs);
 
         return view;
     }

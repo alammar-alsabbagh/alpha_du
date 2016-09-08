@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_marginTop="20dp"
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
@@ -8,19 +9,19 @@
         android:id="@+id/tooltip_nav_up"
         android:layout_width="25dp"
         android:layout_height="25dp"
-        android:layout_gravity="right"
         android:layout_marginTop="30dp"
-        android:layout_marginRight="60dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="100dp"
         android:background="@drawable/tooltips_nav_up" />
 
     <TextView
-        android:id="@+id/tooltip_text"
+        android:id="@+id/tooltip_text_appts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/amber"
         android:gravity="center"
         android:padding="10dp"
-        android:text="@string/str84"
+        android:text="@string/str121"
         android:textColor="@android:color/white"
         android:textSize="20dp"
         android:textStyle="bold" />
@@ -31,7 +32,7 @@
 
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/all_msg"
+            android:id="@+id/all_appts"
             android:layout_width="match_parent"
             android:layout_height="600dp"
             android:layout_weight="1">
