@@ -29,6 +29,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Activity.Nocker.EditProfileActivtiy;
 import com.procasy.dubarah_nocker.Activity.Nocker.MyProfileActivity;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
@@ -460,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
                 break;
             case "editProfile":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                startActivity(new Intent(getApplicationContext(), EditProfileActivtiy.class));
                 drawerLayout.closeDrawer(GravityCompat.START);
 
                 break;

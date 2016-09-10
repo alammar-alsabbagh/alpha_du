@@ -124,7 +124,11 @@
             android:name="io.fabric.ApiKey"
             android:value="259a40416f4d8f3455b4a2df8d67315570e2d11d" />
 
-        <activity android:name=".Activity.Nocker.EditProfileActivtiy" />
+        <activity android:name=".Activity.Nocker.EditProfileActivtiy"
+            android:windowSoftInputMode="stateHidden|adjustNothing">
+            >
+
+        </activity>
         <activity
             android:name=".Activity.JobRequestActivity"
             android:theme="@style/Theme.Transparent" />

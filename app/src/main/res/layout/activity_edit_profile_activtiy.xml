@@ -111,7 +111,7 @@
                             android:layout_width="0dp"
                             android:layout_height="16dp"
                             android:layout_weight="2"
-                            android:src="@drawable/message" />
+                            android:src="@drawable/edit_profile" />
                     </LinearLayout>
 
                     <View
@@ -131,7 +131,7 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_gravity="left"
-                            android:src="@drawable/message" />
+                            android:src="@drawable/" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -151,8 +151,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
-                                android:text="Not Answered"
-                                android:textColor="@color/app_yellow" />
+                                android:hint="Not Answered"
+                                android:textColor="@color/app_yellow"
+                                android:singleLine="true"
+                                />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -195,8 +197,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
-                                android:text="Not Answered"
-                                android:textColor="@color/app_yellow" />
+                                android:hint="Not Answered"
+                                android:textColor="@color/app_yellow"
+                                android:singleLine=""/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -239,8 +242,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
-                                android:text="Not Answered"
-                                android:textColor="@color/app_yellow" />
+                                android:hint="Not Answered"
+                                android:textColor="@color/app_yellow"
+                                android:singleLine="true"/>
                         </LinearLayout>
 
                     </LinearLayout>
@@ -283,8 +287,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
-                                android:text="Not Answered"
-                                android:textColor="@color/app_yellow" />
+                                android:hint="Not Answered"
+                                android:textColor="@color/app_yellow"
+                                android:singleLine="true"/>
                         </LinearLayout>
 
                     </LinearLayout>
