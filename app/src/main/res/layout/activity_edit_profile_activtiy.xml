@@ -131,7 +131,7 @@
                             android:layout_width="32dp"
                             android:layout_height="32dp"
                             android:layout_gravity="left"
-                            android:src="@drawable/" />
+                            android:src="@drawable/message" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
