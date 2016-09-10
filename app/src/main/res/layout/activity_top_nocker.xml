@@ -40,6 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/user_main_job"
+                android:layout_marginTop="5dp"
                 android:layout_height="wrap_content"
                 android:text="Party Orgnize"
                 android:textColor="#FFFFFF" />
@@ -47,6 +48,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -98,6 +100,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5"
+                android:textAppearance="?android:textAppearanceLarge"
                 android:id="@+id/recommended_by_count"
                 android:textColor="#FFFFFF" />
 
@@ -107,7 +110,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recommended_by_list"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="60dp"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_weight="1">
@@ -140,6 +143,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="85 %"
+                android:textStyle="bold"
                 android:textAppearance="?android:textAppearanceMedium"
                 android:textColor="#FFFFFF" />
 
@@ -153,43 +157,53 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_margin="5dp"
-                android:src="@drawable/message_top_nocker" />
+                android:src="@drawable/call_top_nocker_2" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_margin="5dp"
-                android:src="@drawable/message_top_nocker" />
+                android:src="@drawable/message_top_nocker_2" />
 
 
         </LinearLayout>
 
     </RelativeLayout>
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/appbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Light">
+        android:layout_weight="1"
+        android:orientation="vertical"
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+        android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabGravity="center"
-            app:tabIndicatorColor="@color/app_yellow"
-            app:tabMode="fixed"
-            app:tabTextColor="#FFF" />
+            android:theme="@style/ThemeOverlay.AppCompat.Light">
 
-    </android.support.design.widget.AppBarLayout>
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:tabGravity="center"
+                app:tabIndicatorColor="@color/app_yellow"
+                app:tabMode="fixed"
+                app:tabTextColor="#FFF" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+
+    </LinearLayout>
 
 </LinearLayout>

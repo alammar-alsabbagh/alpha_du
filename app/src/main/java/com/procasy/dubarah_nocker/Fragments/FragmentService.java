@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,10 @@ public class FragmentService extends Fragment implements SkillsController {
 
     @Override
     public void onAdapterUpdated(List<SkillsResponse> newdata) {
-        adapter.setData(newdata);
+        if (adapter != null)
+            adapter.setData(newdata);
+        else
+            Log.e("Empty Adpater","Empty");
     }
 
 
@@ -106,7 +110,7 @@ public class FragmentService extends Fragment implements SkillsController {
                 super(itemView);
                 itemView.setOnClickListener(this);
 
-                request_nocker = (Button)itemView.findViewById(R.id.request_nocker);
+                request_nocker = (Button) itemView.findViewById(R.id.request_nocker);
                 name = ((TextView) itemView.findViewById(R.id.service_name));
                 description = ((TextView) itemView.findViewById(R.id.service_description));
                 request_nocker.setOnClickListener(this);
@@ -115,8 +119,8 @@ public class FragmentService extends Fragment implements SkillsController {
             @Override
             public void onClick(View v) {
                 System.out.println(" Clicked ");
-                Intent i = new Intent(getActivity() , AskForHelpActivity.class);
-                i.putExtra(AskForHelpActivity.SKILL_NAME , mdata.get(getPosition()).getSkill_name());
+                Intent i = new Intent(getActivity(), AskForHelpActivity.class);
+                i.putExtra(AskForHelpActivity.SKILL_NAME, mdata.get(getPosition()).getSkill_name());
                 startActivity(i);
 
             }

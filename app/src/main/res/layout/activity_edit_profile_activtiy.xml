@@ -97,7 +97,6 @@
                         android:weightSum="10">
 
 
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -152,9 +151,8 @@
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
                                 android:hint="Not Answered"
-                                android:textColor="@color/app_yellow"
                                 android:singleLine="true"
-                                />
+                                android:textColor="@color/app_yellow" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -198,8 +196,8 @@
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
                                 android:hint="Not Answered"
-                                android:textColor="@color/app_yellow"
-                                android:singleLine=""/>
+                                android:singleLine="true"
+                                android:textColor="@color/app_yellow" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -243,8 +241,8 @@
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
                                 android:hint="Not Answered"
-                                android:textColor="@color/app_yellow"
-                                android:singleLine="true"/>
+                                android:singleLine="true"
+                                android:textColor="@color/app_yellow" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -288,8 +286,8 @@
                                 android:layout_marginTop="5dp"
                                 android:alpha="0.6"
                                 android:hint="Not Answered"
-                                android:textColor="@color/app_yellow"
-                                android:singleLine="true"/>
+                                android:singleLine="true"
+                                android:textColor="@color/app_yellow" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -311,9 +309,9 @@
 
                         <com.aigestudio.wheelpicker.WheelPicker
                             android:id="@+id/days"
-                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="200dp"
+                            android:layout_weight="1"
                             android:background="@color/colorPrimaryDark"
                             aigestudio:wheel_atmospheric="true"
                             aigestudio:wheel_curved="true"
@@ -326,16 +324,16 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/str17"
                             android:layout_margin="7dp"
+                            android:text="@string/str17"
                             android:textColor="#FFFFFF" />
 
                         <com.aigestudio.wheelpicker.WheelPicker
                             android:id="@+id/time_1"
                             android:layout_width="wrap_content"
                             android:layout_height="200dp"
-                            android:background="@color/colorPrimaryDark"
                             android:layout_weight="1"
+                            android:background="@color/colorPrimaryDark"
                             aigestudio:wheel_atmospheric="true"
                             aigestudio:wheel_curved="true"
                             aigestudio:wheel_cyclic="true"
@@ -348,15 +346,15 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" - "
                             android:layout_margin="7dp"
+                            android:text=" - "
                             android:textColor="#FFFFFF" />
 
                         <com.aigestudio.wheelpicker.WheelPicker
                             android:id="@+id/time_2"
-                            android:layout_weight="1"
                             android:layout_width="wrap_content"
                             android:layout_height="200dp"
+                            android:layout_weight="1"
                             android:background="@color/colorPrimaryDark"
                             aigestudio:wheel_atmospheric="true"
                             aigestudio:wheel_curved="true"
@@ -370,22 +368,22 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/add_new_available_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/selector"
                         android:text="@string/str18"
-                        android:id="@+id/add_new_available_date"
                         android:textColor="@color/app_yellow" />
 
                     <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
                         android:id="@+id/available_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
                         android:layout_marginTop="10dp"
-                        android:background="@color/colorPrimaryDark"
-                        android:layout_height="300dp">
+                        android:background="@color/colorPrimaryDark">
 
                     </android.support.v7.widget.RecyclerView>
 
