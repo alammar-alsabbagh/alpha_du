@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.procasy.dubarah_nocker.Activity.AskForHelpActivity;
 import com.procasy.dubarah_nocker.Model.Responses.SkillsResponse;
-import com.procasy.dubarah_nocker.Model.ServiceModel;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.SkillsController;
 

@@ -1,10 +1,14 @@
 [
     {
-        "merged": "C:\\Users\\Omar\\Desktop\\nocker_official\\alpha_du\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_launcher.png",
-        "source": "C:\\Users\\Omar\\Desktop\\nocker_official\\alpha_du\\linkedin-sdk\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+        "merged": "/Users/Omae/Desktop/Nocker/alpha_du/C:\\Users\\Omar\\Desktop\\nocker_official\\alpha_du\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "/Users/Omae/Desktop/Nocker/alpha_du/C:\\Users\\Omar\\Desktop\\nocker_official\\alpha_du\\linkedin-sdk\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
     },
     {
-        "merged": "D:\\Apps\\alpha_du_7\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_launcher.png",
-        "source": "D:\\Apps\\alpha_du_7\\linkedin-sdk\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+        "merged": "/Users/Omae/Desktop/Nocker/alpha_du/D:\\Apps\\alpha_du_7\\linkedin-sdk\\build\\intermediates\\res\\merged\\release\\drawable-hdpi-v4\\ic_launcher.png",
+        "source": "/Users/Omae/Desktop/Nocker/alpha_du/D:\\Apps\\alpha_du_7\\linkedin-sdk\\src\\main\\res\\drawable-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "/Users/Omae/Desktop/Nocker/alpha_du/linkedin-sdk/build/intermediates/res/merged/release/drawable-hdpi-v4/ic_launcher.png",
+        "source": "/Users/Omae/Desktop/Nocker/alpha_du/linkedin-sdk/src/main/res/drawable-hdpi/ic_launcher.png"
     }
 ]
