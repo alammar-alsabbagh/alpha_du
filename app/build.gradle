@@ -81,7 +81,12 @@ dependencies {
     compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
     compile 'cc.cloudist.acplibrary:library:1.2.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+    compile 'com.mikepenz:actionitembadge:3.3.0@aar'
+    compile 'com.mikepenz:fontawesome-typeface:4.6.0.3@aar'
 
+    //SUB-DEPENDENCIES
+    //Android-Iconics - used to provide an easy API for icons
+    compile 'com.mikepenz:iconics-core:2.8.0@aar'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile('com.twitter.sdk.android:twitter-core:2.0.0@aar') {
         transitive = true;

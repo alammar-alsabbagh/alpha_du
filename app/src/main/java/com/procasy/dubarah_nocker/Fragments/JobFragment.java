@@ -1,7 +1,6 @@
 package com.procasy.dubarah_nocker.Fragments;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,25 +11,18 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
-import com.procasy.dubarah_nocker.Adapter.NearByNockersAdapter;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.JobModel;
-import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.ResponseJob;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.ConnectionsConstants;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import cc.cloudist.acplibrary.ACProgressConstant;
-import cc.cloudist.acplibrary.ACProgressFlower;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,6 +37,7 @@ public class JobFragment extends Fragment {
     List<JobModel> mdata;
     SwipeRefreshLayout refreshLayout;
     SessionManager sessionManager;
+    TextView textView;
 
     public JobFragment() {
         // Required empty public constructor
@@ -84,12 +77,18 @@ public class JobFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseJob> call, Response<ResponseJob> response) {
                 System.out.println(response.body().toString());
+                if(response.body().getJobs().size() > 0)
+                {
+                    refreshLayout.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.GONE);
+                }
                 adapter = new JobAdapter(getActivity(), response.body().getJobs());
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
                 refreshLayout.setRefreshing(false);
+
 
                 ConnectionsConstants.JobsDataIsLoaded = true;
 //                dialog.dismiss();
@@ -111,7 +110,7 @@ public class JobFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_job, container, false);
         refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_jobs);
-
+        textView = (TextView) view.findViewById(R.id.empty_view);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -119,6 +118,8 @@ public class JobFragment extends Fragment {
             }
         });
         sessionManager = new SessionManager(getActivity());
+        refreshLayout.setVisibility(View.GONE);
+        textView.setVisibility(View.VISIBLE);
 
         if (!ConnectionsConstants.JobsDataIsLoaded)
             GetJobs();

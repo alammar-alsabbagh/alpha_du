@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.hanks.library.AnimateCheckBox;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -251,14 +251,14 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
 
         public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-            public ImageView isreason;
+            public AnimateCheckBox isreason;
             public TextView reason_anme;
 
             public ProductViewHolder(View itemView) {
                 super(itemView);
                 itemView.setOnClickListener(this);
 
-                isreason = ((ImageView) itemView.findViewById(R.id.reason_state));
+                isreason = ((AnimateCheckBox) itemView.findViewById(R.id.reason_state));
                 reason_anme = ((TextView) itemView.findViewById(R.id.reason_name));
                 Typeface typface = Typeface.createFromAsset(getAssets(), "fonts/font1.ttf");
                 reason_anme.setTypeface(typface);

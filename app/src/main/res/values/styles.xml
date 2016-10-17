@@ -83,10 +83,89 @@
 
     <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
     </style>
-
+    <style name="ApptServiceContainer">
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingLeft">0.0dip</item>
+        <item name="android:paddingTop">5.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ApptDottedBorder">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">2.0dip</item>
+        <item name="android:src">@drawable/dotted_border</item>
+    </style>
+    <style name="ApptFooterText">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textColor">#ff666e71</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+    <style name="ApptServiceName">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:paddingLeft">20.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ApptStaffName">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textColor">#ff949a9c</item>
+        <item name="android:paddingLeft">20.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ApptServicePrice" parent="@style/ApptStaffName">
+        <item name="android:paddingLeft">0.0dip</item>
+        <item name="android:paddingRight">20.0dip</item>
+        <item name="android:layout_alignParentRight">true</item>
+    </style>
+    <style name="ApptNothingScheduled">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ff949a9c</item>
+        <item name="android:background">@drawable/gray_border_tp_bt</item>
+        <item name="android:paddingLeft">24.0dip</item>
+        <item name="android:paddingTop">18.0dip</item>
+        <item name="android:paddingBottom">18.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ApptScheduledFooter">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:background">@drawable/gray_border_tp_bt</item>
+        <item name="android:paddingTop">18.0dip</item>
+        <item name="android:paddingRight">20.0dip</item>
+        <item name="android:paddingBottom">18.0dip</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ApptDay">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ff666e71</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_width">88.0dip</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="ApptTime" parent="@style/ApptDay">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:layout_width">90.0dip</item>
+        <item name="android:layout_marginTop">-4.0dip</item>
+    </style>
     <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
     </style>
-
+    <style name="ApptTimeContainer">
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingTop">0.0dip</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
     <style name="Widget.CardContent" parent="android:Widget">
         <item name="android:paddingLeft">4dp</item>
         <item name="android:paddingRight">4dp</item>
@@ -101,5 +180,25 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsFloating">false</item>
         <item name="android:backgroundDimEnabled">false</item>
+    </style>
+
+    <style name="HorizontalLayout">
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="HorizontalLayoutFill" parent="@style/HorizontalLayout">
+        <item name="android:layout_height">fill_parent</item>
+    </style>
+    <style name="HorizontalLayoutWrap" parent="@style/HorizontalLayout">
+        <item name="android:layout_width">wrap_content</item>
+    </style>
+    <style name="HorizontalTableLayout">
+        <item name="android:textColor">#ff666e71</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_width">0.0dip</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_weight">1.0</item>
     </style>
 </resources>

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.aigestudio.wheelpicker.WheelPicker;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.CustomTypefaceSpan;
-import com.procasy.dubarah_nocker.Utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +39,7 @@ public class EditProfileActivtiy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile_activtiy);
         recyclerView = (RecyclerView) findViewById(R.id.available_date);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
 
         days = (WheelPicker) findViewById(R.id.days);
@@ -61,71 +61,37 @@ public class EditProfileActivtiy extends AppCompatActivity {
         days.setData(week_days);
 
         List<String> time_1_data = new ArrayList<>();
-        time_1_data.add("1 am");
-        time_1_data.add("2 am");
-        time_1_data.add("3 am");
-        time_1_data.add("4 am");
-        time_1_data.add("5 am");
-        time_1_data.add("6 am");
-        time_1_data.add("7 am");
-        time_1_data.add("8 am");
-        time_1_data.add("9 am");
-        time_1_data.add("10 am");
-        time_1_data.add("11 am");
-        time_1_data.add("12 am");
-        time_1_data.add("1 pm");
-        time_1_data.add("2 pm");
-        time_1_data.add("3 pm");
-        time_1_data.add("4 pm");
-        time_1_data.add("5 pm");
-        time_1_data.add("6 pm");
-        time_1_data.add("7 pm");
-        time_1_data.add("8 pm");
-        time_1_data.add("9 pm");
-        time_1_data.add("10 pm");
-        time_1_data.add("11 pm");
-        time_1_data.add("12 pm");
+        time_1_data.add("1 AM");
+        time_1_data.add("2 AM");
+        time_1_data.add("3 AM");
+        time_1_data.add("4 AM");
+        time_1_data.add("5 AM");
+        time_1_data.add("6 AM");
+        time_1_data.add("7 AM");
+        time_1_data.add("8 AM");
+        time_1_data.add("9 AM");
+        time_1_data.add("10 AM");
+        time_1_data.add("11 AM");
+        time_1_data.add("12 AM");
+        time_1_data.add("1 PM");
+        time_1_data.add("2 PM");
+        time_1_data.add("3 PM");
+        time_1_data.add("4 PM");
+        time_1_data.add("5 PM");
+        time_1_data.add("6 PM");
+        time_1_data.add("7 PM");
+        time_1_data.add("8 PM");
+        time_1_data.add("9 PM");
+        time_1_data.add("10 PM");
+        time_1_data.add("11 PM");
+        time_1_data.add("12 PM");
 
         time_1.setData(time_1_data);
         time_2.setData(time_1_data);
 
         mdata = new ArrayList<>();
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("asd");
-        mdata.add("aasdsd");
-        mdata.add("asd");
+        mdata.add("Saturday 9 AM - 3 PM");
+
 
         customAdapter = new CustomAdapter(getApplicationContext(), mdata);
 
@@ -231,6 +197,7 @@ public class EditProfileActivtiy extends AppCompatActivity {
             }
         }
     }
+
 
 
 }

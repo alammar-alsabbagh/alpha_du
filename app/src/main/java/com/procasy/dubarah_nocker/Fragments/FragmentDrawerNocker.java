@@ -36,7 +36,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
     com.procasy.dubarah_nocker.CommuncationChannel mCommChListner = null;
 
     public TextView fullName, avg_txt_title, title_happy_customers_title,
-            edit_profile, promotion_txt, activate_sub, myshop,
+            edit_profile, promotion_txt, myshop,
             setting, help;
 
     public CircleImageView profileImage;
@@ -123,7 +123,6 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         title_happy_customers_title = (TextView) layout.findViewById(R.id.title_happy_customers);
         edit_profile = (TextView) layout.findViewById(R.id.edit_profile_txt);
         promotion_txt = (TextView) layout.findViewById(R.id.promotion_txt);
-        activate_sub = (TextView) layout.findViewById(R.id.activateSubscription_txt);
         myshop = (TextView) layout.findViewById(R.id.myShop_txt);
         setting = (TextView) layout.findViewById(R.id.settings_txt);
         help = (TextView) layout.findViewById(R.id.help_txt);
@@ -136,7 +135,6 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         title_happy_customers_title.setTypeface(typface);
         edit_profile.setTypeface(typface);
         promotion_txt.setTypeface(typface);
-        activate_sub.setTypeface(typface);
         myshop.setTypeface(typface);
         setting.setTypeface(typface);
         help.setTypeface(typface);
@@ -148,7 +146,6 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         myShop.setOnClickListener(this);
         Settings.setOnClickListener(this);
         Help.setOnClickListener(this);
-        activateSubscription.setOnClickListener(this);
         sessionManager = new SessionManager(getActivity());
         fullName.setText(sessionManager.getFName() + " " + sessionManager.getLName());
         if (!sessionManager.getPP().equals(""))

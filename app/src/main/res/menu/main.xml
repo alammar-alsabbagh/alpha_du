@@ -1,0 +1,26 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/item_appointements"
+        app:actionLayout="@layout/menu_action_item_badge"
+        app:showAsAction="always"
+        android:title="Appointements"
+        android:icon="@drawable/appointement"/>
+
+    <item
+        android:id="@+id/item_messages"
+        app:actionLayout="@layout/menu_action_item_badge"
+        app:showAsAction="always"
+        android:title="Messages"
+        android:icon="@drawable/message"/>
+
+    <item
+        android:id="@+id/item_notification"
+        app:actionLayout="@layout/menu_action_item_badge"
+        app:showAsAction="always"
+        android:title="Notifications"
+        android:icon="@drawable/notification"/>
+</menu>

@@ -1,6 +1,5 @@
 package com.procasy.dubarah_nocker.Fragments;
 
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
@@ -20,8 +19,6 @@ import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.ConnectionsConstants;
 
-import cc.cloudist.acplibrary.ACProgressConstant;
-import cc.cloudist.acplibrary.ACProgressFlower;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +45,7 @@ public class NearByNockersFragment extends Fragment {
     NearByNockersAdapter adapter;
     private OnFragmentInteractionListener mListener;
     SessionManager sessionManager;
+    TextView textView;
 
     public NearByNockersFragment() {
         // Required empty public constructor
@@ -97,12 +95,18 @@ public class NearByNockersFragment extends Fragment {
             @Override
             public void onResponse(Call<NearByNockerResponse> call, Response<NearByNockerResponse> response) {
                 System.out.println(response.body().toString());
+                if(response.body().getUsers().size() > 0)
+                {
+                    refreshLayout.setVisibility(View.VISIBLE);
+                    textView.setVisibility(View.GONE);
+                }
                 adapter = new NearByNockersAdapter(getActivity(), response.body().getUsers());
                 refreshLayout.setRefreshing(false);
                 LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
                 layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
+
                 // dialog.dismiss();
 
                 ConnectionsConstants.NockerDataIsLoaded = true;
@@ -125,6 +129,9 @@ public class NearByNockersFragment extends Fragment {
         View layout = inflater.inflate(R.layout.fragment_near_by_nockers, container, false);
         recyclerView = (RecyclerView) layout.findViewById(R.id.recycler_near_by_nockers);
         refreshLayout = (SwipeRefreshLayout) layout.findViewById(R.id.refresh_nockers);
+        textView = (TextView) layout.findViewById(R.id.empty_view);
+        refreshLayout.setVisibility(View.GONE);
+        textView.setVisibility(View.VISIBLE);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

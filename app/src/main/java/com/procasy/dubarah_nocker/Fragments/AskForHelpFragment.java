@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -49,8 +48,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import cc.cloudist.acplibrary.ACProgressConstant;
-import cc.cloudist.acplibrary.ACProgressFlower;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -329,7 +326,6 @@ public class AskForHelpFragment extends Fragment {
 
 
                         outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + System.currentTimeMillis() + ".3gp";
-
                         myAudioRecorder = new MediaRecorder();
                         myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
                         myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
@@ -353,19 +349,27 @@ public class AskForHelpFragment extends Fragment {
             }
         });
 
-        stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myAudioRecorder.stop();
-                myAudioRecorder.release();
-                myAudioRecorder = null;
+        stop.setOnClickListener(
 
-                stop.setEnabled(false);
-                start.setEnabled(true);
-                progressBar.setVisibility(View.INVISIBLE);
-                Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
-            }
-        });
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            try {
+                                myAudioRecorder.stop();
+                                myAudioRecorder.reset();
+                                myAudioRecorder.release();
+                                myAudioRecorder = null;
+                                stop.setEnabled(false);
+                                start.setEnabled(true);
+                                progressBar.setVisibility(View.INVISIBLE);
+                                Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
+                            }catch (Exception e)
+                            {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                );
 
         start.setOnClickListener(new View.OnClickListener() {
             @Override

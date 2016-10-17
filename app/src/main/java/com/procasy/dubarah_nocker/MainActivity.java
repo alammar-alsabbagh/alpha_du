@@ -7,6 +7,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -37,6 +39,7 @@ import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Services.LocationService;
+import com.procasy.dubarah_nocker.UI.BadgeDrawable;
 import com.procasy.dubarah_nocker.gcm.GCMIntentService;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
@@ -76,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
+    private int badgeCount = 10;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,9 +87,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
 
-        message = (ImageView) mtoolbar.findViewById(R.id.message);
-        notification = (ImageView) mtoolbar.findViewById(R.id.notification);
-        appoitements =  (ImageView)mtoolbar.findViewById(R.id.aptmnts);
+       // message = (ImageView) mtoolbar.findViewById(R.id.message);
+      //  notification = (ImageView) mtoolbar.findViewById(R.id.notification);
+      //  appoitements =  (ImageView)mtoolbar.findViewById(R.id.aptmnts);
 
 
         drawer = (ImageView) mtoolbar.findViewById(R.id.drawer_btn);
@@ -101,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         tipWindow = new TooltipWindow(MainActivity.this);
         tip_apts = new TooltipWindow_apptmnts(MainActivity.this);
 
-        message.setOnClickListener(new View.OnClickListener() {
+     /*   message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.e("message_state", "success");
@@ -127,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                     tip_apts.dismissTooltip();
                 }
             }
-        });
+        });*/
 
         sessionManager = new SessionManager(this);
 
@@ -135,6 +139,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         //
 
         if (checkPlayServices()) {
+            Log.e("register gcm : ", "GCM");
             registerGCM();
         }
 
@@ -467,4 +472,22 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 break;
         }
     }
+
+    public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
+
+        BadgeDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_badge);
+        if (reuse != null && reuse instanceof BadgeDrawable) {
+            badge = (BadgeDrawable) reuse;
+        } else {
+            badge = new BadgeDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_badge, badge);
+    }
+
 }

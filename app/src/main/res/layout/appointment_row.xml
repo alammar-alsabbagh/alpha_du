@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/appointment_row_nothingschedule"
+        style="@style/ApptNothingScheduled"
+        android:layout_height="wrap_content"
+        android:text="Nothing Scheduled"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/appointment_row_income_layout"
+        style="@style/ApptScheduledFooter"
+        android:visibility="gone">
+
+        <TextView
+            style="@style/ApptFooterText"
+            android:layout_alignParentLeft="true"
+            android:text="THIS WEEK's INCOME:" />
+
+        <TextView
+            android:id="@+id/appointment_row_weeklyincome"
+            style="@style/ApptFooterText"
+            android:layout_alignParentRight="true"
+            android:text="$80.00" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/appointment_row_layout"
+        style="@style/HorizontalLayout"
+        android:background="@drawable/listview_selector">
+
+        <LinearLayout style="@style/ApptTimeContainer">
+
+            <TextView
+                android:id="@+id/appointment_row_time"
+                style="@style/ApptTime"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:text="Jun 30"
+                android:textColor="@drawable/selector_darkgray_white" />
+
+            <TextView
+                android:id="@+id/appointment_row_session"
+                style="@style/ApptTime"
+                android:layout_marginTop="2dp"
+                android:paddingLeft="15dp"
+                android:text="12:30 AM"
+                android:textColor="@drawable/selector_darkgray_white" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/appointment_row_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/appt_vr_line" />
+
+        <LinearLayout style="@style/ApptServiceContainer">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/appointment_row_customer_name"
+                    style="@style/ApptServiceName"
+                    android:ellipsize="middle"
+                    android:maxLines="1"
+                    android:text="Rat Rail Removal"
+                    android:textColor="@drawable/selector_black_white"
+                    android:textStyle="bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:id="@+id/appointment_row_strikethru"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="20dp"
+                    android:src="@drawable/horizontal_line_gray" />
+            </FrameLayout>
+
+            <RelativeLayout
+                style="@style/HorizontalLayout"
+                android:layout_marginTop="2dp"
+                android:paddingBottom="3dp">
+
+                <TextView
+                    android:id="@+id/appointment_row_cost"
+                    style="@style/ApptServicePrice"
+                    android:paddingLeft="5dp"
+                    android:text="$20.00"
+                    android:textColor="@drawable/selector_gray_white"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/appointment_row_service_name"
+                    style="@style/ApptStaffName"
+                    android:layout_width="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="10dp"
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:text="Scott Drake"
+                    android:textColor="@drawable/selector_gray_white"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <ImageView style="@style/ApptDottedBorder" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

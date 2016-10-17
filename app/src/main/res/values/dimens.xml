@@ -13,7 +13,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="card_margin">16dp</dimen>
 
-    <dimen name="toolbar_dimen">30dp</dimen>
+    <dimen name="toolbar_dimen">24dp</dimen>
 
     <dimen name="toolbar_margin">15dp</dimen>
 

@@ -238,7 +238,7 @@
                     android:layout_marginLeft="20dp"
                     android:alpha="0.6"
                     android:padding="10dp"
-                    android:text="@string/str37"
+                    android:text="@string/str73"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
             </TableRow>
@@ -250,24 +250,6 @@
                 android:layout_marginRight="20dp"
                 android:alpha="0.6"
                 android:background="@color/white"></View>
-
-            <TableRow android:id="@+id/activateSubscription">
-
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:layout_gravity="center"
-                    android:src="@drawable/activate_subscription" />
-
-                <TextView
-                    android:id="@+id/activateSubscription_txt"
-                    android:layout_marginLeft="20dp"
-                    android:alpha="0.6"
-                    android:padding="10dp"
-                    android:text="@string/str74"
-                    android:textColor="@color/white"
-                    android:textSize="15sp" />
-            </TableRow>
 
             <View
                 android:layout_width="match_parent"
