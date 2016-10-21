@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -24,7 +25,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -33,14 +36,19 @@ import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Activity.Nocker.EditProfileActivtiy;
 import com.procasy.dubarah_nocker.Activity.Nocker.MyProfileActivity;
+import com.procasy.dubarah_nocker.Fragments.AppointementsFragment;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerNocker;
 import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
+import com.procasy.dubarah_nocker.Fragments.MessagesFragment;
+import com.procasy.dubarah_nocker.Fragments.NotificationsFragment;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Services.LocationService;
 import com.procasy.dubarah_nocker.UI.BadgeDrawable;
 import com.procasy.dubarah_nocker.gcm.GCMIntentService;
+
+import java.util.List;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
 import cc.cloudist.acplibrary.ACProgressFlower;
@@ -58,7 +66,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     private FragmentDrawerNocker drawerFragment;
     private FragmentDrawerUser drawerUser;
     private Context mContext;
-    private ImageView message, drawer, notification , appoitements;
+    private Button message , appoitements;
+    private Button notification;
+    private ImageView  drawer;
     // flag for GPS status
     boolean isGPSEnabled = false;
     // flag for network status
@@ -87,9 +97,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
 
-       // message = (ImageView) mtoolbar.findViewById(R.id.message);
-      //  notification = (ImageView) mtoolbar.findViewById(R.id.notification);
-      //  appoitements =  (ImageView)mtoolbar.findViewById(R.id.aptmnts);
+        message = (Button) mtoolbar.findViewById(R.id.message1);
+        notification = (Button) mtoolbar.findViewById(R.id.notification1);
+       appoitements =  (Button)mtoolbar.findViewById(R.id.aptmnts1);
 
 
         drawer = (ImageView) mtoolbar.findViewById(R.id.drawer_btn);
@@ -105,33 +115,31 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         tipWindow = new TooltipWindow(MainActivity.this);
         tip_apts = new TooltipWindow_apptmnts(MainActivity.this);
 
-     /*   message.setOnClickListener(new View.OnClickListener() {
+       message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("message_state", "success");
-
-                if (!tipWindow.isTooltipShown()) {
-
-                    tipWindow.showToolTip(v);
-                } else {
-                    tipWindow.dismissTooltip();
-                }
+                System.out.println("here");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container_body, new MessagesFragment()).commit();
             }
         });
 
         appoitements.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("message_state", "success");
-
-                if (!tip_apts.isTooltipShown()) {
-
-                    tip_apts.showToolTip(v);
-                } else {
-                    tip_apts.dismissTooltip();
-                }
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container_body, new AppointementsFragment()).commit();
             }
-        });*/
+        });
+
+        notification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("here");
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container_body, new NotificationsFragment()).commit();
+            }
+        });
 
         sessionManager = new SessionManager(this);
 
@@ -291,6 +299,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         if (requestCode == 5 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             getLocation();
             startService(new Intent(this, LocationService.class));
+        }
+
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null) {
+            for (Fragment fragment : fragments) {
+                fragment.onRequestPermissionsResult(requestCode, permissions, grantResults);
+                System.out.println("here");
+            }
         }
     }
 

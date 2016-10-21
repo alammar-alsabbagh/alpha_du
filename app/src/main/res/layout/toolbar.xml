@@ -42,12 +42,13 @@
             <RelativeLayout
                 android:id="@+id/notification_layout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
 
                 <Button
                     android:id="@+id/notification1"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:layout_width="30dp"
+                    android:layout_height="33dp"
                     android:background="@drawable/notification" />
             </RelativeLayout>
 
@@ -106,12 +107,13 @@
             <RelativeLayout
                 android:id="@+id/aptmnts_layout"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
 
                 <Button
-                    android:id="@+id/button1"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
+                    android:id="@+id/aptmnts1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:background="@drawable/appointement" />
             </RelativeLayout>
 
