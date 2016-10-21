@@ -13,14 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hanks.library.AnimateCheckBox;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.adapter.RadioGroupBooleanAdapter;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
@@ -31,8 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
 public class FourthScreenJoinActivity extends AppCompatActivity implements Validator.ValidationListener {
+    Context context;
     LinearLayout next_btn;
     LinearLayout back_btn;
     LinearLayout Whole_btn;
@@ -40,8 +44,9 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
     @NotEmpty
     AutoCompleteTextView editText;
     Language mLanguages;
-    RecyclerView recyclerView;
-    JoinAdapter adapter;
+    // RecyclerView recyclerView;
+    //  JoinAdapter adapter;
+    RadioGroup radioGroup;
     List<WhyUJoinModel> data;
     StaggeredGridLayoutManager gaggeredGridLayoutManager;
     SessionManager sessionManager;
@@ -50,31 +55,46 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
 
     @Deprecated
     void DemoData() {
-        data.add(new WhyUJoinModel("Pay the bills", false));
-        data.add(new WhyUJoinModel("Get my business off the ground", false));
-        data.add(new WhyUJoinModel("Fund my tuition", false));
-        data.add(new WhyUJoinModel("Fund my child's or spouse's tuition", false));
-        data.add(new WhyUJoinModel("Fund my child's extra-curricular activities", false));
-        data.add(new WhyUJoinModel("Fund my vacation", false));
-        data.add(new WhyUJoinModel("Settle in a new country", false));
+        data.add(new WhyUJoinModel("Reason1", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason",false));
+        data.add(new WhyUJoinModel("Reason",false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason", false));
+        data.add(new WhyUJoinModel("Reason",false));
+        data.add(new WhyUJoinModel("Reason",false));
+        data.add(new WhyUJoinModel("Reason10",false));
+        data.add(new WhyUJoinModel("Reason10",false));
     }
 
     // Get All User Reasons
-    private List<String> GetReasons() {
-        List<String> newdata = new ArrayList<>();
-        for (int i = 0; i < data.size(); i++) {
-            if (data.get(i).IsCheck)
-                newdata.add(data.get(i).name);
-
-        }
-
-        return newdata;
-    }
+//    private List<String> GetReasons() {
+//        List<String> newdata = new ArrayList<>();
+//        for (int i = 0; i < data.size(); i++) {
+//            if (data.get(i).IsCheck)
+//                newdata.add(data.get(i).name);
+//
+//        }
+//
+//        return newdata;
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fourth_screen_join);
+        setContentView(R.layout.test_fourthscreen);
         mLanguages = new Language(this);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
         back_btn = (LinearLayout) findViewById(R.id.back_btn);
@@ -98,7 +118,7 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
         t5.setTypeface(typface);
         t6.setTypeface(typface);
         t4.setTypeface(typface);
-        recyclerView = (RecyclerView) findViewById(R.id.all_reason);
+        // recyclerView = (RecyclerView) findViewById(R.id.all_reason);
         validator = new Validator(this);
         validator.setValidationListener(this);
         data = new ArrayList<>();
@@ -107,12 +127,11 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
 
         // TODO Replace This Fucking Method with your Fucking Real Data
         DemoData();
+        Fill_Radiogroup();
 
-        recyclerView.setLayoutManager(gaggeredGridLayoutManager);
-
-        adapter = new JoinAdapter(getApplicationContext(), data);
-
-        recyclerView.setAdapter(adapter);
+        // recyclerView.setLayoutManager(gaggeredGridLayoutManager);
+        //  adapter = new JoinAdapter(getApplicationContext(), data);
+        //  recyclerView.setAdapter(adapter);
 
         ArrayList<String> languages_list = new ArrayList<>();
         mLanguages.open();
@@ -195,90 +214,114 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
         }
     }
 
-    private class JoinAdapter extends RecyclerView.Adapter<JoinAdapter.ProductViewHolder> {
-
-        List<WhyUJoinModel> mdata;
-        Context mContext;
-
-        // Conctracture
-        public JoinAdapter(Context context, List<WhyUJoinModel> newdata) {
-            this.mdata = newdata;
-            mContext = context;
-        }
-
-
-        // Notify Data Changed
-
-        public void setData(List<WhyUJoinModel> homeGroups) {
-
-            mdata.clear();
-            mdata.addAll(homeGroups);
-            notifyDataSetChanged();
-        }
-
-
-        @Override
-        public int getItemCount() {
-            return mdata.size();
-        }
-
-
-        @Override
-        public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.why_u_join_activity, null);
-            return new ProductViewHolder(layoutView);
-        }
-
-        @Override
-        public void onBindViewHolder(ProductViewHolder productViewHolder, int position) {
-
-            // Get one item of AdapterView
-            WhyUJoinModel group = mdata.get(position);
-            // Set Data One Holder
-            productViewHolder.reason_anme.setText(group.name);
-
-            if (group.IsCheck) {
-                productViewHolder.isreason.setVisibility(View.VISIBLE);
-                productViewHolder.reason_anme.setTextColor(getResources().getColor(R.color.white));          }
-            else {
-                productViewHolder.isreason.setVisibility(View.GONE);
-                productViewHolder.reason_anme.setTextColor(getResources().getColor(R.color.very_primary_dark));
-            }
-        }
-
-        ///  inner class
-        // Put Your Layout Model Here
-
-        public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-            public AnimateCheckBox isreason;
-            public TextView reason_anme;
-
-            public ProductViewHolder(View itemView) {
-                super(itemView);
-                itemView.setOnClickListener(this);
-
-                isreason = ((AnimateCheckBox) itemView.findViewById(R.id.reason_state));
-                reason_anme = ((TextView) itemView.findViewById(R.id.reason_name));
-                Typeface typface = Typeface.createFromAsset(getAssets(), "fonts/font1.ttf");
-                reason_anme.setTypeface(typface);
-                itemView.setOnClickListener(this);
-            }
-
-            @Override
-            public void onClick(View v) {
-
-                for (int i = 0; i < mdata.size(); i++) {
-                    mdata.get(i).IsCheck = false;
+    private void Fill_Radiogroup() {
+        for (int i = 0; i < data.size(); i++) {
+            final RadioButton rad = new RadioButton(getApplicationContext());
+            rad.setButtonDrawable(R.drawable.apptheme_btn_radio_holo_light);
+            rad.setChecked(false);
+            rad.setText(data.get(i).name);
+            rad.setTextColor(getResources().getColor(R.color.intercomsdk_center_white));
+            radioGroup = (RadioGroup) findViewById(R.id.radgroup);
+            rad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (rad.isChecked()) {
+                        rad.setTextColor(getResources().getColor(R.color.white));
+                    } else {
+                        rad.setTextColor(getResources().getColor(R.color.intercomsdk_center_white));
+                    }
                 }
-
-                mdata.get(getPosition()).IsCheck = true;
-
-                notifyDataSetChanged();
-            }
-
+            });
+            data.get(i).IsCheck = rad.isChecked();
+            radioGroup.addView(rad);
 
         }
+
     }
+//    private class JoinAdapter extends RecyclerView.Adapter<JoinAdapter.ProductViewHolder> {
+//
+//        List<WhyUJoinModel> mdata;
+//        Context mContext;
+//
+//        // Conctracture
+//        public JoinAdapter(Context context, List<WhyUJoinModel> newdata) {
+//            this.mdata = newdata;
+//            mContext = context;
+//        }
+//
+//
+//        // Notify Data Changed
+//
+//        public void setData(List<WhyUJoinModel> homeGroups) {
+//
+//            mdata.clear();
+//            mdata.addAll(homeGroups);
+//            notifyDataSetChanged();
+//        }
+//
+//
+//        @Override
+//        public int getItemCount() {
+//            return mdata.size();
+//        }
+//
+//
+//        @Override
+//        public ProductViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//            View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.why_u_join_activity, null);
+//            return new ProductViewHolder(layoutView);
+//        }
+//
+//        @Override
+//        public void onBindViewHolder(ProductViewHolder productViewHolder, int position) {
+//
+//            // Get one item of AdapterView
+//            WhyUJoinModel group = mdata.get(position);
+//            // Set Data One Holder
+//            productViewHolder.reason_anme.setText(group.name);
+//
+//            if (group.IsCheck) {
+//                productViewHolder.isreason.setChecked(true);
+//                productViewHolder.reason_anme.setTextColor(getResources().getColor(R.color.white));          }
+//            else {
+//                productViewHolder.isreason.setChecked(false);
+//                productViewHolder.reason_anme.setTextColor(getResources().getColor(R.color.intercomsdk_center_white));
+//            }
+//        }
+//
+//        ///  inner class
+//        // Put Your Layout Model Here
+//
+//        public class ProductViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+//
+//            public AnimateCheckBox isreason;
+//            public TextView reason_anme;
+//
+//            public ProductViewHolder(View itemView) {
+//                super(itemView);
+//                itemView.setOnClickListener(this);
+//
+//                isreason = ((AnimateCheckBox) itemView.findViewById(R.id.reason_state));
+//                reason_anme = ((TextView) itemView.findViewById(R.id.reason_name));
+//                Typeface typface = Typeface.createFromAsset(getAssets(), "fonts/font1.ttf");
+//                reason_anme.setTypeface(typface);
+//                itemView.setOnClickListener(this);
+//            }
+//
+//            @Override
+//            public void onClick(View v) {
+//
+//                for (int i = 0; i < mdata.size(); i++) {
+//                    mdata.get(i).IsCheck = false;
+//                }
+//
+//                mdata.get(getPosition()).IsCheck = true;
+//
+//                notifyDataSetChanged();
+//            }
+//
+//
+//        }
+//    }
 
 }
