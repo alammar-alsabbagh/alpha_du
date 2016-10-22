@@ -27,7 +27,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -58,13 +57,8 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
 
-    TooltipWindow tipWindow;
-    TooltipWindow_apptmnts tip_apts;
-
     DrawerLayout mDrawerLayout;
     private Toolbar mtoolbar;
-    private FragmentDrawerNocker drawerFragment;
-    private FragmentDrawerUser drawerUser;
     private Context mContext;
     private Button message , appoitements;
     private Button notification;
@@ -112,15 +106,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             }
         });
 
-        tipWindow = new TooltipWindow(MainActivity.this);
-        tip_apts = new TooltipWindow_apptmnts(MainActivity.this);
 
        message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("here");
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container_body, new MessagesFragment()).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new MessagesFragment()).addToBackStack( "tag" ).commit();
             }
         });
 
@@ -128,7 +120,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container_body, new AppointementsFragment()).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new AppointementsFragment()).addToBackStack( "tag" ).commit();
             }
         });
 
@@ -137,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             public void onClick(View v) {
                 System.out.println("here");
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container_body, new NotificationsFragment()).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new NotificationsFragment()).addToBackStack( "tag" ).commit();
             }
         });
 
@@ -457,7 +449,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
         switch (msg) {
             case "activateSub":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "myShop":
@@ -465,11 +457,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "promotion":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "help":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 sessionManager.setEmail("");
                 sessionManager.setPassword("");
@@ -477,7 +469,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 break;
             case "settings":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
@@ -506,4 +498,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         icon.setDrawableByLayerId(R.id.ic_badge, badge);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
 }
