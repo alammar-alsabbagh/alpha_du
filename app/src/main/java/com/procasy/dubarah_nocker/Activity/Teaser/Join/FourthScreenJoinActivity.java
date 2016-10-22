@@ -6,11 +6,8 @@ import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CompoundButton;
@@ -21,10 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.hanks.library.AnimateCheckBox;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.adapter.RadioGroupBooleanAdapter;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
@@ -55,27 +50,13 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
 
     @Deprecated
     void DemoData() {
-        data.add(new WhyUJoinModel("Reason1", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason",false));
-        data.add(new WhyUJoinModel("Reason",false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason", false));
-        data.add(new WhyUJoinModel("Reason",false));
-        data.add(new WhyUJoinModel("Reason",false));
-        data.add(new WhyUJoinModel("Reason10",false));
-        data.add(new WhyUJoinModel("Reason10",false));
+        data.add(new WhyUJoinModel("Pay the bills", false));
+        data.add(new WhyUJoinModel("Get their business off the ground", false));
+        data.add(new WhyUJoinModel("Fund their tuition", false));
+        data.add(new WhyUJoinModel("Fund their child's or spouse's tuition", false));
+        data.add(new WhyUJoinModel("Fund their child's extra-curricular activities", false));
+        data.add(new WhyUJoinModel("Fund their vacation", false));
+        data.add(new WhyUJoinModel("Settle in a new country", false));
     }
 
     // Get All User Reasons
@@ -94,7 +75,7 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.test_fourthscreen);
+        setContentView(R.layout.test_fourthscreen_join);
         mLanguages = new Language(this);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
         back_btn = (LinearLayout) findViewById(R.id.back_btn);
@@ -221,7 +202,7 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
             rad.setChecked(false);
             rad.setText(data.get(i).name);
             rad.setTextColor(getResources().getColor(R.color.intercomsdk_center_white));
-            radioGroup = (RadioGroup) findViewById(R.id.radgroup);
+            radioGroup = (RadioGroup) findViewById(R.id.radgroup1);
             rad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
