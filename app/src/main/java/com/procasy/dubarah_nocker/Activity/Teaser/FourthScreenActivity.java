@@ -13,9 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,9 +42,11 @@ public class FourthScreenActivity extends AppCompatActivity implements Validator
     @NotEmpty
     AutoCompleteTextView editText;
     Language mLanguages;
-    RecyclerView recyclerView;
-    JoinAdapter adapter;
+    RadioGroup radioGroup ;
+   // RecyclerView recyclerView;
+   // JoinAdapter adapter;
     List<WhyUJoinModel> data;
+
     StaggeredGridLayoutManager gaggeredGridLayoutManager;
     SessionManager sessionManager;
     String name;
@@ -71,6 +76,7 @@ public class FourthScreenActivity extends AppCompatActivity implements Validator
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        System.out.println("I'm Fourth screen avtivity ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fourth_screen);
         Bundle bundle = getIntent().getExtras();
@@ -101,7 +107,7 @@ public class FourthScreenActivity extends AppCompatActivity implements Validator
         t4.setTypeface(typface);
         t7.setTypeface(bold);
         t7.setText(name.split("\\s+")[0]);
-        recyclerView = (RecyclerView) findViewById(R.id.all_reason);
+        //recyclerView = (RecyclerView) findViewById(R.id.all_reason);
 validator = new Validator(this);
         validator.setValidationListener(this);
         data = new ArrayList<>();
@@ -110,12 +116,12 @@ validator = new Validator(this);
 
         // TODO Replace This Fucking Method with your Fucking Real Data
         DemoData();
+        Fill_Radiogroup();
+       // recyclerView.setLayoutManager(gaggeredGridLayoutManager);
 
-        recyclerView.setLayoutManager(gaggeredGridLayoutManager);
+       // adapter = new JoinAdapter(getApplicationContext(), data);
 
-        adapter = new JoinAdapter(getApplicationContext(), data);
-
-        recyclerView.setAdapter(adapter);
+       // recyclerView.setAdapter(adapter);
 
         ArrayList<String> languages_list = new ArrayList<>();
         mLanguages.open();
@@ -199,6 +205,30 @@ validator.validate();
         }
     }
 
+    private void Fill_Radiogroup() {
+        for (int i = 0; i < data.size(); i++) {
+            final RadioButton rad = new RadioButton(getApplicationContext());
+            rad.setButtonDrawable(R.drawable.apptheme_btn_radio_holo_light);
+            rad.setChecked(false);
+            rad.setText(data.get(i).name);
+            rad.setTextColor(getResources().getColor(R.color.intercomsdk_center_white));
+            radioGroup = (RadioGroup) findViewById(R.id.radgroup1);
+            rad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if (rad.isChecked()) {
+                        rad.setTextColor(getResources().getColor(R.color.white));
+                    } else {
+                        rad.setTextColor(getResources().getColor(R.color.intercomsdk_center_white));
+                    }
+                }
+            });
+            data.get(i).IsCheck = rad.isChecked();
+            radioGroup.addView(rad);
+
+        }
+
+    }
     private class JoinAdapter extends RecyclerView.Adapter<JoinAdapter.ProductViewHolder> {
 
         List<WhyUJoinModel> mdata;

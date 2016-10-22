@@ -4,6 +4,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="150dp"
+        android:layout_marginBottom="75dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/view_line"
+            android:id="@+id/why"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Why you recommend "
+                android:textColor="@color/white"
+                android:textSize="@dimen/large_text"
+                android:id="@+id/t4"
+                android:layout_marginLeft="40dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Amanda"
+                android:textColor="@color/app_yellow"
+                android:textSize="@dimen/large_text"
+                android:id="@+id/t7"
+                android:textStyle="bold"
+                android:inputType="textCapWords"
+                />
+
+        </LinearLayout>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_alignEnd="@+id/view_line"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/t4"
+            android:minHeight="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp">
+
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:minHeight="0dp"
+                android:id="@+id/radgroup2"></RadioGroup>
+
+        </ScrollView>
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +72,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_gravity="center"
             android:gravity="left"
             android:layout_marginLeft="40dp"
@@ -24,40 +80,37 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="What languages do"
+                android:text="What languages does"
                 android:textColor="@color/white"
                 android:textAppearance="@android:style/TextAppearance.Medium"
                 android:id="@+id/t1"
                 android:textSize="@dimen/seventy" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=" You"
-                android:textColor="@color/app_yellow"
-                android:textAppearance="@android:style/TextAppearance.Medium"
-                android:id="@+id/t2"
-                android:textStyle="bold"
-                android:textSize="@dimen/seventy" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Amanda"
+                    android:textColor="@color/app_yellow"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:id="@+id/t2"
+                    android:textSize="@dimen/seventy"
+                    android:inputType="textCapWords"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" speaks ? "
+                    android:textColor="@color/white"
+                    android:textAppearance="@android:style/TextAppearance.Medium"
+                    android:id="@+id/t3"
+                    android:textSize="@dimen/seventy" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text=" speak ? "
-                android:textColor="@color/white"
-                android:textAppearance="@android:style/TextAppearance.Medium"
-                android:id="@+id/t3"
-                android:textSize="@dimen/seventy" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <AutoCompleteTextView
@@ -69,7 +122,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:background="#00000000"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="15dp"
             android:textColor="#ffffff"
             android:singleLine="true"
             android:id="@+id/skill"
@@ -88,33 +141,7 @@
         android:layout_marginLeft="20dp"
         android:id="@+id/view_line"
         ></View>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/view_line"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Why are you joining nocker"
-            android:textColor="@color/white"
-            android:textSize="@dimen/forty_eight"
-            android:id="@+id/t4"
-            android:layout_marginLeft="20dp"
-            android:textStyle="bold"
-            />
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:id="@+id/all_reason"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"></android.support.v7.widget.RecyclerView>
-
-
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/wholething"
