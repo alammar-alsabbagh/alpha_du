@@ -56,6 +56,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.support.v4.content.ContextCompat.checkSelfPermission;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -150,6 +152,18 @@ public class AskForHelpFragment extends Fragment {
             }
 
         }
+        if (requestCode == 1 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getActivity(), "Success", Toast.LENGTH_LONG).show();
+
+            try {
+                cameraIntent();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        }
+
+
     }
 
     @Override
@@ -158,7 +172,7 @@ public class AskForHelpFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_ask_for_help, container, false);
         sessionManager = new SessionManager(getActivity());
-
+        Fragment fragment = this;
         img1 = (ImageView) view.findViewById(R.id.img1);
         img2 = (ImageView) view.findViewById(R.id.img2);
         img3 = (ImageView) view.findViewById(R.id.img3);
@@ -196,12 +210,12 @@ public class AskForHelpFragment extends Fragment {
                 if (Build.VERSION.SDK_INT >= 23) {
                     // Here, thisActivity is the current activity
                     if (ContextCompat.checkSelfPermission(getActivity(),
-                            Manifest.permission.READ_EXTERNAL_STORAGE)
+                            Manifest.permission.CAMERA)
                             != PackageManager.PERMISSION_GRANTED) {
 
                         // Should we show an explanation?
                         if (shouldShowRequestPermissionRationale(
-                                Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                                Manifest.permission.CAMERA)) {
 
                             // Show an expanation to the user *asynchronously* -- don't block
                             // this thread waiting for the user's response! After the user
@@ -212,7 +226,7 @@ public class AskForHelpFragment extends Fragment {
                             // No explanation needed, we can request the permission.
 
                             requestPermissions(
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
                                     1);
 
                             // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
@@ -220,8 +234,7 @@ public class AskForHelpFragment extends Fragment {
                             // result of the request.
                         }
                     } else {
-                        requestPermissions(
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                      cameraIntent();
                     }
                 } else {
                     cameraIntent();
@@ -236,7 +249,7 @@ public class AskForHelpFragment extends Fragment {
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= 23) {
                     // Here, thisActivity is the current activity
-                    if (ContextCompat.checkSelfPermission(getActivity(),
+                    if (checkSelfPermission(getActivity(),
                             Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
 
@@ -263,8 +276,7 @@ public class AskForHelpFragment extends Fragment {
                             // result of the request.
                         }
                     } else {
-                        requestPermissions(
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+                       galleryIntent();
                     }
                 } else {
 
@@ -279,7 +291,7 @@ public class AskForHelpFragment extends Fragment {
             public void onClick(View v) {
                 if (Build.VERSION.SDK_INT >= 23) {
                     // Here, thisActivity is the current activity
-                    if (ContextCompat.checkSelfPermission(getActivity(),
+                    if (checkSelfPermission(getActivity(),
                             Manifest.permission.READ_EXTERNAL_STORAGE)
                             != PackageManager.PERMISSION_GRANTED) {
 
@@ -295,7 +307,7 @@ public class AskForHelpFragment extends Fragment {
 
                             // No explanation needed, we can request the permission.
                             requestPermissions(
-                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA},
                                     1);
 
                             // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
@@ -304,7 +316,7 @@ public class AskForHelpFragment extends Fragment {
                         }
                     } else {
                         requestPermissions(
-                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.CAMERA}, 1);
                     }
                 } else {
                     cameraIntent();
@@ -312,40 +324,81 @@ public class AskForHelpFragment extends Fragment {
             }
         });
 
+
+
+
+
         reord.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                try {
-
-                    try {
+                if (Build.VERSION.SDK_INT >= 23) {
+                    // Here, thisActivity is the current activity
+                    if (checkSelfPermission(getActivity(),
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                            != PackageManager.PERMISSION_GRANTED || checkSelfPermission(getActivity(),Manifest.permission.RECORD_AUDIO)!=PackageManager.PERMISSION_GRANTED) {
                         requestPermissions(
-                                new String[]{Manifest.permission.RECORD_AUDIO,
-                                        Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                52);
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.RECORD_AUDIO},
+                                1);
 
+                        // MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE is an
+                        // app-defined int constant. The callback method gets the
+                        // result of the request.
+                    }
+                    else {
+                        try {
 
-                        outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + System.currentTimeMillis() + ".3gp";
-                        myAudioRecorder = new MediaRecorder();
-                        myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                        myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                        myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-                        myAudioRecorder.setOutputFile(outputFile);
+                            try {
 
-                        myAudioRecorder.prepare();
-                        myAudioRecorder.start();
+                                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + System.currentTimeMillis() + ".3gp";
+                                myAudioRecorder = new MediaRecorder();
+                                myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                                myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                                myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+                                myAudioRecorder.setOutputFile(outputFile);
 
-                    } catch (Exception e) {
+                                myAudioRecorder.prepare();
+                                myAudioRecorder.start();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                        } catch (IllegalStateException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        progressBar.setVisibility(View.VISIBLE);
+                        reord.setEnabled(false);
+                        stop.setEnabled(true);
+                    }
+                } else {
+                    try {
+
+                        try {
+
+                            outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + System.currentTimeMillis() + ".3gp";
+                            myAudioRecorder = new MediaRecorder();
+                            myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+                            myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+                            myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
+                            myAudioRecorder.setOutputFile(outputFile);
+
+                            myAudioRecorder.prepare();
+                            myAudioRecorder.start();
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    } catch (IllegalStateException e) {
+                        // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-
-                } catch (IllegalStateException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
+                    progressBar.setVisibility(View.VISIBLE);
+                    reord.setEnabled(false);
+                    stop.setEnabled(true);
                 }
-                progressBar.setVisibility(View.VISIBLE);
-                reord.setEnabled(false);
-                stop.setEnabled(true);
             }
         });
 

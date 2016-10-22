@@ -52,12 +52,20 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
     compile files('libs/httpclient-4.3.6.jar')
     compile files('libs/httpcore-4.3.3.jar')
     compile files('libs/httpmime-4.3.6.jar')
     compile project(':linkedin-sdk')
     compile project(path: ':linkedin-sdk')
+    //SUB-DEPENDENCIES
+
+    //Android-Iconics - used to provide an easy API for icons
+    compile('com.twitter.sdk.android:twitter-core:2.0.0@aar') {
+        transitive = true;
+    }
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.1@aar') {
+        transitive = true;
+    }
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:recyclerview-v7:24.1.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
@@ -73,9 +81,9 @@ dependencies {
     compile 'com.android.volley:volley:1.0.0'
     compile 'com.google.android.gms:play-services:9.2.1'
     compile 'com.google.android.gms:play-services-ads:9.2.1'
-    compile 'com.google.android.gms:play-services-auth:8.4.0'
+    compile 'com.google.android.gms:play-services-auth:9.2.1'
     compile 'cn.aigestudio.wheelpicker:WheelPicker:1.1.1'
-    compile 'com.google.android.gms:play-services-gcm:8.4.0'
+    compile 'com.google.android.gms:play-services-gcm:9.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.github.whinc:ratingbar:1.1.1'
     compile 'com.bignerdranch.android:expandablerecyclerview:1.0.3'
@@ -83,15 +91,7 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
     compile 'com.mikepenz:actionitembadge:3.3.0@aar'
     compile 'com.mikepenz:fontawesome-typeface:4.6.0.3@aar'
-
-    //SUB-DEPENDENCIES
-    //Android-Iconics - used to provide an easy API for icons
     compile 'com.mikepenz:iconics-core:2.8.0@aar'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
-    compile('com.twitter.sdk.android:twitter-core:2.0.0@aar') {
-        transitive = true;
-    }
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.1@aar') {
-        transitive = true;
-    }
+    testCompile 'junit:junit:4.12'
 }

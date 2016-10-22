@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:layout_marginBottom="10dp">
 
     <TextView
         android:id="@+id/appointment_row_nothingschedule"
@@ -31,7 +32,9 @@
     <LinearLayout
         android:id="@+id/appointment_row_layout"
         style="@style/HorizontalLayout"
-        android:background="@drawable/listview_selector">
+        android:background="@color/app_yellow"
+
+        >
 
         <LinearLayout style="@style/ApptTimeContainer">
 
@@ -41,7 +44,8 @@
                 android:gravity="center"
                 android:paddingLeft="15dp"
                 android:text="Jun 30"
-                android:textColor="@drawable/selector_darkgray_white" />
+                android:textColor="@color/colorPrimaryDark"
+                />
 
             <TextView
                 android:id="@+id/appointment_row_session"
@@ -49,7 +53,8 @@
                 android:layout_marginTop="2dp"
                 android:paddingLeft="15dp"
                 android:text="12:30 AM"
-                android:textColor="@drawable/selector_darkgray_white" />
+                android:textColor="@color/colorPrimaryDark"
+                />
         </LinearLayout>
 
         <ImageView
@@ -58,7 +63,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/appt_vr_line" />
 
-        <LinearLayout style="@style/ApptServiceContainer">
+        <LinearLayout style="@style/ApptServiceContainer"
+            android:layout_gravity="center">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -70,7 +76,7 @@
                     android:ellipsize="middle"
                     android:maxLines="1"
                     android:text="Rat Rail Removal"
-                    android:textColor="@drawable/selector_black_white"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -86,14 +92,15 @@
             <RelativeLayout
                 style="@style/HorizontalLayout"
                 android:layout_marginTop="2dp"
-                android:paddingBottom="3dp">
+                android:paddingBottom="3dp"
+                >
 
                 <TextView
                     android:id="@+id/appointment_row_cost"
                     style="@style/ApptServicePrice"
                     android:paddingLeft="5dp"
                     android:text="$20.00"
-                    android:textColor="@drawable/selector_gray_white"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
                     android:visibility="visible" />
 
@@ -106,7 +113,7 @@
                     android:ellipsize="marquee"
                     android:singleLine="true"
                     android:text="Scott Drake"
-                    android:textColor="@drawable/selector_gray_white"
+                    android:textColor="@color/colorPrimaryDark"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>
