@@ -27,6 +27,7 @@ import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Activity.Teaser.JoinOrRecommend;
 import com.procasy.dubarah_nocker.Helper.ContactsDb;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.LoginActivity;
 import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
 import com.procasy.dubarah_nocker.R;
 
@@ -110,7 +111,7 @@ public class FinishJoin extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<CheckResponse> call, Response<CheckResponse> response) {
                                 dialog.dismiss();
-                                startActivity(new Intent(getApplicationContext(),JoinOrRecommend.class));
+                                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                 Log.e("Response","success");
                                 finish();
                             }
@@ -119,7 +120,7 @@ public class FinishJoin extends AppCompatActivity {
                             public void onFailure(Call<CheckResponse> call, Throwable t) {
                                 Log.e("Response","faild");
                                 dialog.dismiss();
-                                startActivity(new Intent(getApplicationContext(),JoinOrRecommend.class));
+                                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                                 finish();
                             }
 

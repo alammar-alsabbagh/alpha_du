@@ -27,6 +27,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -62,13 +63,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     TooltipWindow_apptmnts tip_apts;
 
     DrawerLayout mDrawerLayout;
+    LinearLayout notification_items;
     private Toolbar mtoolbar;
     private FragmentDrawerNocker drawerFragment;
     private FragmentDrawerUser drawerUser;
     private Context mContext;
-    private Button message , appoitements;
+    private Button message, appoitements;
     private Button notification;
-    private ImageView  drawer;
+    private ImageView drawer;
     // flag for GPS status
     boolean isGPSEnabled = false;
     // flag for network status
@@ -96,10 +98,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
-
-        message = (Button) mtoolbar.findViewById(R.id.message1);
-        notification = (Button) mtoolbar.findViewById(R.id.notification1);
-       appoitements =  (Button)mtoolbar.findViewById(R.id.aptmnts1);
+        notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
+        message = (Button) notification_items.findViewById(R.id.message1);
+        notification = (Button) notification_items.findViewById(R.id.notification1);
+        appoitements = (Button) notification_items.findViewById(R.id.aptmnts1);
 
 
         drawer = (ImageView) mtoolbar.findViewById(R.id.drawer_btn);
@@ -115,7 +117,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         tipWindow = new TooltipWindow(MainActivity.this);
         tip_apts = new TooltipWindow_apptmnts(MainActivity.this);
 
-       message.setOnClickListener(new View.OnClickListener() {
+        message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("here");
@@ -486,6 +488,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 drawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
+            case "message":
+                fragmentManager.beginTransaction().replace(R.id.container_body, new MessagesFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            case"appoitement":
+                fragmentManager.beginTransaction().replace(R.id.container_body, new AppointementsFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break ;
+            case "notification":
+                fragmentManager.beginTransaction().replace(R.id.container_body, new NotificationsFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break ;
         }
     }
 

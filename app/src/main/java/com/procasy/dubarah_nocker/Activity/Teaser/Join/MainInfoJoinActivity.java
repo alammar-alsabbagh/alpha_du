@@ -85,6 +85,9 @@ public class MainInfoJoinActivity extends AppCompatActivity implements Validator
         province.setTypeface(typface);
         birthyear.setTypeface(typface);
         phonenumber.setTypeface(typface);
+        country.setText("Syria");
+        city.setText("Damascus");
+        province.setText("Midan");
         firstname.setText(sessionManager.getFName());
         lastname.setText(sessionManager.getLName());
         final Validator validator = new Validator(this);
@@ -159,6 +162,8 @@ public class MainInfoJoinActivity extends AppCompatActivity implements Validator
                                 city.setText(object.getString("city"));
                                 province.setText(object.getString("regionName"));
                                 region = object.getString("city");
+
+
                             }
                             else
                             {
