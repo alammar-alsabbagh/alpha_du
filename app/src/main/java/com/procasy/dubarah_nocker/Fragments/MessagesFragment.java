@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.aakira.expandablelayout.Utils;
-import com.procasy.dubarah_nocker.Adapter.RecyclerViewRecyclerAdapter;
+import com.procasy.dubarah_nocker.Adapter.QuoteRecyclerViewAdapter;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.DividerItemDecoration;
 import com.procasy.dubarah_nocker.Utils.ItemModel;
@@ -42,35 +42,7 @@ public class MessagesFragment extends Fragment {
         data.add(new ItemModel(
                 "0 ACCELERATE_DECELERATE_INTERPOLATOR",
                 Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)));
-        data.add(new ItemModel(
-                "1 ACCELERATE_INTERPOLATOR",
-
-                Utils.createInterpolator(Utils.ACCELERATE_INTERPOLATOR)));
-        data.add(new ItemModel(
-                "2 BOUNCE_INTERPOLATOR",
-
-                Utils.createInterpolator(Utils.BOUNCE_INTERPOLATOR)));
-        data.add(new ItemModel(
-                "3 DECELERATE_INTERPOLATOR",
-
-                Utils.createInterpolator(Utils.DECELERATE_INTERPOLATOR)));
-        data.add(new ItemModel(
-                "4 FAST_OUT_LINEAR_IN_INTERPOLATOR",
-
-                Utils.createInterpolator(Utils.FAST_OUT_LINEAR_IN_INTERPOLATOR)));
-        data.add(new ItemModel(
-                "5 FAST_OUT_SLOW_IN_INTERPOLATOR",
-
-                Utils.createInterpolator(Utils.FAST_OUT_SLOW_IN_INTERPOLATOR)));
-        data.add(new ItemModel(
-                "6 LINEAR_INTERPOLATOR",
-
-                Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR)));
-        data.add(new ItemModel(
-                "7 LINEAR_OUT_SLOW_IN_INTERPOLATOR",
-
-                Utils.createInterpolator(Utils.LINEAR_OUT_SLOW_IN_INTERPOLATOR)));
-        recyclerView.setAdapter(new RecyclerViewRecyclerAdapter(data));
+        recyclerView.setAdapter(new QuoteRecyclerViewAdapter(data));
 
         return view;
     }

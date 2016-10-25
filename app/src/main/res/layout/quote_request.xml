@@ -17,6 +17,32 @@
             android:paddingRight="20dp"
             android:paddingTop="20dp">
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:textSize="75dp"
+                    android:text="$11"
+                    android:textColor="@color/white"
+                    android:layout_weight="5"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:layout_gravity="center"
+                    android:src="@drawable/nocker_score" />
+
+
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -102,6 +128,47 @@
                     android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when."
                     android:textColor="@color/white"
                     android:textSize="16dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/line_divider"></View>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal"
+                android:weightSum="10">
+
+                <Button
+                    android:id="@+id/accept"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/btn_yellow_border"
+                    android:gravity="center"
+                    android:text="@string/str28"
+                    android:textSize="16dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/pass"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="5"
+                    android:background="@drawable/btn_pass_gray"
+                    android:gravity="center"
+                    android:text="@string/str126"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+
+                    />
+
+
             </LinearLayout>
 
 

@@ -89,7 +89,7 @@
         android:layout_marginTop="10dp"
         android:orientation="vertical"
         android:layout_weight="8"
-        android:id="@+id/button">
+        >
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -101,14 +101,10 @@
             android:background="@color/colorPrimary"
             android:orientation="horizontal"
             android:weightSum="10"
-            android:elevation="10dp">
+            android:elevation="10dp"
+            android:id="@+id/button"
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profilePic"
-                android:layout_width="60dp"
-                android:layout_height="75dp"
-                android:layout_weight="1"
-                android:src="@drawable/profile" />
+            >
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -119,23 +115,13 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/nocker_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:singleLine="true"
-                    android:text="Claudia De Simone"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
                     android:id="@+id/nocker_skill"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:alpha="0.8"
                     android:text="Data Recovery Service"
                     android:textColor="@color/white"
-                    android:textSize="12dp" />
+                    android:textSize="18dp" />
 
             </LinearLayout>
 
@@ -150,9 +136,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textSize="48dp"
-                    android:text="$11"
+                    android:text="4/5"
                     android:textColor="@color/app_yellow"
-                    android:alpha="0.9"/>
+                    android:alpha="0.9"
+                    android:layout_gravity="center"
+                    android:gravity="center"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -163,11 +151,14 @@
             android:layout_below="@id/textView"
             android:orientation="vertical"
             app:ael_duration="400"
-            app:ael_expanded="false"
+            app:ael_expanded="true"
             >
-<include layout="@layout/quote_request"
 
-></include>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:id="@+id/quota_list"></android.support.v7.widget.RecyclerView>
         </com.github.aakira.expandablelayout.ExpandableLinearLayout>
 
     </LinearLayout>
