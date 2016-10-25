@@ -41,7 +41,7 @@ public class BroadCastActivity extends AppCompatActivity {
     LinearLayout Whole_btn;
     TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11;
     ContactsDb mContactsDb;
-    EditText editText;
+    EditText email,pass;
     RelativeLayout emailSpinnerLayout;
     Spinner emailSpinner;
     ImageView pp,six,three,one;
@@ -70,7 +70,8 @@ public class BroadCastActivity extends AppCompatActivity {
         t8 = (TextView) findViewById(R.id.t8);
         t10 = (TextView) findViewById(R.id.t10);
         t11 = (TextView) findViewById(R.id.t11);
-        editText = (EditText) findViewById(R.id.email);
+        email = (EditText) findViewById(R.id.email);
+        pass = (EditText) findViewById(R.id.passw);
         Typeface typface = Typeface.createFromAsset(getAssets(), "fonts/font1.ttf");
         Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/font3.ttf");
 
@@ -83,7 +84,8 @@ public class BroadCastActivity extends AppCompatActivity {
         t8.setTypeface(typface);
         t10.setTypeface(typface);
         t11.setTypeface(typface);
-        editText.setTypeface(typface);
+        email.setTypeface(typface);
+        pass.setTypeface(typface);
         final SessionManager sessionManager = new SessionManager(this);
         t2.setText(new String(sessionManager.getKey_his_name()).split("\\s+")[0] + "\'s");
         t7.setText(sessionManager.getKey_his_name());
@@ -94,7 +96,7 @@ public class BroadCastActivity extends AppCompatActivity {
         mContactsDb.open();
         Cursor cursor = mContactsDb.getSingleContact(sessionManager.getKey_his_name());
         cursor.moveToFirst();
-        editText.setHint("Please enter " + new String(sessionManager.getKey_his_name()).split("\\s+")[0] + "\'s" + " email address");
+        email.setHint("Please enter " + new String(sessionManager.getKey_his_name()).split("\\s+")[0] + "\'s" + " email address");
         ArrayList<String> emailAdresses = new ArrayList<>();
         try {
             System.out.println(" 3 :" + cursor.getString(3).toString());
@@ -117,11 +119,12 @@ public class BroadCastActivity extends AppCompatActivity {
                 }
 
                 System.out.println("Number of email addresses : "+emailAdresses.size());
+                System.out.println("Number of email addresses : "+emailAdresses.size());
                 if(emailAdresses.size()>1) {
                     ArrayList<String> emails2 = new ArrayList<>();
                     emails2.add("-Choose Email-");
                     emails2.addAll(emailAdresses);
-                    editText.setVisibility(View.GONE);
+                    email.setVisibility(View.GONE);
                     ArrayAdapter<String> karant_adapter = new ArrayAdapter<String>(this, R.layout.spinneritem, emails2);
                     emailSpinner.setAdapter(karant_adapter);
                     multiple = true;
@@ -135,7 +138,7 @@ public class BroadCastActivity extends AppCompatActivity {
                 else if(emailAdresses.size() == 0) {
                     emailSpinner.setVisibility(View.GONE);
                     emailSpinnerLayout.setVisibility(View.GONE);
-                    editText.setText("");
+                    email.setText("");
                     multiple = false;
 
                 }
@@ -174,7 +177,7 @@ public class BroadCastActivity extends AppCompatActivity {
                         if(multiple)
                             sessionManager.setKeyHisEmail(emailSpinner.getSelectedItem().toString());
                         else
-                            sessionManager.setKeyHisEmail(editText.getText().toString());
+                            sessionManager.setKeyHisEmail(email.getText().toString());
 
                         startActivity(new Intent(getApplicationContext(), Finish.class));
                         finish();

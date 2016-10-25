@@ -27,6 +27,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
@@ -59,11 +61,12 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
 
     DrawerLayout mDrawerLayout;
+    LinearLayout notification_items;
     private Toolbar mtoolbar;
     private Context mContext;
-    private Button message , appoitements;
+    private Button message, appoitements;
     private Button notification;
-    private ImageView  drawer;
+    private ImageView drawer;
     // flag for GPS status
     boolean isGPSEnabled = false;
     // flag for network status
@@ -93,9 +96,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
-        message = (Button) mtoolbar.findViewById(R.id.message1);
-        notification = (Button) mtoolbar.findViewById(R.id.notification1);
-       appoitements =  (Button)mtoolbar.findViewById(R.id.aptmnts1);
+        notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
+        message = (Button) notification_items.findViewById(R.id.message1);
+        notification = (Button) notification_items.findViewById(R.id.notification1);
+        appoitements = (Button) notification_items.findViewById(R.id.aptmnts1);
 
 
         drawer = (ImageView) mtoolbar.findViewById(R.id.drawer_btn);
@@ -109,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         });
 
 
-       message.setOnClickListener(new View.OnClickListener() {
+        message.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 System.out.println("here");
@@ -487,6 +491,18 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 drawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
+            case "message":
+                fragmentManager.beginTransaction().replace(R.id.container_body, new MessagesFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+            case"appoitement":
+                fragmentManager.beginTransaction().replace(R.id.container_body, new AppointementsFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break ;
+            case "notification":
+                fragmentManager.beginTransaction().replace(R.id.container_body, new NotificationsFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break ;
         }
     }
 

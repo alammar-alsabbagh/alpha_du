@@ -31,128 +31,49 @@
             android:src="@drawable/yellow_nocker" />
 
 
+        <FrameLayout
+            android:id="@+id/container_body"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-        <RelativeLayout
-            android:id="@+id/notification"
+        <LinearLayout
+            android:id="@+id/main_notification_items"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp">
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true">
 
-            <RelativeLayout
-                android:id="@+id/notification_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp">
-
-                <Button
-                    android:id="@+id/notification1"
-                    android:layout_width="30dp"
-                    android:layout_height="33dp"
-                    android:background="@drawable/notification" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/badge_notification_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@id/notification_layout"
-                android:background="@drawable/badge_item_count"
-                android:text="2"
-                android:textColor="#FFF"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/message"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginRight="@dimen/toolbar_margin"
-            android:layout_toLeftOf="@id/notification">
-
-            <RelativeLayout
-                android:id="@+id/message_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                >
-
-                <Button
-                    android:id="@+id/message1"
-                    android:layout_width="36dp"
-                    android:layout_height="24dp"
-                    android:background="@drawable/message" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/badge_message_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@id/message_layout"
-                android:background="@drawable/badge_item_count"
-                android:text="2"
-                android:textColor="#FFF"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/aptmnts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/toolbar_margin"
-            android:layout_toLeftOf="@id/message">
-
-            <RelativeLayout
-                android:id="@+id/aptmnts_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
-
-                <Button
-                    android:id="@+id/aptmnts1"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/appointement" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/badge_aptmnts_1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignRight="@id/aptmnts_layout"
-                android:background="@drawable/badge_item_count"
-                android:text="2"
-                android:textColor="#FFF"
-                android:textSize="10sp"
-                android:textStyle="bold" />
-        </RelativeLayout>
+            <include
+                android:id="@+id/notification_items"
+                layout="@layout/notification_items" />
+        </LinearLayout>
 
 
-       <!-- <ImageView
-            android:id="@+id/notification"
-            android:layout_width="@dimen/toolbar_dimen"
-            android:layout_height="@dimen/toolbar_dimen"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_notification_menu" />
+        <!-- <ImageView
+             android:id="@+id/notification"
+             android:layout_width="@dimen/toolbar_dimen"
+             android:layout_height="@dimen/toolbar_dimen"
+             android:layout_alignParentRight="true"
+             android:layout_marginRight="10dp"
+             android:src="@drawable/ic_notification_menu" />
 
-        <ImageView
-            android:id="@+id/message"
-            android:layout_width="@dimen/toolbar_dimen"
-            android:layout_height="@dimen/toolbar_dimen"
-            android:layout_marginRight="@dimen/toolbar_margin"
-            android:layout_toLeftOf="@id/notification"
-            android:src="@drawable/message" />
+         <ImageView
+             android:id="@+id/message"
+             android:layout_width="@dimen/toolbar_dimen"
+             android:layout_height="@dimen/toolbar_dimen"
+             android:layout_marginRight="@dimen/toolbar_margin"
+             android:layout_toLeftOf="@id/notification"
+             android:src="@drawable/message" />
 
-        <ImageView
-            android:id="@+id/aptmnts"
-            android:layout_width="@dimen/toolbar_dimen"
-            android:layout_height="@dimen/toolbar_dimen"
-            android:layout_marginRight="@dimen/toolbar_margin"
-            android:layout_toLeftOf="@id/message"
-            android:src="@drawable/appointement" />-->
+         <ImageView
+             android:id="@+id/aptmnts"
+             android:layout_width="@dimen/toolbar_dimen"
+             android:layout_height="@dimen/toolbar_dimen"
+             android:layout_marginRight="@dimen/toolbar_margin"
+             android:layout_toLeftOf="@id/message"
+             android:src="@drawable/appointement" />-->
 
     </RelativeLayout>
 

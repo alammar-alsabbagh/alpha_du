@@ -34,7 +34,7 @@ public class BroadCastJoinActivity extends AppCompatActivity {
     LinearLayout Whole_btn;
     TextView t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11;
     ContactsDb mContactsDb;
-    EditText editText;
+    EditText editText,pass;
     ImageView pp;
     Spinner emailSpinner;
     ImageView six,three,one;
@@ -64,6 +64,7 @@ public class BroadCastJoinActivity extends AppCompatActivity {
         t10 = (TextView) findViewById(R.id.t10);
         t11 = (TextView) findViewById(R.id.t11);
         editText = (EditText) findViewById(R.id.email);
+        pass = (EditText) findViewById(R.id.passw) ;
         Typeface typface = Typeface.createFromAsset(getAssets(), "fonts/font1.ttf");
         Typeface bold = Typeface.createFromAsset(getAssets(), "fonts/font3.ttf");
 
@@ -76,6 +77,7 @@ public class BroadCastJoinActivity extends AppCompatActivity {
         t7.setTypeface(bold);
         t8.setTypeface(typface);
         editText.setTypeface(typface);
+        pass.setTypeface(typface);
         final SessionManager sessionManager = new SessionManager(this);
         t2.setText(new String("Your"));
         t7.setText(sessionManager.getFName()+" "+sessionManager.getLName());

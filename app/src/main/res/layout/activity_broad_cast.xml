@@ -5,66 +5,6 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
   >
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical"
-        android:layout_below="@+id/thing"
-        android:layout_marginBottom="40dp"
-        android:layout_above="@+id/wholething">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Gift extra months"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="@dimen/large_text" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="One-time payment no automatic renewal"
-            android:textStyle="bold"
-            android:textColor="#838383"
-            android:textSize="@dimen/forty" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:gravity="center" >
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="110dp"
-                android:src="@drawable/sixmonths"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:id="@+id/six" />
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="104dp"
-                android:src="@drawable/threemonths"
-                android:layout_marginRight="10dp"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:id="@+id/three" />
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="104dp"
-                android:src="@drawable/onemonth"
-                android:layout_gravity="bottom"
-                android:layout_weight="1"
-                android:id="@+id/one" />
-        </LinearLayout>
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/text"
@@ -380,6 +320,67 @@
 
         </LinearLayout>
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="38dp"
+        android:layout_above="@+id/wholething"
+        android:layout_alignStart="@+id/wholething">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gift extra months"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:textSize="@dimen/large_text" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="One-time payment no automatic renewal"
+            android:textStyle="bold"
+            android:textColor="#838383"
+            android:textSize="@dimen/forty" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="110dp"
+                android:src="@drawable/sixmonths"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:id="@+id/six" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="104dp"
+                android:src="@drawable/threemonths"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:id="@+id/three" />
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="104dp"
+                android:src="@drawable/onemonth"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:id="@+id/one" />
+        </LinearLayout>
     </LinearLayout>
 
 
