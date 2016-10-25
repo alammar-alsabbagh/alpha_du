@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:background="@color/colorPrimary">
 
     <TextView
         android:id="@+id/appointment_row_nothingschedule"
@@ -32,36 +33,30 @@
     <LinearLayout
         android:id="@+id/appointment_row_layout"
         style="@style/HorizontalLayout"
-        android:background="@color/app_yellow"
+        android:background="@color/colorPrimary"
 
         >
 
         <LinearLayout style="@style/ApptTimeContainer">
 
             <TextView
-                android:id="@+id/appointment_row_time"
+                android:id="@+id/appointment_row_date"
                 style="@style/ApptTime"
                 android:gravity="center"
                 android:paddingLeft="15dp"
                 android:text="Jun 30"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/white"
                 />
 
             <TextView
-                android:id="@+id/appointment_row_session"
+                android:id="@+id/appointment_row_time"
                 style="@style/ApptTime"
                 android:layout_marginTop="2dp"
                 android:paddingLeft="15dp"
                 android:text="12:30 AM"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/white"
                 />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/appointment_row_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/appt_vr_line" />
 
         <LinearLayout style="@style/ApptServiceContainer"
             android:layout_gravity="center">
@@ -71,12 +66,12 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/appointment_row_customer_name"
+                    android:id="@+id/appointment_row_skill"
                     style="@style/ApptServiceName"
                     android:ellipsize="middle"
                     android:maxLines="1"
                     android:text="Rat Rail Removal"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -100,12 +95,12 @@
                     style="@style/ApptServicePrice"
                     android:paddingLeft="5dp"
                     android:text="$20.00"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textStyle="bold"
                     android:visibility="visible" />
 
                 <TextView
-                    android:id="@+id/appointment_row_service_name"
+                    android:id="@+id/appointment_row_nocker_name"
                     style="@style/ApptStaffName"
                     android:layout_width="match_parent"
                     android:layout_alignParentLeft="true"
@@ -113,7 +108,7 @@
                     android:ellipsize="marquee"
                     android:singleLine="true"
                     android:text="Scott Drake"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/white"
                     android:textSize="13sp"
                     android:textStyle="bold" />
             </RelativeLayout>

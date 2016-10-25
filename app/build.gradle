@@ -93,5 +93,7 @@ dependencies {
     compile 'com.mikepenz:fontawesome-typeface:4.6.0.3@aar'
     compile 'com.mikepenz:iconics-core:2.8.0@aar'
     compile 'com.facebook.android:facebook-android-sdk:4.+'
+    compile 'com.github.AAkira:ExpandableLayout:v1.6.0'
+
     testCompile 'junit:junit:4.12'
 }
