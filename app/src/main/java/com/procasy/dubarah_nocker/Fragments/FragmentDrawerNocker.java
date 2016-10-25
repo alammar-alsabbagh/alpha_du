@@ -86,7 +86,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
             case R.id.editProfile:
                 mCommChListner.setCommunication(getString(R.string.str114));
                 break;
-            case R.id.notification_items:
+            case R.id.message1:
                 mCommChListner.setCommunication("message");
                 break;
             case R.id.aptmnts1:
