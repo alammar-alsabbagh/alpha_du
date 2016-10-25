@@ -29,6 +29,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.procasy.dubarah_nocker.API.APIinterface;
@@ -91,6 +92,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
 
+        FacebookSdk.sdkInitialize(getApplicationContext());
         message = (Button) mtoolbar.findViewById(R.id.message1);
         notification = (Button) mtoolbar.findViewById(R.id.notification1);
        appoitements =  (Button)mtoolbar.findViewById(R.id.aptmnts1);
@@ -158,20 +160,27 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             @Override
             public void onResponse(Call<InfoNockerResponse> call, Response<InfoNockerResponse> response) {
                 //     System.out.println(response.body().getUser().toString());
+                try {
+                    sessionManager.setEmail(response.body().getUser().getUser_email());
+                    sessionManager.setFName(response.body().getUser().getUser_fname());
+                    sessionManager.setLName(response.body().getUser().getUser_lname());
+                    sessionManager.setPP(response.body().getUser().getUser_img());
+                    sessionManager.setAVG(response.body().getAvg_charge());
+                    sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
+                    Log.d("nocker_data", response.body().toString() + "");
 
-                sessionManager.setEmail(response.body().getUser().getUser_email());
-                sessionManager.setFName(response.body().getUser().getUser_fname());
-                sessionManager.setLName(response.body().getUser().getUser_lname());
-                sessionManager.setPP(response.body().getUser().getUser_img());
-                sessionManager.setAVG(response.body().getAvg_charge());
-                sessionManager.setKeyIsNocker(response.body().getUser().is_nocker());
-                Log.d("nocker_data", response.body().toString() + "");
 
+                    Log.e("user_img", sessionManager.getPP() + " ff");
 
-                Log.e("user_img", sessionManager.getPP() + " ff");
-
-                if (dialog.isShowing())
-                    dialog.dismiss();
+                    if (dialog.isShowing())
+                        dialog.dismiss();
+                }catch(NullPointerException ex)
+                {
+                    sessionManager.setEmail("");
+                    sessionManager.setPassword("");
+                    sessionManager.setLogin(false);
+                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                }
             }
 
             @Override
