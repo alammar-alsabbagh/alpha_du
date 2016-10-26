@@ -85,9 +85,9 @@ public class MainInfoJoinActivity extends AppCompatActivity implements Validator
         province.setTypeface(typface);
         birthyear.setTypeface(typface);
         phonenumber.setTypeface(typface);
-        country.setText("Syria");
-        city.setText("Damascus");
-        province.setText("Midan");
+//        country.setText("Syria");
+//        city.setText("Damascus");
+//        province.setText("Midan");
         firstname.setText(sessionManager.getFName());
         lastname.setText(sessionManager.getLName());
         final Validator validator = new Validator(this);

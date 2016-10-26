@@ -196,13 +196,13 @@ public class FourthScreenJoinActivity extends AppCompatActivity implements Valid
     }
 
     private void Fill_Radiogroup() {
+        radioGroup = (RadioGroup) findViewById(R.id.radgroup1);
         for (int i = 0; i < data.size(); i++) {
             final RadioButton rad = new RadioButton(getApplicationContext());
             rad.setButtonDrawable(R.drawable.apptheme_btn_radio_holo_light);
             rad.setChecked(false);
             rad.setText(data.get(i).name);
             rad.setTextColor(getResources().getColor(R.color.intercomsdk_center_white));
-            radioGroup = (RadioGroup) findViewById(R.id.radgroup1);
             rad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

@@ -78,7 +78,7 @@ public class FourthScreenActivity extends AppCompatActivity implements Validator
     protected void onCreate(Bundle savedInstanceState) {
         System.out.println("I'm Fourth screen avtivity ");
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fourth_screen);
+        setContentView(R.layout.test_fourthscreen);
         Bundle bundle = getIntent().getExtras();
         mLanguages = new Language(this);
         next_btn = (LinearLayout) findViewById(R.id.next_btn);
@@ -207,12 +207,13 @@ validator.validate();
 
     private void Fill_Radiogroup() {
         for (int i = 0; i < data.size(); i++) {
+            radioGroup = (RadioGroup) findViewById(R.id.radgroup2);
             final RadioButton rad = new RadioButton(getApplicationContext());
             rad.setButtonDrawable(R.drawable.apptheme_btn_radio_holo_light);
             rad.setChecked(false);
             rad.setText(data.get(i).name);
             rad.setTextColor(getResources().getColor(R.color.intercomsdk_center_white));
-            radioGroup = (RadioGroup) findViewById(R.id.radgroup1);
+
             rad.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
