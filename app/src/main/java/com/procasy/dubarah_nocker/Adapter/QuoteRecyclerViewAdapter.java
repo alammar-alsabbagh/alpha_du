@@ -1,12 +1,7 @@
 package com.procasy.dubarah_nocker.Adapter;
 
-/**
- * Created by Omar on 10/25/2016.
- */
-
-
-import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -21,16 +16,20 @@ import com.github.aakira.expandablelayout.Utils;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.ItemModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created by Omar on 10/25/2016.
+ */
 
-public class RecyclerViewRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewRecyclerAdapter.ViewHolder> {
+public class QuoteRecyclerViewAdapter  extends RecyclerView.Adapter<QuoteRecyclerViewAdapter.ViewHolder> {
 
     private final List<ItemModel> data;
     private Context context;
     private SparseBooleanArray expandState = new SparseBooleanArray();
 
-    public RecyclerViewRecyclerAdapter(final List<ItemModel> data) {
+    public QuoteRecyclerViewAdapter(final List<ItemModel> data) {
         this.data = data;
         for (int i = 0; i < data.size(); i++) {
             expandState.append(i, false);
@@ -38,16 +37,22 @@ public class RecyclerViewRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
+    public QuoteRecyclerViewAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         this.context = parent.getContext();
-        return new ViewHolder(LayoutInflater.from(context)
-                .inflate(R.layout.quota_item, parent, false));
+        return new QuoteRecyclerViewAdapter.ViewHolder(LayoutInflater.from(context)
+                .inflate(R.layout.help_group, parent, false));
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position) {
+    public void onBindViewHolder(final QuoteRecyclerViewAdapter.ViewHolder holder, final int position) {
         final ItemModel item = data.get(position);
         holder.setIsRecyclable(false);
+        final List<ItemModel> data = new ArrayList<>();
+        data.add(new ItemModel(
+                "0 ACCELERATE_DECELERATE_INTERPOLATOR",
+                Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR)));
+        holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        holder.recyclerView.setAdapter(new RecyclerViewRecyclerAdapter(data));
         holder.expandableLayout.setInRecyclerView(true);
         holder.expandableLayout.setInterpolator(item.interpolator);
         holder.expandableLayout.setExpanded(expandState.get(position));
@@ -63,7 +68,7 @@ public class RecyclerViewRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
             }
         });
 
-      //  holder.buttonLayout.setRotation(expandState.get(position) ? 180f : 0f);
+        //  holder.buttonLayout.setRotation(expandState.get(position) ? 180f : 0f);
         holder.buttonLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -89,18 +94,15 @@ public class RecyclerViewRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
          * The ExpandableRelativeLayout doesn't work.
          */
         public ExpandableLinearLayout expandableLayout;
+        public RecyclerView recyclerView;
 
         public ViewHolder(View v) {
             super(v);
             buttonLayout = (LinearLayout) v.findViewById(R.id.button);
             expandableLayout = (ExpandableLinearLayout) v.findViewById(R.id.expandableLayout);
+            recyclerView = (RecyclerView) v.findViewById(R.id.quota_list);
+
         }
     }
 
-    public ObjectAnimator createRotateAnimator(final View target, final float from, final float to) {
-        ObjectAnimator animator = ObjectAnimator.ofFloat(target, "rotation", from, to);
-        animator.setDuration(300);
-        animator.setInterpolator(Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR));
-        return animator;
-    }
 }
