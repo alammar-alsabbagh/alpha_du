@@ -210,6 +210,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
                 super.onDrawerSlide(drawerView, slideOffset);
                 toolbar.setAlpha(1 - slideOffset / 2);
             }
+
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);

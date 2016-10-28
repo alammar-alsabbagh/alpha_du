@@ -277,8 +277,10 @@ public class SplashScreenActivity extends Activity {
         printKeyHash(SplashScreenActivity.this);
 
         SessionManager sessionManager = new SessionManager(getApplicationContext());
-        if(sessionManager.isLoggedIn())
+        if(sessionManager.isLoggedIn()) {
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            //finish();
+        }
         else {
             final Handler handler = new Handler();
             handler.postDelayed(new Runnable() {

@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -83,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
     Button login;
     TextView description;
-
+    TextInputLayout email,pass;
     @NotEmpty
     @Email
     EditText Email;
@@ -106,13 +107,23 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
     TextView fpassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Typeface typface = Typeface.createFromAsset(getAssets(), "fonts/font1.ttf");
+        email = (TextInputLayout) findViewById(R.id.username_text_input_layout);
+        email.setTypeface(typface);
+        pass = (TextInputLayout) findViewById(R.id.password_text_input_layout);
+        pass.setTypeface(typface);
+
         LinkIDwithViews();
 
         sessionManager = new SessionManager(this);
-        if (sessionManager.isLoggedIn())
+        if (sessionManager.isLoggedIn() ){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
+            finish();
+        }
 
         apiService =
                 ApiClass.getClient().create(APIinterface.class);
@@ -186,6 +197,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                                                         sessionManager.setUDID(UDID);
                                                         sessionManager.setKeyIsSocial(1);
                                                         startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                                        finish();
                                                     }else if(response.body().getStatus() == 2)
                                                     {
                                                         sessionManager.setEmail(Email);
@@ -539,6 +551,7 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
                         sessionManager.setUDID(UDID);
                        sessionManager.setKeyIsSocial(1);
                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                       finish();
                     }else if(response.body().getStatus() == 2)
                     {
                         sessionManager.setEmail(acct.getEmail());

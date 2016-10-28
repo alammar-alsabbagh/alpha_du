@@ -91,12 +91,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
 
         FacebookSdk.sdkInitialize(getApplicationContext());
-        notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
+        notification_items = (LinearLayout) mtoolbar.findViewById(R.id.main_notification_items);
         message = (Button) notification_items.findViewById(R.id.message1);
         notification = (Button) notification_items.findViewById(R.id.notification1);
         appoitements = (Button) notification_items.findViewById(R.id.aptmnts1);
@@ -118,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             public void onClick(View v) {
                 System.out.println("here");
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.container_body, new MessagesFragment()).addToBackStack( "tag" ).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new MessagesFragment()).addToBackStack("tag").commit();
             }
         });
 
@@ -126,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             @Override
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.container_body, new AppointementsFragment()).addToBackStack( "tag" ).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new AppointementsFragment()).addToBackStack("tag").commit();
             }
         });
 
@@ -135,7 +136,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             public void onClick(View v) {
                 System.out.println("here");
                 FragmentManager fragmentManager = getSupportFragmentManager();
-                fragmentManager.beginTransaction().add(R.id.container_body, new NotificationsFragment()).addToBackStack( "tag" ).commit();
+                fragmentManager.beginTransaction().add(R.id.container_body, new NotificationsFragment()).addToBackStack("tag").commit();
             }
         });
 
@@ -178,12 +179,11 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
                     if (dialog.isShowing())
                         dialog.dismiss();
-                }catch(NullPointerException ex)
-                {
+                } catch (NullPointerException ex) {
                     sessionManager.setEmail("");
                     sessionManager.setPassword("");
                     sessionManager.setLogin(false);
-                    startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
                 }
             }
 
@@ -458,24 +458,24 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     @Override
     public void setCommunication(String msg) {
         FragmentManager fragmentManager = getSupportFragmentManager();
-        DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+       // DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         switch (msg) {
             case "activateSub":
                 fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
-                drawerLayout.closeDrawer(GravityCompat.START);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "myShop":
                 startActivity(new Intent(getApplicationContext(), MyProfileActivity.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "promotion":
                 fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
-                drawerLayout.closeDrawer(GravityCompat.START);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "help":
                 fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
-                drawerLayout.closeDrawer(GravityCompat.START);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 sessionManager.setEmail("");
                 sessionManager.setPassword("");
                 sessionManager.setLogin(false);
@@ -483,26 +483,26 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 break;
             case "settings":
                 fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
-                drawerLayout.closeDrawer(GravityCompat.START);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
             case "editProfile":
                 startActivity(new Intent(getApplicationContext(), EditProfileActivtiy.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
+                mDrawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
             case "message":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new MessagesFragment()).commit();
-                drawerLayout.closeDrawer(GravityCompat.START);
+                fragmentManager.beginTransaction().replace(R.id.container_body, new MessagesFragment()).addToBackStack("tag").commit();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case"appoitement":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new AppointementsFragment()).commit();
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break ;
+            case "appoitement":
+                fragmentManager.beginTransaction().replace(R.id.container_body, new AppointementsFragment()).addToBackStack("tag").commit();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                break;
             case "notification":
-                fragmentManager.beginTransaction().replace(R.id.container_body, new NotificationsFragment()).commit();
-                drawerLayout.closeDrawer(GravityCompat.START);
-                break ;
+                fragmentManager.beginTransaction().add(R.id.container_body, new NotificationsFragment()).addToBackStack("tag").commit();
+                mDrawerLayout.closeDrawer(GravityCompat.START);
+                break;
         }
     }
 
@@ -526,10 +526,25 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
     @Override
     public void onBackPressed() {
-        if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
-        } else {
-            super.onBackPressed();
+        //  System.out.println(getFragmentManager().getBackStackEntryCount());
+
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START))
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        else
+        {
+            if (getSupportFragmentManager().getBackStackEntryCount() == 0 ){
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            else
+                super.onBackPressed();
+
+
+
+
         }
+
     }
 }
