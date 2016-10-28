@@ -120,7 +120,16 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
 updateNotification();
 
-
+        int off = 0;
+        try {
+            off = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
+        } catch (Settings.SettingNotFoundException e) {
+            e.printStackTrace();
+        }
+        if(off==0){
+            Intent onGPS = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(onGPS);
+        }
 
 
 

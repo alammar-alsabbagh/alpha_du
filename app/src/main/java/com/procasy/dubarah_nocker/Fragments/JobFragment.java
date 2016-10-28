@@ -77,20 +77,25 @@ public class JobFragment extends Fragment {
             @Override
             public void onResponse(Call<ResponseJob> call, Response<ResponseJob> response) {
                 System.out.println(response.body().toString());
-                if(response.body().getJobs().size() > 0)
+                try {
+                    if (response.body().getJobs().size() > 0) {
+                        refreshLayout.setVisibility(View.VISIBLE);
+                        textView.setVisibility(View.GONE);
+                    }
+
+                    adapter = new JobAdapter(getActivity(), response.body().getJobs());
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setAdapter(adapter);
+                    refreshLayout.setRefreshing(false);
+
+
+                    ConnectionsConstants.JobsDataIsLoaded = true;
+                }catch(NullPointerException e)
                 {
-                    refreshLayout.setVisibility(View.VISIBLE);
-                    textView.setVisibility(View.GONE);
+                    e.printStackTrace();
                 }
-                adapter = new JobAdapter(getActivity(), response.body().getJobs());
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setAdapter(adapter);
-                refreshLayout.setRefreshing(false);
-
-
-                ConnectionsConstants.JobsDataIsLoaded = true;
 //                dialog.dismiss();
             }
 

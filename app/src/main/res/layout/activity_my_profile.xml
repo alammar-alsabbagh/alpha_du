@@ -39,6 +39,16 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/drawable_photo" />
 
+
+                <TextView
+                    android:id="@+id/skillsman_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="Omar Sabbagh"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
                 <TextView
                     android:id="@+id/skillsman_promo"
                     android:layout_width="match_parent"
@@ -50,7 +60,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/skillsman_skills"
+                    android:id="@+id/skillsman_skill"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"

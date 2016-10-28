@@ -51,7 +51,7 @@ public class OtherProfileActivity extends AppCompatActivity {
     CircleImageView imguser;
     AboutController aboutController;
     SkillsController skillsController;
-    TextView avg_charge;
+    TextView avg_charge , skillsman_name , skillsman_promo , skillsman_skill;
     Context mContext;
     FragmentAbout tab1 = new FragmentAbout();
     FragmentTestimonials tab3 = new FragmentTestimonials();
@@ -76,6 +76,10 @@ public class OtherProfileActivity extends AppCompatActivity {
 
 
         avg_charge = (TextView) findViewById(R.id.avg_charge);
+        skillsman_name = (TextView) findViewById(R.id.skillsman_name);
+        skillsman_promo = (TextView) findViewById(R.id.skillsman_promo);
+        skillsman_skill = (TextView) findViewById(R.id.skillsman_skill);
+
         imguser = (CircleImageView) findViewById(R.id.user_img);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -92,7 +96,7 @@ public class OtherProfileActivity extends AppCompatActivity {
 
         // Log.e("Nocke_Email", getIntent().getExtras().getString(NOCKER_EMAIL));
 
-        getSupportActionBar().setTitle(getIntent().getExtras().getString(NOCKER_NAME));
+        getSupportActionBar().setTitle("");
 
 
         CollapsingToolbarLayout collapsingToolbar =
@@ -129,6 +133,22 @@ public class OtherProfileActivity extends AppCompatActivity {
 
 
                 avg_charge.setText(response.body().getAvg_charge() + "");
+                skillsman_name.setText(response.body().getUser().getUser_fname() + " "+response.body().getUser().getUser_lname() );
+                skillsman_promo.setText("nockerapp.com/"+response.body().getUser().getUser_promo());
+                String skills = "" ;
+                if(response.body().getSkills().size() > 1) {
+                    skills += response.body().getSkills().get(0).getSkill_name();
+                    skills += " , ";
+                    skills += response.body().getSkills().get(1).getSkill_name();
+                    skillsman_skill.setText(skills);
+                }else if (response.body().getSkills().size() == 1)
+                {
+                    skills += response.body().getSkills().get(0).getSkill_name();
+                    skillsman_skill.setText(skills);
+
+                } else {
+                    skillsman_skill.setText("");
+                }
                 skillsController.onAdapterUpdated(response.body().getSkills());
                 testimonialsController.UpdateAdapter(response.body().getTestimonials());
                 Log.e("fname", response.body().getUser().getUser_fname());

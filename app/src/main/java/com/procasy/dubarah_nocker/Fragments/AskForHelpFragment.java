@@ -2,6 +2,7 @@ package com.procasy.dubarah_nocker.Fragments;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -71,6 +72,8 @@ public class AskForHelpFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 
+    MediaRecorder recorder;
+    File audiofile = null;
     ImageView img1, img2, img3;
     private int REQUEST_CAMERA = 0, SELECT_FILE = 1;
     ImageView take, browse;
@@ -103,15 +106,7 @@ public class AskForHelpFragment extends Fragment {
     }
 
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AskForHelpFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static AskForHelpFragment newInstance(String param1, String param2) {
         AskForHelpFragment fragment = new AskForHelpFragment();
         Bundle args = new Bundle();
@@ -185,7 +180,7 @@ public class AskForHelpFragment extends Fragment {
         mlanguage = new Language(getActivity());
         where = (Button) view.findViewById(R.id.where);
         progressBar = (ProgressBar) view.findViewById(R.id.progress);
-        progressBar.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.GONE);
 
         reord = (ImageView) view.findViewById(R.id.record_sound);
         start = (ImageView) view.findViewById(R.id.start_record);
@@ -349,16 +344,7 @@ public class AskForHelpFragment extends Fragment {
                         try {
 
                             try {
-
-                                outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + System.currentTimeMillis() + ".3gp";
-                                myAudioRecorder = new MediaRecorder();
-                                myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                                myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                                myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-                                myAudioRecorder.setOutputFile(outputFile);
-
-                                myAudioRecorder.prepare();
-                                myAudioRecorder.start();
+                              startRecording();
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -377,15 +363,7 @@ public class AskForHelpFragment extends Fragment {
 
                         try {
 
-                            outputFile = Environment.getExternalStorageDirectory().getAbsolutePath() + System.currentTimeMillis() + ".3gp";
-                            myAudioRecorder = new MediaRecorder();
-                            myAudioRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-                            myAudioRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
-                            myAudioRecorder.setAudioEncoder(MediaRecorder.OutputFormat.AMR_NB);
-                            myAudioRecorder.setOutputFile(outputFile);
-
-                            myAudioRecorder.prepare();
-                            myAudioRecorder.start();
+                        startRecording();
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -408,20 +386,16 @@ public class AskForHelpFragment extends Fragment {
                         @Override
                         public void onClick(View v) {
                             try {
-                                myAudioRecorder.stop();
-                                myAudioRecorder.reset();
-                                myAudioRecorder.release();
-                                myAudioRecorder = null;
-                                stop.setEnabled(false);
-                                start.setEnabled(true);
-                                progressBar.setVisibility(View.INVISIBLE);
-                                Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
+                          stopRecording();
                             }catch (Exception e)
                             {
                                 e.printStackTrace();
                             }
+                            Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
+
                         }
                     }
+
                 );
 
         start.setOnClickListener(new View.OnClickListener() {
@@ -430,7 +404,7 @@ public class AskForHelpFragment extends Fragment {
                 MediaPlayer m = new MediaPlayer();
 
                 try {
-                    m.setDataSource(outputFile);
+                    m.setDataSource(audiofile.getPath());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -442,8 +416,6 @@ public class AskForHelpFragment extends Fragment {
                 }
 
                 m.start();
-                progressBar.setVisibility(View.VISIBLE);
-                Toast.makeText(getActivity(), getString(R.string.str107), Toast.LENGTH_LONG).show();
             }
         });
 
@@ -462,7 +434,6 @@ public class AskForHelpFragment extends Fragment {
                     e.printStackTrace();
                 }
 
-                //startActivityForResult(new Intent(getActivity(), MapsActivity.class),1);
 
             }
         });
@@ -577,16 +548,13 @@ public class AskForHelpFragment extends Fragment {
                              language.setAdapter(adapter2);
                              mskills.close();
                              mlanguage.close();
-//
-//                             if (dialog.isShowing())
-//                                 dialog.dismiss();
+
                          }
 
                          @Override
                          public void onFailure(Call<AllSkillsAndLanguageResponse> call, Throwable t) {
                              System.out.println("ERROR 2" + t.toString());
-//                             if (dialog.isShowing())
-//                                 dialog.dismiss();
+
                          }
 
                      }
@@ -602,35 +570,52 @@ public class AskForHelpFragment extends Fragment {
         startActivityForResult(intent, REQUEST_CAMERA);
     }
 
+    public void startRecording() throws IOException {
+
+        reord.setEnabled(false);
+        stop.setEnabled(true);
+
+        File sampleDir = Environment.getExternalStorageDirectory();
+        try {
+            audiofile = File.createTempFile("sound", ".3gp", sampleDir);
+        } catch (IOException e) {
+            Log.e("ERROR", "sdcard access error");
+            return;
+        }
+        recorder = new MediaRecorder();
+        recorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        recorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        recorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        recorder.setOutputFile(audiofile.getAbsolutePath());
+        recorder.prepare();
+        recorder.start();
+    }
+
+    public void stopRecording() {
+        start.setEnabled(true);
+        stop.setEnabled(false);
+        recorder.stop();
+        recorder.release();
+        progressBar.setVisibility(View.GONE);
+        addRecordingToMediaLibrary();
+    }
+
+    protected void addRecordingToMediaLibrary() {
+        ContentValues values = new ContentValues(4);
+        long current = System.currentTimeMillis();
+        values.put(MediaStore.Audio.Media.TITLE, "audio" + audiofile.getName());
+        values.put(MediaStore.Audio.Media.DATE_ADDED, (int) (current / 1000));
+        values.put(MediaStore.Audio.Media.MIME_TYPE, "audio/3gpp");
+        values.put(MediaStore.Audio.Media.DATA, audiofile.getAbsolutePath());
+        ContentResolver contentResolver = getContext().getContentResolver();
+
+        Uri base = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
+        Uri newUri = contentResolver.insert(base, values);
+
+        Log.e("TAG", "Added File " + newUri);
+    }
 
     private void galleryIntent() {
-
-/*
-        try {
-
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            // indicate image type and Uri
-            // set crop properties
-            cropIntent.putExtra("crop", "true");
-            // indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            // indicate output X and Y
-            cropIntent.putExtra("outputX", 128);
-            cropIntent.putExtra("outputY", 128);
-            // retrieve data on return
-            cropIntent.putExtra("return-data", true);
-            // start the activity - we handle returning in onActivityResult
-            startActivityForResult(cropIntent,1);
-        }
-        // respond to users whose devices do not support the crop action
-        catch (ActivityNotFoundException anfe) {
-            // display an error message
-            String errorMessage = "Whoops - your device doesn't support the crop action!";
-            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
-            toast.show();
-        }*/
-
 
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -825,10 +810,10 @@ public class AskForHelpFragment extends Fragment {
 
         MultipartBody.Part body_voice, body_img1, body_img2, body_img3;
 
-        if (outputFile.equals("")) {
+        if (audiofile.getPath().equals("")) {
             voice_file = null;
         } else {
-            voice_file = new File(outputFile);
+            voice_file = new File(audiofile.getPath());
         }
 
 

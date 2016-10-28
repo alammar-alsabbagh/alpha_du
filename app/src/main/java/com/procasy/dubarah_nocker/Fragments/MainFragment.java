@@ -67,18 +67,23 @@ public class MainFragment extends Fragment {
         final PagerAdapter adapter = new PageAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
-                tabLayout.getTabAt(0).setText(getString(R.string.str116));
-                tabLayout.getTabAt(1).setText(getString(R.string.str117));
-                tabLayout.getTabAt(2).setText(getString(R.string.str118));
-                tabLayout.getTabAt(3).setText(getString(R.string.str119));
+        try {
+            tabLayout.post(new Runnable() {
+                @Override
+                public void run() {
+                    tabLayout.setupWithViewPager(viewPager);
+                    tabLayout.getTabAt(0).setText(getString(R.string.str116));
+                    tabLayout.getTabAt(1).setText(getString(R.string.str117));
+                    tabLayout.getTabAt(2).setText(getString(R.string.str118));
+                    tabLayout.getTabAt(3).setText(getString(R.string.str119));
 
 
-            }
-        });
+                }
+            });
+        }catch (IllegalStateException e)
+        {
+            e.printStackTrace();
+        }
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
