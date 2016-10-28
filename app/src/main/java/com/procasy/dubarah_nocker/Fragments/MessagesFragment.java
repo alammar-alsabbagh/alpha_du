@@ -22,7 +22,6 @@ import java.util.List;
 public class MessagesFragment extends Fragment {
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +59,8 @@ public class MessagesFragment extends Fragment {
         super.onAttach(context);
 
     }
+
+
 
     @Override
     public void onDetach() {

@@ -1,6 +1,7 @@
 package com.procasy.dubarah_nocker.Fragments;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,22 +15,26 @@ import com.procasy.dubarah_nocker.Model.Notification;
 import com.procasy.dubarah_nocker.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NotificationsFragment extends Fragment {
 
     public RecyclerView notificationsRecyclerView;
-    public NotificationAdapter adapter;
+    public static NotificationAdapter adapter;
+    com.procasy.dubarah_nocker.Helper.Notification mNotification;
 
 
 
     public NotificationsFragment() {
+
     }
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mNotification = new com.procasy.dubarah_nocker.Helper.Notification(getContext());
 
     }
 
@@ -39,22 +44,12 @@ public class NotificationsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_notifications, container, false);
         List<Notification> notificationList = new ArrayList<>();
-        Notification n1 = new Notification("New Update","Master New Version is coming soon","SYSTEM","");
-        Notification n2 = new Notification("New Update","Master New Version is coming soon","SYSTEM","");
-        Notification n3 = new Notification("New Update","Master New Version is coming soon","SYSTEM","");
-        Notification n4 = new Notification("New Update","Master New Version is coming soon","SYSTEM","");
-        Notification n5 = new Notification("New Update","Master New Version is coming soon","SYSTEM","");
-
-        notificationList.add(n1);
-        notificationList.add(n2);
-        notificationList.add(n3);
-        notificationList.add(n4);
-        notificationList.add(n5);
+        notificationList = GetNotifications();
 
         notificationsRecyclerView = (RecyclerView) view.findViewById(R.id.notification_list);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         notificationsRecyclerView.setLayoutManager(layoutManager);
-        adapter = new NotificationAdapter(notificationList);
+        adapter = new NotificationAdapter(notificationList,getActivity());
         notificationsRecyclerView.setAdapter(adapter);
 
 
@@ -71,6 +66,28 @@ public class NotificationsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+    }
+
+    private List<Notification> GetNotifications() {
+        try {
+            List<Notification> newdata = new ArrayList<>();
+            mNotification.open();
+            Cursor cr = mNotification.getAllEntries();
+            cr.moveToFirst();
+            while (cr.moveToNext()) {
+                Notification notification = new Notification(cr.getInt(0),cr.getString(2),cr.getString(3),cr.getString(1),cr.getString(4), (cr.getInt(5) != 0));
+                System.out.println(notification.toString());
+                newdata.add(notification);
+            }
+            Collections.reverse(newdata);
+            return newdata;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            mNotification.close();
+        }
     }
 
 

@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/online_circle"
                 android:layout_gravity="center"
-                />
+                android:id="@+id/status" />
         </LinearLayout>
 
     </LinearLayout>

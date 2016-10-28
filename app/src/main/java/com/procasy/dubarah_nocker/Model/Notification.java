@@ -10,12 +10,16 @@ public class Notification {
     public String notification_descr;
     public String notification_type;
     public String notification_content;
+    public Boolean Seen;
+    public int notification_id;
 
-    public Notification(String notification_title, String notification_descr, String notification_type, String notification_content) {
+    public Notification(int notification_id ,String notification_title, String notification_descr, String notification_type, String notification_content , Boolean seen) {
         this.notification_title = notification_title;
         this.notification_descr = notification_descr;
         this.notification_type = notification_type;
         this.notification_content = notification_content;
+        this.Seen = seen;
+        this.notification_id = notification_id;
     }
 
     @Override
