@@ -18,19 +18,19 @@ import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
 import com.github.aakira.expandablelayout.ExpandableLinearLayout;
 import com.github.aakira.expandablelayout.Utils;
+import com.procasy.dubarah_nocker.Model.QouteModel;
 import com.procasy.dubarah_nocker.R;
-import com.procasy.dubarah_nocker.Utils.ItemModel;
 
 import java.util.List;
 
 
 public class RecyclerViewRecyclerAdapter extends RecyclerView.Adapter<RecyclerViewRecyclerAdapter.ViewHolder> {
 
-    private final List<ItemModel> data;
+    private final List<QouteModel> data;
     private Context context;
     private SparseBooleanArray expandState = new SparseBooleanArray();
 
-    public RecyclerViewRecyclerAdapter(final List<ItemModel> data) {
+    public RecyclerViewRecyclerAdapter(final List<QouteModel> data) {
         this.data = data;
         for (int i = 0; i < data.size(); i++) {
             expandState.append(i, false);
@@ -46,10 +46,10 @@ public class RecyclerViewRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        final ItemModel item = data.get(position);
+        final QouteModel item = data.get(position);
         holder.setIsRecyclable(false);
         holder.expandableLayout.setInRecyclerView(true);
-        holder.expandableLayout.setInterpolator(item.interpolator);
+        holder.expandableLayout.setInterpolator(Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR));
         holder.expandableLayout.setExpanded(expandState.get(position));
         holder.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
             @Override

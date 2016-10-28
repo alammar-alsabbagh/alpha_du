@@ -9,6 +9,7 @@ import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.ResponseJob;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 import com.procasy.dubarah_nocker.Model.Responses.UserInfoResponse;
+import com.procasy.dubarah_nocker.Model.Responses.UserQoutesResponse;
 import com.procasy.dubarah_nocker.Model.UploadModel;
 
 import org.json.JSONArray;
@@ -164,4 +165,10 @@ public interface APIinterface {
                                     @Field("language") String langauge,
                                     @Field("gender") String gender
     );
+
+
+
+    @FormUrlEncoded
+    @POST("get_user_qoutes")
+    Call<UserQoutesResponse> get_user_qoutes(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id);
 }
