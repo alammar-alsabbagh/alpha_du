@@ -62,6 +62,13 @@ public class SessionManager {
     private static final String KEY_Phonenumber = "Phonenumber";
     private static final String Key_my_subscription = "my_subscription";
 
+
+
+
+    public void RemoveAllData(){
+        editor.clear();
+    }
+
     public SessionManager(Context context) {
         this._context = context;
         pref = _context.getSharedPreferences(PREF_NAME, PRIVATE_MODE);

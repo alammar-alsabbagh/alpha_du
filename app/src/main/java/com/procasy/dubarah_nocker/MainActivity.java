@@ -6,9 +6,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -28,7 +27,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
@@ -44,10 +43,10 @@ import com.procasy.dubarah_nocker.Fragments.FragmentDrawerUser;
 import com.procasy.dubarah_nocker.Fragments.MainFragment;
 import com.procasy.dubarah_nocker.Fragments.MessagesFragment;
 import com.procasy.dubarah_nocker.Fragments.NotificationsFragment;
+import com.procasy.dubarah_nocker.Helper.Notification;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Services.LocationService;
-import com.procasy.dubarah_nocker.UI.BadgeDrawable;
 import com.procasy.dubarah_nocker.gcm.GCMIntentService;
 
 import java.util.List;
@@ -58,14 +57,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel {
+public class MainActivity extends AppCompatActivity implements LocationListener, CommuncationChannel , BadgeInterface {
 
     DrawerLayout mDrawerLayout;
     LinearLayout notification_items;
     private Toolbar mtoolbar;
     private Context mContext;
-    private Button message, appoitements;
-    private Button notification;
+    private static Button message, appoitements;
+    private static Button notification;
     private ImageView drawer;
     // flag for GPS status
     boolean isGPSEnabled = false;
@@ -85,16 +84,22 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     APIinterface apiService;
     SessionManager sessionManager;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    Notification mNotification;
 
     private BroadcastReceiver mRegistrationBroadcastReceiver;
-    private int badgeCount = 10;
+    private static int notificationCount = 0;
+    private static int messagesCount = 0;
+    private static int appointementCount = 0;
 
+
+    TextView MessageBadge , AppointementBadge , NotificationsBadge ;
+    static MainActivity ins;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mtoolbar = (Toolbar) findViewById(R.id.toolbar);
-
+        ins = this;
         FacebookSdk.sdkInitialize(getApplicationContext());
         notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
         message = (Button) notification_items.findViewById(R.id.message1);
@@ -111,6 +116,14 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
+updateNotification();
+
+
+
+
+
+
 
 
         message.setOnClickListener(new View.OnClickListener() {
@@ -142,7 +155,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         sessionManager = new SessionManager(this);
 
 
-        //
 
         if (checkPlayServices()) {
             Log.e("register gcm : ", "GCM");
@@ -150,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         }
 
 
-        //
 
         final ACProgressFlower dialog = new ACProgressFlower.Builder(MainActivity.this)
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
@@ -203,24 +214,6 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             public void onReceive(Context context, Intent intent) {
                 Log.e("onrec", "success");
 
-//
-//                // checking for type intent filter
-//                if (intent.getAction().equals(Config.REGISTRATION_COMPLETE)) {
-//                    // gcm successfully registered
-//                    // now subscribe to `global` topic to receive app wide notifications
-//                    subscribeToGlobalTopic();
-//
-//                } else if (intent.getAction().equals(Config.SENT_TOKEN_TO_SERVER)) {
-//                    // gcm registration id is stored in our server's MySQL
-//                    Log.e(TAG, "GCM registration id is sent to our server");
-//
-//                } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-//                    // new push notification is received
-//                    handlePushNotification(intent);
-//
-//                }
-//
-
             }
 
         };
@@ -242,28 +235,40 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
     }
 
 
-    private void handlePushNotification(Intent intent) {
-        int type = intent.getIntExtra("type", -1);
 
-//        // if the push is of chat room message
-//        // simply update the UI unread messages count
-//        if (type == Config.PUSH_TYPE_CHATROOM) {
-//            Message message = (Message) intent.getSerializableExtra("message");
-//            String chatRoomId = intent.getStringExtra("chat_room_id");
-//
-//            if (message != null && chatRoomId != null) {
-//            }
-//        } else if (type == Config.PUSH_TYPE_USER) {
-//            // push belongs to user alone
-//            // just showing the message in a toast
-//            Message message = (Message) intent.getSerializableExtra("message");
-//            Toast.makeText(getApplicationContext(), "New push: " + message.getMessage(), Toast.LENGTH_LONG).show();
-//        }
-//
-
-
+    public static MainActivity  getInstance(){
+        return ins;
     }
 
+    public void updateNotification() {
+        MainActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                LinearLayout notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
+                TextView NotificationsBadge = (TextView) notification_items.findViewById(R.id.badge_notification_1);
+                mNotification = new Notification(getApplicationContext());
+                mNotification.open();
+                Cursor cursor = mNotification.getNumberOfUnReadNotifications();
+                notificationCount = cursor.getCount();
+                if(notificationCount != 0) {
+                    NotificationsBadge.setVisibility(View.VISIBLE);
+                    NotificationsBadge.setText(notificationCount + "");
+                }
+                else
+                {
+                    NotificationsBadge.setVisibility(View.INVISIBLE);
+                }
+                mNotification.close();
+            }
+        });
+    }
+
+    public static void incrementMessage(){
+        System.out.println("hahahahaah");
+    }
+
+    public static void incrementAppointement(){
+        System.out.println("hahahahaah");
+    }
 
     private void subscribeToGlobalTopic() {
         Intent intent = new Intent(this, GCMIntentService.class);
@@ -480,6 +485,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 sessionManager.setPassword("");
                 sessionManager.setLogin(false);
                 startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
                 break;
             case "settings":
                 fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
@@ -506,6 +512,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         }
     }
 
+/*
     public static void setBadgeCount(Context context, LayerDrawable icon, String count) {
 
         BadgeDrawable badge;
@@ -522,6 +529,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         icon.mutate();
         icon.setDrawableByLayerId(R.id.ic_badge, badge);
     }
+*/
 
 
     @Override
@@ -531,5 +539,10 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
         } else {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void setBadgeCount(int count) {
+        System.out.println("hello world");
     }
 }

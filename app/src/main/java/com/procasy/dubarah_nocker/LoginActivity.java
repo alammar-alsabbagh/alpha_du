@@ -19,6 +19,7 @@ import android.text.Html;
 import android.transition.Fade;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -60,6 +61,7 @@ import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Activity.BeANocker.BeAnockerAcitivty;
 import com.procasy.dubarah_nocker.Activity.JobRequestActivity;
 import com.procasy.dubarah_nocker.Activity.SignUpActivities.MainInfoSignUp;
+import com.procasy.dubarah_nocker.Activity.Teaser.WhatIsNockerAbout;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
@@ -570,6 +572,27 @@ public class LoginActivity extends AppCompatActivity implements Validator.Valida
 
         }
     }
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event)  {
+        if (Integer.parseInt(android.os.Build.VERSION.SDK) > 5
+                && keyCode == KeyEvent.KEYCODE_BACK
+                && event.getRepeatCount() == 0) {
+            Log.d("CDA", "onKeyDown Called");
+            onBackPressed();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        Log.d("CDA", "onBackPressed Called");
+        startActivity(new Intent(getApplicationContext(),WhatIsNockerAbout.class));
+        finish();
+    }
+
+
 
 
 }

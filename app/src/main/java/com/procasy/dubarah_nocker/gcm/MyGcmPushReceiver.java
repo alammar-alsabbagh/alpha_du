@@ -19,6 +19,7 @@ package com.procasy.dubarah_nocker.gcm;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +32,7 @@ import android.widget.Toast;
 import com.google.android.gms.gcm.GcmListenerService;
 import com.procasy.dubarah_nocker.Activity.ChatRoomActivity;
 import com.procasy.dubarah_nocker.Activity.JobRequestActivity;
+import com.procasy.dubarah_nocker.BadgeInterface;
 import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Message;
 import com.procasy.dubarah_nocker.Model.User;
@@ -41,14 +43,30 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class MyGcmPushReceiver extends GcmListenerService {
+public class MyGcmPushReceiver extends GcmListenerService  {
 
     private static final String TAG = MyGcmPushReceiver.class.getSimpleName();
 
 
     private NotificationUtils notificationUtils;
 
-    private static final String GCM_TAG = "gcm_tag";
+    private static final String GCM_TAG = "tag";
+    private static final String TITLE_TAG = "title";
+    private static final String DESC_TAG = "description";
+    private static final String CONTENT_TAG = "content";
+
+
+    private static final int GENERAL_TAG = 1 ;
+    private static final int HELP_TAG = 2 ;
+    private static final int USER_Qouta_TAG = 3;
+    private static final int Nocker_Qouta_TAG = 4 ;
+    private static final int APPOINTEMENT_TAG = 5 ;
+
+
+    private com.procasy.dubarah_nocker.Helper.Notification mNotification;
+    MainActivity activity;
+    BadgeInterface badgeInterface = null;
+
 
     /**
      * Called when message is received.
@@ -58,72 +76,28 @@ public class MyGcmPushReceiver extends GcmListenerService {
      *               For Set of keys use data.keySet().
      */
 
+
+
     @Override
     public void onMessageReceived(String from, Bundle bundle) {
 
+        MainActivity.getInstance().updateNotification();
+
+
         try {
 
-            Log.e("notify_gcm", "success , type = " + bundle.getString(GCM_TAG));
-            NotificationCompat.Builder mBuilder =
-                    new NotificationCompat.Builder(this)
-                            .setSmallIcon(R.drawable.hourly_logo)
-                            .setContentTitle("My notification")
-                            .setContentText("Hello World!");
-// Creates an explicit intent for an Activity in your app
-            Intent resultIntent = new Intent(this, MainActivity.class);
+            Log.e("notify_gcm", "success , type = " + bundle.toString() );
 
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
-            TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
-            stackBuilder.addParentStack(MainActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
-            stackBuilder.addNextIntent(resultIntent);
-            PendingIntent resultPendingIntent =
-                    stackBuilder.getPendingIntent(
-                            0,
-                            PendingIntent.FLAG_UPDATE_CURRENT
-                    );
-            mBuilder.setContentIntent(resultPendingIntent);
-            mBuilder.setDefaults(Notification.DEFAULT_SOUND|Notification.DEFAULT_LIGHTS|Notification.DEFAULT_VIBRATE);
-            NotificationManager mNotificationManager =
-                    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
-            mNotificationManager.notify(12, mBuilder.build());
-
-            Intent intent = (new Intent(getApplicationContext(),JobRequestActivity.class));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            getApplicationContext().startActivity(intent);
-          /*  switch (bundle.getString(GCM_TAG))
-            {
-                case "job_request":
-                {
-                    Intent intent = (new Intent(getApplicationContext(),JobRequestActivity.class));
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    getApplicationContext().startActivity(intent);
-                    break;
-                }
-                default:
-                {
-                    Log.e("heeeereee : ","i am here");
+            switch (bundle.getString(GCM_TAG)) {
+                case "GENERAL": {
                     NotificationCompat.Builder mBuilder =
                             new NotificationCompat.Builder(this)
                                     .setSmallIcon(R.drawable.hourly_logo)
-                                    .setContentTitle("My notification")
-                                    .setContentText("Hello World!");
-// Creates an explicit intent for an Activity in your app
+                                    .setContentTitle(bundle.getString(TITLE_TAG))
+                                    .setContentText(bundle.getString(DESC_TAG));
                     Intent resultIntent = new Intent(this, MainActivity.class);
-
-// The stack builder object will contain an artificial back stack for the
-// started Activity.
-// This ensures that navigating backward from the Activity leads out of
-// your application to the Home screen.
                     TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-// Adds the back stack for the Intent (but not the Intent itself)
                     stackBuilder.addParentStack(MainActivity.class);
-// Adds the Intent that starts the Activity to the top of the stack
                     stackBuilder.addNextIntent(resultIntent);
                     PendingIntent resultPendingIntent =
                             stackBuilder.getPendingIntent(
@@ -131,12 +105,185 @@ public class MyGcmPushReceiver extends GcmListenerService {
                                     PendingIntent.FLAG_UPDATE_CURRENT
                             );
                     mBuilder.setContentIntent(resultPendingIntent);
+                    mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
                     NotificationManager mNotificationManager =
                             (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-// mId allows you to update the notification later on.
                     mNotificationManager.notify(12, mBuilder.build());
-                }*/
+                    mNotification = new com.procasy.dubarah_nocker.Helper.Notification(getApplicationContext());
+                    mNotification.open();
+                    try {
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(mNotification.COL_notification_type, GENERAL_TAG );
+                        contentValues.put(mNotification.COL_notfication_status, 0);
+                        contentValues.put(mNotification.COL_notfication_title,bundle.getString(TITLE_TAG) );
+                        contentValues.put(mNotification.COL_notfication_desc,bundle.getString(DESC_TAG));
+                        contentValues.put(mNotification.COL_notfication_content,bundle.getString(CONTENT_TAG) );
+                        mNotification.insertEntry(contentValues);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        mNotification.close();
+                    }
+                    break;
+                }
 
+                case "HELP": {
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(this)
+                                    .setSmallIcon(R.drawable.hourly_logo)
+                                    .setContentTitle(bundle.getString(TITLE_TAG))
+                                    .setContentText(bundle.getString(DESC_TAG));
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                    stackBuilder.addParentStack(MainActivity.class);
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent);
+                    mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    mNotificationManager.notify(12, mBuilder.build());
+                    mNotification = new com.procasy.dubarah_nocker.Helper.Notification(getApplicationContext());
+                    mNotification.open();
+                    try {
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(mNotification.COL_notification_type, HELP_TAG );
+                        contentValues.put(mNotification.COL_notfication_status, 0);
+                        contentValues.put(mNotification.COL_notfication_title,bundle.getString(TITLE_TAG) );
+                        contentValues.put(mNotification.COL_notfication_desc,bundle.getString(DESC_TAG));
+                        contentValues.put(mNotification.COL_notfication_content,bundle.getString(CONTENT_TAG) );
+                        mNotification.insertEntry(contentValues);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        mNotification.close();
+                    }
+
+                    Intent intent = (new Intent(getApplicationContext(), JobRequestActivity.class));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getApplicationContext().startActivity(intent);
+
+                    break;
+                }
+
+                case "APPOINTEMENT": {
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(this)
+                                    .setSmallIcon(R.drawable.hourly_logo)
+                                    .setContentTitle(bundle.getString(TITLE_TAG))
+                                    .setContentText(bundle.getString(DESC_TAG));
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                    stackBuilder.addParentStack(MainActivity.class);
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent);
+                    mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    mNotificationManager.notify(12, mBuilder.build());
+                    mNotification = new com.procasy.dubarah_nocker.Helper.Notification(getApplicationContext());
+                    mNotification.open();
+                    try {
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(mNotification.COL_notification_type, APPOINTEMENT_TAG );
+                        contentValues.put(mNotification.COL_notfication_status, 0);
+                        contentValues.put(mNotification.COL_notfication_title,bundle.getString(TITLE_TAG) );
+                        contentValues.put(mNotification.COL_notfication_desc,bundle.getString(DESC_TAG));
+                        contentValues.put(mNotification.COL_notfication_content,bundle.getString(CONTENT_TAG) );
+                        mNotification.insertEntry(contentValues);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        mNotification.close();
+                    }
+                    break;
+                }
+
+                case "QOUTA_USER": {
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(this)
+                                    .setSmallIcon(R.drawable.hourly_logo)
+                                    .setContentTitle(bundle.getString(TITLE_TAG))
+                                    .setContentText(bundle.getString(DESC_TAG));
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                    stackBuilder.addParentStack(MainActivity.class);
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent);
+                    mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    mNotificationManager.notify(12, mBuilder.build());
+                    mNotification = new com.procasy.dubarah_nocker.Helper.Notification(getApplicationContext());
+                    mNotification.open();
+                    try {
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(mNotification.COL_notification_type, USER_Qouta_TAG );
+                        contentValues.put(mNotification.COL_notfication_status, 0);
+                        contentValues.put(mNotification.COL_notfication_title,bundle.getString(TITLE_TAG) );
+                        contentValues.put(mNotification.COL_notfication_desc,bundle.getString(DESC_TAG));
+                        contentValues.put(mNotification.COL_notfication_content,bundle.getString(CONTENT_TAG) );
+                        mNotification.insertEntry(contentValues);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        mNotification.close();
+                    }
+                    break;
+                }
+
+                case "QOUTA_NOCKER": {
+                    NotificationCompat.Builder mBuilder =
+                            new NotificationCompat.Builder(this)
+                                    .setSmallIcon(R.drawable.hourly_logo)
+                                    .setContentTitle(bundle.getString(TITLE_TAG))
+                                    .setContentText(bundle.getString(DESC_TAG));
+                    Intent resultIntent = new Intent(this, MainActivity.class);
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+                    stackBuilder.addParentStack(MainActivity.class);
+                    stackBuilder.addNextIntent(resultIntent);
+                    PendingIntent resultPendingIntent =
+                            stackBuilder.getPendingIntent(
+                                    0,
+                                    PendingIntent.FLAG_UPDATE_CURRENT
+                            );
+                    mBuilder.setContentIntent(resultPendingIntent);
+                    mBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_LIGHTS | Notification.DEFAULT_VIBRATE);
+                    NotificationManager mNotificationManager =
+                            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+                    mNotificationManager.notify(12, mBuilder.build());
+                    mNotification = new com.procasy.dubarah_nocker.Helper.Notification(getApplicationContext());
+                    mNotification.open();
+                    try {
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(mNotification.COL_notification_type, Nocker_Qouta_TAG );
+                        contentValues.put(mNotification.COL_notfication_status, 0);
+                        contentValues.put(mNotification.COL_notfication_title,bundle.getString(TITLE_TAG) );
+                        contentValues.put(mNotification.COL_notfication_desc,bundle.getString(DESC_TAG));
+                        contentValues.put(mNotification.COL_notfication_content,bundle.getString(CONTENT_TAG) );
+                        mNotification.insertEntry(contentValues);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    } finally {
+                        mNotification.close();
+                    }
+                    break;
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

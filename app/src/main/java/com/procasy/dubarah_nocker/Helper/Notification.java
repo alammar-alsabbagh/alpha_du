@@ -18,22 +18,26 @@ public class Notification {
 
     public static final String LOGTAG = "Nocker";
     public static final String DATABASE_NAME = "nocker_notification.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     public static final String TABLE_NAME = "notification";
     public static final String COL_ID = "ID";
     public static final String COL_notification_type = "notification_type";
     public static final String COL_notfication_content = "notification_content";
+    public static final String COL_notfication_title = "notification_title";
+    public static final String COL_notfication_desc = "notification_desc";
     public static final String COL_notfication_status = "notification_status";
 
     public static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + COL_notification_type + " INTEGER  , "
                     + COL_notfication_content + " TEXT  , "
+                    + COL_notfication_title + " TEXT  , "
+                    + COL_notfication_desc + " TEXT  , "
                     + COL_notfication_status + " BOOLEAN   "
                   +" );";
 
 
-    private static final String[] all = {COL_ID, COL_notification_type, COL_notfication_content, COL_notfication_status};
+    private static final String[] all = {COL_ID, COL_notification_type,COL_notfication_title,COL_notfication_desc, COL_notfication_content, COL_notfication_status};
 
     private SQLiteDatabase db;
 
@@ -78,9 +82,16 @@ public class Notification {
         return d;
     }
 
-    public int updateEntry(long _rowIndex, Object _myObject) {
+    public Cursor getNumberOfUnReadNotifications() {
+        Cursor c = db.rawQuery("SELECT * from notification " +
+                "where notification_status =  0 ", null);
+        return c;
+    }
+
+    public int updateStatus(long _rowIndex) {
         String where = COL_ID + "=" + _rowIndex;
         ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_notfication_status , 1);
         // TODO fill in the ContentValue based on the new object
         return db.update(TABLE_NAME, contentValues, where, null);
     }
