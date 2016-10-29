@@ -250,13 +250,6 @@
                 android:alpha="0.6"
                 android:background="@color/white"></View>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="20dp"
-                android:alpha="0.6"
-                android:background="@color/white"></View>
 
             <TableRow android:id="@+id/myShop">
 
@@ -326,8 +319,34 @@
                     android:text="@string/str77"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
+
             </TableRow>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="20dp"
+                android:alpha="0.6"
+                android:background="@color/white"></View>
+            <TableRow android:id="@+id/logout">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/close" />
+
+                <TextView
+                    android:id="@+id/logout_text"
+                    android:layout_marginLeft="20dp"
+                    android:alpha="0.6"
+                    android:padding="10dp"
+                    android:text="Logout"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+            </TableRow>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

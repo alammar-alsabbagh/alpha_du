@@ -46,7 +46,7 @@ public class QuoteRecyclerViewAdapter  extends RecyclerView.Adapter<QuoteRecycle
     public void onBindViewHolder(final QuoteRecyclerViewAdapter.ViewHolder holder, final int position) {
         final HelpRequestModel item = data.get(position);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.recyclerView.setAdapter(new RecyclerViewRecyclerAdapter(item.qouteModels));
+        holder.recyclerView.setAdapter(new RecyclerViewRecyclerAdapter(item.qouteModels,item.skill_name));
         holder.expandableLayout.setInRecyclerView(true);
         holder.expandableLayout.setInterpolator(Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR));
         holder.expandableLayout.setExpanded(expandState.get(position));

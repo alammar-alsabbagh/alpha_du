@@ -45,7 +45,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
     com.procasy.dubarah_nocker.CommuncationChannel mCommChListner = null;
     public TextView fullName, avg_txt_title, title_happy_customers_title,
             edit_profile, promotion_txt, myshop,
-            setting, help;
+            setting, help,logout;
 
 
     public CircleImageView profileImage;
@@ -54,7 +54,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
     TextView happyCustomers;
     ImageView Messages, Notifcations;
     Button boost;
-    TableRow editProfile, promotion, activateSubscription, myShop, Settings, Help;
+    TableRow editProfile, promotion, activateSubscription, myShop, Settings, Help,Logout;
     SessionManager sessionManager;
     private LinearLayout notification_items;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -77,8 +77,8 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
             case R.id.promotion:
                 mCommChListner.setCommunication(getString(R.string.str111));
                 break;
-            case R.id.help:
-                mCommChListner.setCommunication(getString(R.string.str112));
+            case R.id.logout:
+                mCommChListner.setCommunication(getString(R.string.logout));
                 break;
             case R.id.settings:
                 mCommChListner.setCommunication(getString(R.string.str113));
@@ -87,13 +87,13 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
                 mCommChListner.setCommunication(getString(R.string.str114));
                 break;
             case R.id.message1:
-                mCommChListner.setCommunication("message");
+                mCommChListner.setCommunication(getString(R.string.message));
                 break;
             case R.id.aptmnts1:
-                mCommChListner.setCommunication("appoitement");
+                mCommChListner.setCommunication(getString(R.string.appoitement));
                 break;
             case R.id.notification1:
-                mCommChListner.setCommunication("notification");
+                mCommChListner.setCommunication(getString(R.string.notification));
                 break;
 
         }
@@ -141,6 +141,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         myShop = (TableRow) layout.findViewById(R.id.myShop);
         Settings = (TableRow) layout.findViewById(R.id.settings);
         Help = (TableRow) layout.findViewById(R.id.help);
+        Logout = (TableRow) layout.findViewById(R.id.logout);
         activateSubscription = (TableRow) layout.findViewById(R.id.activateSubscription);
 
         fullName = (TextView) layout.findViewById(R.id.fullName);
@@ -154,6 +155,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         myshop = (TextView) layout.findViewById(R.id.myShop_txt);
         setting = (TextView) layout.findViewById(R.id.settings_txt);
         help = (TextView) layout.findViewById(R.id.help_txt);
+        logout= (TextView)layout.findViewById(R.id.logout_text);
 
         Typeface typface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/font1.ttf");
         fullName.setTypeface(typface);
@@ -166,6 +168,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         myshop.setTypeface(typface);
         setting.setTypeface(typface);
         help.setTypeface(typface);
+        logout.setTypeface(typface);
         //  nockerScore.setTypeface(typface);
 
         notification.setOnClickListener(this);
@@ -176,6 +179,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         myShop.setOnClickListener(this);
         Settings.setOnClickListener(this);
         Help.setOnClickListener(this);
+        Logout.setOnClickListener(this);
         sessionManager = new SessionManager(getActivity());
         fullName.setText(sessionManager.getFName() + " " + sessionManager.getLName());
         if (!sessionManager.getPP().equals(""))

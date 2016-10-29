@@ -478,7 +478,7 @@ updateNotification();
                 fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
-            case "help":
+            case "logout":
                 fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 sessionManager.setEmail("");

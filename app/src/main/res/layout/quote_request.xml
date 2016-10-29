@@ -127,7 +127,8 @@
                     android:layout_marginTop="10dp"
                     android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when."
                     android:textColor="@color/white"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    android:id="@+id/description"/>
             </LinearLayout>
 
             <View

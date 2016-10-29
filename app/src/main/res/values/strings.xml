@@ -168,6 +168,10 @@
     <string name="str124">Choose Photo</string>
     <string name="str125">Create Service</string>
     <string name="str126">Check Profile</string>
+    <string name="message">message</string>
+    <string name="appoitement">appoitement</string>
+    <string name="notification">notification</string>
+    <string name="logout">logout</string>
     <string name="no_data_available">No data available</string>
 
 
