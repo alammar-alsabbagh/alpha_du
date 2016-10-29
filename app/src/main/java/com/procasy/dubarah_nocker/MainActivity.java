@@ -1,6 +1,7 @@
 package com.procasy.dubarah_nocker;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -239,11 +240,19 @@ updateNotification();
         setTitle("");
         mContext = getApplicationContext();
         marshmallowGPSPremissionCheck();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+
+        Activity activity = getInstance();
+        if (activity != null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container_body, new MainFragment()).commit();
+        }
+
     }
 
-
+    @Override
+    protected void onResume(){
+        System.out.println("Resuming");
+    }
 
     public static MainActivity  getInstance(){
         return ins;

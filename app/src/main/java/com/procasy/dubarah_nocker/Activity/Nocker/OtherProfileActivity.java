@@ -26,6 +26,7 @@ import com.procasy.dubarah_nocker.AboutController;
 import com.procasy.dubarah_nocker.Fragments.FragmentAbout;
 import com.procasy.dubarah_nocker.Fragments.FragmentService;
 import com.procasy.dubarah_nocker.Fragments.FragmentTestimonials;
+import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Responses.UserInfoResponse;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.SkillsController;
@@ -241,5 +242,12 @@ public class OtherProfileActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
 }
 
