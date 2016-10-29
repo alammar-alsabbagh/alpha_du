@@ -119,7 +119,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
             }
         });
 
-updateNotification();
+        updateNotification();
+        updateAppointementTouch();
+        updateMessagesTouch();
 
         int off = 0;
         try {
@@ -128,8 +130,27 @@ updateNotification();
             e.printStackTrace();
         }
         if(off==0){
-            Intent onGPS = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(onGPS);
+
+            new AlertDialog.Builder(this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle("Attention")
+                    .setMessage("This app requires GPS to be turned on ")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent onGPS = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(onGPS);
+                        }
+
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            finish();
+                        }
+                    })
+                    .show();
         }
 
 
@@ -143,6 +164,7 @@ updateNotification();
                 System.out.println("here");
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().add(R.id.container_body, new MessagesFragment()).addToBackStack("tag").commit();
+                updateMessagesTouch();
             }
         });
 
@@ -151,6 +173,7 @@ updateNotification();
             public void onClick(View v) {
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction().add(R.id.container_body, new AppointementsFragment()).addToBackStack("tag").commit();
+                updateAppointementTouch();
             }
         });
 
@@ -280,6 +303,52 @@ updateNotification();
             }
         });
     }
+
+
+    public void updateAppointement() {
+        MainActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                LinearLayout notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
+                TextView NotificationsBadge = (TextView) notification_items.findViewById(R.id.badge_aptmnts_1);
+                NotificationsBadge.setVisibility(View.VISIBLE);
+                appointementCount++;
+                NotificationsBadge.setText(appointementCount + "");
+            }
+        });
+    }
+
+    public void updateMessages() {
+        MainActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                LinearLayout notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
+                TextView NotificationsBadge = (TextView) notification_items.findViewById(R.id.badge_message_1);
+                NotificationsBadge.setVisibility(View.VISIBLE);
+                messagesCount++;
+                NotificationsBadge.setText(messagesCount + "");
+            }
+        });
+    }
+
+    public void updateAppointementTouch() {
+        MainActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                LinearLayout notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
+                TextView NotificationsBadge = (TextView) notification_items.findViewById(R.id.badge_aptmnts_1);
+                NotificationsBadge.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+    public void updateMessagesTouch() {
+        MainActivity.this.runOnUiThread(new Runnable() {
+            public void run() {
+                LinearLayout notification_items = (LinearLayout)mtoolbar.findViewById(R.id.main_notification_items);
+                TextView NotificationsBadge = (TextView) notification_items.findViewById(R.id.badge_message_1);
+                NotificationsBadge.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
 
     public static void incrementMessage(){
         System.out.println("hahahahaah");

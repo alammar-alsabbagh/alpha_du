@@ -3,16 +3,9 @@ package com.procasy.dubarah_nocker.Fragments;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentController;
-import android.support.v4.app.FragmentHostCallback;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.text.Line;
 import com.procasy.dubarah_nocker.Adapter.NavigationDrawerAdapter;
 import com.procasy.dubarah_nocker.CommuncationChannel;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
@@ -34,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.procasy.dubarah_nocker.R.string.appoitement;
 
 
 /**
@@ -61,7 +55,6 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
     private DrawerLayout mDrawerLayout;
     private NavigationDrawerAdapter adapter;
     private View containerView;
-    private Button message, notification, appoitement;
     private static String[] titles = null;
 
     @Override
@@ -90,7 +83,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
                 mCommChListner.setCommunication(getString(R.string.message));
                 break;
             case R.id.aptmnts1:
-                mCommChListner.setCommunication(getString(R.string.appoitement));
+                mCommChListner.setCommunication(getString(appoitement));
                 break;
             case R.id.notification1:
                 mCommChListner.setCommunication(getString(R.string.notification));
@@ -131,10 +124,10 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         View layout = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 
         //recyclerView = (RecyclerView) layout.findViewById(R.id.drawerList);
+/*
         notification_items=(LinearLayout)layout.findViewById(R.id.side_notification_items);
-        message = (Button) notification_items.findViewById(R.id.message1);
-        notification = (Button) notification_items.findViewById(R.id.notification1);
-        appoitement = (Button) notification_items.findViewById(R.id.aptmnts1);
+*/
+
 
         editProfile = (TableRow) layout.findViewById(R.id.editProfile);
         promotion = (TableRow) layout.findViewById(R.id.promotion);
@@ -171,9 +164,7 @@ public class FragmentDrawerNocker extends Fragment implements View.OnClickListen
         logout.setTypeface(typface);
         //  nockerScore.setTypeface(typface);
 
-        notification.setOnClickListener(this);
-        appoitement.setOnClickListener(this);
-        message.setOnClickListener(this);
+
         editProfile.setOnClickListener(this);
         promotion.setOnClickListener(this);
         myShop.setOnClickListener(this);

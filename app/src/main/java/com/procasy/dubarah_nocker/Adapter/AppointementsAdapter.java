@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.procasy.dubarah_nocker.Model.Appointement;
+import com.procasy.dubarah_nocker.Model.AppointementModel;
 import com.procasy.dubarah_nocker.R;
 
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 
 public class AppointementsAdapter extends RecyclerView.Adapter<AppointementsAdapter.MyViewHolder> {
 
-    private List<Appointement> appointementList;
+    private List<AppointementModel> appointementList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView date, time , nocker_name , skill , ammount;
@@ -34,7 +34,7 @@ public class AppointementsAdapter extends RecyclerView.Adapter<AppointementsAdap
     }
 
 
-    public AppointementsAdapter(List<Appointement> appointementList) {
+    public AppointementsAdapter(List<AppointementModel> appointementList) {
         this.appointementList = appointementList;
     }
 
@@ -48,12 +48,12 @@ public class AppointementsAdapter extends RecyclerView.Adapter<AppointementsAdap
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        Appointement notification = appointementList.get(position);
-        holder.date.setText(notification.getAppointement_date());
-        holder.time.setText(notification.getAppointement_time());
-        holder.nocker_name.setText(notification.getAppointement_nocker_name());
-        holder.skill.setText(notification.getAppointement_skill());
-        holder.ammount.setText(notification.getAppointement_ammount());
+        AppointementModel appointementModel = appointementList.get(position);
+        holder.date.setText(appointementModel.qoute_date);
+        holder.time.setText(appointementModel.qoute_time);
+        holder.nocker_name.setText(appointementModel.nocker_name);
+        holder.skill.setText(appointementModel.skill_name);
+        holder.ammount.setText(appointementModel.qoute_charge);
 
     }
 

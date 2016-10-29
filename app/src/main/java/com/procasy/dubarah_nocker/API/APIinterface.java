@@ -1,6 +1,7 @@
 package com.procasy.dubarah_nocker.API;
 
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
+import com.procasy.dubarah_nocker.Model.Responses.AppointementResponse;
 import com.procasy.dubarah_nocker.Model.Responses.CheckResponse;
 import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LocationResponse;
@@ -141,7 +142,7 @@ public interface APIinterface {
 
     @FormUrlEncoded
     @POST("get_appointments")
-    Call<String> Get_user_appoitement(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id
+    Call<AppointementResponse> Get_user_appoitement(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id
     );
 
     @FormUrlEncoded

@@ -23,14 +23,53 @@
                 android:textStyle="bold"
                 android:gravity="center"/>
         </RelativeLayout>
-        <android.support.v7.widget.RecyclerView
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/appointement_list"
-            android:paddingTop="10dp">
+            android:layout_height="wrap_content"
+            android:id="@+id/myjobs"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/app_yellow"
+                android:text="My Jobs"
+                android:textSize="@dimen/large_text"
+                android:textStyle="bold"
+                android:gravity="center"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/nocekr_appointement"
+                android:paddingTop="10dp">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
 
-        </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/theirjob"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/app_yellow"
+                android:text="Who is nocking on my door ?"
+                android:textSize="@dimen/large_text"
+                android:textStyle="bold"
+                android:gravity="center"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/user_appointemnt"
+                android:paddingTop="10dp">
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
 
     </LinearLayout>
 
