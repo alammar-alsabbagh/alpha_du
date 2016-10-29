@@ -116,6 +116,7 @@ public class NearByNockersFragment extends Fragment {
 
             @Override
             public void onFailure(Call<NearByNockerResponse> call, Throwable t) {
+                dialog.dismiss();
 
                 refreshLayout.setRefreshing(false);
             }

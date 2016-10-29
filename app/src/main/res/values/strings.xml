@@ -65,7 +65,7 @@
     <string name="str23">Send Me My Password</string>
     <string name="str24">Your password mail may take up to 10 minutes .</string>
     <string name="str25">JOB REQUEST</string>
-    <string name="str26">Preferred Language : </string>
+    <string name="str26">Preferred Time :    </string>
     <string name="str27">Customer Score</string>
     <string name="str28">ACCEPT</string>
     <string name="str30">PASS</string>
@@ -173,6 +173,8 @@
     <string name="notification">notification</string>
     <string name="logout">logout</string>
     <string name="no_data_available">No data available</string>
+    <string name="str127">Preferred Date :    </string>
+
 
 
 </resources>

@@ -179,4 +179,8 @@ public interface APIinterface {
     @FormUrlEncoded
     @POST("get_user_qoutes")
     Call<UserQoutesResponse> get_user_qoutes(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id);
+
+    @FormUrlEncoded
+    @POST("accept_qoute_from_user")
+    Call<NormalResponse> accept_qoute_from_user(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id , @Field("qoute_id") int qoute_id);
 }

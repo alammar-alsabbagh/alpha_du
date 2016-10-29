@@ -75,6 +75,7 @@
                         android:layout_height="wrap_content"
                         android:text="Translation"
                         android:textColor="@color/app_yellow"
+                        android:id="@+id/job_name"
                         android:textSize="18dp" />
 
                 </LinearLayout>
@@ -93,7 +94,11 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
-
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -105,9 +110,35 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="French Translation"
+                    android:layout_marginBottom="10dp"
                     android:textColor="@color/white"
-                    android:textSize="18dp"></TextView>
+                    android:textSize="18dp"
+                    android:id="@+id/pref_time"/>
+
+            </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/str127"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:id="@+id/pref_date"/>
+
+                </LinearLayout>
             </LinearLayout>
 
             <View
@@ -156,7 +187,7 @@
                     android:textStyle="bold" />
 
                 <Button
-                    android:id="@+id/pass"
+                    android:id="@+id/check_profile"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginLeft="10dp"

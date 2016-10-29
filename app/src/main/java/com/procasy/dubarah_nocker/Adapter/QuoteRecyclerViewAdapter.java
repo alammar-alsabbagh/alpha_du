@@ -36,6 +36,7 @@ public class QuoteRecyclerViewAdapter  extends RecyclerView.Adapter<QuoteRecycle
         }
     }
 
+
     @Override
     public QuoteRecyclerViewAdapter.ViewHolder onCreateViewHolder(final ViewGroup parent, final int viewType) {
         this.context = parent.getContext();
@@ -47,7 +48,7 @@ public class QuoteRecyclerViewAdapter  extends RecyclerView.Adapter<QuoteRecycle
     public void onBindViewHolder(final QuoteRecyclerViewAdapter.ViewHolder holder, final int position) {
         final HelpRequestModel item = data.get(position);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.recyclerView.setAdapter(new RecyclerViewRecyclerAdapter(item.qouteModels));
+        holder.recyclerView.setAdapter(new RecyclerViewRecyclerAdapter(item.qouteModels,item.skill_name,context));
         holder.Skill.setText(data.get(position).skill_name);
         if(item.qouteModels.size() == 0)
         {
