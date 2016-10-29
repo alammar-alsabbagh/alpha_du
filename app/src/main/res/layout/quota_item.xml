@@ -154,20 +154,19 @@
             </LinearLayout>
 
         </LinearLayout>
-        <com.github.aakira.expandablelayout.ExpandableLinearLayout
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
             android:id="@+id/expandableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView"
             android:orientation="vertical"
-            app:ael_duration="400"
             app:ael_expanded="false"
             >
-<include layout="@layout/quote_request"
-    android:id="@+id/qoute_request"
 
-></include>
-        </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+            <include layout="@layout/quote_request"
+                android:id="@+id/qoute_request"
+                ></include>
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
     </LinearLayout>
 

@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableLayout;
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter;
-import com.github.aakira.expandablelayout.ExpandableLinearLayout;
+import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.github.aakira.expandablelayout.Utils;
 import com.procasy.dubarah_nocker.Model.HelpRequestModel;
 import com.procasy.dubarah_nocker.R;
@@ -46,10 +47,20 @@ public class QuoteRecyclerViewAdapter  extends RecyclerView.Adapter<QuoteRecycle
     public void onBindViewHolder(final QuoteRecyclerViewAdapter.ViewHolder holder, final int position) {
         final HelpRequestModel item = data.get(position);
         holder.recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        holder.recyclerView.setAdapter(new RecyclerViewRecyclerAdapter(item.qouteModels,item.skill_name));
-        holder.expandableLayout.setInRecyclerView(true);
+        holder.recyclerView.setAdapter(new RecyclerViewRecyclerAdapter(item.qouteModels));
+        holder.Skill.setText(data.get(position).skill_name);
+        if(item.qouteModels.size() == 0)
+        {
+            holder.Number.setText("No one has responded yet !");
+        }else
+        {
+           if(item.qouteModels.size() == 1)
+               holder.Number.setText("1 nocker has responded");
+            else
+               holder.Number.setText(item.qouteModels.size()+" nockers have responded");
+        }
         holder.expandableLayout.setInterpolator(Utils.createInterpolator(Utils.ACCELERATE_DECELERATE_INTERPOLATOR));
-        holder.expandableLayout.setExpanded(expandState.get(position));
+        holder.expandableLayout.collapse();
         holder.expandableLayout.setListener(new ExpandableLayoutListenerAdapter() {
             @Override
             public void onPreOpen() {
@@ -74,6 +85,7 @@ public class QuoteRecyclerViewAdapter  extends RecyclerView.Adapter<QuoteRecycle
 
     private void onClickButton(final ExpandableLayout expandableLayout) {
         expandableLayout.toggle();
+        System.out.println("haahah");
     }
 
     @Override
@@ -83,14 +95,17 @@ public class QuoteRecyclerViewAdapter  extends RecyclerView.Adapter<QuoteRecycle
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public LinearLayout buttonLayout;
-        public ExpandableLinearLayout expandableLayout;
+        public ExpandableRelativeLayout expandableLayout;
         public RecyclerView recyclerView;
+        public TextView Skill,Number;
 
         public ViewHolder(View v) {
             super(v);
             buttonLayout = (LinearLayout) v.findViewById(R.id.button);
-            expandableLayout = (ExpandableLinearLayout) v.findViewById(R.id.expandableLayout);
+            expandableLayout = (ExpandableRelativeLayout) v.findViewById(R.id.expandableLayout);
             recyclerView = (RecyclerView) v.findViewById(R.id.quota_list);
+            Skill = (TextView) v.findViewById(R.id.nocker_skill);
+            Number = (TextView) v.findViewById(R.id.number);
 
         }
     }

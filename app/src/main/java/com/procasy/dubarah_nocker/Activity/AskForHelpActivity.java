@@ -37,6 +37,7 @@ import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
+import com.procasy.dubarah_nocker.Model.Responses.NormalResponse;
 import com.procasy.dubarah_nocker.R;
 
 import java.io.ByteArrayOutputStream;
@@ -52,7 +53,6 @@ import cc.cloudist.acplibrary.ACProgressFlower;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -834,8 +834,15 @@ public class AskForHelpActivity extends AppCompatActivity {
         RequestBody str_est_time = RequestBody.create(MediaType.parse("multipart/form-data"), "10:34:34");
 
 
+        final ACProgressFlower dialog = new ACProgressFlower.Builder(getApplicationContext())
+                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                .themeColor(Color.WHITE)
+                .text("Logging in ...")
+                .fadeColor(Color.DKGRAY).build();
+        dialog.show();
+
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<ResponseBody> call = apiService.AskForHelp(
+        Call<NormalResponse> call = apiService.AskForHelp(
                 body_voice
                 , str_email,
                 str_udid,
@@ -844,23 +851,30 @@ public class AskForHelpActivity extends AppCompatActivity {
                 , str_est_date, str_est_time,
                 body_img1,
                 body_img2, body_img3);
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<NormalResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<NormalResponse> call, Response<NormalResponse> response) {
                 try {
 
-                    Log.e("response", "successs " + response.body().string());
+                    if(response.body().status == 1)
+                    {
+                        Toast.makeText(getApplicationContext(),"Everything Went Ok Check Your Messages",Toast.LENGTH_SHORT).show();
+                    }
+                    dialog.dismiss();
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    dialog.dismiss();
+
                 }
 
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<NormalResponse> call, Throwable t) {
 
-                System.out.println("here 2" + t.toString());
+                Toast.makeText(getApplicationContext(),"OOPS something went wrong",Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
 
             }
 

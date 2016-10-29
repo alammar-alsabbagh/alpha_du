@@ -1,76 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:orientation="vertical">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="5dp"
-        android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:weightSum="10">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/profilePic"
-            android:layout_width="60dp"
-            android:layout_height="75dp"
-            android:layout_weight="1"
-            android:src="@drawable/profile" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_weight="6"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/nocker_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"
-                android:text="Claudia De Simone"
-                android:textColor="@color/white"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/nocker_skill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.8"
-                android:text="Data Recovery Service"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|right"
-            android:layout_weight="3"
-            android:gravity="right"
-            android:orientation="horizontal">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textSize="48dp"
-                android:text="$11"
-                android:textColor="@color/app_yellow"
-                android:alpha="0.9"/>
-        </LinearLayout>
-
-    </LinearLayout>
-
-</LinearLayout>-->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -93,7 +21,7 @@
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="75dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:paddingTop="5dp"
@@ -135,23 +63,23 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:textSize="48dp"
+                    android:textSize="14dp"
                     android:text="4/5"
                     android:textColor="@color/app_yellow"
                     android:alpha="0.9"
                     android:layout_gravity="center"
-                    android:gravity="center"/>
+                    android:gravity="center"
+                    android:id="@+id/number"/>
             </LinearLayout>
 
         </LinearLayout>
-        <com.github.aakira.expandablelayout.ExpandableLinearLayout
+        <com.github.aakira.expandablelayout.ExpandableRelativeLayout
             android:id="@+id/expandableLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textView"
             android:orientation="vertical"
-            app:ael_duration="400"
-            app:ael_expanded="true"
+            app:ael_expanded="false"
             >
 
             <android.support.v7.widget.RecyclerView
@@ -159,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
                 android:id="@+id/quota_list"></android.support.v7.widget.RecyclerView>
-        </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+        </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 
     </LinearLayout>
 

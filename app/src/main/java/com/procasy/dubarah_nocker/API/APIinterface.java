@@ -17,7 +17,6 @@ import org.json.JSONArray;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -112,7 +111,7 @@ public interface APIinterface {
 
     @Multipart
     @POST("ask_for_help")
-    Call<ResponseBody> AskForHelp
+    Call<NormalResponse> AskForHelp
             (@Part MultipartBody.Part hr_voice_record,
              @Part("user_email") RequestBody user_email,
              @Part("user_ud_id") RequestBody user_ud_id,

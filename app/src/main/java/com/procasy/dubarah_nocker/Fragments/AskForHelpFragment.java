@@ -19,6 +19,7 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -39,6 +40,7 @@ import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
+import com.procasy.dubarah_nocker.Model.Responses.NormalResponse;
 import com.procasy.dubarah_nocker.R;
 
 import java.io.ByteArrayOutputStream;
@@ -52,7 +54,6 @@ import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -899,7 +900,7 @@ public class AskForHelpFragment extends Fragment {
 
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
-        Call<ResponseBody> call = apiService.AskForHelp(
+        Call<NormalResponse> call = apiService.AskForHelp(
                 body_voice
                 , str_email,
                 str_udid,
@@ -908,12 +909,19 @@ public class AskForHelpFragment extends Fragment {
                 , str_est_date, str_est_time,
                 body_img1,
                 body_img2, body_img3);
-        call.enqueue(new Callback<ResponseBody>() {
+        call.enqueue(new Callback<NormalResponse>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<NormalResponse> call, Response<NormalResponse> response) {
                 try {
 
-                    Log.e("response", "successs " + response.body().string());
+                    if(response.body().status == 1){
+                        Fragment currentFragment = getFragmentManager().findFragmentByTag("FRAGMENT");
+                        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
+                        fragTransaction.detach(currentFragment);
+                        fragTransaction.attach(currentFragment);
+                        fragTransaction.commit();
+                    }
+
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -922,7 +930,7 @@ public class AskForHelpFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<NormalResponse> call, Throwable t) {
 
                 System.out.println("here 2" + t.toString());
 

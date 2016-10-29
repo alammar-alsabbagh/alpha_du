@@ -251,6 +251,7 @@ updateNotification();
 
     @Override
     protected void onResume(){
+        super.onResume();
         System.out.println("Resuming");
     }
 
