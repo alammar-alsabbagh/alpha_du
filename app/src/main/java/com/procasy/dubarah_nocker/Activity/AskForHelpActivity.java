@@ -837,7 +837,7 @@ public class AskForHelpActivity extends AppCompatActivity {
         final ACProgressFlower dialog = new ACProgressFlower.Builder(getApplicationContext())
                 .direction(ACProgressConstant.DIRECT_CLOCKWISE)
                 .themeColor(Color.WHITE)
-                .text("Logging in ...")
+                .text("Send Your Call ...")
                 .fadeColor(Color.DKGRAY).build();
         dialog.show();
 
@@ -864,6 +864,8 @@ public class AskForHelpActivity extends AppCompatActivity {
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),"OOPS something went wrong",Toast.LENGTH_SHORT).show();
+
                     dialog.dismiss();
 
                 }

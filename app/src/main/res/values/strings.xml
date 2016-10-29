@@ -8,7 +8,8 @@
     <string name="nav_item_home">Home</string>
     <string name="nav_item_friends">Friends</string>
     <string name="nav_item_notifications">Messages</string>
-    <string name="google_api_key">AIzaSyCDXJ11b-j_gh9QgNNqRK0uSpSsF_vsJKA</string>
+    <string name="google_api_key">AIzaSyA6dm1TgpcsqoYAEpb74HbLwns5Yysg3AE</string>
+    <!--   AIzaSyCDXJ11b-j_gh9QgNNqRK0uSpSsF_vsJKA -->
 
     <!-- navigation drawer item labels  -->
     <string-array name="nav_drawer_labels">

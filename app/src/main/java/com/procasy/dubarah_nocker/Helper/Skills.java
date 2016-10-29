@@ -99,6 +99,17 @@ public class Skills {
 
     }
 
+    public Cursor getSkillNameByID(String skill_id) {
+        Cursor c = db.rawQuery("SELECT skill_name from skills " +
+                "where skill_id = " + skill_id + "", null);
+        c.moveToFirst();
+        if (c.getCount()==0)
+            return null;
+        else
+            return c;
+
+    }
+
 
     public Cursor getAllEntries() {
         Cursor d = db.query(TABLE_NAME, all,

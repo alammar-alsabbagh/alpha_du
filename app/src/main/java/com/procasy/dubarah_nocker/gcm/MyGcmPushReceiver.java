@@ -39,8 +39,11 @@ import com.procasy.dubarah_nocker.Model.User;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.GCMConfig;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class MyGcmPushReceiver extends GcmListenerService  {
@@ -162,8 +165,38 @@ public class MyGcmPushReceiver extends GcmListenerService  {
                     } finally {
                         mNotification.close();
                     }
+                    JSONObject content = new JSONObject(bundle.getString("content"));
+                    JSONObject hr = content.getJSONObject("hr");
+                    JSONArray album = content.getJSONArray("album");
+                    System.out.println(content.getInt("hr_id"));
+                    System.out.println(content.toString());
+                    Bundle bundle1 = new Bundle();
+                    bundle1.putString("hr_id",hr.getString("hr_id"));
+                    bundle1.putString("hr_user_id",hr.getString("hr_user_id"));
+                    bundle1.putString("hr_description",hr.getString("hr_description"));
+                    bundle1.putString("hr_est_date",hr.getString("hr_est_date"));
+                    bundle1.putString("hr_est_time",hr.getString("hr_est_time"));
+                    bundle1.putString("hr_skill_id",hr.getString("hr_skill_id"));
+                    bundle1.putString("hr_ua_id",hr.getString("hr_ua_id"));
+                    bundle1.putString("hr_voice_record",hr.getString("hr_voice_record"));
+                    bundle1.putString("hr_language",hr.getString("hr_language"));
+                    bundle1.putString("hr_lat",hr.getString("hr_lat"));
+                    bundle1.putString("hr_lon",hr.getString("hr_lon"));
+                    bundle1.putString("hr_address",hr.getString("hr_address"));
+                    ArrayList<String> array = new ArrayList<>();
+                    for (int i=0 ; i<album.length();i++)
+                    {
+                        JSONObject object = album.getJSONObject(i);
+                        array.add(object.getString("ahr_img"));
+                    }
+                    bundle1.putStringArrayList("album",array);
+
+
+
+
 
                     Intent intent = (new Intent(getApplicationContext(), JobRequestActivity.class));
+                    intent.putExtras(bundle1);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     getApplicationContext().startActivity(intent);
 

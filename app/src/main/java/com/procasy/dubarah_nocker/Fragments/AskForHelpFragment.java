@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
@@ -19,7 +20,6 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ import com.procasy.dubarah_nocker.API.ApiClass;
 import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
 import com.procasy.dubarah_nocker.Helper.Skills;
+import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.Model.Responses.AllSkillsAndLanguageResponse;
 import com.procasy.dubarah_nocker.Model.Responses.NormalResponse;
 import com.procasy.dubarah_nocker.R;
@@ -48,9 +50,15 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import cc.cloudist.acplibrary.ACProgressConstant;
+import cc.cloudist.acplibrary.ACProgressFlower;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -59,6 +67,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static android.support.v4.content.ContextCompat.checkSelfPermission;
+import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -94,6 +103,7 @@ public class AskForHelpFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     SessionManager sessionManager;
     private Skills mskills;
+    EditText desc;
     private Language mlanguage;
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -181,6 +191,7 @@ public class AskForHelpFragment extends Fragment {
         mlanguage = new Language(getActivity());
         where = (Button) view.findViewById(R.id.where);
         progressBar = (ProgressBar) view.findViewById(R.id.progress);
+        desc = (EditText) view.findViewById(R.id.desc);
         progressBar.setVisibility(View.GONE);
 
         reord = (ImageView) view.findViewById(R.id.record_sound);
@@ -798,6 +809,12 @@ public class AskForHelpFragment extends Fragment {
 
     private void uploadFile(Uri fileUri) {
 
+        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
+                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                .themeColor(Color.WHITE)
+                .text("Sending Your Call ...")
+                .fadeColor(Color.DKGRAY).build();
+      dialog.show();
 
         File voice_file;
 
@@ -810,11 +827,16 @@ public class AskForHelpFragment extends Fragment {
                 img3_request_file;
 
         MultipartBody.Part body_voice, body_img1, body_img2, body_img3;
-
-        if (audiofile.getPath().equals("")) {
+try {
+    if (audiofile.getPath().equals("")) {
+        voice_file = null;
+    } else {
+        voice_file = new File(audiofile.getPath());
+    }
+}catch(NullPointerException e){
             voice_file = null;
-        } else {
-            voice_file = new File(audiofile.getPath());
+    dialog.dismiss();
+
         }
 
 
@@ -892,11 +914,16 @@ public class AskForHelpFragment extends Fragment {
 
         RequestBody str_language = RequestBody.create(MediaType.parse("multipart/form-data"), "5");
 
-        RequestBody str_descr = RequestBody.create(MediaType.parse("multipart/form-data"), "5dkjfskldfjklsd");
+        RequestBody str_descr = RequestBody.create(MediaType.parse("multipart/form-data"), desc.getText().toString());
 
-        RequestBody str_est_date = RequestBody.create(MediaType.parse("multipart/form-data"), "2013-03-03");
+        String timeStamp = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime());
 
-        RequestBody str_est_time = RequestBody.create(MediaType.parse("multipart/form-data"), "10:34:34");
+        RequestBody str_est_date = RequestBody.create(MediaType.parse("multipart/form-data"), timeStamp);
+
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        Date date = new Date();
+
+        RequestBody str_est_time = RequestBody.create(MediaType.parse("multipart/form-data"),dateFormat.format(date) );
 
 
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
@@ -915,25 +942,29 @@ public class AskForHelpFragment extends Fragment {
                 try {
 
                     if(response.body().status == 1){
-                        Fragment currentFragment = getFragmentManager().findFragmentByTag("FRAGMENT");
-                        FragmentTransaction fragTransaction = getFragmentManager().beginTransaction();
-                        fragTransaction.detach(currentFragment);
-                        fragTransaction.attach(currentFragment);
-                        fragTransaction.commit();
+                        dialog.dismiss();
+                        Toast.makeText(getApplicationContext(),"Everything Went Ok Check Your Messages",Toast.LENGTH_SHORT).show();
+                        Intent intent = (new Intent(getApplicationContext(), MainActivity.class));
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        getApplicationContext().startActivity(intent);
                     }
 
 
                 } catch (Exception e) {
                     e.printStackTrace();
+                    dialog.dismiss();
+                    Toast.makeText(getApplicationContext(),"Something went wrong !! ",Toast.LENGTH_SHORT).show();
+                    Intent intent = (new Intent(getApplicationContext(), MainActivity.class));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getApplicationContext().startActivity(intent);
                 }
 
             }
 
             @Override
             public void onFailure(Call<NormalResponse> call, Throwable t) {
-
-                System.out.println("here 2" + t.toString());
-
+                dialog.dismiss();
+                Toast.makeText(getApplicationContext(),"Something went wrong !! ",Toast.LENGTH_SHORT).show();
             }
 
         });

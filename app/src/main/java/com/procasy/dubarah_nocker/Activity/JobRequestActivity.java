@@ -1,14 +1,28 @@
 package com.procasy.dubarah_nocker.Activity;
 
+import android.app.ProgressDialog;
+import android.database.Cursor;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
+import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Helper.Skills;
 import com.procasy.dubarah_nocker.R;
+import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class JobRequestActivity extends AppCompatActivity {
 
@@ -16,16 +30,27 @@ public class JobRequestActivity extends AppCompatActivity {
     ScrollView scrollView;
     Button accept;
     Button pass,send;
+    TextView skill_name , call_time,call_date,call_address,call_desc ;
+    private boolean playPause;
+    private MediaPlayer mediaPlayer;
+    ImageView play_bnt;
+    String   hr_voice_record;
+    /**
+     * remain false till media is not completed, inside OnCompletionListener make it true.
+     */
+    private boolean intialStage = true;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_job_request);
+
         quota = (LinearLayout) findViewById(R.id.quota);
         quota.setVisibility(View.GONE);
         accept = (Button) findViewById(R.id.accept);
         pass = (Button) findViewById(R.id.pass);
         send = (Button) findViewById(R.id.send);
         scrollView = (ScrollView) findViewById(R.id.scroll);
+        play_bnt = (ImageView) findViewById(R.id.play_sound);
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,5 +73,166 @@ public class JobRequestActivity extends AppCompatActivity {
             }
         });
 
+        skill_name = (TextView) findViewById(R.id.skill_name);
+        call_time = (TextView) findViewById(R.id.call_time);
+        call_date = (TextView) findViewById(R.id.call_date);
+        call_address = (TextView) findViewById(R.id.call_address);
+        call_desc = (TextView) findViewById(R.id.call_desc);
+
+        ArrayList<ImageView> imageViewArrayList =  new ArrayList<>();
+        imageViewArrayList.add( (ImageView) findViewById(R.id.img1));
+        imageViewArrayList.add( (ImageView) findViewById(R.id.img2));
+        imageViewArrayList.add( (ImageView) findViewById(R.id.img3));
+
+        String hr_id = getIntent().getExtras().getString("hr_id");
+        String  hr_user_id = getIntent().getExtras().getString("hr_user_id");
+        String  hr_description = getIntent().getExtras().getString("hr_description");
+        String  hr_est_date = getIntent().getExtras().getString("hr_est_date");
+        String   hr_est_time = getIntent().getExtras().getString("hr_est_time");
+        String   hr_skill_id = getIntent().getExtras().getString("hr_skill_id");
+        String   hr_ua_id = getIntent().getExtras().getString("hr_ua_id");
+        hr_voice_record = getIntent().getExtras().getString("hr_voice_record");
+        String   hr_language = getIntent().getExtras().getString("hr_language");
+        String   hr_lat = getIntent().getExtras().getString("hr_lat");
+        String   hr_lon = getIntent().getExtras().getString("hr_lon");
+        String    hr_address = getIntent().getExtras().getString("hr_address");
+        ArrayList<String> array = getIntent().getExtras().getStringArrayList("album");
+        for (int i=0;i<array.size();i++)
+        {
+            Picasso.with(getApplicationContext()).load(ApiClass.Pic_Base_URL+array.get(i)).into(imageViewArrayList.get(i));
+        }
+
+        Skills skills = new Skills(getApplicationContext());
+        skills.open();
+        Cursor cr = skills.getSkillNameByID(hr_skill_id);
+        cr.moveToFirst();
+        skill_name.setText(cr.getString(0));
+
+        skills.close();
+
+        call_time.setText(hr_est_time);
+        call_date.setText(hr_est_date);
+        call_address.setText(hr_address);
+        call_desc.setText(hr_description);
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+        play_bnt.setOnClickListener(pausePlay);
+
+    }
+
+
+
+    private View.OnClickListener pausePlay = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            // TODO Auto-generated method stub
+            // TODO Auto-generated method stub
+
+            if (!playPause) {
+                play_bnt.setBackgroundResource(R.drawable.stop);
+                if (intialStage)
+                    new Player().execute(ApiClass.Pic_Base_URL+hr_voice_record);
+                else {
+                    if (!mediaPlayer.isPlaying())
+                        mediaPlayer.start();
+                }
+                playPause = true;
+            } else {
+                play_bnt.setBackgroundResource(R.drawable.record_voice);
+                if (mediaPlayer.isPlaying())
+                    mediaPlayer.pause();
+                playPause = false;
+            }
+        }
+    };
+    /**
+     * preparing mediaplayer will take sometime to buffer the content so prepare it inside the background thread and starting it on UI thread.
+     * @author piyush
+     *
+     */
+
+    class Player extends AsyncTask<String, Void, Boolean> {
+        private ProgressDialog progress;
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            // TODO Auto-generated method stub
+            Boolean prepared;
+            try {
+
+                mediaPlayer.setDataSource(params[0]);
+
+                mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        // TODO Auto-generated method stub
+                        intialStage = true;
+                        playPause=false;
+                        play_bnt.setBackgroundResource(R.drawable.record_voice);
+                        mediaPlayer.stop();
+                        mediaPlayer.reset();
+                    }
+                });
+                mediaPlayer.prepare();
+                prepared = true;
+            } catch (IllegalArgumentException e) {
+                // TODO Auto-generated catch block
+                Log.d("IllegarArgument", e.getMessage());
+                prepared = false;
+                e.printStackTrace();
+            } catch (SecurityException e) {
+                // TODO Auto-generated catch block
+                prepared = false;
+                e.printStackTrace();
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                prepared = false;
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                prepared = false;
+                e.printStackTrace();
+            }
+            return prepared;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            // TODO Auto-generated method stub
+            super.onPostExecute(result);
+            if (progress.isShowing()) {
+                progress.cancel();
+            }
+            Log.d("Prepared", "//" + result);
+            mediaPlayer.start();
+
+            intialStage = false;
+        }
+
+        public Player() {
+            progress = new ProgressDialog(JobRequestActivity.this);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            // TODO Auto-generated method stub
+            super.onPreExecute();
+            this.progress.setMessage("Buffering...");
+            this.progress.show();
+
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        // TODO Auto-generated method stub
+        super.onPause();
+        if (mediaPlayer != null) {
+            mediaPlayer.reset();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 }

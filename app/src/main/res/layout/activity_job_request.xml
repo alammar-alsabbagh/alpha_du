@@ -49,7 +49,8 @@
                         android:layout_height="wrap_content"
                         android:text="Translation"
                         android:textColor="@color/app_yellow"
-                        android:textSize="18dp" />
+                        android:textSize="18dp"
+                        android:id="@+id/skill_name" />
 
                 </LinearLayout>
 
@@ -68,20 +69,70 @@
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:text="@string/str26"
-                    android:textColor="@color/white"
-                    android:textSize="18dp" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Call Time : "
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:id="@+id/call_time" />
+                </LinearLayout>
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="French Translation"
-                    android:textColor="@color/white"
-                    android:textSize="18dp"></TextView>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Call Date : "
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:id="@+id/call_date" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="Call Address : "
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="18dp"
+                        android:id="@+id/call_address" />
+                </LinearLayout>
             </LinearLayout>
 
             <View
@@ -101,6 +152,7 @@
                     android:layout_marginTop="10dp"
                     android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when."
                     android:textColor="@color/white"
+                    android:id="@+id/call_desc"
                     android:textSize="16dp" />
             </LinearLayout>
 
@@ -155,7 +207,8 @@
                 <ImageView
                     android:layout_width="75dp"
                     android:layout_height="75dp"
-                    android:src="@drawable/record_voice" />
+                    android:src="@drawable/record_voice"
+                    android:id="@+id/play_sound"/>
             </LinearLayout>
 
             <View
