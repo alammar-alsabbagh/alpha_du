@@ -6,6 +6,7 @@ import com.procasy.dubarah_nocker.Model.Responses.InfoNockerResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LocationResponse;
 import com.procasy.dubarah_nocker.Model.Responses.LoginResponse;
 import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
+import com.procasy.dubarah_nocker.Model.Responses.NormalResponse;
 import com.procasy.dubarah_nocker.Model.Responses.ResponseJob;
 import com.procasy.dubarah_nocker.Model.Responses.SocialSignupResponse;
 import com.procasy.dubarah_nocker.Model.Responses.UserInfoResponse;
@@ -32,6 +33,14 @@ public interface APIinterface {
     @POST("login")
     Call<LoginResponse> Login(@Field("user_email") String email, @Field("user_password") String password,
                               @Field("user_ud_id") String UDID);
+
+
+
+    @FormUrlEncoded
+    @POST("update_gcm_code")
+    Call<NormalResponse> Update_GCM(@Field("user_email") String email, @Field("user_ud_id") String UDID,
+                                    @Field("user_gcm_code") String GCM);
+
 
     @FormUrlEncoded
     @POST("get_info_nocker")

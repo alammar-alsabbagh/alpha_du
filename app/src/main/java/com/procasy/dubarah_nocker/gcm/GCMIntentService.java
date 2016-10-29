@@ -8,25 +8,21 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.NetworkResponse;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.gcm.GcmPubSub;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 import com.google.android.gms.iid.InstanceID;
+import com.procasy.dubarah_nocker.API.APIinterface;
+import com.procasy.dubarah_nocker.API.ApiClass;
+import com.procasy.dubarah_nocker.Helper.SessionManager;
+import com.procasy.dubarah_nocker.Model.Responses.NormalResponse;
 import com.procasy.dubarah_nocker.Utils.CommonGCMUtilities;
 import com.procasy.dubarah_nocker.Utils.GCMConfig;
-import com.procasy.dubarah_nocker.app.EndPoints;
 import com.procasy.dubarah_nocker.app.MyApplication;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 
 public class GCMIntentService extends IntentService {
@@ -93,8 +89,22 @@ public class GCMIntentService extends IntentService {
     }
 
     private void sendRegistrationToServer(final String token) {
-        System.out.println("i am here bitch ");
-        // checking for valid login session
+        SessionManager sessionManager = new SessionManager(getApplicationContext());
+        APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
+        Call<NormalResponse> call = apiService.Update_GCM(sessionManager.getEmail(),sessionManager.getUDID(),token);
+        call.enqueue(new Callback<NormalResponse>() {
+            @Override
+            public void onResponse(Call<NormalResponse> call, retrofit2.Response<NormalResponse> response) {
+                System.out.println(response.body().toString());
+
+            }
+            @Override
+            public void onFailure(Call<NormalResponse> call, Throwable t) {
+                System.out.println("ERROR 2" + t.toString());
+            }
+
+        });
+
     }
 
     /**

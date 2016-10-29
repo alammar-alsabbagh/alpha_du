@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.procasy.dubarah_nocker.MainActivity;
 import com.procasy.dubarah_nocker.R;
 
 public class MainFragment extends Fragment {
@@ -66,35 +67,44 @@ public class MainFragment extends Fragment {
         tabLayout.setTabTextColors(getResources().getColorStateList(R.color.colorAccent));
         final PagerAdapter adapter = new PageAdapter(getActivity().getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                tabLayout.setupWithViewPager(viewPager);
-                tabLayout.getTabAt(0).setText(getString(R.string.str116));
-                tabLayout.getTabAt(1).setText(getString(R.string.str117));
-                tabLayout.getTabAt(2).setText(getString(R.string.str118));
-                tabLayout.getTabAt(3).setText(getString(R.string.str119));
+
+        MainActivity activity = MainActivity.getInstance();
+        if ( isAdded()&& activity != null) {
+            viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+            try {
+                tabLayout.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        tabLayout.setupWithViewPager(viewPager);
+                        tabLayout.getTabAt(0).setText(getString(R.string.str116));
+                        tabLayout.getTabAt(1).setText(getString(R.string.str117));
+                        tabLayout.getTabAt(2).setText(getString(R.string.str118));
+                        tabLayout.getTabAt(3).setText(getString(R.string.str119));
 
 
+                    }
+                });
+            }catch (IllegalStateException e)
+            {
+                e.printStackTrace();
             }
-        });
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
+            tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                @Override
+                public void onTabSelected(TabLayout.Tab tab) {
+                    viewPager.setCurrentItem(tab.getPosition());
+                }
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
+                @Override
+                public void onTabUnselected(TabLayout.Tab tab) {
 
-            }
+                }
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+                @Override
+                public void onTabReselected(TabLayout.Tab tab) {
 
-            }
-        });
+                }
+            });
+        }
 
 
         return view;

@@ -23,4 +23,12 @@ public class ResponseJob {
     public List<JobModel> getJobs() {
         return jobs;
     }
+
+    @Override
+    public String toString() {
+        return "ResponseJob{" +
+                "status=" + status +
+                ", jobs=" + jobs +
+                '}';
+    }
 }

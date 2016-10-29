@@ -1,5 +1,6 @@
 package com.procasy.dubarah_nocker.Fragments;
 
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,6 +20,8 @@ import com.procasy.dubarah_nocker.Model.Responses.NearByNockerResponse;
 import com.procasy.dubarah_nocker.R;
 import com.procasy.dubarah_nocker.Utils.ConnectionsConstants;
 
+import cc.cloudist.acplibrary.ACProgressConstant;
+import cc.cloudist.acplibrary.ACProgressFlower;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,13 +85,12 @@ public class NearByNockersFragment extends Fragment {
 
         refreshLayout.setRefreshing(true);
 
-//        final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
-//                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
-//                .themeColor(Color.WHITE)
-//                .text("Getting Nockers")
-//                .fadeColor(Color.DKGRAY).build();
-//        dialog.show();
-//
+       final ACProgressFlower dialog = new ACProgressFlower.Builder(getActivity())
+                .direction(ACProgressConstant.DIRECT_CLOCKWISE)
+                .themeColor(Color.WHITE)
+                .text("Getting Nockers")
+                .fadeColor(Color.DKGRAY).build();
+        dialog.show();
         APIinterface apiService = ApiClass.getClient().create(APIinterface.class);
         Call<NearByNockerResponse> call = apiService.GetNearByNockers(sessionManager.getEmail(), sessionManager.getUDID(), 0);
         call.enqueue(new Callback<NearByNockerResponse>() {
@@ -107,7 +109,7 @@ public class NearByNockersFragment extends Fragment {
                 recyclerView.setLayoutManager(layoutManager);
                 recyclerView.setAdapter(adapter);
 
-                // dialog.dismiss();
+                 dialog.dismiss();
 
                 ConnectionsConstants.NockerDataIsLoaded = true;
             }
@@ -116,7 +118,6 @@ public class NearByNockersFragment extends Fragment {
             public void onFailure(Call<NearByNockerResponse> call, Throwable t) {
 
                 refreshLayout.setRefreshing(false);
-                //dialog.dismiss();
             }
         });
 
@@ -140,10 +141,10 @@ public class NearByNockersFragment extends Fragment {
         });
         sessionManager = new SessionManager(getActivity());
 
-        if (!ConnectionsConstants.NockerDataIsLoaded)
-            GetNockers();
+       /* if (!ConnectionsConstants.NockerDataIsLoaded)
+            GetNockers();*/
         System.out.println("************************************************************************* nearbynockers");
-
+        GetNockers();
         return layout;
     }
 
