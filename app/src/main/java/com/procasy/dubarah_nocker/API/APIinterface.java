@@ -184,4 +184,25 @@ public interface APIinterface {
     @FormUrlEncoded
     @POST("accept_qoute_from_user")
     Call<NormalResponse> accept_qoute_from_user(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id , @Field("qoute_id") int qoute_id);
+
+
+
+    @FormUrlEncoded
+    @POST("accept_qoute_from_nocker")
+    Call<NormalResponse> accept_qoute_from_nocker(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id ,
+                                                @Field("qoute_accept_nocker") String qoute_accept_nocker ,
+                                                @Field("qoute_charge") Double qoute_charge ,
+                                                @Field("qoute_date") String qoute_date ,
+                                                @Field("qoute_time") String qoute_time ,
+                                                @Field("qoute_description") String qoute_description ,
+                                                @Field("hr_id") int hr_id );
+
+    @FormUrlEncoded
+    @POST("accept_qoute_from_nocker")
+    Call<NormalResponse> refuse_qoute_from_nocker(@Field("user_email") String user_email, @Field("user_ud_id") String user_ud_id ,
+                                                @Field("qoute_accept_nocker") String qoute_accept_nocker , @Field("hr_id") int hr_id
+                                               );
+
+
+
 }

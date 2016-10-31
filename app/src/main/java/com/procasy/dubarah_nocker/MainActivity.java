@@ -555,7 +555,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
 
         switch (msg) {
             case "activateSub":
+/*
                 fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
+*/
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "myShop":
@@ -563,7 +565,9 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "promotion":
-                fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
+/*
+               fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
+*/
                 mDrawerLayout.closeDrawer(GravityCompat.START);
                 break;
             case "logout":
@@ -576,7 +580,7 @@ public class MainActivity extends AppCompatActivity implements LocationListener,
                 finish();
                 break;
             case "settings":
-                fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();
+           /*     fragmentManager.beginTransaction().add(R.id.container_body, new MainFragment()).commit();*/
                 mDrawerLayout.closeDrawer(GravityCompat.START);
 
                 break;
