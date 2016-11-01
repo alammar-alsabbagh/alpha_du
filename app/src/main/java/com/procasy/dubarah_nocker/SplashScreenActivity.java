@@ -22,7 +22,7 @@ import android.util.LongSparseArray;
 import com.crashlytics.android.Crashlytics;
 import com.procasy.dubarah_nocker.API.APIinterface;
 import com.procasy.dubarah_nocker.API.ApiClass;
-import com.procasy.dubarah_nocker.Activity.Teaser.WhatIsNockerAbout;
+import com.procasy.dubarah_nocker.Activity.V1.LoginV1Activity;
 import com.procasy.dubarah_nocker.Helper.ContactsDb;
 import com.procasy.dubarah_nocker.Helper.Language;
 import com.procasy.dubarah_nocker.Helper.SessionManager;
@@ -260,7 +260,7 @@ public class SplashScreenActivity extends Activity {
         }
         @Override
         protected void onPostExecute(Integer s) {
-            startActivity(new Intent(getApplicationContext(),WhatIsNockerAbout.class));
+            startActivity(new Intent(getApplicationContext(),LoginV1Activity.class));
             finish();
         }
     }

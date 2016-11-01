@@ -61,6 +61,7 @@
         <item name="android:textColorHint">@color/light_grey</item>
         <item name="android:paddingStart">5dp</item>
         <item name="android:background">@android:color/transparent</item>
+        <item name="@android:color">@android:color/transparent</item>
     </style>
 
     <style name="skillsearchEditTextStyle" parent="Widget.AppCompat.EditText">
@@ -201,5 +202,11 @@
         <item name="android:layout_width">0.0dip</item>
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_weight">1.0</item>
+    </style>
+    <style name="myToggleButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@drawable/toggle_text_color</item>
+        <item name="android:background">@drawable/circle_btn</item>
     </style>
 </resources>

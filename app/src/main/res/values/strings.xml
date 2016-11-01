@@ -94,7 +94,7 @@
     <string name="str52">City</string>
     <string name="str53">Country</string>
     <string name="str54">Take Photo</string>
-    <string name="str55">Browse Photo</string>
+    <string name="str55">Browse and upload</string>
     <string name="str56">Finish!</string>
     <string name="str57">Recommended By</string>
     <string name="str58">Happy Customers</string>
@@ -175,7 +175,6 @@
     <string name="logout">logout</string>
     <string name="no_data_available">No data available</string>
     <string name="str127">Preferred Date :    </string>
-
 
 
 </resources>

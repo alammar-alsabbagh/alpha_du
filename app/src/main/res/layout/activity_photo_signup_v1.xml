@@ -7,84 +7,72 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginTop="44dp"
-        android:id="@+id/top"
+        android:layout_weight="1"
         android:gravity="center"
+        android:layout_height="wrap_content">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/drawable_photo"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
-        <LinearLayout
+        android:layout_marginTop="100dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:text="Upload Your Photo"
+        android:textColor="@color/app_yellow"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        />
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:textAppearance="@android:style/TextAppearance.Medium"
+            android:text="It's very important to use a sharp and professional photo of you"
+            android:textColor="@color/white"
             android:layout_gravity="center"
-            android:gravity="left"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp">
+            android:gravity="center"
+            android:layout_marginTop="15dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/profile_image"
+        android:layout_marginTop="30dp"
+        android:weightSum="10">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="10"
+            >
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="50dp"
+                android:src="@drawable/browse_picture"
+                android:layout_gravity="center"
+                android:id="@+id/browse_picture" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Why are you"
-                android:textColor="@color/white"
-                android:textAppearance="@android:style/TextAppearance.Large"
-                android:id="@+id/t1"
-                android:textSize="@dimen/seventy" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Joining "
-                    android:textColor="@color/white"
-                    android:textAppearance="@android:style/TextAppearance.Medium"
-                    android:id="@+id/t2"
-                    android:textSize="@dimen/seventy"
-                    android:inputType="textCapWords"
-                    android:textStyle="bold"/>
-                <ImageView
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:textSize="@dimen/seventy"
-                    android:src="@drawable/yellow_nocker"/>
-
-            </LinearLayout>
+                android:textColor="#838383"
+                android:text="@string/str55"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@+id/top">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/view_line1"
-            android:layout_marginBottom="10dp"
-            android:text="People are interested to know \n more about you"
-            android:textColor="@color/white"
-            android:textAppearance="@android:style/TextAppearance.Medium"
-            android:layout_below="@+id/top"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="30dp"
-            />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/line_divider"
-            android:layout_below="@+id/top"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:id="@+id/view_line1"
-            ></View>
-
-    </LinearLayout>
-
+</LinearLayout>
 
     <LinearLayout
         android:id="@+id/wholething"
@@ -158,5 +146,4 @@
         </LinearLayout>
 
     </LinearLayout>
-
 </RelativeLayout>

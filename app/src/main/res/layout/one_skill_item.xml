@@ -23,7 +23,7 @@
         android:text="Skill Name"
         android:id="@+id/skill_name"
         android:layout_gravity="center"
-android:textColor="#B3B3B3"
+android:textColor="@color/app_yellow"
         android:maxLines="1"
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"

@@ -55,10 +55,10 @@
 
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateHidden|adjustNothing"></activity>
+            android:windowSoftInputMode="stateHidden|adjustNothing" />
         <activity
             android:name=".SplashScreenActivity"
-            android:theme="@style/AppTheme2">
+            android:theme="@style/AppTheme2" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -163,7 +163,7 @@
         <activity
             android:name=".Activity.Teaser.Join.FourthScreenJoinActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateVisible|adjustNothing"></activity>
+            android:windowSoftInputMode="stateVisible|adjustNothing" />
         <activity
             android:name=".Activity.Teaser.Join.ThirdScreenJoinActivity"
             android:screenOrientation="portrait" />
@@ -179,9 +179,13 @@
         <activity
             android:name=".Activity.Teaser.Finish"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.Audio">
+        <activity android:name=".Activity.Audio" />
+        <activity android:name=".Activity.V1.Join.ChooseSkillsV1Activity" />
+        <activity android:name=".Activity.V1.Join.ChooseLanguagesV1Activity">
 
         </activity>
+        <activity android:name=".Activity.V1.LoginV1Activity" />
+        <activity android:name=".Activity.V1.Join.CompleteYourInfoV1Activity"></activity>
     </application>
 
 </manifest>
